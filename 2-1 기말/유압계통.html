@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<!-- saved from url=(0292)file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>항공기 유압계통 시험 정리</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --border: #1e3a5f;
+    --accent: #00c6ff;
+    --accent2: #f59e0b;
+    --accent3: #10b981;
+    --accent4: #f43f5e;
+    --accent5: #a07ef4;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --tag-bg: #0c2340;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* ── 헤더 ── */
+  header {
+    background: linear-gradient(135deg, #0c1e3a 0%, #0a0e1a 60%, #001a2e 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 40px 40px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,198,255,0.08) 0%, transparent 70%);
+  }
+  header h1 {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: #fff;
+  }
+  header h1 span { color: var(--accent); }
+  header .subtitle {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .badges {
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── 목차 ── */
+  .toc {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    margin: 30px 40px;
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+  }
+  .toc-title {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px;
+  }
+  .toc-item {
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 0;
+    transition: color 0.2s;
+  }
+  .toc-item:hover { color: var(--accent); }
+  .toc-item::before {
+    content: '▸';
+    color: var(--border);
+    font-size: 10px;
+  }
+
+  /* ── 본문 레이아웃 ── */
+  main { padding: 0 40px 60px; }
+
+  /* ── 섹션 ── */
+  section {
+    margin-bottom: 40px;
+    scroll-margin-top: 20px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    background: var(--accent);
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* ── 카드 그리드 ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .card ul { list-style: none; }
+  .card li {
+    color: var(--text);
+    font-size: 13px;
+    padding: 3px 0 3px 14px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .card li:last-child { border-bottom: none; }
+  .card li::before {
+    content: '–';
+    color: var(--muted);
+    position: absolute;
+    left: 0;
+  }
+  .card p {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── 강조 박스 ── */
+  .highlight-box {
+    background: linear-gradient(135deg, #0c2340, #091a2e);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+  }
+  .highlight-box .hl-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  /* ── 문제 박스 ── */
+  .problem-box {
+    background: linear-gradient(135deg, #0c2340, #091a2e);
+    border: 1px solid var(--accent5);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+
+    .num {
+      color: var(--text) !important;
+      font-size: 14px !important;
+    }
+    .answer {
+      color: var(--accent4) !important;
+    }
+  }
+  .problem-box .pb-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent5);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  /* ── 경고/주의 박스 ── */
+  .warn-box {
+    background: rgba(244,63,94,0.07);
+    border-left: 3px solid var(--accent4);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 13px;
+    color: #fca5a5;
+  }
+  .warn-box strong { color: var(--accent4); }
+
+  .tip-box {
+    background: rgba(16,185,129,0.07);
+    border-left: 3px solid var(--accent3);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 13px;
+    color: #6ee7b7;
+  }
+  .tip-box strong { color: var(--accent3); }
+
+  /* ── 테이블 ── */
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    background: var(--tag-bg);
+    color: var(--accent);
+    font-weight: 700;
+    padding: 10px 14px;
+    text-align: left;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  tr:hover td { background: rgba(0,198,255,0.04); }
+
+  /* ── 공식 블록 ── */
+  .formula {
+    background: #060d1a;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--accent2);
+    margin: 10px 0;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── 번호 리스트 ── */
+  .num-list { list-style: none; }
+  .num-list li {
+    display: flex;
+    gap: 12px;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+  }
+  .num-list li:last-child { border-bottom: none; }
+  .num-list .num {
+    background: var(--tag-bg);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── 키워드 칩 ── */
+  .chip {
+    display: inline-block;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--accent2);
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 2px;
+  }
+  .chip.green { color: var(--accent3); border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.07); }
+  .chip.red { color: var(--accent4); border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.07); }
+  .chip.blue { color: var(--accent); border-color: rgba(0,198,255,0.3); background: rgba(0,198,255,0.07); }
+
+  /* ── 두 컬럼 레이아웃 ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 700px) {
+    .two-col { grid-template-columns: 1fr; }
+    header, main, .toc { padding-left: 20px; padding-right: 20px; }
+    .card-grid { grid-template-columns: 1fr; }
+    header h1 { font-size: 20px; }
+  }
+
+  /* ── 주요 포인트 배너 ── */
+  .point-banner {
+    background: linear-gradient(90deg, rgba(0,198,255,0.12), transparent);
+    border-left: 3px solid var(--accent);
+    padding: 10px 16px;
+    border-radius: 0 6px 6px 0;
+    margin: 8px 0;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .point-banner em {
+    font-style: normal;
+    color: var(--accent2);
+    font-weight: 700;
+  }
+
+  /* ── 구분선 ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+    margin: 24px 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>✈ 항공기 <span>유압계통</span> 시험 정리</h1>
+  <p class="subtitle">// 객관식 25문제 대비 · 전범위 완전 정리</p>
+  <div class="badges">
+    <span class="badge">B737 유압계통</span>
+    <span class="badge">작동유 성질·종류</span>
+    <span class="badge">유압 구성품</span>
+    <span class="badge">밸브 종류·기능</span>
+    <span class="badge">축압기</span>
+    <span class="badge">펌프 종류</span>
+    <span class="badge">B777 유압계통</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <p class="toc-title">// TABLE OF CONTENTS</p>
+  <div class="toc-grid">
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec1" class="toc-item">01. B737 유압계통 개요</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec2" class="toc-item">02. 유압계통의 장단점</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec3" class="toc-item">03. 작동유(유압유) 성질</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec4" class="toc-item">04. 작동유의 종류</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec5" class="toc-item">05. 압력·힘·면적의 관계</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec6" class="toc-item">06. 유압계통 기본 구성품</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec7" class="toc-item">07. 유압계통의 종류</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec8" class="toc-item">08. 저장소(Reservoir)</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec9" class="toc-item">09. 펌프(Pump)</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec10" class="toc-item">10. 밸브(Valve) 종류와 기능</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec11" class="toc-item">11. 축압기(Accumulator)</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec12" class="toc-item">12. 열교환기·작동기·유압모터</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec13" class="toc-item">13. 오염·필터·계통 세정</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec14" class="toc-item">14. B737 대형항공기 유압계통</a>
+    <a href="file:///Users/bobaejin/Downloads/%E1%84%92%E1%85%A1%E1%86%BC%E1%84%80%E1%85%A9%E1%86%BC%E1%84%80%E1%85%B5_%E1%84%8B%E1%85%B2%E1%84%8B%E1%85%A1%E1%86%B8%E1%84%80%E1%85%A8%E1%84%90%E1%85%A9%E1%86%BC_%E1%84%89%E1%85%B5%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%85%E1%85%B5.html#sec15" class="toc-item">15. B777 유압계통</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════ SECTION 1 ═══════════ -->
+<section id="sec1">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">B737 유압계통 개요</h2>
+  </div>
+
+  <div class="highlight-box">
+    <p class="hl-title">★ 핵심 암기</p>
+    <p>B737NG는 <strong style="color:var(--accent2)">3개의 3,000 psi</strong> 유압계통을 갖는다: <strong style="color:var(--accent)">① 계통 A(System A)&nbsp; ② 계통 B(System B)&nbsp; ③ Standby 계통</strong><br>
+    Standby 계통은 <em>계통 A 또는 계통 B의 압력이 상실</em>되었을 경우 사용된다.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <p class="card-title">유압계통이 공급하는 항공기 계통</p>
+      <ul>
+        <li>① 비행 조종(Flight controls)</li>
+        <li>② 앞전(Leading edge) flaps과 slat</li>
+        <li>③ 뒷전(Trailing edge) flaps</li>
+        <li>④ 착륙장치(Landing gear)</li>
+        <li>⑤ 휠 브레이크(Wheel brakes)</li>
+        <li>⑥ 조향장치(Nosewheel steering)</li>
+        <li>⑦ 역추력장치(Thrust reverser)</li>
+        <li>⑧ 자동 조종 장치(Auto-pilots)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">유압계통의 특징 (장점)</p>
+      <ul>
+        <li>중량 대비 큰 힘과 동력 확보, 조작 용이</li>
+        <li>작동·조작 시 운동방향 변환 용이, 신속반응</li>
+        <li>운동속도 조절 범위 크고 무단 변속 가능</li>
+        <li>원격조정 용이</li>
+        <li>배관에 따른 무게 감소</li>
+        <li>과부하에서도 안정성 높음</li>
+        <li>구성 간단, 검사 간소화 가능</li>
+        <li>유체 마찰 손실 매우 적어 <strong style="color:var(--accent2)">100%</strong>의 효과</li>
+        <li>정비 용이</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">유압계통의 단점</p>
+      <ul>
+        <li>작동유 누설로 기능 저하 우려</li>
+        <li>기계적 가동부 마모로 기능저하 및 작동유 오염</li>
+        <li>온도변화에 따라 점성변화·구조변경으로 조절 정밀도 감소</li>
+        <li>연결부의 작동유 유출 및 화재 위험과 많은 정비시간 소요</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 2 ═══════════ -->
+<section id="sec2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">유압시스템의 장단점 (요약 카드)</h2>
+  </div>
+  <div class="two-col">
+    <div class="card" style="border-color:rgba(16,185,129,0.4)">
+      <p class="card-title" style="color:var(--accent3)">장점 ★★★</p>
+      <ul>
+        <li>작은 힘을 큰 힘으로 전환 가능</li>
+        <li>자동 및 원격 제어 가능</li>
+        <li>속도, 힘, 방향 제어 쉬움</li>
+        <li>시스템 장치들의 윤활과 방청이 자동으로 이루어짐</li>
+        <li>안정적이고 정밀한 제어 가능</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:rgba(244,63,94,0.4)">
+      <p class="card-title" style="color:var(--accent4)">단점 ★★★</p>
+      <ul>
+        <li>온도 변화에 영향을 받음</li>
+        <li>누유의 위험이 있음</li>
+        <li>인화의 위험이 있음</li>
+        <li>오일에 기포가 섞이면 작동이 불량해질 수 있음</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 문제 -->
+<div class="problem-box">
+  <p class="pb-title">★ 문제</p>
+  <ul class="num-list">
+    <li><span class="num">①</span><span>중량에 비해 큰 힘과 동력을 얻을 수 있다</span></li>
+    <li><span class="num answer">②</span><span class="answer">온도에 따른 점성 변화가 없다</span></li>
+    <li><span class="num">③</span><span>과부하에도 안정성이 높다</span></li>
+    <li><span class="num">④</span><span>운동속도 조절범위가 크다</span></li>
+  </ul>
+</div>
+
+<!-- ═══════════ SECTION 3 ═══════════ -->
+<section id="sec3">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">작동유(유압유)의 성질</h2>
+  </div>
+
+  <div class="highlight-box">
+    <p class="hl-title">★ 작동유의 기능 4가지</p>
+    <ul class="num-list">
+      <li><span class="num">①</span><span>동력을 전달한다</span></li>
+      <li><span class="num">②</span><span>움직이는 기계요소를 윤활시킨다</span></li>
+      <li><span class="num">③</span><span>필요한 요소 사이를 밀봉한다</span></li>
+      <li><span class="num">④</span><span>열을 흡수하는 냉각 작용을 한다</span></li>
+    </ul>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <p class="card-title">작동유의 성질 (4가지)</p>
+      <ul>
+        <li><strong style="color:var(--accent2)">압축성</strong> – 유체를 용기에 넣고 힘(압력)을 가했을 때 감소하는 성질</li>
+        <li><strong style="color:var(--accent2)">비압축성</strong> – 일정한 용기에 넣고 압력을 가해도 그 체적이 변하지 않는 성질</li>
+        <li><strong style="color:var(--accent2)">유동성(Fluidity)</strong> – 어떤 힘에 따라 변형되기 쉬운 성질 (용기 모양 변형)</li>
+        <li><strong style="color:var(--accent2)">점성(Viscosity)</strong> – 유체내에서 발생하는 전단력에 따라 물체 표면에 접착하거나 물체와의 상대운동을 방해하려는 성질</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">점성(Viscosity) 핵심</p>
+      <ul>
+        <li>점성 = 흐름에 대한 내부저항</li>
+        <li>저점성(가솔린): 쉽게 흐름 / 고점성(타르): 천천히 흐름</li>
+        <li><strong style="color:var(--accent4)">온도가 저하하면 점성 증가, 온도 증가하면 점성 낮아짐</strong></li>
+        <li>점성 측정: <strong style="color:var(--accent2)">Saybolt 점도계</strong> 사용</li>
+        <li>100℃에서 시험, 60ml에 대해 표준 오리피스를 거쳐 지나가는 시간을 초 단위로 측정</li>
+        <li>점성이 높은 액체 → 열에 대해 더 큰 저항력</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title"><strong style="color:var(--accent4)">문제🤍</strong> 작동유가 갖추어야 할 성질 (13가지)</p>
+      <ul>
+        <li>① 윤활성이 우수할 것</li>
+        <li>② 점도가 낮을 것</li>
+        <li>③ 화학적 안정성이 높을 것</li>
+        <li>④ 장치와의 결합성이 좋을 것</li>
+        <li>⑤ 체적 계수가 클 것</li>
+        <li>⑥ 내연성이 클 것</li>
+        <li>⑦ 열전도율이 좋을 것</li>
+        <li>⑧ 밀도가 작을 것</li>
+        <li>⑨ 거품성 기포가 잘 발생하지 않을 것</li>
+        <li>⑩ 독성이 없을 것</li>
+        <li>⑪ 휘발성이 적을 것</li>
+        <li>⑫ 값이 쌀 것&nbsp;/&nbsp;⑬ 구하기 쉬울 것</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">기타 중요 성질</p>
+      <ul>
+        <li><strong style="color:var(--accent2)">열팽창(Thermal Expansion)</strong> – 온도 상승에 따른 유체 체적 팽창. 유류는 물보다 열팽창률이 큼</li>
+        <li><strong style="color:var(--accent2)">화학적 안정성(Chemical Stability)</strong> – 오랫동안 산화와 품질저하에 영향 받지 않는 기능. 고온에서 장시간 작동 시 불리한 화학 변화를 겪는 경향</li>
+        <li><strong style="color:var(--accent2)">인화점(Flash Point) <strong style="color:var(--accent4)">🤍문제🤍</strong></strong> – 불꽃이 가해졌을 때 순간적으로 점화하기 충분한 증기가 방출되는 온도. 유압계통 유압유는 <strong style="color:var(--accent4)">고인화점</strong> 필요</li>
+        <li><strong style="color:var(--accent2)">발화점(Fire Point)</strong> – 계속해서 연소하기에 충분한 증기를 방출하는 온도</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="warn-box">
+    <strong>주의!</strong> 아연, 납, 황동, 구리와 같은 일부 금속은 일부 유압유와 만나면 불필요한 화학 반응을 갖는다. 화학반응으로 침전물, 수지(gum), 탄소가 생성되어 밸브와 피스톤 부위의 교착(stick), 누설(leak), 유관의 막힘(clog) 등을 유발시킬 수 있다.
+  </div>
+
+  <!-- 문제7 -->
+  <div class="problem-box">
+    <p class="pb-title">★ 문제 - 작동유 특징</p>
+    <ul class="num-list">
+      <li><span class="num">①</span><span>압축성</span></li>
+      <li><span class="num">②</span><span>수축성</span></li>
+      <li><span class="num">③</span><span>팽창성</span></li>
+      <li><span class="num answer">④</span><span class="answer">비압축성</span></li>
+    </ul>
+  </div>
+
+  <!-- 문제2 -->
+  <div class="problem-box">
+    <p class="pb-title">★ 문제 - 작동유가 갖추어야할 성질이 아닌것은?</p>
+    <ul class="num-list">
+      <li><span class="num">①</span><span>화학적 안정성이 좋을것</span></li>
+      <li><span class="num">②</span><span>휘발성이 적을 것</span></li>
+      <li><span class="num answer">③</span><span class="answer">열전도율 좋고 밀도 높을 것</span></li>
+      <li><span class="num">④</span><span>점성 윤활성으로 열팽창계수 작을 것</span></li>
+    </ul>
+  </div>
+
+  <!-- 문제3 -->
+  <div class="problem-box">
+    <p class="pb-title">★ 문제 - 액체에 불길이 가해졌을때, 순간적으로 점화하기에 충분한 증기가 방출되는 온도는?</p>
+    <ul class="num-list">
+      <span class="answer">인화점</span>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="card-grid">
+    <div class="card">
+      <p class="card-title">관의 지름과 길이 (압력 손실)</p>
+      <p>작동유는 지름이 큰 관보다 <strong style="color:var(--accent4)">지름이 작은 관</strong>을 흐를 때 압력 손실이 크게 발생. 작동유가 흐르는 거리가 길수록 압력 손실이 증가.</p>
+    </div>
+    <div class="card">
+      <p class="card-title">흐름 속도 / 층류와 난류</p>
+      <ul>
+        <li>흐름 속도가 증가할수록 마찰 손실 증가, 압력 손실도 증가</li>
+        <li><strong style="color:var(--accent2)">층류</strong> – 입자들이 평행하게 흐르는 상태</li>
+        <li><strong style="color:var(--accent2)">난류</strong> – 속도 증가에 따라 입자들이 평행하게 흐르지 않는 상태</li>
+        <li>관 속 압력 손실: 층류보다 <strong style="color:var(--accent4)">난류에서 크게 발생</strong></li>
+        <li><strong style="color:var(--accent2)">오리피스(Orifice)</strong> – 통과 시 속도 증가·난류 발생으로 전후 압력 손실 발생</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 4 ═══════════ -->
+<section id="sec4">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">작동유의 종류</h2>
+  </div>
+
+  <div class="warn-box">
+    <strong>핵심!</strong> 작동유는 각각의 구성성분이 다르기 때문에 서로 섞어 사용할 수 없으며, 실(seal)도 다른 종류의 작동유에 사용할 수 없다.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>종류</th>
+          <th>색깔</th>
+          <th>기반</th>
+          <th>사용 온도 범위</th>
+          <th>실(Seal) 종류</th>
+          <th>특징 / 사용처</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--accent2)">식물성유 (Vegetable base)</strong></td>
+          <td><span class="chip blue">파란색</span></td>
+          <td>피마자 기름 + 알코올 혼합</td>
+          <td>-</td>
+          <td><strong>천연고무 실</strong> / 알코올 세척 가능</td>
+          <td>구형 항공기 사용, 현재 잘 미사용. 부식성·산화성 크고 고온 사용 불가</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">광물성유 (Mineral base)</strong></td>
+          <td><span class="chip" style="color:#b45309">빨간색</span></td>
+          <td>원유로 제조</td>
+          <td>-54℃ ~ 71℃</td>
+          <td><strong>합성고무 실</strong></td>
+          <td>현재 항공기 유압계통에는 미사용. 착륙장치 완충기나 소형항공기 브레이크 계통에 사용</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">합성유 (Phosphate ester base)</strong></td>
+          <td><span class="chip" style="color:#a855f7">자주색</span></td>
+          <td>인산염과 에스텔의 혼합</td>
+          <td>-54℃ ~ 115℃</td>
+          <td><strong>합성고무 실 (Skydrol/Hyjet)</strong></td>
+          <td>인화점 높아 내화성 큼. 대부분의 항공기에 사용. <strong style="color:var(--accent4)">독성 있어 눈·피부 접촉 주의!</strong> 페인트·고무 제품과 화학 작용 주의</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tip-box">
+    <strong>Seal(실) 구분:</strong> <strong>패킹(Packing)</strong> – 움직이는 부품 사이의 밀폐용 &nbsp;|&nbsp; <strong>개스킷(Gasket)</strong> – 고정된 부품 사이의 밀폐용
+  </div>
+
+  <!-- 문제3 -->
+  <div class="problem-box">
+    <p class="pb-title">★ 문제 - 현재 유압계통에서 사용하지 않는 유압유는?</p>
+    <span class="answer">동물성유</span>
+  </div>
+
+  <!-- 문제11 -->
+  <div class="problem-box">
+    <p class="pb-title">★ 문제 - 서로 상대적인 움직임이 없는 두개 사이의 실</p>
+    <span class="answer">Gasket</span>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 5 ═══════════ -->
+<section id="sec5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">압력·힘·면적의 관계 (파스칼의 원리)</h2>
+  </div>
+
+  <div class="formula">힘(F) = 압력(P) × 면적(A)</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <p class="card-title">힘의 단위</p>
+      <ul>
+        <li><strong style="color:var(--accent2)">[N]</strong> – 1kg의 물체를 1m/sec² 가속도로 움직일 때 발생하는 힘</li>
+        <li><strong style="color:var(--accent2)">kgf</strong> – 지구상에서의 힘 또는 무게의 단위, 9.8N에 해당</li>
+        <li><strong style="color:var(--accent2)">Pascal(Pa)</strong> – 단위면적당 작용하는 힘, 1Pa = 1N/m²</li>
+        <li>1kgf = 9.8N &nbsp;/&nbsp; 1kgf/cm² = 9.8N/0.0001m² = 98,000N/m²</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">유압계통의 기계적 이점</p>
+      <ul>
+        <li>지렛, 잭, 도르래 등 = 작은 힘으로 큰 힘을 얻기 위한 장치</li>
+        <li>유압계통 두 가지 이점: ① 쉽게 힘을 전달할 수 있는 것, ② 피스톤 크기를 다양하게 하여 기계적 이점을 얻을 수 있는 것</li>
+        <li>같은 부피 관계: <strong style="color:var(--accent2)">A1×h1 = A2×h2</strong></li>
+        <li>F1/F2 = A1/A2 = h2/h1</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 6 ═══════════ -->
+<section id="sec6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2 class="section-title">유압계통 기본 구성품</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>구성품</th><th>역할</th><th>비고</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--accent2)">Reservoir (저장소)</strong></td>
+          <td>유압유를 저장, 계통 작동 시 공급, 열팽창 대비, 공기를 빼는 역할</td>
+          <td>계통 A/B 저장소, Standby 저장소</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">Pump (펌프)</strong></td>
+          <td>Fluid 흐름을 위한 Energy 공급</td>
+          <td>Engine 구동 또는 전기 Motor 구동</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">Selector Valve (선택밸브)</strong></td>
+          <td>Fluid 흐름 선택. 기계적 Linkage 또는 Solenoid/Manual에 의해 작동</td>
+          <td>가장 보편적으로 사용</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">Check Valve (체크밸브)</strong></td>
+          <td>Fluid를 한 방향으로만 흐르도록</td>
+          <td>모든 항공기 유압계통에 장착</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">Actuating Cylinder (작동 실린더)</strong></td>
+          <td>기계적인 직선이나 왕복 운동으로 유압을 유용한 일로 바꿈</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">Filter (필터)</strong></td>
+          <td>바람직하지 못한 물질, 거친 가루, 먼지가 계통으로 들어가는 것 방지</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">Pressure Regulator (압력조절기)</strong></td>
+          <td>계통 내에 원하는 압력이 형성될 때 Power Driven Pump에 부하 걸리지 않게</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">Accumulator (축압기)</strong></td>
+          <td>계통 내 일정한 압력 유지, 충격 흡수(Cushion), Actuating Unit 비상 작동을 위한 충분한 Fluid 저장. Piston이나 Flexible Diaphragm(막)에 의해 Fluid로부터 분리되는 압축된 공기 Chamber 보유</td>
+          <td>주 계통·비상계통 축압기</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">Pressure Gage</strong></td>
+          <td>계통 내에 있는 압력 지시</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">Relief Valve</strong></td>
+          <td>계통 내에 과도한 압력이 걸려 있는 경우 Valve를 통해 Fluid를 Reservoir로 보내는 Safety Valve</td>
+          <td>모든 유압회로에 반드시 포함</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 문제2 -->
+  <div class="problem-box">
+    <p class="pb-title">★ 문제 - 유압회로에서 필터에 부착되어 있는 차압 지시계의 주 목적은?</p>
+    <ul class="num-list">
+      <li><span class="num answer">①</span><span class="answer">필터 엘리멘트가 오염 상태를 알려줌</span></li>
+      <li><span class="num">②</span><span>압력차를 위한 지시계다</span></li>
+      <li><span class="num">③</span><span>귀환해 유압의 압력차 지시</span></li>
+      <li><span class="num">④</span><span>필터 입력 회로의 압력차 지시</span></li>
+    </ul>
+  </div>
+
+  <!-- 문제8 -->
+  <div class="problem-box" style="margin-top: 16px">
+    <p class="pb-title">★ 문제 - 랜딩기어 부품 중 shock strut 내부 외부 실린더 연결하는 기계장치</p>
+    <span class="answer">토션 링크</span>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 7 ═══════════ -->
+<section id="sec7">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2 class="section-title">유압계통의 종류</h2>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <p class="card-title">중심개방 유압계통 (Open-Center)</p>
+      <ul>
+        <li>각 선택밸브가 장착된 여러 개의 하부계통 보유</li>
+        <li>선택밸브들은 항상 서로 <strong style="color:var(--accent2)">직렬</strong>로 연결</li>
+        <li>유압유는 항상 각각의 선택밸브를 통해 자유롭게 흐름</li>
+        <li>선택밸브가 기계장치를 작동시키지 않는 한 저장소로 되돌아옴</li>
+        <li>시스템이 <strong style="color:var(--accent4)">연속적으로 가압되지 않음</strong> → 선택밸브 작동 위치로 움직인 후 압력이 점차적으로 증가</li>
+        <li>압력서지(Pressure surge)로 인한 충격 매우 적어 작동기가 더 부드럽게 작동</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">중심폐쇄 유압계통 (Close-Center)</p>
+      <ul>
+        <li>동력펌프가 작동하고 있을 때는 언제나 <strong style="color:var(--accent2)">압력이 걸려 있음</strong></li>
+        <li>3개의 작동기(actuator)는 병렬로 배치, 작동기 B와 C는 동시에 작동 가능</li>
+        <li>선택밸브 또는 방향제어밸브가 직렬이 아닌 <strong style="color:var(--accent2)">병렬</strong>로 배열</li>
+        <li>정량방출펌프 사용 시: 계통압력을 압력조절기로 조절, 릴리프밸브는 예비 안전 장치</li>
+        <li>가변용량펌프 사용 시: 통합 압력 장치 보정기(compensator)에 의해 제어</li>
+        <li><strong style="color:var(--accent2)">대부분 항공기 유압 시스템에 사용</strong> (즉각적인 작동 요구)</li>
+        <li>순간적으로 정상 압력으로 증가</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>구분 포인트:</strong> 중심개방 = 선택밸브 직렬, 연속 가압 X, 충격 적음 &nbsp;|&nbsp; 중심폐쇄 = 선택밸브 병렬, 항상 가압, 즉각 작동, 대부분 항공기에 사용
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 8 ═══════════ -->
+<section id="sec8">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <h2 class="section-title">저장소 (Reservoir)</h2>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <p class="card-title">저장소의 기능</p>
+      <ul>
+        <li>유압계통을 위해 사용되는 유압유의 저장 탱크</li>
+        <li>계통 작동 때 유압유를 공급, 누출로 인한 유동체 손실이 있을 때 다시 채움</li>
+        <li>온도변화에 의한 체적 증가, 축압기 및 피스톤 작동으로 인한 유량 증가 수용</li>
+        <li>유압계통에 들어갈 수 있는 기포를 없애는 역할</li>
+        <li>이물질은 저장소에서 분리됨</li>
+        <li>저장소 안에 배플(baffle) 또는 핀(fin) → 유압유 소용돌이를 막음</li>
+        <li>유압유 보급 동안 이물질 유입 방지 위해 주입구에 <strong style="color:var(--accent2)">여과기(strainer)</strong> 장착</li>
+        <li>역중력(negative-G) 상태에서도 유압유가 펌프로 갈 수 있도록 내부 트랩(trap) 보유</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">공기 가압식 저장소 구성요소</p>
+      <ul>
+        <li>① 저장소 압력 릴리프밸브 – 과도한 가압 방지, 미리 정해진 압력에서 열림</li>
+        <li>② 육안 창(Sight glasses) – 운항승무원/정비사에게 유량 부족 또는 과한지 알려줌</li>
+        <li>③ 저장소 시료채취 밸브 – 유압유 시료(Sample) 채취</li>
+        <li>④ 저장소 배출 밸브 – 정비를 위해 저장소 밖으로 유압유 배출</li>
+        <li>⑤ 저장소 온도 변환기 – 조종실에 유압유 온도 정보 제공</li>
+        <li>⑥ 저장소 유량 전송기 – 비행 중 유압 유량을 조종실에 전송</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">고도비행용 가압 저장소</p>
+      <p>고고도 비행 설계 항공기는 저기압 상태에서 유압유가 펌프로 원활히 흐를 수 있도록 저장소에 압력이 가해짐. 대부분 저장소는 엔진 압축기나 보조동력장치(APU)에서 추출한 <strong style="color:var(--accent2)">공기압으로 가압</strong>됨. 대부분 저장소가 바퀴칸(wheel well) 또는 비가압 지역(non-pressurized area)에 장착.</p>
+    </div>
+    <div class="card">
+      <p class="card-title">유압유 보급 전 확인사항 (필수)</p>
+      <ul>
+        <li>① 스포일러(Spoiler) – 작동되지 않아야 함</li>
+        <li>② 착륙장치(landing gear) – down되어 있어야 함</li>
+        <li>③ 착륙장치 도어(door) – close되어 있어야 함</li>
+        <li>④ 역추력장치(thrust reverser) – 작동되지 않아야 함</li>
+        <li>⑤ 파킹 브레이크 축압기(parking brake accumulator) – 압력이 적어도 <strong style="color:var(--accent2)">2,500 psi</strong> 유지</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 문제10 -->
+  <div class="problem-box" style="margin-top: 16px">
+    <p class="pb-title">★ 문제 - 레저버 안에 배플, 핀의 역할</p>
+    <span class="answer">작동유의 서지 현상이나 거품이 생기는 것을 방지</span>
+  </div>
+
+  <!-- 문제14 -->
+  <div class="problem-box" style="margin-top: 16px">
+    <p class="pb-title">★ 문제 - 저장소 내 역중력 상태에서도 유압유가 펌프로 갈 수 있도록 하는 장치</p>
+    <span class="answer">trap</span>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 9 ═══════════ -->
+<section id="sec9">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <h2 class="section-title">펌프 (Pumps)</h2>
+  </div>
+
+  <div class="highlight-box">
+    <p class="hl-title">★ 핵심</p>
+    <p>모든 항공기 유압계통은 1개 이상의 <strong style="color:var(--accent2)">동력구동 펌프(power-driven pump)</strong>를 갖고 있으며, 엔진구동 펌프가 작동되지 못할 때 추가 장치로서 <strong style="color:var(--accent2)">1개의 핸드 펌프(hand pump)</strong>를 갖고 있다.</p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>종류</th><th>작동 원리</th><th>특징</th><th>주로 쓰이는 환경</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--accent2)">기어 펌프 (Gear Pump)</strong></td>
+          <td>맞물린 기어 회전으로 유체 이동</td>
+          <td>구조 단순, 내구성, 저압에 적합</td>
+          <td>저압 유압 시스템</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">베인 펌프 (Vane Pump)</strong></td>
+          <td>로터 베인(날개) 회전으로 유체 이동</td>
+          <td>유량 비교적 균일, 중압~고압</td>
+          <td>중압~고압 유압 시스템</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">피스톤 펌프 (Piston Pump)</strong></td>
+          <td>피스톤이 실린더 내에서 직선 왕복 운동하며 유체 압축</td>
+          <td>고압 생성, 효율 높음. 축 방향·반경 방향으로 나뉨</td>
+          <td>고압 유압 시스템</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">스크류 펌프 (Screw Pump)</strong></td>
+          <td>나사형 로터 회전으로 유체 이동</td>
+          <td>저소음·고효율·고압</td>
+          <td>저소음·고압 유압 시스템</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <p class="card-title">동력구동 펌프 (Power-Driven Pumps)</p>
+      <ul>
+        <li>현대 항공기 대부분: <strong style="color:var(--accent2)">가변 용량형(variable-delivery, compensator-controlled type)</strong>과 정용량형(constant-delivery pump type)으로 나뉨</li>
+        <li>고정형 – 작동 시 배출 유량 일정, 유량 변화 위해 회전수 조절</li>
+        <li>가변형 – 작동 중에 회전수 바꾸지 않고 <strong style="color:var(--accent2)">행정을 조절하여 유량 조절</strong></li>
+        <li>A380: 2개의 유압계통, 8개의 엔진구동 펌프, 3개의 전기구동 펌프</li>
+        <li>B777: 2개의 엔진구동 펌프, 4개의 전기구동 펌프, 2개의 공기구동 펌프, RAT에 의해 구동되는 유압 펌프 모터 → 3개의 유압계통</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">핸드 펌프 / RAT</p>
+      <ul>
+        <li><strong style="color:var(--accent2)">핸드 펌프</strong> – 유압 하부계통 작동을 위해 일부 구형 항공기에 사용. 신형 항공기에서는 예비(backup) 장치. 유압시스템 테스트할 때나 비상시 사용. 단일 유압유 보급대(single refilling station) 장착 항공기에서 저장소 보급에도 사용</li>
+        <li><strong style="color:var(--accent2)">RAT (Ram Air Turbine)</strong> – 일차 공급원인 유압펌프가 고장 났을 경우 사용. 일부 항공기에 장착하여 비상 유압 동력 공급</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 10 ═══════════ -->
+<section id="sec10">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <h2 class="section-title">밸브(Valve)의 종류와 기능</h2>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <p class="card-title">선택밸브 (Selector Valve)</p>
+      <ul>
+        <li>유압작동 실린더 또는 유사한 장치의 움직이는 방향을 제어하기 위해 사용</li>
+        <li>항공기 유압 시스템에 <strong style="color:var(--accent2)">가장 보편적</strong>으로 사용</li>
+        <li>각각의 선택밸브는 특정한 수의 배출 방향 보유</li>
+        <li><strong style="color:var(--accent2)">4방향 밸브(4-way valve)</strong>가 항공기 유압계통에서 가장 많이 사용</li>
+        <li>대부분 lever에 의해 기계적으로 제어되거나, 솔레노이드(solenoid) 또는 서보(servo)에 의해 전기적으로 제어</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">체크밸브 (Check Valve)</p>
+      <ul>
+        <li>유압유를 <strong style="color:var(--accent2)">한쪽 방향으로만 흐르게</strong> 하는 밸브 (역류 방지)</li>
+        <li>단방향 밸브, 필수적인 보호 요소</li>
+        <li>원리: 스프링과 볼, 혹은 포핏 구조를 통해 역류 자동 차단</li>
+        <li>예시: 유압 펌프 후단에 설치되어 압력 손실 및 역류 방지</li>
+        <li><strong style="color:var(--accent2)">오리피스형 체크밸브(Orifice-type check valve)</strong> – 한쪽 방향은 자유 흐름, 반대 방향은 제한된 흐름 허용. 감쇠밸브(damping valve)라고도 함. 유압착륙장치에 사용</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">순서 밸브 (Sequence Valve)</p>
+      <ul>
+        <li>유압 시스템 회로에서 2개의 구성품이 작동하는데 순서(sequence)를 제어</li>
+        <li>예시: 착륙장치 작동 계통에서 착륙장치도어(landing gear door)는 착륙장치가 내려지기 전에 열려야 함. 착륙장치가 접힐 때는 도어(door)가 먼저 열려야 함</li>
+        <li>제어 형태: <strong style="color:var(--accent2)">압력식(pressure controlled), 기계식(mechanically controlled), 전기식(electric controlled)</strong></li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">프리오리티 밸브 (Priority Valve)</p>
+      <ul>
+        <li>계통압력이 정상보다 낮을 때 덜 중요한 계통보다 <strong style="color:var(--accent2)">중요한 계통에 우선권</strong>을 주는 밸브</li>
+        <li>만약 설정압력이 2,200 psi라면 계통 압력이 2,200 psi 이하로 떨어지면 프리오리티 밸브는 닫히고 덜 중요한 계통으로는 유체압력이 걸리지 않음</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">신속 분리 밸브 (Quick-disconnect Valve)</p>
+      <ul>
+        <li>유압 계통의 구성품이 장탈 될 때 유압유의 손실을 방지하기 위해 유압관에 장착되는 밸브</li>
+        <li>주로 동력펌프에 연결되어 있는 압력관(pressure line)과 흡입관(suction line) 등에 장착</li>
+        <li>유압관이 구성품과 분리될 때 <strong style="color:var(--accent2)">스프링 힘</strong>에 의해 닫힘</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">유압 퓨즈 (Hydraulic Fuse)</p>
+      <ul>
+        <li>안전장치. 유압계통의 중요한 위치에 장착</li>
+        <li>하류 부분(downstream) 유압관에서 파열 발생 시 유체 흐름의 갑작스런 증가를 감지하고 <strong style="color:var(--accent2)">흐름을 차단</strong>하여 저장소의 유압유가 전부 소실되는 것을 막음</li>
+        <li>장착 위치: 브레이크 계통, 앞전 flap과 slat의 펼침관(extend line)과 접힘관(retract line), 앞쪽 착륙장치(nose landing gear)의 올림관(up line)과 내림관(down line), 역추력장치(thrust reverser) 압력관과 리턴관(return line)</li>
+        <li>닫힌 퓨즈는 퓨즈로 가는 압력을 차단하거나 <strong style="color:var(--accent2)">리셋 레버(reset lever)</strong>에 의해 다시 열림</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">릴리프 밸브 (Relief Valve)</p>
+      <ul>
+        <li>압력을 규정 값 이하로 제한하는 역할</li>
+        <li>과도한 압력 작용 시 발생하는 계통의 손상을 방지</li>
+        <li><strong style="color:var(--accent2)">모든 유압회로에 반드시 포함</strong>되는 안전밸브</li>
+        <li>원리: 압력이 스프링 설정 값 이상이 되면 유체를 탱크로 방출</li>
+        <li>예시: 유압펌프 보호, 시스템 파손 방지용</li>
+        <li>릴리프밸브는 압력조절 스크류(screw)에 의해 작동 최대 압력을 설정</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">셔틀 밸브 (Shuttle Valve)</p>
+      <ul>
+        <li>정상 계통 고장 시 비상계통을 작동할 수 있도록 해주는 역할</li>
+        <li>두 개의 압력 중 <strong style="color:var(--accent2)">압력이 높은 쪽을 선택</strong>하여 한 출력으로 전달</li>
+        <li>원리: 내부의 스풀 또는 볼이 높은 압력 쪽으로 밀려 다른 쪽을 차단</li>
+        <li>예시: 항공기 브레이크 시스템에서 일반 브레이크와 비상 브레이크 간 선택 기능</li>
+        <li>3개의 포트: 정상계통 흡입구, 대체계통 흡입구 또는 비상계통 흡입구, 배출구(outlet port)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">압력 감소기 (Pressure Reducer)</p>
+      <ul>
+        <li>감압밸브(pressure reducing valve)는 정상계통 작동 압력보다 더 낮은 압력을 필요로 하는 유압계통에 사용</li>
+        <li>감압 밸브의 압력이 설정되면, 공급 압력의 변화에 관계없이 계통 부하가 설계 한계를 초과하지 않는 동안 감소된 압력이 유지됨</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">차단 밸브 (Shutoff Valve)</p>
+      <ul>
+        <li>특정한 계통 또는 구성요소로 가는 유압유의 흐름을 <strong style="color:var(--accent2)">차단</strong>하는 데 사용</li>
+        <li>일반적으로 전기로 작동</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">압력조절기 (Pressure Regulator)</p>
+      <ul>
+        <li>미리 결정된 범위 이내로 계통작동압력을 유지하기 위해 펌프의 출력을 관리</li>
+        <li>유압계통에 있는 압력이 정상작동범위 이내에 있을 때 펌프의 부하를 덜어주어 펌프가 저항 없이 돌아가게 해주는 데 있음</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 문제9 -->
+  <div class="problem-box" style="margin-top: 16px;">
+    <p class="pb-title">★ 문제 - 항공기 유압회로에서 가장 높은 압력으로 세팅된 밸브</p>
+    <ul class="num-list">
+      <li><span class="num">①</span><span>퍼지</span></li>
+      <li><span class="num">②</span><span>시퀀스 밸브</span></li>
+      <li><span class="num">③</span><span>셀렉터 밸브</span></li>
+      <li><span class="num answer">④</span><span class="answer">릴리프 밸브</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 11 ═══════════ -->
+<section id="sec11">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <h2 class="section-title">축압기 (Accumulator)</h2>
+  </div>
+
+  <div class="highlight-box">
+    <p class="hl-title">★ 축압기의 3대 역할</p>
+    <ul class="num-list">
+      <li><span class="num">①</span><span><strong>비상용 압력원</strong> – 계통이 고장 나거나 비상 상황에서 저장된 유압을 방출해 작동을 유지</span></li>
+      <li><span class="num">②</span><span><strong>서지 완충</strong> – 작동유가 요동치거나 진동으로 순간 압력이 급상승할 때 충격을 흡수해 계통을 안정화</span></li>
+      <li><span class="num">③</span><span><strong>압력 보조 및 유지</strong> – 필요 시 저장된 유압을 공급해 압력을 일정하게 유지하고, 펌프 출력의 맥동을 완화</span></li>
+    </ul>
+  </div>
+
+  <div class="point-banner">축압기는 유체와 가스를 <em>격리</em>하여 저장함. 질소가스 또는 공기로 채워짐. 서지 현상(surge): 유압장치에 순간적으로 압력이 상승하거나 진동 등의 발생으로 작동유가 요동치는 현상</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>종류</th><th>격리 방식</th><th>특징</th><th>사용처</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--accent2)">다이어프램형 (Diaphragm Type)</strong></td>
+          <td>고무 타이어프램으로 유체와 가스 분리</td>
+          <td>소형 경량. 블래더형보다 내구성 다소 낮음. 반응 빠름. 진동이 큰 곳이나 고주파 영역에 적합</td>
+          <td>조종면 작동 계통, 저압 유압 회로</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">블래더형 (Bladder Type)</strong></td>
+          <td>내부에 고무 재질의 풍선(bladder)이 삽입</td>
+          <td>반응 속도 빠름. 소형 시스템에 적합. 유지 보수 간단. 연속적인 유압보다 순간 압력 완충에 유리</td>
+          <td>브레이크 시스템, 스티어링 유압 보조</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent2)">원통형 / 실린더형 (Cylindrical Type)</strong></td>
+          <td>원통형 실린더 안의 피스톤에 의해 공기실과 유압실 격리. 피스톤에 2종으로 실이 장착</td>
+          <td>구조 간단, 실용적. 가장 많이 사용. 체적비 1:2의 비율로 저장. 고압·고용량에 적합. 다양한 방향으로 설치 가능</td>
+          <td>랜딩기어 작동 계통, 플랩 시스템 등 고용량 유압계통</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <p class="card-title">원통형 축압기 세부 사항</p>
+    <p>원통형 실린더 안의 피스톤에 의해 공기실과 유압실이 격리되어 있고 피스톤에는 2종으로 실이 장착되어 누설을 방지한다. 계통 압력이 최대일 때 공기와 유압유의 체적비가 <strong style="color:var(--accent2)">1:2</strong>의 비율로 저장된다. 원통형 축압기는 원통형에 비해 구조가 간단하며 실용적이기 때문에 널리 사용되고 있다.</p>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <p class="card-title">원통형(Spherical Type) 축압기</p>
+    <p>원통형 축압기는 고무 재질의 다이어프램형과 방광형의 2가지 형식이 있으며, 2개의 공간이 다이어프램 또는 방광으로 격리된다. 다이어프램의 아래 부분에 공기압(작동유압의 약 ⅓, 작동유압이 3,000 psi일 때 1,000 psi)을 넣은 상태에서 유압이 작용하면 계통유압이 공기압력보다 높으므로 다이어프램을 밑으로 밀고 유압이 채워진다. 공기 압력은 유압과 같은 압력으로 된다.</p>
+  </div>
+
+  <div class="tip-box">
+    <strong>항공기 유압계통에서의 위치:</strong> 축압기는 레저버(저장소)와 펌프 사이에 배치되어, 레저버에서 공급된 유압을 보조하고 펌프의 출력 맥동을 완충하는 위치에서 작동함.
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 12 ═══════════ -->
+<section id="sec12">
+  <div class="section-header">
+    <span class="section-num">12</span>
+    <h2 class="section-title">열교환기 / 작동기 / 유압 모터</h2>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <p class="card-title">열 교환기 (Heat Exchanger)</p>
+      <ul>
+        <li>운송용 항공기는 유압펌프로부터 나오는 유압유를 냉각시키기 위해 유압공급계통(hydraulic power supply system)에 있는 열교환기 사용</li>
+        <li>유압유와 유압 펌프의 수명을 연장시킴</li>
+        <li>일반적으로 항공기의 <strong style="color:var(--accent2)">연료탱크에 장착</strong></li>
+        <li>차가운 연료를 이용하여 유압유의 열을 식힘</li>
+        <li>따라서 유압펌프를 작동할 때는 연료 탱크 내에 <strong style="color:var(--accent2)">일정량의 연료는 항상 유지</strong>되어야 함</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">직선운동 작동기 (Linear Actuators)</p>
+      <ul>
+        <li>실린더와 피스톤으로 구성. 실린더는 항공기 구조에 고정, 피스톤이 움직임</li>
+        <li><strong style="color:var(--accent2)">단방향 작동기</strong> – 한쪽에 유압이 작용하고, 다른 한쪽에는 스프링이 내장되어 유압 없을 때 스프링에 의해 귀환. 3방향 제어밸브(3-way control valve)는 단방향 작동 실린더를 제어</li>
+        <li><strong style="color:var(--accent2)">양방향 작동기</strong> – 피스톤의 움직임이 양방향 모두 유압에 의해 움직이는 작동기</li>
+        <li><strong style="color:var(--accent2)">언밸런스형</strong> – 유압이 작용하는 피스톤 면적의 차이에 의해 작동하는 힘이 다름</li>
+        <li><strong style="color:var(--accent2)">밸런스형</strong> – 유압이 작용하는 피스톤의 면적이 같아 작동하는 힘도 똑같은 형태</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">회전운동 작동기 (Rotary Actuators)</p>
+      <ul>
+        <li>실린더 안에 치차로 되어 있는 랙(rack)이 유압에 의해 좌우로 움직이면서 출력축(output shaft)인 피니언 기어(pinion gear)를 돌려줌</li>
+        <li>피니언기어의 작동 각도는 랙과 피니언의 배열에 따라 필요 회전운동 작동기는 90°, 180°, 270°, 360°, 심지어 720°까지 다양</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">유압 모터 (Hydraulic Motor)</p>
+      <ul>
+        <li>유압 모터의 종류 중 <strong style="color:var(--accent2)">피스톤형</strong>이 유압계통에서 가장 일반적으로 사용됨</li>
+        <li>유압 펌프와 같은 구조이며, 유압 에너지를 기계 에너지로 변환</li>
+        <li>유압 모터는 뒷전 flap, 앞전 flap, 수평안정관 트림(stabilizer trim) 작동에 사용</li>
+        <li>아주 폭넓은 속도범위가 요구되는 일부 유압 계통에서는 가변용량(variable-displacement) 피스톤형을 사용</li>
+        <li>기계 모터에 비해 유압 모터의 장점: ① 넓은 범위의 빠르고 쉬운 속도조절, ② 신속하고 매끄러운 가속과 감속, ③ 최대 토크(torque)와 power에 대한 제어, ④ 충격하중을 감소시키는 완충효과(cushioning effect), ⑤ 운동의 대끄러운 반전</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 13 ═══════════ -->
+<section id="sec13">
+  <div class="section-header">
+    <span class="section-num">13</span>
+    <h2 class="section-title">오염·필터·계통 세정</h2>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <p class="card-title">오염의 종류 2가지</p>
+      <ul>
+        <li><strong style="color:var(--accent2)">① 연마제(연마재)</strong> – 심형모래(core sand), 용접시 튀는 금속입자(weld spatter), 기계가공 부스러기(machining chip), 녹(rust)과 같은 입자를 포함</li>
+        <li><strong style="color:var(--accent2)">② 비연마제</strong> – 실(seal)과 다른 유기체부품으로부터 마모 입자 또는 오일산화(oil oxidation)와 연한 입자의 결과로서 생기는 부산물 포함</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">시료 채취 일정 (Sampling Schedule)</p>
+      <ul>
+        <li><strong style="color:var(--accent2)">정기 채취(routine sampling)</strong> – 각각의 유압계통은 적어도 <strong>1년에 한번씩</strong> 또는 <strong>3,000 flight hour</strong> 또는 기체제작사(airframe manufacturer)가 제안할 때는 언제나</li>
+        <li><strong style="color:var(--accent2)">비계획 정비(unscheduled maintenance)</strong> – 기능불량의 원인이 유압유로 판단될 때</li>
+        <li><strong style="color:var(--accent2)">오염의 의심(suspicion of contamination)</strong> – 오염이 의심된다면, 유압유는 정비절차 수행 이전 및 이후 모든 시료가 채취되어야 하고 오염이 되었다면 새로운 유압유로 교체</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <p class="card-title">필터 교체 주기</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>필터 종류</th><th>교체 주기</th></tr></thead>
+        <tbody>
+          <tr><td>압력 필터(pressure filter)</td><td><strong style="color:var(--accent2)">3,000 hour</strong></td></tr>
+          <tr><td>리턴 필터(return filter)</td><td><strong style="color:var(--accent2)">1,500 hour</strong></td></tr>
+          <tr><td>케이스 드레인 필터(case drain filter)</td><td><strong style="color:var(--accent2)">600 hour</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:10px;font-size:13px;">필터는 각 유압계통의 <strong style="color:var(--accent2)">압력관(pressure line), 리턴라인(return line), 그리고 펌프케이스(pump case) 드레인라인(drain line)</strong>에 장착됨. 필터 등급은 여과할 수 있는 가장 작은 입자의 크기로 표시되며 micron 단위 사용.</p>
+  </div>
+
+  <div class="card">
+    <p class="card-title">필터 헤드 우회밸브 (Filter Bypass Valve)</p>
+    <p>필터 헤드에 있는 스프링 작동식(spring-loaded) 우회밸브(bypass valve)는 <strong style="color:var(--accent2)">50 psid</strong> 이상의 차압이 생기면 필터를 우회한다.</p>
+    <br>
+    <p class="card-title">계통 세정 (Flushing) 절차</p>
+    <ul class="num-list">
+      <li><span class="num">1</span><span>유압계통의 시험구(test port) 입구와 출구에 지상 장비(hydraulic test stand)를 연결. 지상 장비의 유압유가 청결한지, 항공기와 동일한 유압유인지 확인</span></li>
+      <li><span class="num">2</span><span>유압계통 필터를 교환</span></li>
+      <li><span class="num">3</span><span>유압계통을 거쳐 깨끗하고 여과된 유압유를 주입하고 모든 하부계통을 작동시킴</span></li>
+      <li><span class="num">4</span><span>오염된 유압유와 필터는 폐기. 입구 및 배출구의 마개를 덮음</span></li>
+      <li><span class="num">5</span><span>저장소가 가득(full level) 또는 적정한 보급수준으로 채워졌는지 확인</span></li>
+    </ul>
+    <div class="warn-box" style="margin-top:10px">
+      <strong>주의!</strong> 필터의 육안검사는 항상 효과적인 것은 아니다. 오염된 지상 장비의 사용은 항공기 유압시스템을 오염시킬 수 있다.
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <p class="card-title">합성유(Skydrol) 취급 주의 (Health and Handling)</p>
+    <ul>
+      <li>스카이드롤 유압유는 성능첨가제와 혼합된 인산염 에스테르계 유압유</li>
+      <li>인산염에스테르는 양질의 용제(solvent)이며 피부의 지방성물질중의 일부를 용해시킴</li>
+      <li>반복적으로 오랫동안 노출되면 피부염 또는 합병증 유발, 건성 피부의 원인</li>
+      <li>유압유를 취급할 때는 항상 <strong style="color:var(--accent2)">적절한 보호 장갑과 보호안경 착용</strong></li>
+      <li>Skydrol/Hyjet 연무(mist) 또는 증기(vapor)에 노출 가능성이 있을 때는 유기물증기와 유기물연무를 막을 수 있는 방독면 착용</li>
+      <li>유압유의 섭취는 절대로 피해야 함</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 14 ═══════════ -->
+<section id="sec14">
+  <div class="section-header">
+    <span class="section-num">14</span>
+    <h2 class="section-title">대형항공기 유압계통 (B737)</h2>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <p class="card-title">B737 저장소 특징</p>
+      <ul>
+        <li>계통 A, B, 그리고 standby 저장소는 <strong style="color:var(--accent2)">바퀴 칸(wheel well area)</strong>에 위치</li>
+        <li>저장소는 <strong style="color:var(--accent2)">가압 모듈을 통해 공기압으로 가압</strong></li>
+        <li>standby 계통 저장소의 가압 및 유압유 보급은 계통 B 저장소를 통함</li>
+        <li>저장소의 가압은 펌프로 유압유의 흐름을 원활하게 해줌</li>
+        <li>엔진구동 펌프는 저수탑(standpipe)을 통해 유압유를 흡입하고, 교류동력펌프(ACMP, AC Motor Pump)는 저장소의 밑바닥으로부터 유압유를 흡입</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">B737 펌프 구성</p>
+      <ul>
+        <li>계통 A와 B는 모두 엔진구동펌프와 교류동력펌프(ACMP, AC Motor Pump)를 갖춤</li>
+        <li>계통 A 엔진구동펌프는 <strong style="color:var(--accent2)">No.1 엔진</strong>에, 계통 B 엔진구동펌프는 <strong style="color:var(--accent2)">No.2 엔진</strong>에 장착</li>
+        <li>교류동력펌프는 조종실에 있는 스위치로 제어. 케이스 드레인(case drain) 유압유는 펌프를 윤활하고 냉각시킨 후 연료 탱크에 장착된 열교환기(heat exchanger)를 거쳐 저장소로 되돌아감</li>
+        <li>교류동력펌프의 지상운전을 위해 각 탱크에는 <strong style="color:var(--accent2)">1,675파운드(pound) 이상의 연료</strong>가 있어야 함</li>
+        <li>엔진구동 펌프와 교류동력펌프 송출관에 장착된 압력스위치는 펌프 송출 압력이 낮을 때 관련 <strong style="color:var(--accent2)">"LOW PRESS"</strong> 등(light)이 들어오도록 신호를 보냄</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">동력전달장치 PTU (Power Transfer Unit)</p>
+      <ul>
+        <li>PTU의 목적은 계통 B 엔진구동 펌프가 고장 시 <strong style="color:var(--accent2)">auto slat과 앞전 flap/slat을 정상적으로 작동</strong>시키기 위함</li>
+        <li>PTU는 유압모터와 유압펌프가 하나의 축으로 연결. 계통 A의 압력을 이용해 유압 모터를 가동시키면 계통 B의 유압유를 사용하는 유압 펌프를 작동시켜 계통 B의 유압을 발생</li>
+        <li>PTU는 <strong style="color:var(--accent2)">오직 동력만 전달</strong>하며 유압유를 이동시키지는 않음</li>
+        <li>PTU 자동 작동 조건 3가지: ① 계통 B 엔진구동 펌프의 압력이 한계 이하로 떨어질 때, ② 항공기가 이륙했을(airborne) 때, ③ 플랩이 15° 이하 이지만 up되지 않을 때</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">Standby 유압 계통</p>
+      <ul>
+        <li>유압 계통 A 또는 계통 B 압력이 상실되었을 경우 사용되는 <strong style="color:var(--accent2)">보조(backup) 장치</strong></li>
+        <li>수동 또는 자동으로 작동되는 하나의 교류동력펌프(ACMP, AC Motor Pump)에 의해 다음의 장치에 유압을 공급:
+          <br>① 역추력장치(thrust reverser), ② 러더(Rudder), ③ 앞전 flap과 slat(펼칠 때만 사용), ④ Standby yaw damper</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">요 댐퍼 (Yaw Damper)</p>
+      <ul>
+        <li>항공기 수직축을 중심으로 발생하는 <strong style="color:var(--accent2)">원치 않는 요잉(Yawing)</strong>, 기수 좌우 흔들림 현상인 <strong style="color:var(--accent2)">더치 롤(Dutch Roll)</strong>을 억제하고 비행 안정성을 높이는 시스템</li>
+        <li>자이로 센서로 진동을 감지하여 러더(방향타)를 자동 제어</li>
+        <li>특히 후퇴익 항공기의 고속 순항 시 승자감 향상과 구조적 안정성 제공</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">지시(Indications)</p>
+      <ul>
+        <li>유압유가 과열(overheat)되면 조종실에 <strong style="color:var(--accent2)">"OVHT"</strong> 등과 <strong style="color:var(--accent2)">"master caution"</strong> 등이 들어옴</li>
+        <li>계통 A 또는 계통 B의 유압이 낮으면 <strong style="color:var(--accent2)">"LOW PRESS"</strong> 등과 <strong style="color:var(--accent2)">"master caution"</strong> 등이 동시에 들어옴</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <p class="card-title">필터 모듈 (Filter Module)</p>
+    <p>필터 모듈(filter module)은 유압유를 깨끗하게 하기 위해 <strong style="color:var(--accent2)">압력관, 케이스 드레인 관(case drain line), 그리고 회수관(return line)</strong>에 장착되어 있다. 필터 모듈에는 필터에 이물질이 있거나 교체가 필요할 때 튀어 나오는(pop out) <strong style="color:var(--accent2)">차압 지시기(differential pressure indicator)</strong>를 갖고 있다.</p>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <p class="card-title">공동 현상 (Cavitation) - 저장소의 역할과 관련 <strong style="color:var(--accent4)">🤍문제🤍</strong></p>
+    <ul>
+      <li>저장소의 역할 중 하나는 <strong style="color:var(--accent2)">Hydraulic Pump의 Cavitation을 방지</strong>하기 위함</li>
+      <li>Cavitation이란: 펌프의 회전차 입구에서 유로의 변화로 인하여 압력강하가 생기며, 이때 저압부가 형성되어 그 온도에서의 포화증기압(Pumping 액체의 Vapour Pressure)보다 낮아지면 표면에 기포가 발생하는 현상</li>
+      <li>공동현상으로 발생된 기포는 펌프 고압부로 이동하여 순간적으로 기포가 파괴되면서 심한 충격·진동·소음 유발</li>
+      <li>방지하려면: 펌프설치높이를 최대로 낮추어 흡입양정을 짧게 하고, 펌프 회전수를 낮추어 흡입비속도를 작게 함</li>
+    </ul>
+  </div>
+
+  <!-- 문제6 -->
+  <div class="problem-box" style="margin-top: 16px">
+    <p class="pb-title">★ 문제 - 레저버 가압 이유</p>
+    <ul class="num-list">
+      <span class="answer">Cavitation</span>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 15 ═══════════ -->
+<section id="sec15">
+  <div class="section-header">
+    <span class="section-num">15</span>
+    <h2 class="section-title">B777 유압계통</h2>
+  </div>
+
+  <div class="highlight-box">
+    <p class="hl-title">★ B777 유압계통 구성</p>
+    <p>B777 항공기는 <strong style="color:var(--accent2)">3개의 유압계통</strong>을 갖고 있다: <strong style="color:var(--accent)">좌측 유압계통(Left) / 우측 유압계통(Right) / 중앙 유압계통(Center)</strong><br>중앙 유압계통은 비행조종 계통(flight control), flap 계통, 작동기(actuators), 착륙장치(landing gear), 그리고 브레이크를 작동시키기 위해 <strong style="color:var(--accent2)">3,000 psi의 정격압력</strong>을 공급</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <p class="card-title">B777 펌프 구성</p>
+      <ul>
+        <li>좌우측 유압계통: 주 유압 동력은 <strong style="color:var(--accent2)">2개의 EDP</strong>에 의해 공급되고 2개의 demand ACMP가 보조</li>
+        <li>중간 유압계통: 주 유압 동력은 <strong style="color:var(--accent2)">2개의 ACMP</strong>에 의해 공급되고 2개의 demand ADP(Air turbine-Driven Pump)에 의해 보조</li>
+        <li>비상 상황에서는 자동적으로 펼쳐지는 <strong style="color:var(--accent2)">RAT(Ram Air Turbine)</strong>에 의해 유압동력이 발생, 중간 유압계통에 의해 작동하는 비행조종 계통에 유압을 제공</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">B777 좌우측 계통 역할</p>
+      <ul>
+        <li>좌측 유압계통: 왼쪽 역추력 장치와 비행조종 계통을 동작시키기 위해 유압 공급</li>
+        <li>우측 유압계통: 오른쪽 역추력 장치, 비행 조종 계통, 그리고 <strong style="color:var(--accent2)">정상 브레이크 계통(normal brake system)</strong>을 동작시키기 위해 유압 공급</li>
+        <li>중간 유압계통: 엔진 역추력 장치(engine thrust reverser), 일자 조종면, 착륙장치, flap/slat에 사용</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">B777 저장소 특징</p>
+      <ul>
+        <li>좌우측 유압계통의 저장소는 <strong style="color:var(--accent2)">가압 모듈(module)을 통해 공기압으로 가압</strong></li>
+        <li>B737과 같이 엔진구동 펌프(EDP)는 저수탑(standpipe)을 통해 유압유를 흡입, 교류동력펌프(ACMP)는 저장소 밑바닥으로부터 흡입</li>
+        <li>수탑은 엔진구동 펌프(EDP) 또는 관련된 유압관에서 누설이 발생할 때 모든 유압유의 소실을 방지</li>
+        <li>저장소는 항공기의 동체에 있는 <strong style="color:var(--accent2)">중앙 보급지점(center servicing point)</strong>을 통해 유압유를 보급</li>
+        <li>저장소 구성: 오염 시험을 위한 시료밸브(sample valve), 조종실에 온도지시를 위한 온도전송기(temperature transmitter), 저장소 입력을 지시해주는 압력변환기(pressure transducer), 저장소 배출을 위한 배수밸브(drain valve)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p class="card-title">B777 엔진구동 펌프 (EDP)</p>
+      <ul>
+        <li>공급차단밸브(supply shutoff valve)를 통해 저장소로부터 유압유 공급</li>
+        <li>엔진이 작동될 때는 언제나 작동되며 각각의 엔진구동 펌프에 장착된 솔레노이드 밸브(solenoid valve)에 의해 펌프의 가압 및 감압이 제어됨</li>
+        <li>펌프는 일차 임펠러(first-stage impeller)와 이차(second-stage) 피스톤 펌프로 이루어진 가변용량 inline 피스톤 펌프</li>
+        <li>임펠러(impeller) 펌프는 1차로 유압유를 가압하여 피스톤 펌프로 보내줌</li>
+        <li>교류 동력펌프(ACMP)는 유압계통의 사용이 정상보다 많을 때 작동</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <p class="card-title">유압계통의 발전 (Evolution of Hydraulic Systems)</p>
+    <ul>
+      <li>소형 항공기: 비행조종면의 하중이 작기 때문에 조종사는 손으로 비행조종을 할 수 있었음. 유압계통은 초기 항공기에 브레이크 계통에서 사용되기 시작</li>
+      <li>항공기 대형화·고속화 → 조종사의 힘만으로 조종면을 움직일 수 없어 유압계통 사용. 조종사의 힘을 덜어주지만 여전히 케이블(cable) 또는 푸시로드(push rod)를 움직여 조종면을 작동</li>
+      <li>많은 현대 항공기는 <strong style="color:var(--accent2)">플라이 바이 와이어(fly-by-wire)</strong>를 사용. 조종간의 움직임이 전기적으로 비행 조종면에 장착된 서보(servo)로 보내지므로 케이블 또는 푸시로드가 필요 없음</li>
+      <li><strong style="color:var(--accent2)">소형 파워팩(power pack)</strong>은 유압계통의 최신 발전물. 유압관(hydraulic line)과 많은 양의 유압유를 줄이므로 항공기 무게 감소</li>
+      <li>일부 제작사는 유압 계통의 일부를 전기 재어식으로 대체하면서 항공기에서 유압계통을 줄이고 있음. <strong style="color:var(--accent2)">Boeing 787</strong>은 유압계통보다 더 많은 전기계통(electrical system)으로 설계된 첫 번째 항공기</li>
+    </ul>
+  </div>
+
+  <!-- 문제12 -->
+  <div class="problem-box" style="margin-top: 16px;">
+    <p class="pb-title">★ 문제 - 파워팩 장점이 아닌 것은?</p>
+    <ul class="num-list">
+      <li><span class="num answer">①</span><span class="answer">엔진기어박스 작동 필요 없다</span></li>
+      <li><span class="num">②</span><span>대량의 유압관을 줄일 수 있다</span></li>
+      <li><span class="num">③</span><span>항공기 무게 경감</span></li>
+      <li><span class="num">④</span><span>내부 누출 적음</span></li>
+    </ul>
+  </div>
+
+  <!-- 문제13 -->
+  <div class="problem-box" style="margin-top: 16px;">
+    <p class="pb-title">★ 문제 - 737 스탠바이, 시스템 a, b 대기중인 유압계통이 아닌 것</p>
+    <ul class="num-list">
+      <li><span class="num">①</span><span>elevator</span></li>
+      <li><span class="num">②</span><span>rudder</span></li>
+      <li><span class="num">③</span><span>stabilizer</span></li>
+      <li><span class="num answer">④</span><span class="answer">thrust reverser</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════ 최종 요약 ═══════════ -->
+<section>
+  <div class="section-header">
+    <span class="section-num" style="background:var(--accent4)">★</span>
+    <h2 class="section-title">시험 직전 핵심 암기 요약</h2>
+  </div>
+  <div class="card-grid">
+    <div class="card" style="border-color:var(--accent2)">
+      <p class="card-title" style="color:var(--accent2)">숫자 암기</p>
+      <ul>
+        <li>B737NG 유압계통: <strong style="color:var(--accent2)">3개, 3,000 psi</strong></li>
+        <li>합성유 사용 온도: <strong style="color:var(--accent2)">-54℃ ~ 115℃</strong></li>
+        <li>광물성유 사용 온도: <strong style="color:var(--accent2)">-54℃ ~ 71℃</strong></li>
+        <li>압력 필터 교체: <strong style="color:var(--accent2)">3,000 hr</strong></li>
+        <li>리턴 필터: <strong style="color:var(--accent2)">1,500 hr</strong></li>
+        <li>케이스 드레인 필터: <strong style="color:var(--accent2)">600 hr</strong></li>
+        <li>정기 채취: <strong style="color:var(--accent2)">1년에 1회 or 3,000 hr</strong></li>
+        <li>파킹 브레이크 축압기: <strong style="color:var(--accent2)">2,500 psi 이상</strong></li>
+        <li>필터 우회밸브 작동: <strong style="color:var(--accent2)">50 psid 이상</strong></li>
+        <li>Saybolt 점도계: <strong style="color:var(--accent2)">100℃, 60ml</strong></li>
+        <li>ACMP 지상운전 최소 연료: <strong style="color:var(--accent2)">1,675 pound</strong></li>
+        <li>B777 정격압력: <strong style="color:var(--accent2)">3,000 psi</strong></li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--accent3)">
+      <p class="card-title" style="color:var(--accent3)">색깔 암기 (작동유)</p>
+      <ul>
+        <li>식물성유 → <strong style="color:#60a5fa">파란색</strong> (천연고무 실)</li>
+        <li>광물성유 → <strong style="color:#f87171">빨간색</strong> (합성고무 실)</li>
+        <li>합성유 → <strong style="color:#c084fc">자주색</strong> (합성고무 실)</li>
+      </ul>
+      <div class="divider"></div>
+      <p class="card-title" style="color:var(--accent3)">계통 종류 구분</p>
+      <ul>
+        <li>중심개방: 선택밸브 <strong style="color:var(--accent2)">직렬</strong>, 연속 가압 X</li>
+        <li>중심폐쇄: 선택밸브 <strong style="color:var(--accent2)">병렬</strong>, 항상 가압, 대부분 항공기</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--accent4)">
+      <p class="card-title" style="color:var(--accent4)">혼동 주의 포인트</p>
+      <ul>
+        <li>패킹(Packing) = <strong>움직이는</strong> 부품 사이 밀폐</li>
+        <li>개스킷(Gasket) = <strong>고정된</strong> 부품 사이 밀폐</li>
+        <li>릴리프밸브 = 과도한 압력 → 탱크로 방출 (안전밸브)</li>
+        <li>순서밸브 = 착륙장치 도어 → 먼저 열린 후 기어 내림</li>
+        <li>PTU = 동력만 전달, 유압유 이동 X</li>
+        <li>EDP = standpipe 통해 흡입</li>
+        <li>ACMP = 저장소 밑바닥에서 흡입</li>
+        <li>합성유 = 독성 있음, 눈·피부 접촉 주의</li>
+        <li>유압유는 서로 섞어 사용 불가, 실도 혼용 불가</li>
+        <li>Boeing 787 = 전기계통으로 설계된 첫 번째 항공기</li>
+        <li>더치 롤(Dutch Roll) → Yaw Damper로 억제</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+
+</body></html>

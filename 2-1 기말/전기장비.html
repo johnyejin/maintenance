@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>항공기 전기장비 시험 정리노트</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1117;
+  --bg2: #161b27;
+  --bg3: #1e2535;
+  --bg4: #252d40;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.15);
+  --text: #e8eaf0;
+  --text2: #9aa3b8;
+  --text3: #636b80;
+  --purple: #7c6ff7;
+  --purple-light: #a89cf8;
+  --purple-bg: rgba(124,111,247,0.12);
+  --teal: #34d8b5;
+  --teal-light: #6de8cc;
+  --teal-bg: rgba(52,216,181,0.1);
+  --amber: #f5a623;
+  --amber-bg: rgba(245,166,35,0.1);
+  --red: #f06060;
+  --red-bg: rgba(240,96,96,0.1);
+  --blue: #5ba3f5;
+  --blue-bg: rgba(91,163,245,0.1);
+  --green: #5dd87a;
+  --green-bg: rgba(93,216,122,0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ── Layout ── */
+.layout { display: flex; min-height: 100vh; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 24px 0 40px;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+.sidebar-logo {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.sidebar-logo .title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--purple-light);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.sidebar-logo .sub {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+.nav-group { margin-bottom: 4px; }
+.nav-group-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 10px 20px 4px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 20px;
+  font-size: 13px;
+  color: var(--text2);
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all 0.15s;
+}
+.nav-item:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.nav-item.active {
+  color: var(--purple-light);
+  background: var(--purple-bg);
+  border-left-color: var(--purple);
+}
+.nav-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--text3);
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.nav-item.active .nav-dot { background: var(--purple); }
+
+/* ── Main ── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 48px 80px;
+  max-width: 900px;
+}
+.main::-webkit-scrollbar { width: 4px; }
+.main::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 2px; }
+
+/* ── Sections ── */
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── Typography ── */
+.section-header {
+  border-bottom: 1px solid var(--border2);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+.section-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 8px;
+}
+h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+h2 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--purple-light);
+  margin: 28px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+h2::before {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 18px;
+  background: var(--purple);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--teal-light);
+  margin: 20px 0 8px;
+}
+
+p { color: var(--text2); margin-bottom: 10px; font-size: 14px; }
+
+/* ── Cards ── */
+.card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 14px;
+}
+.card-purple { border-left: 3px solid var(--purple); }
+.card-teal { border-left: 3px solid var(--teal); }
+.card-amber { border-left: 3px solid var(--amber); }
+.card-red { border-left: 3px solid var(--red); }
+.card-blue { border-left: 3px solid var(--blue); }
+.card-green { border-left: 3px solid var(--green); }
+
+.card p { margin-bottom: 6px; }
+.card p:last-child { margin-bottom: 0; }
+
+/* ── Grid ── */
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+
+/* ── Stat cards ── */
+.stat-card {
+  background: var(--bg4);
+  border-radius: 8px;
+  padding: 14px 16px;
+  text-align: center;
+}
+.stat-label { font-size: 11px; color: var(--text3); margin-bottom: 6px; }
+.stat-value { font-size: 22px; font-weight: 700; }
+
+/* ── Badges ── */
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+  margin-bottom: 3px;
+}
+.bp { background: var(--purple-bg); color: var(--purple-light); }
+.bt { background: var(--teal-bg); color: var(--teal-light); }
+.ba { background: var(--amber-bg); color: var(--amber); }
+.br { background: var(--red-bg); color: var(--red); }
+.bb { background: var(--blue-bg); color: var(--blue); }
+.bg2 { background: rgba(255,255,255,0.07); color: var(--text2); }
+
+/* ── Callouts ── */
+.callout {
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 14px 0;
+  font-size: 13px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.callout-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.callout-content { flex: 1; }
+.callout-content strong { display: block; margin-bottom: 4px; }
+.callout-content p { margin: 0; font-size: 13px; }
+
+.callout-key { background: var(--purple-bg); border: 1px solid rgba(124,111,247,0.3); color: #c4bcff; }
+.callout-warn { background: var(--red-bg); border: 1px solid rgba(240,96,96,0.3); color: #ffb5b5; }
+.callout-tip { background: var(--teal-bg); border: 1px solid rgba(52,216,181,0.3); color: #9ff0df; }
+.callout-info { background: var(--blue-bg); border: 1px solid rgba(91,163,245,0.3); color: #acd4ff; }
+
+/* ── Tables ── */
+.table-wrap { overflow-x: auto; margin: 14px 0; border-radius: 8px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: var(--bg4);
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+  vertical-align: top;
+  line-height: 1.5;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* ── Flow steps ── */
+.flow { display: flex; flex-direction: column; gap: 0; margin: 14px 0; }
+.flow-item { display: flex; gap: 14px; position: relative; }
+.flow-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 34px;
+  bottom: 0;
+  width: 2px;
+  background: var(--border2);
+}
+.flow-num {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--purple-bg);
+  border: 1px solid var(--purple);
+  color: var(--purple-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  flex-shrink: 0; margin-top: 2px; z-index: 1;
+}
+.flow-content { flex: 1; padding-bottom: 18px; }
+.flow-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.flow-desc { font-size: 13px; color: var(--text2); }
+
+/* ── Phase blocks (전원 공급 절차) ── */
+.phase-block {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+.phase-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.phase-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+.pn-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue); }
+.pn-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber); }
+.pn-teal { background: var(--teal-bg); color: var(--teal); border: 1px solid var(--teal); }
+.phase-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.sub-steps { padding-left: 14px; border-left: 2px solid var(--border2); }
+.sub-item { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+.sub-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text3); flex-shrink: 0; margin-top: 7px; }
+.sub-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+.light-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600; padding: 2px 8px;
+  border-radius: 12px; margin: 1px;
+}
+.lp-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(91,163,245,0.3); }
+.lp-white { background: rgba(255,255,255,0.07); color: var(--text); border: 1px solid var(--border2); }
+.lp-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(245,166,35,0.3); }
+.lp-off { background: rgba(255,255,255,0.04); color: var(--text3); border: 1px solid var(--border); }
+
+/* ── Code ── */
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: rgba(255,255,255,0.07);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: var(--teal-light);
+}
+.formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--bg4);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: center;
+  color: var(--teal-light);
+  margin: 10px 0;
+}
+
+/* ── Inline highlight ── */
+strong { color: var(--text); font-weight: 600; }
+.hl-p { color: var(--purple-light); font-weight: 600; }
+.hl-t { color: var(--teal-light); font-weight: 600; }
+.hl-a { color: var(--amber); font-weight: 600; }
+.hl-r { color: var(--red); font-weight: 600; }
+
+/* ── divider ── */
+.divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+/* ── Hamburger button ── */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 300;
+  width: 40px;
+  height: 40px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0;
+  transition: background 0.15s;
+}
+.hamburger:hover { background: var(--bg4); }
+.hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text2);
+  border-radius: 2px;
+  transition: all 0.25s;
+  transform-origin: center;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Overlay ── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 150;
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.overlay.visible { opacity: 1; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .overlay { display: block; }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 24px rgba(0,0,0,0.5);
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .main { padding: 24px 20px 60px; padding-top: 70px; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- 햄버거 버튼 -->
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="메뉴 열기">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- 오버레이 -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="title">전기장비</div>
+    <div class="sub">시험 정리노트 · 8~11주차</div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">대형기 전기계통</div>
+    <div class="nav-item active" onclick="show('overview')"><span class="nav-dot"></span>전기계통 개요</div>
+    <div class="nav-item" onclick="show('power')"><span class="nav-dot"></span>전원 종류</div>
+    <div class="nav-item" onclick="show('bus')"><span class="nav-dot"></span>전력 BUS</div>
+    <div class="nav-item" onclick="show('panel')"><span class="nav-dot"></span>B737ng 패널</div>
+    <div class="nav-item" onclick="show('lru')"><span class="nav-dot"></span>주요 용어(LRU)</div>
+  </div>
+  
+  <div class="nav-group">
+    <div class="nav-group-title">소형 단발기 (C172)</div>
+    <div class="nav-item" onclick="show('small')"><span class="nav-dot"></span>소형기 전기시스템</div>
+    <div class="nav-item" onclick="show('c172circuit')"><span class="nav-dot"></span>C172 주요 회로</div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">배전 시스템</div>
+    <div class="nav-item" onclick="show('split')"><span class="nav-dot"></span>배전 버스 시스템</div>
+    <div class="nav-item" onclick="show('gcu')"><span class="nav-dot"></span>GCU / BPCU / CT</div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">배터리</div>
+    <div class="nav-item" onclick="show('battery')"><span class="nav-dot"></span>배터리 종류 & 특성</div>
+    <div class="nav-item" onclick="show('capacity')"><span class="nav-dot"></span>용량 & 정격</div>
+    <div class="nav-item" onclick="show('charging')"><span class="nav-dot"></span>충전 방식</div>
+    <div class="nav-item" onclick="show('compare')"><span class="nav-dot"></span>배터리 비교표</div>
+  </div>
+</nav>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main class="main">
+
+<!-- ① 전기계통 개요 -->
+<div id="sec-overview" class="section active">
+  <div class="section-header">
+    <div class="section-tag">Chapter 01</div>
+    <h1>항공기 전기계통 개요</h1>
+  </div>
+
+  <h2>전기계통의 3대 구성</h2>
+  <div class="grid3">
+    <div class="stat-card"><div class="stat-label">발전</div><div class="stat-value" style="font-size:16px;color:var(--purple-light)">Generation</div></div>
+    <div class="stat-card"><div class="stat-label">배전</div><div class="stat-value" style="font-size:16px;color:var(--teal-light)">Distribution</div></div>
+    <div class="stat-card"><div class="stat-label">부하 제어</div><div class="stat-value" style="font-size:16px;color:var(--amber)">Load Control</div></div>
+  </div>
+
+  <h2>항공기 전기계통의 주요 특징</h2>
+  <div class="card card-purple">
+    <p><strong>① 항시 전원 공급</strong> — 비행 준비~착륙 후까지 전원이 끊기지 않도록 설계</p>
+    <p><strong>② AC + DC 병용</strong> — 교류(모터·밸브·히터 등 대전력) + 직류(계기·지시·조정 등 소전력)</p>
+    <p><strong>③ 이중 계통</strong> — 정상 전원 계통(Normal) + 비상 전원 계통(Emergency)</p>
+    <p><strong>④ 실시간 감시</strong> — BITE 기능, 비정상 시 즉시 정지·경고</p>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="callout-icon">💡</span>
+    <div class="callout-content">
+      <strong>BITE (Built-In Test Equipment)</strong>
+      <p>항공기 전기계통이 자체적으로 결함을 점검하고 시험할 수 있는 기능. 비정상 계통은 작동이 멈추고 조종석에 즉시 경고 표시.</p>
+    </div>
+  </div>
+
+  <h2>항공기 전기계통의 구성 위치 (대형기 기준)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>위치</th><th>구성 요소</th></tr>
+      <tr><td>① Engine</td><td>IDG (Integrated Drive Generator), air/oil cooler</td></tr>
+      <tr><td>② APU Compartment</td><td>APU starter-generator</td></tr>
+      <tr><td>③ External Power</td><td>GPU (Ground Power Unit) 연결 포트</td></tr>
+      <tr><td>④ EE Compartment (동체 전방 하부)</td><td>Battery, Battery charger, GCU, BPCU, SCU, PDP, Junction boxes</td></tr>
+      <tr><td>⑤ Flight Compartment (조종석)</td><td>Control switches, Indication, P6·P18 panels, Relays, SPCU</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ② 전원 종류 -->
+<div id="sec-power" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 02</div>
+    <h1>항공기 전원 종류 (2.1.1)</h1>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>교류 전원 (AC)</h3>
+      <p><span class="badge bp">비행 중 주전원</span></p>
+      <p>· <strong>IDG</strong> — 엔진 구동식, 정상 비행 중 주전원</p>
+      <p>· <strong>APU Generator</strong> — 백업 / 지상 운용</p>
+      <p>· <strong>GPU / GATE 전원</strong> — 지상 공급</p>
+      <div class="callout callout-tip" style="margin-top:10px">
+        <span class="callout-icon">⚡</span>
+        <div class="callout-content"><p>표준: <strong>115 VAC, 400 Hz, 3 phase</strong><br>400Hz 사용 이유 → 같은 성능의 부품을 더 작고 가볍게 만들 수 있어 항공기 경량화에 유리</p></div>
+      </div>
+    </div>
+    <div class="card card-teal">
+      <h3>직류 전원 (DC)</h3>
+      <p>· <strong>TRU</strong> (Transformer Rectifier Unit) — AC를 28VDC로 변환, 직류 주전원</p>
+      <p>· <strong>Battery Charger</strong> + <strong>Battery</strong></p>
+      <p style="margin-top:8px;font-size:12px;color:var(--text3)">소형기: 14VDC / 대형기: 28VDC</p>
+    </div>
+    <div class="card card-amber">
+      <h3>비상 전원</h3>
+      <p>· <strong>Static Inverter</strong> — 배터리 DC → 115VAC 400Hz 1phase 변환</p>
+      <p>· <strong>Battery</strong> — 최후의 비상전원 (30분 이상 필수 버스 공급)</p>
+      <p>· <strong>RAT</strong> (Ram Air Turbine) — 대형기, 모든 발전기 상실 시</p>
+    </div>
+    <div class="card card-blue">
+      <h3>IDG — Integrated Drive Generator</h3>
+      <p>· 정속구동장치(CSD) + 발전기(Generator)를 하나로 통합</p>
+      <p>· 엔진 RPM 변화에 무관하게 <strong>항상 400Hz</strong> 출력</p>
+      <p>· GCU(Generator Control Unit)로 상태 모니터링 및 제어</p>
+    </div>
+  </div>
+
+  <h2>대표 LRU (전기계통 보호 및 제어)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>장치</th><th>풀 네임</th><th>역할</th></tr>
+      <tr><td><strong>GCU</strong></td><td>Generator Control Unit</td><td>IDG 상태·출력 모니터 및 제어, GCB 제어. AGCU = APU용</td></tr>
+      <tr><td><strong>BCU / GPCU</strong></td><td>Bus/Ground Power Control Unit</td><td>전원과 Contactor/Breaker 모니터·제어</td></tr>
+      <tr><td><strong>SPCU</strong></td><td>Standby Power Control Unit</td><td>비상 전원 계통 제어</td></tr>
+      <tr><td><strong>TRU</strong></td><td>Transformer Rectifier Unit</td><td>AC → 28VDC 변환, 직류 주전원 공급</td></tr>
+      <tr><td><strong>GCB</strong></td><td>Generator Control Breaker</td><td>발전기 전원을 BUS에 연결/분리하는 스위치</td></tr>
+      <tr><td><strong>BTB</strong></td><td>Bus Tie Breaker</td><td>BUS ↔ BUS 연결/분리 (BCB라고도 함)</td></tr>
+      <tr><td><strong>Static Inverter</strong></td><td>—</td><td>배터리 DC → 115VAC 400Hz 1phase 변환, 비상 AC 전원</td></tr>
+      <tr><td><strong>SCU</strong></td><td>Starter Control Unit</td><td>APU Starter/Generator가 시동기 역할 시 제어하는 컴퓨터</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ③ 전력 BUS -->
+<div id="sec-bus" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 03</div>
+    <h1>항공기 전력 BUS (2.1.3)</h1>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="callout-icon">📌</span>
+    <div class="callout-content">
+      <strong>버스(Bus)란?</strong>
+      <p>전기 모선(전도성 구리 바). 전원이 연결되어 있고 여기서 각종 회로 차단기(CB)를 통해 배전이 이루어짐.<br>전원↔버스, 버스↔버스 사이 = <strong>Contactor</strong> 또는 <strong>Breaker</strong>로 연결/차단</p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>주 전력 버스 (Main BUS)</h3>
+      <p>정상 운용 상태에서 공급</p>
+      <p>· AC Transfer BUS 1 & 2</p>
+      <p>· DC BUS 1 & 2</p>
+      <p>· 교류와 직류 전력 모두 공급</p>
+    </div>
+    <div class="card card-teal">
+      <h3>예비 전력 버스 (Standby BUS)</h3>
+      <p>IDG 1&2 및 APU 발전기 <strong>문제 발생 시</strong> 작동</p>
+      <p>· Static Inverter → AC Standby Bus</p>
+      <p>· 배터리 → DC Standby Bus</p>
+      <p>· 필수 계기, 통신 장비만 유지</p>
+    </div>
+    <div class="card card-amber">
+      <h3>갤리 버스 (Galley BUS)</h3>
+      <p>승객 서비스용 — 주방 공간(갤리) 장치에 전력 공급</p>
+      <p style="font-size:12px;color:var(--text3)">비상 시 가장 먼저 차단되는 버스</p>
+    </div>
+    <div class="card card-blue">
+      <h3>지상 서비스 버스 (Ground Service BUS)</h3>
+      <p>지상 조업 및 정비용 전력 공급</p>
+      <p>· Cargo loading, towing, fueling</p>
+      <p>· APU fuel boost pump, battery heater 등</p>
+    </div>
+  </div>
+
+  <h2>Normal Mode vs Alternate Mode</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>모드</th><th>전력 소스</th><th>흐름</th></tr>
+      <tr><td><strong>Normal (IDG)</strong></td><td>IDG 1 + IDG 2</td><td>IDG → GCB → AC XFR BUS → TR → DC BUS</td></tr>
+      <tr><td><strong>Normal (ASG/APU)</strong></td><td>APU Generator</td><td>APB → BTB → 양쪽 AC XFR BUS</td></tr>
+      <tr><td><strong>Alternate</strong></td><td>배터리 + Static Inverter</td><td>Battery → Static Inverter → AC STBY BUS / Battery → DC STBY BUS</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ④ B737ng 패널 -->
+<div id="sec-panel" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 04</div>
+    <h1>B737ng 전기 패널 (스위치 & 라이트)</h1>
+  </div>
+
+  <h2>패널 라이트 (Elec Panel Light)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>라이트명</th><th>색상</th><th>의미</th><th>실제 상태</th><th>포인트</th></tr>
+      <tr><td>GEN OFF BUS</td><td><span class="badge bb">파란색</span></td><td>발전기가 버스에 연결 안 됨</td><td>발전기는 정상·단지 미사용</td><td>고장 아님</td></tr>
+      <tr><td>APU GEN OFF BUS</td><td><span class="badge bb">파란색</span></td><td>APU 발전기가 버스에 연결 안 됨</td><td>APU는 살아있음·공급 안 함</td><td>전원 없음 아님</td></tr>
+      <tr><td><strong>SOURCE OFF</strong></td><td><span class="badge bg2">흰색</span> <span class="badge ba">호박색</span></td><td>해당 BUS에 전원 없음</td><td>완전 무전원 상태</td><td style="color:var(--red);font-weight:700">가장 중요!</td></tr>
+      <tr><td>GEN ON</td><td><span class="badge bg2">흰색</span></td><td>발전기가 버스에 전력 공급 중</td><td>실제 공급 중</td><td>정상 상태</td></tr>
+      <tr><td>APU GEN ON</td><td><span class="badge bg2">흰색</span></td><td>APU가 버스에 전력 공급 중</td><td>APU가 공급</td><td>엔진보다 우선 아님</td></tr>
+      <tr><td>GRD PWR AVAILABLE</td><td><span class="badge bb">파란색</span></td><td>외부 지상 전원 사용 가능</td><td>연결만 됨</td><td>공급 중 아님</td></tr>
+      <tr><td>GRD PWR ON</td><td><span class="badge bg2">흰색</span></td><td>외부 지상 전원 공급 중</td><td>실제 사용 중</td><td></td></tr>
+      <tr><td>TRANSFER BUS OFF</td><td>—</td><td>버스가 전기 네트워크에서 분리됨</td><td>연결 끊김</td><td>SOURCE OFF와 다름</td></tr>
+      <tr><td>BUS TRANSFER OFF</td><td>—</td><td>자동 전원 분배 기능 해제</td><td>BTB 강제 OPEN</td><td>문제 시작 신호</td></tr>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-content">
+      <strong>경고 계열 라이트 구분</strong>
+      <p>① SOURCE OFF = 그 버스 전기 없음 (가장 심각)<br>② GEN OFF BUS = 정상인데 연결 안 된 상태 (고장 아님)<br>③ BUS TRANSFER OFF = 자동 분배 기능 해제 → 문제 시작 신호</p>
+    </div>
+  </div>
+
+  <h2>패널 스위치 (Elec Panel Switch)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>스위치</th><th>기능</th><th>ON 시</th><th>OFF 시</th><th>포인트</th></tr>
+      <tr><td><strong>GEN 1/2</strong></td><td>발전기를 BUS에 연결 허용</td><td>GCB 닫힘 → 전력 공급</td><td>GCB 열림 → 발전기는 계속 돌아감</td><td>발전기 자체 ON/OFF 아님 — GCB만 제어</td></tr>
+      <tr><td><strong>APU GEN</strong></td><td>APU를 BUS에 연결 허용</td><td>APU 전력 공급 가능</td><td>공급 안 함 (OFF BUS 유지)</td><td>APU 켜도 스위치 안 켜면 공급 안 됨, 반드시 ON 필요</td></tr>
+      <tr><td><strong>BUS TRANSFER</strong></td><td>BUS 자동 연결 기능</td><td>AUTO → BTB 자동 제어</td><td>OFF → BUS 완전 분리</td><td style="color:var(--amber);font-weight:600">가장 중요한 스위치</td></tr>
+      <tr><td><strong>GRD PWR</strong></td><td>지상 전원 사용</td><td>외부 전원 공급</td><td>공급 안 함</td><td>AVAILABLE ≠ ON</td></tr>
+      <tr><td><strong>BUS TIE (BTB)</strong></td><td>BUS 1 ↔ BUS 2 연결</td><td>닫힘 → 전원 공유</td><td>열림 → 분리</td><td>BUS TRANSFER OFF와 연동</td></tr>
+      <tr><td><strong>STANDBY POWER</strong></td><td>배터리/인버터 사용</td><td>AUTO → 자동 공급</td><td>비상 전원 차단</td><td>평소엔 영향 없음</td></tr>
+    </table>
+  </div>
+
+  <h2>전원 공급 절차별 라이트 변화</h2>
+
+  <div class="phase-block">
+    <div class="phase-head"><div class="phase-num pn-blue">1</div><div class="phase-title">지상 전원 공급 — GPU + 항공기 연결</div></div>
+    <div class="sub-steps">
+      <div class="sub-item"><div class="sub-dot"></div><div class="sub-text"><span class="light-pill lp-blue">GRD PWR AVAILABLE</span> 파란불 점등 — GPU 연결만 된 상태</div></div>
+      <div class="sub-item"><div class="sub-dot"></div><div class="sub-text"><strong>GRD PWR 스위치 ON</strong> → <span class="light-pill lp-blue">파란불</span> → <span class="light-pill lp-white">GRD PWR ON 흰불</span></div></div>
+      <div class="sub-item"><div class="sub-dot"></div><div class="sub-text">동시에 <span class="light-pill lp-amber">SOURCE OFF</span> <span class="light-pill lp-blue">GEN OFF BUS</span> 불 유지 — 발전기 미연결 상태로 정상</div></div>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-head"><div class="phase-num pn-amber">2</div><div class="phase-title">APU 시동</div></div>
+    <div class="sub-steps">
+      <div class="sub-item"><div class="sub-dot"></div><div class="sub-text"><span class="light-pill lp-blue">APU GEN OFF BUS</span> 파란불 점등 — APU 작동 중이지만 버스에 미연결 (고장 아님)</div></div>
+      <div class="sub-item"><div class="sub-dot"></div><div class="sub-text">APU GEN 스위치 ON → 파란불 꺼지고 <span class="light-pill lp-white">APU GEN ON 흰불</span> 점등</div></div>
+    </div>
+  </div>
+
+  <div class="phase-block">
+    <div class="phase-head"><div class="phase-num pn-teal">3</div><div class="phase-title">엔진 1, 2 시동 (ENG 1, 2 Start)</div></div>
+    <div class="sub-steps">
+      <div class="sub-item"><div class="sub-dot"></div><div class="sub-text">엔진 시동 후 IDG 작동하더라도 GEN 스위치 ON 전까지 <span class="light-pill lp-blue">GEN OFF BUS</span> 파란불 유지</div></div>
+      <div class="sub-item"><div class="sub-dot"></div><div class="sub-text"><strong>GEN 1/2 스위치 ON</strong> → GCB 닫힘 → 발전기가 버스에 연결</div></div>
+      <div class="sub-item"><div class="sub-dot"></div><div class="sub-text">패널 <strong>모든 라이트 소등</strong> = 정상 운용 상태 <span class="light-pill lp-off">GEN OFF BUS 꺼짐</span> <span class="light-pill lp-off">SOURCE OFF 꺼짐</span></div></div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">✅</span>
+    <div class="callout-content">
+      <strong>흐름 암기</strong>
+      <p>GPU 연결(파란불) → GRD PWR ON(흰불) → APU 시동(APU GEN OFF BUS 파란불) → APU GEN SW ON → ENG Start(GEN OFF BUS 파란불) → GEN SW ON → <strong>모든 불 소등 = 정상</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ LRU 주요 용어 -->
+<div id="sec-lru" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 05</div>
+    <h1>전기계통 주요 용어 (2.1.4)</h1>
+  </div>
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>GCU — Generator Control Unit</h3>
+      <p>· IDG 상태 모니터 및 제어, GCB 제어</p>
+      <p>· AGCU = APU Generator 모니터·제어, APB 모니터·제어</p>
+      <p>· 계자 전류(F)를 조절해서 발전기 출력(A)을 제어하고 전력을 버스로 공급</p>
+    </div>
+    <div class="card card-purple">
+      <h3>IDG — Integrated Drive Generator</h3>
+      <p>· 정속구동장치(CSD) + 발전기(Generator) 통합</p>
+      <p>· 엔진 RPM 무관하게 항상 400Hz 출력 가능</p>
+      <p>· 대형 항공기 교류 발전기의 표준</p>
+    </div>
+    <div class="card card-teal">
+      <h3>TRU — Transformer Rectifier Unit</h3>
+      <p>· 변압기 + 정류기를 하나로 통합</p>
+      <p>· AC POWER 받아 감압 후 정류 → <strong>28VDC</strong> 공급</p>
+      <p>· 직류 주전원 역할 (TR1, TR2, TR3)</p>
+    </div>
+    <div class="card card-teal">
+      <h3>APU Starter/Generator</h3>
+      <p>· 처음 시동 시: 시동기(APU 시동기) 역할</p>
+      <p>· 시동 완료 후: 발전기 역할</p>
+      <p>· SCU(Starter Control Unit)가 초기 Starter 제어</p>
+    </div>
+    <div class="card card-amber">
+      <h3>Static Inverter</h3>
+      <p>· 비행 중 AC 전원 없을 때 사용</p>
+      <p>· 배터리 DC → <strong>115VAC 400Hz 1 phase</strong> 변환</p>
+      <p>· 필수 계통(비상)에 AC 공급</p>
+    </div>
+    <div class="card card-amber">
+      <h3>GCB & BTB</h3>
+      <p>· <strong>GCB</strong> — 발전기 전원을 BUS에 연결/분리</p>
+      <p>· <strong>BTB</strong> — 버스와 버스 사이 연결/분리 (BCB라고도 함)</p>
+      <p>· BUS TRANSFER AUTO 시 BTB가 자동으로 작동</p>
+    </div>
+  </div>
+</div>
+
+<!-- ⑥ 배전 버스 시스템 -->
+<div id="sec-split" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 06</div>
+    <h1>배전 버스 시스템 (2.3.3)</h1>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="callout-icon">📌</span>
+    <div class="callout-content">
+      <strong>대형기에서 운용하는 3가지 배전 버스 시스템</strong>
+      <p>① 분할 버스 (Split Bus) — B737, 757, 777, A300, A320, A310<br>② 병렬 버스 (Parallel Bus) — B727, MD-11, B747<br>③ 분할·병렬 버스 (Split-Parallel Bus) — B747-400</p>
+    </div>
+  </div>
+
+  <h2>(1) 분할 버스 시스템 (Split-bus) — B737 해당!</h2>
+  <div class="card card-purple">
+    <p>· <strong>정상 비행 중</strong>: GEN 1 → AC BUS 1 / GEN 2 → AC BUS 2 (각자 독립 공급)</p>
+    <p>· <strong>발전기 1대 고장 시</strong>: BTB 자동 닫힘 → 정상 발전기 1대가 양쪽 버스 모두 공급 👉 <strong class="hl-r">parallel로 동작</strong></p>
+    <p>· APU 발전기가 고장 난 주 발전기 대신 예비 전력(backup power) 제공 가능</p>
+    <p>· RAM Air Turbine(RAT): 모든 발전기(IDG + APU) 고장 시 사용하는 4번째 비상 발전기, 발전량이 적어 제한 배전</p>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">✅</span>
+    <div class="callout-content">
+      <strong>B737 분할 버스 시스템 핵심 흐름</strong>
+      <p>정상: IDG 1 → AC BUS 1 / IDG 2 → AC BUS 2 (각자 독립)<br>
+      IDG 1 고장: BTB 닫힘 → IDG 2가 양쪽 BUS 공급<br>
+      IDG 2개 모두 고장: APU GEN이 양쪽 BUS 공급<br>
+      APU GEN도 고장: Static Inverter + Battery → AC/DC Standby BUS</p>
+    </div>
+  </div>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="/img/split_sys.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">분할 배전 시스템</p>
+  </div>
+
+  <h2>(2) 병렬 버스 시스템 (Parallel Bus) — B727, B747</h2>
+  <div class="card card-teal">
+    <p>· 정상 비행 조건에서 모든 엔진 구동 발전기는 각자의 버스들이 서로 연결하여 교류 부하에 동력 공급</p>
+    <p>· 발전기 고장 시 고장 발전기만 격리, 버스에 연결된 시스템들은 계속 작동</p>
+    <p>· <strong class="hl-r">보조동력장치는 운항 중 작동하지 않아 예비전력 제공 불가</strong> → SYNC BUS 유지</p>
+    <p>· <strong class="hl-r">APU 발전기는 오직 지상 운전용</strong></p>
+    <p>· DC는 무조건 병렬 operation (DCIR 4개 다 open되는 경우 → Landing 시)</p>
+  </div>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="/img/parallel_sys.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">병렬 배전 시스템</p>
+  </div>
+
+  <h2>(3) 분할·병렬 버스 시스템 (Split-Parallel) — B747-400</h2>
+  <div class="card card-blue">
+    <p>· 4개 엔진 구동 발전기 모두 <strong>정상 비행 중 병렬로 작동</strong></p>
+    <p>· 특정 고장 조건 또는 외부 전원 사용 시에만 분할 버스 모드(split-bus mode)로 작동</p>
+    <p>· <strong>SSB(Split System Breaker)</strong> — 왼쪽과 오른쪽 동기 조정 버스를 연결하기 위해 사용, 정상 비행 동안 접속 (Normal Close)</p>
+    <p>· 여러 발전기를 <strong>같은 주파수(≈400Hz)와 위상</strong>으로 맞추기 위한 기준 신호/버스 역할</p>
+  </div>
+
+  <div class="callout callout-info">
+    <span class="callout-icon">ℹ️</span>
+    <div class="callout-content">
+      <strong>Parallel 작동 조건 (분할 버스 → 병렬 전환)</strong>
+      <p>IDG 고장으로 BTB 붙었을 때 → 한 놈이 둘 다 공급<br>
+      DC는 무조건 병렬 operation이 기본<br>
+      DCIR 4개 다 open = Landing 시 (안전 위해 — 하나 망가지면 4개 다 분리)</p>
+    </div>
+  </div>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="/img/split_parallel_sys.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">분할-병렬 배전 시스템</p>
+  </div>
+</div>
+
+<!-- ⑦ GCU/BPCU/CT -->
+<div id="sec-gcu" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 07</div>
+    <h1>GCU / BPCU / CT (2.3.3.1)</h1>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>GCU — 발전기 제어 장치</h3>
+      <p>· 정확한 작동 보장을 위해 시스템을 <strong>모니터링</strong></p>
+      <p>· 모든 시스템이 한도 이내로 작동할 경우 → 적합한 발전기 회로에 전압을 가하고 시스템을 위해 <strong>전압 조절</strong> 제공</p>
+      <p>· 일정한 <strong>400Hz 주파수</strong>를 보정하기 위해 교류 출력을 모니터링</p>
+      <p>· <span class="badge bp">대형기</span> GCU = 소형기의 Voltage Regulator (전압조절기)에 해당</p>
+    </div>
+    <div class="card card-teal">
+      <h3>BPCU — 버스 전원 제어 장치</h3>
+      <p>· Bus Power Control Unit = <strong>GPCU</strong>(Ground Power Control Unit) 또는 <strong>EPCU</strong>(External Power Control Unit)라고도 함</p>
+      <p>· 전력을 배전하기 위해 여러 가지 <strong>접촉기를 작동</strong></p>
+      <p>· 전체 전기 시스템을 모니터링하고 적절한 작동을 보장하기 위해 <strong>GCU와 통신</strong></p>
+      <p>· 시스템을 모니터링하기 위해 <strong>CT(변류기)</strong>를 이용</p>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <h3>CT — 변류기 (Current Transformer)</h3>
+    <p>· <strong>전원 분배 시스템의 주 전원 케이블(main power cable)을 들러싼 유도 장치(inductive unit)</strong></p>
+    <p>· 대용량의 높은 전류를 안전하고 작게 줄여서 측정할 수 있게 해주는 변압기</p>
+    <p>· <span class="badge ba">핵심</span> 전류의 흐름을 감지 = <strong>전류 측정기(just 측정)</strong>, 정확한 지시를 할 수 있게 함</p>
+    <p>· 소형기(3상): current transformer 1개 / 대형기(3상): current transformer 3개</p>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="callout-icon">💡</span>
+    <div class="callout-content">
+      <strong>GCU + BPCU 협업 구조</strong>
+      <p>GCU와 BPCU는 전력을 제어하고, 결함을 탐지하며, 필요하면 교정 조치를 취하기 위해 함께 일하고, 조종사의 경고 계통과 항공기의 중앙 정비 시스템(CMS, central maintenance system)으로 결함을 통보한다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ⑧ 소형기 전기시스템 -->
+<div id="sec-small" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 08</div>
+    <h1>소형 단발 항공기 전기 시스템 (2.3.1)</h1>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-content">
+      <strong>소형기 vs 대형기 핵심 차이</strong>
+      <p>소형기(C172 등) 주전원: <strong>DC (직류)</strong> — AC는 직접 생산하지 않고, 필요 시 인버터로 변환<br>
+      대형기(B737 등) 주전원: <strong>AC (교류)</strong> — IDG로 115V/400Hz/3상 생성, DC는 TRU로 변환</p>
+    </div>
+  </div>
+
+  <h2>C172S 전기 회로도 (Figure 7-7 Sheet 1 of 3)</h2>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="/img/c172_elec_schematic.jpg" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">Figure 7-7 (Sheet 1 of 3) — Cessna 172S NAV III · Electrical System (Section 7)</p>
+  </div>
+
+  <h2>소형 단발 항공기 기본 구조</h2>
+  <div class="card card-teal">
+    <p>· <strong>DC(직류) 시스템</strong>이 기본이고, AC(교류)는 직접 생산하지 않고, 필요 시 인버터로 변환</p>
+    <p>· 전원 공급 우선순위: <strong>1. 배터리 → 2. 알터네이터 → 3. 인버터 AC (필요 시)</strong></p>
+    <p>· BAT load는 최소화 — 배터리는 ALT load보다 작아야 함</p>
+    <p>· Avionics Master 켜면 Avionics BUS 2개만 켜짐</p>
+  </div>
+
+  <h2>C172 전기 공급 순서 (DC 중심 흐름)</h2>
+  <div class="callout callout-key">
+    <span class="callout-icon">🔑</span>
+    <div class="callout-content">
+      <strong>전체 흐름</strong>
+      <p>BAT → (Master S/W ON) → STARTER → 엔진 시동 → ALT → (ALT S/W ON) → BUS → 장비</p>
+      <p style="padding-left: 450px;"> ㄴ 인버터 → AC → 장비</p>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <div class="flow-title">배터리 (Battery)</div>
+        <div class="flow-desc">시동 전 & 초기 전원 공급. 마스터 스위치 ON 시 항공기 전체에 DC 공급 시작.<br>BAT에서 ALT까지 공급됨 (첫 시작 전원 = BAT)</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <div class="flow-title">알터네이터 (Alternator) → DC를 만들어냄</div>
+        <div class="flow-desc">엔진 시동 후 작동. 배터리를 충전하면서 항공기 전기 대부분을 공급</div>
+        <div class="flow-desc">운항 중 주전원</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <div class="flow-title">버스 시스템 (Bus Bar)</div>
+        <div class="flow-desc">메인 버스 / 에센셜 버스 등으로 분배. 각 장비(계기, 라디오 등)에 전기 전달</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <div class="flow-title">인버터 (Inverter) → AC 생성 (극히 일부)</div>
+        <div class="flow-desc">일부 계기(구형 자세지시계 등)에 필요. DC → AC 변환하여 공급. AC는 여기서만 만들어짐 (필요 시만)</div>
+      </div>
+    </div>
+  </div>
+
+  <h2>C172 버스 종류 및 특성</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>버스</th><th>정격</th><th>전원 공급원</th><th>보호 장치</th><th>설명</th></tr>
+      <tr><td><strong>Battery Bus</strong></td><td>제한 없음</td><td>배터리 직접</td><td>각 회로 C/B</td><td>Master ON 시 항상 전원 공급. BAT만 ON해도 모든 계통에 전기 공급, Main BUS에 무조건 감</td></tr>
+      <tr><td><strong>Main Bus</strong></td><td>25A</td><td>알터네이터 또는 배터리(보조)</td><td>Main Bus C/B (25A)</td><td>항공기 대부분 장비 전원 공급</td></tr>
+      <tr><td><strong>Avionics Bus</strong></td><td>5A</td><td>메인 버스</td><td>Avionics Bus C/B (5A)</td><td>항공전자 장비 전용. Avionics Master 제어</td></tr>
+      <tr><td><strong>Essential Bus</strong></td><td>제한 없음</td><td>메인 버스 (배터리 경유 가능)</td><td>각 회로 C/B</td><td>비상 시 필수 장비 유지 (Load Shedding 시 살아 있음)</td></tr>
+      <tr><td><strong>AC System</strong></td><td>15A (인버터), 각 장비별</td><td>메인 버스 (DC)</td><td>Inverter C/B (15A), 각 장비별 C/B</td><td>DC를 AC로 변환하여 일부 장비에 공급 (버스 없음)</td></tr>
+    </table>
+  </div>
+
+  <h2>C172 전기 결함과 보호</h2>
+  <div class="grid2">
+    <div class="card card-blue">
+      <h3>전기 결함의 2종류</h3>
+      <p>· <strong class="hl-a">개방(open)</strong> — 회로가 분리되었을 때 일어나는 전기 결함</p>
+      <p>· <strong class="hl-r">단락(short)</strong> — 1개 이상의 회로가 원치 않는 접속을 만들 때 일어나는 전기 결함</p>
+      <p>· 가장 위험한 단락 회로: (+)전선이 (-)접속 또는 접지를 만들 때 → 일반적으로 <strong>합선 또는 접지</strong></p>
+    </div>
+    <div class="card card-amber">
+      <h3>결함으로부터 전기 시스템을 보호하는 2가지 방법</h3>
+      <p>· <strong>① 기계적 방법</strong> — 전선과 부품을 적절하게 장착하고 보호 덮개와 차폐(shields)를 추가하여 마찰과 과도한 마모를 방지</p>
+      <p>· <strong>② 전기적 방법</strong> — 회로차단기와 퓨즈를 사용하여 보호</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text3)">회로차단기: 단락 회로인 경우 전류의 과도한 흐름으로 인한 손상으로부터 시스템을 보호<br>퓨즈: 회로차단기 대신 사용, 일반적으로 구형 항공기에서 사용</p>
+    </div>
+  </div>
+
+  <h2>C172 전기 장비 위치 (C172S)</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>① 스타터 (Starter)</h3>
+      <p>· 위치: 엔진 뒤쪽, Accessory Section 하단</p>
+      <p>· 엔진의 플라이휠을 회전시켜 시동을 건다</p>
+    </div>
+    <div class="card">
+      <h3>② 알터네이터 (Alternator)</h3>
+      <p>· 위치: 엔진 전면 하단 우측 (모동 4~5시 방향)</p>
+      <p>· 엔진 회전으로 발전하여 전기 시스템에 전원을 공급</p>
+    </div>
+    <div class="card">
+      <h3>③ 배터리 (Battery)</h3>
+      <p>· 위치: 방화벽(Firewall) 뒤쪽, 조종석 우측 하단 (흰색 티백 또는 사이드 패널 내부)</p>
+      <p>· 신형 C172S/R: 방화벽 뒤(조종석 측)에 배터리 위치</p>
+      <p>· 구형(C172N 등): 엔진룸 내부에 배터리 위치</p>
+    </div>
+    <div class="card">
+      <h3>종류: 황산납 배터리</h3>
+      <p>· 소형기 BAT 종류: 황산납</p>
+      <p>· 전기를 만들어냄 → DC 제어 및 설명</p>
+    </div>
+  </div>
+</div>
+
+<!-- ⑨ C172 주요 회로 -->
+<div id="sec-c172circuit" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 09</div>
+    <h1>C172 주요 회로 (Battery / Generator / Alternator)</h1>
+  </div>
+
+  <h2>배터리 회로 (2.3.1.1 Battery Circuit)</h2>
+  <div class="callout callout-key">
+    <span class="callout-icon">🔑</span>
+    <div class="callout-content">
+      <strong>배터리 회로의 목적</strong>
+      <p>항공기 배터리 회로는 엔진 시동을 위한 전원을 공급하고 교류기 또는 발전기가 고장 난 경우에 배터리로 이차적인 전원 공급을 제공하기 위해 사용</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>솔레노이드 vs 릴레이</h3>
+      <p>· <strong>솔레노이드</strong>: 고(高) 전류 회로의 전환을 위해 사용 → 주로 조종면 계통, 유로 변경해서 보내줄 때 사용</p>
+      <p>· <strong>릴레이</strong>: 저(低) 전류 회로를 제어하기 위해 사용 → 그 외에는 릴레이 사용</p>
+      <p style="font-size:12px;color:var(--text3);margin-top:6px">기능은 거의 같은데 용도가 살짝 다름</p>
+    </div>
+    <div class="card card-teal">
+      <h3>배터리 회로 작동 원리 (4단계)</h3>
+      <p>① <strong>마스터 ON (기본 전원 공급)</strong>: Battery → Master solenoid → Main Bus → 항공기 전기 시스템 활성화</p>
+      <p>② <strong>시동 시 (빨간선)</strong>: Battery → Starter solenoid → Starter → 큰 전류로 엔진 회전</p>
+      <p>③ <strong>발전 후 (엔진 가동)</strong>: Alternator → Main Bus 공급 + 동시에 Battery 충전</p>
+      <p>④ <strong>외부전원 사용</strong>: External power jack → 릴레이 → Bus (배터리 없이도 전원 사용 가능, BAT와 동일하게 작동)</p>
+    </div>
+  </div>
+
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="/img/bat_circuit.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">배터리 회로 배선도</p>
+  </div>
+
+  <h2>발전기 회로 (2.3.1.2 Generator Circuit)</h2>
+  <div class="card card-blue">
+    <p>· 항공기 발전기와 배전 버스 사이에 전력을 제어하기 위해 사용</p>
+    <p>· 발전기 스위치는 <strong>발전기 계자(generator field), F 단자</strong>의 전원을 제어한다 → 입력단</p>
+    <p>· 발전기 출력 전류는 발전기의 <strong>전기자 회로(armature circuit)인 A 단자</strong>를 통해 항공기 버스로 공급된다 → 출력단</p>
+    <p>· ① 발전기 출력 전류: A(전기자) → GCU → Bus (실제 사용되는 전기)</p>
+    <p>· ② 계자 전류(Field Current): GCU → F(계자)로 전류 공급 → 자기장 세기 조절 → 발전량 조절</p>
+    <p style="margin-top:8px;font-size:13px;color:var(--teal-light)">결론: GCU는 계자 전류(F)를 조절해서 발전기 출력(A)을 제어하고, 전력을 버스로 공급</p>
+  </div>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="/img/gcu_gen_control_circuit.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">GCU 발전기 컨트롤 회로</p>
+  </div>
+
+  <h2>교류기 회로 (2.3.1.3 Alternator Circuit)</h2>
+  <div class="card card-amber">
+    <p>· 교류기의 입력 및 출력의 전원을 제어</p>
+    <p>· <strong>마스터 스위치</strong>는 교류기 제어 장치(alternator control unit) 또는 전압 조절기 내에 회로를 차례로 작동시키고 교류기 필드(alternator field)로 전류를 보내준다</p>
+    <p>· 교류기 제어 회로의 주요 부품 : 교류기(alternator), <strong>전압 조절기(voltage regulator)</strong>, 교류기 마스터 스위치</p>
+    <p>· <strong>전압 조절기</strong> : 항공기 전기 부하에 따라 <strong>발전기 필드(계자)전류를 제어</strong></p>
+    <p>· 교류기 회로에 배치되는 전류계는 오직 한쪽 방향으로 교류기에서 버스까지의 전류 흐름을 보여주는 단일극 계측기(single polarity meter)</p>
+    <p>· 교류기는 전기자 회로에 다이오드를 포함하고 있어 <strong>버스에서 교류기로 전류 역류를 예방</strong></p>
+    <p>· 교류기 시스템이 작동 불능이면 <strong>전류계는 '0'을 지시</strong>하며, 배터리가 <strong>방전</strong>되고 있는 것</strong></p>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-content">
+      <strong>ALT 고장 시나리오</strong>
+      <p>ALT 고장 → Low Voltage Light ON, 배터리만 시동 → 필요한 장비 OFF<br>
+      BAT Contactor 고장 → BAT ON 해도 전동 안 감 (전체 시스템 죽음)<br>
+      Avionics Bus 분해 → 라디오 등 항공전자 장비 성능 불가<br>
+      Main Bus 문제 → 대부분의 장비 작동 불가</p>
+    </div>
+  </div>
+
+  <h2>외부 전원 회로 (2.3.1.4 External Power Circuit)</h2>
+  <div class="card card-green">
+    <p>· 외부 전원은 엔진 작동 없이 항공기에서 정비 및 점검을 위해 필요한 전기 공급을 위해 사용</p>
+    <p>· <strong>다이오드</strong>는 외부전원연결이 부정확한 극성을 가질 경우, 예를 들어 양과 음의 배선이 반대로 되는 경우, 우발적인 연결을 방지하기 위해 사용 (역전류흐름방지 다이오드)</p>
+  </div>
+
+  <h2>시동기 회로 (2.3.1.5 Starter Circuit)</h2>
+  <div class="card card-green">
+    <p>· 대부분의 현대 항공기는 엔진 시동을 위해 전동기 사용</p>
+    <p>· 시동기는 배터리 or 외부 전원 장치에 의해 동력 공급</p>
+    <p>· 작동원리</p>
+    <p>① <strong>배터리 마스터 스위치 ON</strong>: Battery solenoid 작동 → 배터리가 메인 버스에 연결됨</p>
+    <p>② <strong>Starter Switch 작동(S 위치)</strong>: Starter solenoid 여자(코일에 전류 흐름) → 고전류 접점이 닫힘</p>
+    <p>③ <strong>전류 흐름</strong>: 배터리 → Starter solenoid → Starter Motor → 엔진 회전</p>
+  </div>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="/img/starter_circuit.png" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">시동기 회로</p>
+  </div>
+
+  <h2>항공 전자 기기 전원 회로 (2.3.1.6 Avionics Power Circuit)</h2>
+  <div class="card card-purple">
+    <p>· 일부 항공기는 전자 계통 컴퓨터들을 위해 별도로 단독 배전 버스(separate power distribution bus)를 가지고 있으며, 이 버스를 <strong>항공 전자 버스(avionics bus)</strong>라고 부른다</p>
+    <p>· <strong>시동 전동기(starter motor)가 작동할 때 항공전자계통 버스에 전원을 연결하지 않는 경우</strong> — 시동 전동기에 의해 초기의 과전압이 민감한 항공전자기기로 공급 되는 것을 방지하기 위한 것</p>
+    <p>· <strong>외부전원이 항공기에 연결</strong>될 때 항상 작동</p>
+  </div>
+
+  <h2>교류 공급 (2.3.1.7 AC Supply) — 소형기 인버터</h2>
+  <div class="card card-teal">
+    <p>· 경량 항공기는 저(低) 전력 교류 전기 시스템(low-power AC electrical system)을 사용</p>
+    <p>· 인버터 장치: 배터리 직류 전원 24VDC → 교류 115VAC 400Hz <strong>1 phase</strong>로 변환하여 공급하는 장치</p>
+    <p>· DC 전원을 주로 사용하는 경량 항공기에서 교류 전류가 필요로 할 때 사용</p>
+    <p>· 항공기에서 비상용 전원으로 사용</p>
+    <div class="divider" style="margin:10px 0"></div>
+    <p><strong>항공기에서 주로 사용하는 인버터 종류 (2가지)</strong><span style="font-size:12px;color:var(--text3);margin-top:6px"> → 안보고 넘어감</span></p>
+    <p>· <strong>회전형인버터(rotary inverter)</strong> — 낮은 신뢰성, 과도한 무게, 비효율로 인하여 구형 항공기에서만 볼 수 있다</p>
+    <p>· <strong>스태틱 인버터(static inverter)</strong> — 가동부가 없이 직류에서 교류로 전환시키기 위해 전자 회로 소자를 사용. 3상은 못 만들어내고 단상만 가능</p>
+    <p>· 항공기용 인버터는 26[Vac]와 115[Vac]를 생산</p>
+  </div>
+
+  <h2>경량 다발 항공기 (2.3.2)</h2>
+  <div class="card card-blue">
+    <p>· 쌍발 항공기에는 여러 부하에 전류 공급용으로 2개의 교류기 또는 발전기를 가동할 수 있다</p>
+    <p>· 배전 버스 시스템은 회로 보호기, 다이오드, 릴레이를 통해 연결</p>
+    <div class="divider" style="margin:10px 0"></div>
+    <h3>병렬 교류기 / 발전기 (Paralleling Alternators or Generators)</h3>
+    <p>· 쌍발 항공기엔 2개의 교류 발전기가 사용되므로, 두 발전기 모두 전기 부하를 균등하게 공유하는게 중요</p>
+    <p>· 교류 발전기 출력을 균등화하는 이 과정을 <strong>병렬 운전(paralleling)</strong>이라 한다</p>
+    <p>· 대부분 쌍발 항공기 경우 교류발전기가 작동하는 상태에서 전압은 <strong>26.5~28[VDC]</strong> 사이</p>
+    <p>· 다발기는 병렬로 동작 → 단발 빼고 병렬 운전</p>
+  </div>
+</div>
+
+<!-- ⑩ 배터리 종류 -->
+<div id="sec-battery" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 10</div>
+    <h1>배터리 종류 & 특성 (2.2)</h1>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="callout-icon">💡</span>
+    <div class="callout-content">
+      <strong>현대 대형 항공기 직류 계통</strong>
+      <p>교류 전원을 직류로 정류하여 사용 + 비상전원으로 배터리 충전하여 사용<br>항공기 배터리 용도: <strong>APU 시동(starting)</strong> + <strong>비상 전원(emergency power)</strong></p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-teal">
+      <h3>황산납 배터리 (Lead-acid)</h3>
+      <span class="badge bg2">소형기·구형기</span>
+      <p style="margin-top:8px">· (1) 건식 충전 셀: 침수식(flooded)/습식(wet)이라고도 함</p>
+      <p>· 6셀: 약 12V / 12셀: 약 24V (직렬 연결)</p>
+      <p>· 경항공기·소형 프로펠러 항공기(훈련기, Cessna 계열)</p>
+      <p style="margin-top:6px">· (2) VRLA(밸브-조절 황산납): 밀폐형 배터리, 전해액 없는 유리 매트</p>
+      <p>· 범용 항공기와 터빈항공기 사용, NiCd 대체품</p>
+      <p>· 소형 항공기, 비즈니스 제트기, 헬리콥터 일부</p>
+    </div>
+    <div class="card card-purple">
+      <h3>니켈카드뮴 배터리 (NiCd)</h3>
+      <span class="badge bp">대형 여객기 표준</span>
+      <p style="margin-top:8px">· 셀당 정격 전압: <strong>1.2V</strong></p>
+      <p>· 다수의 셀을 스테인리스강/수지 피복강/도색강/티타늄 박스로 제작</p>
+      <p>· 배기식 셀(vented cell) 유형 — vent valve 또는 low pressure release valve 보유</p>
+      <p>· 셀 교체 시 배터리 수명 5년 이상 연장</p>
+      <p>· 정격 용량 작동 온도: <strong>16~32°C (60~90°F)</strong></p>
+      <p>· B737/777, A320/330, 군용기, 일부 비즈니스 제트기(G550)</p>
+    </div>
+    <div class="card card-amber">
+      <h3>리튬이온 배터리 (Li-Ion)</h3>
+      <span class="badge ba">최신 대형기</span>
+      <p style="margin-top:8px">· 셀 기전력: <strong>3.6V/cell</strong></p>
+      <p>· B787, A350, G500/600, 일부 군용기·드론</p>
+      <div class="callout callout-warn" style="margin-top:8px">
+        <span class="callout-icon">🔥</span>
+        <div class="callout-content"><strong>폭발 위험 이유</strong><p>Li의 높은 반응성 / 공기·수분 접촉 시 발화 / 외부 충격·단락 시 열폭주 → 금속 캔 폭발</p></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>배터리 저장과 서비싱 — 주의!</h2>
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-content">
+      <strong>WARNING</strong>
+      <p>① 동일 지역에 황산납 배터리와 니켈카드뮴 배터리를 저장하고 점검하는 것은 대단히 위험하다.<br>② 알칼리성전해액(NiCd) 안으로 산성전해액(납산)의 유입은 니켈카드뮴 배터리를 파괴하고 반대의 경우도 같다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ⑪ 용량 & 정격 -->
+<div id="sec-capacity" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 11</div>
+    <h1>배터리 용량 & 정격 (2.2.1.3 / 2.2.1.4)</h1>
+  </div>
+
+  <h2>용량의 정의 (Capacity)</h2>
+  <div class="card card-purple">
+    <p>실온에서 정해진 <strong>차단 전압(cut-off voltage)</strong>으로 명시된 <strong>방전율(discharge rate)</strong>로 전달되는 <strong>암페어 아워(AH)</strong>로서 정량적으로 측정한다.</p>
+    <div class="formula">용량 (AH) = 방전 전류 (A) × 방전 시간 (h)</div>
+    <p style="font-size:12px;color:var(--text3)">차단 전압 = 셀당 0.1V</p>
+  </div>
+
+  <h2>배터리 유효 용량에 영향을 주는 4가지 요인</h2>
+  <div class="grid2">
+    <div class="card card-purple"><h3>① 셀 디자인</h3><p>셀 구조, 판의 두께, 하드웨어, 단자 설계가 온도·방전율 등 사용 조건에 따라 성능을 좌우. 설계 단계에서 이미 결정.</p></div>
+    <div class="card card-teal"><h3>② 방전율</h3><p><strong>고전류율이 저전류율보다 더 적은 용량을 산출</strong>. 전류를 많이 뽑을수록 실제 사용 가능한 용량이 줄어든다.</p></div>
+    <div class="card card-amber"><h3>③ 온도</h3><p>용량과 전압준위는 배터리 온도가 <strong>16°C~32°C (60°F~90°F)</strong> 범위에서 높거나 낮은 극단으로 갈수록 감소.</p></div>
+    <div class="card card-blue"><h3>④ 충전율</h3><p>대개 충전율(charge rate)이 높을수록 더 큰 용량을 산출. 단, 과충전 주의.</p></div>
+  </div>
+
+  <h2>배터리 정격 — 1시간 정격</h2>
+  <div class="card card-purple">
+    <p>배터리가 <strong>1시간 동안</strong> 지속적으로 공급(방전)을 하는 경우로, 아래 전압 기준을 만족할 때를 의미한다.</p>
+    <div class="grid3" style="margin-top:12px">
+      <div class="stat-card"><div class="stat-label">일반 기준 (NiCd 등)</div><div class="stat-value" style="color:var(--purple-light)">셀당 1.67V 이상 또는 24V</div></div>
+      <div class="stat-card"><div class="stat-label">황산납 (24V 시스템)</div><div class="stat-value" style="color:var(--teal-light)">20V</div></div>
+      <div class="stat-card"><div class="stat-label">황산납 12V짜리</div><div class="stat-value" style="color:var(--amber)">10V</div></div>
+    </div>
+    <div class="callout callout-tip" style="margin-top:12px">
+      <span class="callout-icon">✅</span>
+      <div class="callout-content"><p><strong>흐름 암기:</strong> 셀당 1.67V 이상 또는 24V → 황산납(24V 시스템)은 20V → 12V짜리 황산납은 10V<br>즉, 배터리 시스템 전압에 따라 1시간 정격의 최저 허용 전압이 달라진다.</p></div>
+    </div>
+  </div>
+
+  <h2>비상률 (Emergency Rate)</h2>
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚡</span>
+    <div class="callout-content">
+      <strong>비상률 = 30분 동안 필수 버스에 공급하는 데 필요한 총 필수 부하</strong>
+      <p>비상 상황에서 항공기가 안전하게 착륙하는 데 필요한 최소 전기 공급 시간. 배터리 용량 선정 시 반드시 충족해야 함.</p>
+    </div>
+  </div>
+
+  <h2>시험 핵심 암기표</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>항목</th><th>내용</th><th>암기 포인트</th></tr>
+      <tr><td>용량 단위</td><td>암페어 아워 (AH)</td><td>AH = A × h</td></tr>
+      <tr><td>차단 전압</td><td>셀당 0.1V</td><td>cut-off voltage = 0.1V/cell</td></tr>
+      <tr><td>1시간 정격 (일반)</td><td>셀당 1.67V 이상 또는 24V</td><td>NiCd 등 기준</td></tr>
+      <tr><td>1시간 정격 (황산납 24V)</td><td style="color:var(--teal-light);font-weight:600">20V</td><td>12셀 황산납</td></tr>
+      <tr><td>1시간 정격 (황산납 12V)</td><td style="color:var(--amber);font-weight:600">10V</td><td>6셀 황산납</td></tr>
+      <tr><td>비상률 기준 시간</td><td style="color:var(--red);font-weight:600">30분</td><td>emergency rate = 30 min</td></tr>
+      <tr><td>용량 감소 원인</td><td>고전류 방전, 극단적 온도</td><td>전류↑ → 실용량↓</td></tr>
+      <tr><td>최적 온도 범위</td><td>16~32°C (60~90°F)</td><td>NiCd 정격 용량 온도와 동일</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ⑫ 충전 방식 -->
+<div id="sec-charging" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 12</div>
+    <h1>배터리 충전 방식 (2.2.1.8)</h1>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>정전압 충전 (CV — Constant Voltage)</h3>
+      <span class="badge bp">비행 중 항공기 배터리 충전 방법</span>
+      <p style="margin-top:8px">· 전압을 일정하게 유지하는 방식</p>
+      <p>· 전압을 일정하게 유지하기 위해 <strong>전류값이 변한다</strong></p>
+      <p>· IDG가 충전용 전압을 항공기 배터리에 직접 공급</p>
+      <p>· 12V 시스템: 발전기 전압 약 <strong>14.25V</strong>로 조정</p>
+      <p>· 24V 장치: <strong>28~28.5V</strong> 사이에 있어야 함</p>
+      <p>· 황산납 배터리: 셀당 전압 <strong>2.35V 초과 금지</strong></p>
+    </div>
+    <div class="card card-teal">
+      <h3>정전류 충전 (CC — Constant Current)</h3>
+      <span class="badge bt">니켈카드뮴 배터리 충전에 적합</span>
+      <p style="margin-top:8px">· 외부에서 공급하는 전류를 일정하게 유지하면서 충전</p>
+      <p>· 전류를 일정하게 유지하기 위해 <strong>전압값이 변한다</strong></p>
+      <p>· 다양한 전압의 여러 배터리를 동일한 시스템에서 한 번에 충전 가능</p>
+      <p>· 비행기 외부 배터리 공장 등에서 배터리를 충전하기에 가장 용이</p>
+      <p>· 과충전 또는 추가 충전(top-up) 시: 셀 전압 1.6V 넘어 서서히 떨어지기 시작</p>
+      <p>· 어떤 셀도 1.71V 이상 올라가거나 1.55V 이하로 떨어지지 않아야 함</p>
+    </div>
+  </div>
+
+  <h2>CC/CV 충전 비교표</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>구분</th><th>CC (Constant Current)</th><th>CV (Constant Voltage)</th></tr>
+      <tr><td>제어 방식</td><td>전류를 일정하게 유지</td><td>전압을 일정하게 유지</td></tr>
+      <tr><td>전류 변화</td><td>일정 (고정)</td><td>점점 감소</td></tr>
+      <tr><td>전압 변화</td><td>점점 증가</td><td>일정 (고정)</td></tr>
+      <tr><td>충전 속도</td><td>빠름</td><td>느림</td></tr>
+      <tr><td>충전 구간</td><td>초기 (~70~80%)</td><td>후반 (~80~100%)</td></tr>
+      <tr><td>목적</td><td>빠른 에너지 충전</td><td>과충전 방지 및 안정화</td></tr>
+      <tr><td>배터리 상태</td><td>아직 여유 있음</td><td>거의 충전 완료 상태</td></tr>
+      <tr><td>위험 요소</td><td>상대적으로 적음</td><td>과전압 시 위험</td></tr>
+      <tr><td>역할 비유</td><td>빠르게 물 채우기</td><td>넘치지 않게 조절</td></tr>
+    </table>
+  </div>
+
+  <h2>CC/CV 7단계 충전 절차</h2>
+  <div class="flow">
+    <div class="flow-item"><div class="flow-num">1</div><div class="flow-content"><div class="flow-title">초기 상태 확인 (Pre-check)</div><div class="flow-desc">전압, 온도, SOC(State of Charge) 점검 / 시스템 모니터링 / 이상 상태 사전 차단</div></div></div>
+    <div class="flow-item"><div class="flow-num">2</div><div class="flow-content"><div class="flow-title">프리 차지 (Pre-charge)</div><div class="flow-desc">낮은 전류로 서서히 충전 / 저전류 제어 / 과방전 배터리 보호</div></div></div>
+    <div class="flow-item"><div class="flow-num">3</div><div class="flow-content"><div class="flow-title">CC 단계</div><div class="flow-desc">일정 전류로 충전, 전압 상승 / 정전류(CC) / 빠른 충전</div></div></div>
+    <div class="flow-item"><div class="flow-num">4</div><div class="flow-content"><div class="flow-title">전환 지점</div><div class="flow-desc">최대 전압 도달 시 모드 변경 / CC → CV 전환 / 과전압 방지</div></div></div>
+    <div class="flow-item"><div class="flow-num">5</div><div class="flow-content"><div class="flow-title">CV 단계</div><div class="flow-desc">전압 유지, 전류 감소 / 정전압(CV) / 안전한 완충</div></div></div>
+    <div class="flow-item"><div class="flow-num">6</div><div class="flow-content"><div class="flow-title">종료 조건</div><div class="flow-desc">전류가 일정 이하로 감소 시 종료 / 컷오프 기준 적용 / 과충전 방지</div></div></div>
+    <div class="flow-item"><div class="flow-num">7</div><div class="flow-content"><div class="flow-title">충전 후 처리</div><div class="flow-desc">충전 차단 또는 유지 / 시스템 제어 / 안정 상태 유지</div></div></div>
+  </div>
+</div>
+
+<!-- ⑬ 배터리 비교표 -->
+<div id="sec-compare" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 13</div>
+    <h1>배터리 종합 비교표 (시험 핵심 암기)</h1>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>구분</th><th>납 (Lead-Acid)</th><th>니켈-카드뮴 (NiCd)</th><th>리튬-이온 (Li-Ion)</th></tr>
+      <tr><td><strong>셀 전압</strong></td><td style="color:var(--purple-light);font-weight:700">2V / cell</td><td style="color:var(--teal-light);font-weight:700">1.2V / cell</td><td style="color:var(--amber);font-weight:700">3.6V / cell</td></tr>
+      <tr><td>방전 종지전압</td><td>1.75V / cell</td><td>1.08V / cell</td><td>—</td></tr>
+      <tr><td>충전(가스발생) 전압</td><td>2.5V / cell</td><td>1.4V / cell</td><td>—</td></tr>
+      <tr><td>충전 종지전압</td><td>2.75V / cell</td><td>—</td><td>—</td></tr>
+      <tr><td>에너지 밀도</td><td>낮음 (20~50Wh/kg)</td><td>보통 (30~70Wh/kg)</td><td>매우 높음 (100~200Wh/kg)</td></tr>
+      <tr><td>충·방전 횟수</td><td>낮음 (~200회)</td><td>보통 (~500회)</td><td>높음 (~1,000회)</td></tr>
+      <tr><td>자연방전</td><td>높음 (~20%/월)</td><td>높음 (~30~40%/월)</td><td>거의 없음 (~1%/년)</td></tr>
+      <tr><td>메모리 효과</td><td>낮음</td><td style="color:var(--red);font-weight:600">높음</td><td>없음</td></tr>
+      <tr><td>가격</td><td>낮음</td><td>높음</td><td>다소 높음</td></tr>
+      <tr><td>특징</td><td>경제성, 낮은 에너지 밀도, 무거움</td><td>낮은 에너지 밀도, 메모리 효과</td><td>경량, 고출력, 폭발 위험성, 열화/스웰링</td></tr>
+      <tr><td><strong>항공 용도</strong></td><td>경항공기, 소형 훈련기, 비상 조명</td><td style="color:var(--teal-light)"><strong>B737/777/A320 등 대형 여객기 표준</strong></td><td>B787, A350, 드론, UAM</td></tr>
+    </table>
+  </div>
+
+  <h2>리튬이온 대비 부피·무게 비교</h2>
+  <div class="grid3">
+    <div class="stat-card"><div class="stat-label">납축전지 (부피)</div><div class="stat-value" style="color:var(--red)">9.7배</div></div>
+    <div class="stat-card"><div class="stat-label">NiCd (부피)</div><div class="stat-value" style="color:var(--amber)">1.9배</div></div>
+    <div class="stat-card"><div class="stat-label">Li-Ion (부피)</div><div class="stat-value" style="color:var(--teal-light)">1배 기준</div></div>
+    <div class="stat-card"><div class="stat-label">납축전지 (무게)</div><div class="stat-value" style="color:var(--red)">6.7배</div></div>
+    <div class="stat-card"><div class="stat-label">NiCd (무게)</div><div class="stat-value" style="color:var(--amber)">2.5배</div></div>
+    <div class="stat-card"><div class="stat-label">Li-Ion (무게)</div><div class="stat-value" style="color:var(--teal-light)">1배 기준</div></div>
+  </div>
+
+  <h2>납축전지 셀 전압 특성 (암기)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>항목</th><th>전압</th></tr>
+      <tr><td>셀 단위전압</td><td style="color:var(--purple-light);font-weight:600">2V/cell</td></tr>
+      <tr><td>셀당 방전 종지전압</td><td style="color:var(--teal-light);font-weight:600">1.75V/cell</td></tr>
+      <tr><td>충전 전압 (가스 발생전압)</td><td style="color:var(--amber);font-weight:600">2.5V/cell</td></tr>
+      <tr><td>충전 종지전압</td><td style="color:var(--red);font-weight:600">2.75V/cell</td></tr>
+    </table>
+  </div>
+
+  <h2>니켈-카드뮴 셀 전압 특성 (암기)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>항목</th><th>전압</th></tr>
+      <tr><td>셀 단위전압</td><td style="color:var(--purple-light);font-weight:600">1.2V/cell</td></tr>
+      <tr><td>셀당 방전 종지전압</td><td style="color:var(--teal-light);font-weight:600">1.08V/cell</td></tr>
+      <tr><td>충전 종지전압 (가스 발생전압)</td><td style="color:var(--amber);font-weight:600">1.4V/cell</td></tr>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-content">
+      <strong>CAUTION (NiCd 충전 주의)</strong>
+      <p>정전압 충전 소스를 사용하면 셀이 단락된 NiCd 배터리가 과충전으로 인해 과열되고 열 폭주 발생 → 항공기 안전 위험!<br>
+      재조정 주기(reconditioning cycle) 및 충전 주기(charging cycle)에 대한 충전 방식(charging regime)은 항공기제작사가 정의하므로 반드시 준수.</p>
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+// ── 탭 활성화 (내부 공통 로직) ──────────────────────────────
+function activateTab(id) {
+  const target = document.getElementById('sec-' + id);
+  if (!target) return;
+
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  target.classList.add('active');
+
+  // 사이드바 nav-item 중 해당 id를 show()에 전달하는 항목을 active로
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') === "show('" + id + "')") {
+      n.classList.add('active');
+    }
+  });
+
+  // 스크롤 최상단 이동 (main 영역 + window 모두)
+  const main = document.querySelector('.main');
+  if (main) main.scrollTop = 0;
+  window.scrollTo({ top: 0 });
+}
+
+// ── 탭 클릭 시 호출 (URL hash 업데이트 포함) ─────────────────
+function show(id) {
+  activateTab(id);
+
+  // URL hash 변경 (pushState로 히스토리에 쌓기)
+  history.pushState({ tab: id }, '', '#' + id);
+
+  // 모바일에서 메뉴 선택 후 자동으로 사이드바 닫기
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
+// ── 브라우저 뒤로가기 / 앞으로가기 대응 ──────────────────────
+window.addEventListener('popstate', (e) => {
+  const id = e.state && e.state.tab
+    ? e.state.tab
+    : (location.hash.replace('#', '') || 'overview');
+  activateTab(id);
+});
+
+// ── 페이지 최초 로드 시 hash 확인 ──────────────────────────
+(function init() {
+  const id = location.hash.replace('#', '') || 'overview';
+  activateTab(id);
+  // 초기 상태도 history에 등록
+  history.replaceState({ tab: id }, '', '#' + id);
+})();
+
+// ── 사이드바 토글 ────────────────────────────────────────────
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('overlay');
+  const btn = document.getElementById('hamburger');
+  if (sidebar.classList.contains('open')) {
+    closeSidebar();
+  } else {
+    sidebar.classList.add('open');
+    overlay.classList.add('visible');
+    btn.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('visible');
+  document.getElementById('hamburger').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── 창 크기 변경 시 데스크탑으로 전환되면 사이드바 상태 초기화 ──
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    closeSidebar();
+  }
+});
+</script>
+</body>
+</html>

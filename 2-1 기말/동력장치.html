@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>항공기 동력장치 시험 정리노트</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg2: #1a1d27;
+    --bg3: #222636;
+    --card: #1e2132;
+    --border: #2e3350;
+    --accent1: #4f8ef7;
+    --accent2: #5bd4b0;
+    --accent3: #f4a946;
+    --accent4: #e05c7a;
+    --accent5: #a07ef4;
+    --text: #e8eaf2;
+    --text2: #9aa3c2;
+    --text3: #6470a0;
+    --green: #4caf80;
+    --red: #e05c7a;
+    --yellow: #f4a946;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  /* 헤더 */
+  .header {
+    background: linear-gradient(135deg, #141829 0%, #1a2040 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 2rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .header h1 { font-size: 1.5rem; font-weight: 700; color: var(--accent1); letter-spacing: -0.02em; }
+  .header p { color: var(--text2); font-size: 0.85rem; }
+  .badge { background: var(--accent1); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; }
+  /* 탭 네비 */
+  .nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { border-color: var(--accent1); color: var(--accent1); }
+  .nav-btn.active { background: var(--accent1); border-color: var(--accent1); color: #fff; font-weight: 600; }
+  /* 컨텐츠 영역 */
+  .content { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .section { display: none; }
+  .section.active { display: block; }
+  /* 카드 */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon { font-size: 1.1rem; }
+  /* 섹션 헤더 */
+  .sec-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .sec-header h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); }
+  .sec-num {
+    background: var(--accent1);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  /* 리스트 스타일 */
+  .point-list { list-style: none; }
+  .point-list li {
+    padding: 5px 0 5px 1.2rem;
+    position: relative;
+    color: var(--text);
+    font-size: 0.88rem;
+    border-bottom: 1px solid rgba(46,51,80,0.4);
+  }
+  .point-list li:last-child { border-bottom: none; }
+  .point-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 0.75rem;
+    top: 6px;
+  }
+  /* 강조 텍스트 */
+  .hl { color: var(--accent3); font-weight: 600; }
+  .hl-blue { color: var(--accent1); font-weight: 600; }
+  .hl-red { color: var(--accent4); font-weight: 600; }
+  .hl-green { color: var(--green); font-weight: 600; }
+  .hl-purple { color: var(--accent5); font-weight: 600; }
+  /* 2단 그리드 */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  @media (max-width: 680px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+  /* 수식 박스 */
+  .formula {
+    background: var(--bg3);
+    border-left: 3px solid var(--accent1);
+    border-radius: 4px 8px 8px 4px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: var(--accent2);
+  }
+  /* 경고/노트 박스 */
+  .note-box {
+    background: rgba(79,142,247,0.08);
+    border: 1px solid rgba(79,142,247,0.25);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    color: var(--text2);
+  }
+  .warn-box {
+    background: rgba(244,169,70,0.08);
+    border: 1px solid rgba(244,169,70,0.3);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    color: var(--yellow);
+  }
+  .danger-box {
+    background: rgba(224,92,122,0.08);
+    border: 1px solid rgba(224,92,122,0.3);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+    font-size: 0.85rem;
+    color: var(--accent4);
+  }
+  /* 비교 테이블 */
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 0.75rem 0; }
+  .compare-table th {
+    background: var(--bg3);
+    color: var(--accent1);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    border: 1px solid var(--border);
+  }
+  .compare-table td {
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .compare-table .plus { color: var(--green); }
+  .compare-table .minus { color: var(--red); }
+  /* 다이어그램 박스 */
+  .diagram-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin: 0.75rem 0;
+    text-align: center;
+  }
+  /* 흐름 다이어그램 */
+  .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 0.75rem 0; }
+  .flow-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .flow-box.hot { border-color: var(--accent4); color: var(--accent4); }
+  .flow-box.cool { border-color: var(--accent1); color: var(--accent1); }
+  .flow-box.neutral { border-color: var(--accent2); color: var(--accent2); }
+  .arrow { color: var(--text3); font-size: 1rem; }
+  /* 태그 */
+  .tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    margin: 2px;
+  }
+  .tag-blue { background: rgba(79,142,247,0.15); color: var(--accent1); }
+  .tag-green { background: rgba(76,175,128,0.15); color: var(--green); }
+  .tag-red { background: rgba(224,92,122,0.15); color: var(--accent4); }
+  .tag-yellow { background: rgba(244,169,70,0.15); color: var(--yellow); }
+  .tag-purple { background: rgba(160,126,244,0.15); color: var(--accent5); }
+  /* 시험 포인트 */
+  .exam-point {
+    background: rgba(244,169,70,0.07);
+    border: 1px solid rgba(244,169,70,0.35);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.85rem;
+  }
+  .exam-point::before { content: '⭐ 시험 포인트: '; color: var(--yellow); font-weight: 700; }
+  /* 구분선 */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+  /* SVG 다이어그램 */
+  svg text { font-family: 'Noto Sans KR', sans-serif; }
+  /* 미니 카드 */
+  .mini-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+  .mini-card .label { font-size: 0.75rem; color: var(--text3); margin-bottom: 4px; }
+  .mini-card .value { font-size: 1.1rem; font-weight: 700; color: var(--accent2); }
+  /* 냉각 방법 카드 */
+  .cooling-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    border-top: 3px solid var(--accent1);
+  }
+  .cooling-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--accent1); margin-bottom: 0.5rem; }
+  .progress-bar { height: 6px; background: var(--border); border-radius: 3px; margin: 4px 0 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="badge">동력장치 II</div>
+    <div>
+      <h1>✈ 항공기 동력장치 시험 정리노트</h1>
+      <p>Ch.4 연소기 · Ch.5 터빈 · Ch.6 배기계통 · Ch.7 연료계통 — 핵심 개념 완전 정리</p>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="nav-btn active" onclick="showSection('combustor')">🔥 Ch.4 연소기</button>
+    <button class="nav-btn" onclick="showSection('turbine')">⚙️ Ch.5 터빈</button>
+    <button class="nav-btn" onclick="showSection('exhaust')">💨 Ch.6 배기계통</button>
+    <button class="nav-btn" onclick="showSection('fuel')">⛽ Ch.7 연료계통</button>
+    <button class="nav-btn" onclick="showSection('summary')">📋 핵심 요약</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ==============================
+     Ch.4 연소기 (Combustor)
+     ============================== -->
+<div class="section active" id="combustor">
+
+  <div class="sec-header">
+    <div class="sec-num">4</div>
+    <h2>연소기 (Combustor) — Fundamentals</h2>
+  </div>
+
+  <!-- 개요 -->
+  <div class="card">
+    <div class="card-title">🔥 연소기 역할 & 기본 구성</div>
+    <ul class="point-list">
+      <li>연소기는 <span class="hl">엔진의 심장</span> — 연료를 연소시켜 열에너지 생성</li>
+      <li>구성: <span class="hl-blue">외부 케이스 + 내부 라이너 + 연료 분사 시스템 + 점화 시동 시스템</span></li>
+      <li>고온을 견딜 수 있는 특수 재료로 제작</li>
+      <li>연소 후 가스의 온도는 터빈 노즐 안내 날개로 들어가기엔 너무 높음 → 전체 공기의 약 <span class="hl">60%</span>는 화염관으로 진입해 냉각</li>
+    </ul>
+    <div class="note-box">💡 연소기 기능: 열에너지를 가하여 가스를 팽창시키고 터빈 부분으로 가속 → 배기 노즐 통과 시 터빈 회전 → 추력 발생</div>
+  </div>
+
+  <!-- 디퓨저 -->
+  <div class="card">
+    <div class="card-title">📐 디퓨저 (Diffuser)</div>
+    <ul class="point-list">
+      <li>기능: 속도 에너지 → 압력 에너지 변환 (<span class="hl">Velocity energy → Pressure energy</span>)</li>
+      <li>압축기와 연소기 사이 부분 = <span class="hl-blue">압축기-디퓨저</span></li>
+      <li>확산형 덕트이며, 압축기 케이싱에 볼트로 고정</li>
+      <li>가스 터빈 엔진에서 <span class="hl">가장 높은 압력 지점</span></li>
+      <li>디퓨저 입구 마하수: <span class="hl">M ≈ 0.5</span> → 출구: <span class="hl">M ≈ 0.35</span></li>
+    </ul>
+    <div class="warn-box">⚠️ 마하 수가 너무 낮아지면 확산형 덕트에서 공기 흐름이 벽면에서 분리되어 난류 발생 → 현재 평균 최저 속도는 마하 0.35</div>
+    <div class="diagram-box">
+      <svg width="480" height="80" viewBox="0 0 480 80">
+        <rect x="0" y="25" width="80" height="30" rx="4" fill="#222636" stroke="#2e3350"/>
+        <text x="40" y="35" fill="#9aa3c2" font-size="10" text-anchor="middle">압축기</text>
+        <text x="40" y="48" fill="#4f8ef7" font-size="10" text-anchor="middle">M=0.5</text>
+        <polygon points="80,25 150,15 150,65 80,55" fill="#1e2132" stroke="#4f8ef7"/>
+        <text x="115" y="44" fill="#5bd4b0" font-size="10" text-anchor="middle">Diffuser</text>
+        <text x="115" y="56" fill="#f4a946" font-size="9" text-anchor="middle">M→0.35</text>
+        <rect x="150" y="10" width="100" height="60" rx="4" fill="#222636" stroke="#e05c7a"/>
+        <text x="200" y="37" fill="#e05c7a" font-size="10" text-anchor="middle">연소기</text>
+        <text x="200" y="50" fill="#9aa3c2" font-size="9" text-anchor="middle">가장 높은 P</text>
+        <rect x="255" y="18" width="90" height="44" rx="4" fill="#222636" stroke="#2e3350"/>
+        <text x="300" y="42" fill="#9aa3c2" font-size="10" text-anchor="middle">터빈</text>
+        <line x1="345" y1="40" x2="390" y2="40" stroke="#5bd4b0" stroke-width="1.5" marker-end="url(#arr)"/>
+        <text x="400" y="44" fill="#5bd4b0" font-size="10">추력</text>
+        <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5bd4b0"/></marker></defs>
+      </svg>
+      <p style="font-size:0.78rem; color:var(--text3); margin-top:6px;">압축기 → 디퓨저(속도↓ 압력↑) → 연소기(최고압) → 터빈 → 추력</p>
+    </div>
+  </div>
+
+  <!-- 공기 흐름 -->
+  <div class="card">
+    <div class="card-title">💨 연소기 내 공기 흐름</div>
+    <div class="grid2">
+      <div>
+        <p style="font-size:0.85rem; color:var(--accent3); font-weight:700; margin-bottom:8px;">1차 공기 (Primary Air)</p>
+        <ul class="point-list">
+          <li>연료 노즐 영역 → 연소 지원</li>
+          <li>스월러(Swirler) 통과 → 속도 감소</li>
+          <li>약 절반: 스월 베인 통해 축 방향</li>
+          <li>나머지: 라이너 앞쪽 1/3 작은 구멍</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:0.85rem; color:var(--accent1); font-weight:700; margin-bottom:8px;">2차 공기 (Secondary Air)</p>
+        <ul class="point-list">
+          <li>냉각 용도</li>
+          <li>라이너 안·바깥 표면 냉각막 형성</li>
+          <li>화염을 중앙에 집중 → 금속 표면에 닿지 않도록</li>
+          <li>라이너 뒤쪽 유입 → 터빈 입구 적합 온도로 희석</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="divider">
+    <p style="font-size:0.85rem; color:var(--text2); margin-bottom:8px;">연소기 구역별 역할:</p>
+    <div class="flow" style="justify-content:center;">
+      <div class="flow-box hot">Primary Zone<br><span style="font-size:0.75rem">혼합 & 연소</span></div>
+      <span class="arrow">→</span>
+      <div class="flow-box neutral">Intermediate Zone<br><span style="font-size:0.75rem">연소 완료 (2CO+O₂→2CO₂)</span></div>
+      <span class="arrow">→</span>
+      <div class="flow-box cool">Dilution Zone<br><span style="font-size:0.75rem">냉각 (희석)</span></div>
+    </div>
+    <div class="note-box">초기 엔진: 25~30% 연소 / 70~75% 냉각 &nbsp;|&nbsp; 현대 엔진: <span style="color:var(--accent3);font-weight:700">45% 연소 / 35% 연소기 냉각 / 20% 터빈 냉각</span></div>
+  </div>
+
+  <!-- 스월러 -->
+  <div class="card">
+    <div class="card-title">🌀 스월러 (Swirler)</div>
+    <ul class="point-list">
+      <li>연료와 공기의 혼합 촉진</li>
+      <li>화염 길이를 짧게 유지 → 연소실 길이 축소, 가스 터빈 무게 절감</li>
+      <li>연료 노즐 하류에 재순환 영역을 만들어 <span class="hl">화염이 연소기 내부에 안정적으로 유지</span></li>
+      <li>공기의 축 방향 움직임을 <span class="hl">5~6fps</span> 수준으로 낮추는 재순환 영역 생성</li>
+    </ul>
+  </div>
+
+  <!-- 연소 과정 3단계 -->
+  <div class="card">
+    <div class="card-title">⚗️ 연소 과정 3단계</div>
+    <div class="grid3">
+      <div class="mini-card">
+        <div class="label">1단계</div>
+        <div style="color:var(--accent5); font-weight:700; font-size:0.88rem;">흡열 분해</div>
+        <p style="font-size:0.8rem; color:var(--text2); margin-top:4px;">Endothermic Dissociation<br>연료 분자 → 더 작은 탄화수소</p>
+        <div class="formula" style="font-size:0.78rem;">CₙHₘ + E → 소형 탄화수소</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">2단계 (에너지 80%)</div>
+        <div style="color:var(--accent3); font-weight:700; font-size:0.88rem;">CO & H₂O 발열 생성</div>
+        <p style="font-size:0.8rem; color:var(--text2); margin-top:4px;">Exothermic Formation<br>CO와 H₂O의 빠른 발열 생성</p>
+        <div class="formula" style="font-size:0.78rem;">CₙHₘ + O₂ → CO + H₂O + Heat</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">3단계 (느림)</div>
+        <div style="color:var(--green); font-weight:700; font-size:0.88rem;">CO → CO₂ 산화</div>
+        <p style="font-size:0.8rem; color:var(--text2); margin-top:4px;">Exothermic Oxidation<br>CO가 CO₂로 산화되는 느린 과정</p>
+        <div class="formula" style="font-size:0.78rem;">CO + ½O₂ → CO₂ + 잔류 에너지</div>
+      </div>
+    </div>
+    <div class="exam-point">연소 에너지의 약 80%가 2단계(CO 생성)에서 방출됨. CO→CO₂의 느린 연소는 연소 영역 길이의 75% 필요</div>
+  </div>
+
+  <!-- 연소 효율 & 강도 -->
+  <div class="card">
+    <div class="card-title">📊 연소 효율 & 연소 강도</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent2); font-weight:700; margin-bottom:8px;">1. 연소 효율 (Combustion Efficiency)</p>
+        <div class="formula">η = 실제 방출 에너지 / 이론적 사용 가능 에너지<br>= 연소된 연료량 / 총 연료 투입량</div>
+        <ul class="point-list">
+          <li>일반적인 연소 효율: <span class="hl">99%</span></li>
+          <li>연소 생성물의 화학 분석으로 확인 가능</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent2); font-weight:700; margin-bottom:8px;">2. 연소 강도 (Combustion Intensity)</p>
+        <div class="formula">연소 강도 = 열 방출률 / (연소실 부피 × 압력)<br>[kW / m³·atm]</div>
+        <ul class="point-list">
+          <li>항공 시스템: <span class="hl">2~5×10⁴ kW/m³·atm</span></li>
+          <li>산업용 가스터빈: 10분의 1 수준</li>
+          <li>연소 강도 낮을수록 설계 요구 충족이 쉬움</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 압력 손실 -->
+  <div class="card">
+    <div class="card-title">📉 연소기 압력 손실</div>
+    <div class="grid2">
+      <div>
+        <ul class="point-list">
+          <li>연소기 일반적인 압력 손실: <span class="hl">2~4%</span></li>
+          <li>압력 손실 원인: 마찰, 난류, 온도 상승</li>
+          <li><span class="hl-blue">Cold Loss (Kᵢ)</span>: 마찰 손실 (더 큰 값)</li>
+          <li><span class="hl-red">Hot Loss (K₂)</span>: 온도 상승으로 인한 손실</li>
+        </ul>
+        <div class="formula">PLF = Kᵢ + K₂(T₀₃/T₀₁ - 1)<br>(PLF = 냉각 손실 + 열간 손실)</div>
+      </div>
+      <div>
+        <div class="note-box">💡 온도가 상승하면 가스의 밀도가 낮아져 속도가 빨라지므로 → 압력 손실 반드시 발생<br><br>터빈의 효율은 압력 손실 비율만큼 감소</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 출구 온도 분포 -->
+  <div class="card">
+    <div class="card-title">🌡️ 연소기 출구 온도 분포 (OTDF/RTDF)</div>
+    <ul class="point-list">
+      <li>터빈 블레이드는 허브 쪽에서 가장 높은 온도와 응력을 견뎌야 함</li>
+      <li>최고 온도: 블레이드 높이의 약 <span class="hl">1/3</span> 지점 (Hub 위쪽)</li>
+      <li><span class="hl-blue">Traverse Factor (트래버스 계수)</span>: 노즐 설계의 평균 온도 상승으로 나눈 최고 가스 온도와 평균 가스 온도의 차이</li>
+    </ul>
+    <div class="formula" style="font-size:0.82rem;">Traverse Factor = (T_peak - T_mean) / (T_mean temperature rise in nozzle design)<br>터빈 노즐 베인에서 값: 0.05 ~ 0.15 (낮을수록 좋음)</div>
+    <div class="exam-point">Traverse Factor가 높으면 터빈 블레이드 수명 단축 위험 — 낮을수록 좋은 설계</div>
+  </div>
+
+  <!-- 연소기 종류 -->
+  <div class="card">
+    <div class="card-title">🔧 연소기 종류 비교</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>구분</th><th>Can Type (다중 연소실)</th><th>Can-Annular</th><th>Annular (환형)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="hl-green">장점</span></td>
+          <td class="plus">• 유지보수 쉬움<br>• 개발 쉬움<br>• 독립적 정비 가능</td>
+          <td class="plus">• 다중+환형 절충<br>• 테스트 용이</td>
+          <td class="plus">• 길이 짧음<br>• 무게 가벼움<br>• 균일한 출구 유동<br>• 진동 없음<br>• 냉각 효율 우수</td>
+        </tr>
+        <tr>
+          <td><span class="hl-red">단점</span></td>
+          <td class="minus">• 출구 유동 불균일<br>• 진동 심함<br>• 무거움<br>• 길이 김</td>
+          <td class="minus">• 화염 전파 문제<br>• 복잡</td>
+          <td class="minus">• 유지보수 어려움<br>• 개발 어려움<br>• 대형 시험 설비 필요</td>
+        </tr>
+        <tr>
+          <td>사용처</td>
+          <td>구형 엔진 (현재 거의 미사용)</td>
+          <td>중형 엔진</td>
+          <td><span class="hl">현재 대부분 엔진</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="exam-point">환형 연소기(Annular)의 최대 장점: 동일한 출력에서 적정 연소통 길이의 75%에 불과하여 와류와 비율을 크게 절감 가능</div>
+  </div>
+
+  <!-- 연소기 냉각 -->
+  <div class="card">
+    <div class="card-title">❄️ 연소기 냉각 방법</div>
+    <div class="grid3">
+      <div class="cooling-card">
+        <h4>① 충돌 냉각 (Impingement)</h4>
+        <div class="progress-bar"><div class="progress-fill" style="width:70%; background:var(--accent1);"></div></div>
+        <p style="font-size:0.8rem; color:var(--text2);">고압 공기를 라이너 표면에 직접 분사 → 국부적 집중 냉각</p>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent2);">
+        <h4>② 막 냉각 (Film Cooling)</h4>
+        <div class="progress-bar"><div class="progress-fill" style="width:85%; background:var(--accent2);"></div></div>
+        <p style="font-size:0.8rem; color:var(--text2);">공기막이 라이너 표면을 보호. 탄소 퇴적 방지</p>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent3);">
+        <h4>③ TBC (열차폐 코팅)</h4>
+        <div class="progress-bar"><div class="progress-fill" style="width:60%; background:var(--accent3);"></div></div>
+        <p style="font-size:0.8rem; color:var(--text2);">ZrO₂-Y₂O₃ 세라믹 코팅. 금속 온도 100~150℃ 낮춤</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 배출물 -->
+  <div class="card">
+    <div class="card-title">🌫️ 배출물 (Emissions)</div>
+    <p style="font-size:0.85rem; color:var(--text2); margin-bottom:8px;">법적 규제 주요 오염물질 4가지:</p>
+    <div class="grid2">
+      <div>
+        <span class="tag tag-red">미연소 탄화수소 (UHC)</span>
+        <span class="tag tag-yellow">매연 (탄소 입자)</span>
+        <span class="tag tag-blue">일산화탄소 (CO)</span>
+        <span class="tag tag-purple">질소산화물 (NOx)</span>
+      </div>
+      <div>
+        <ul class="point-list">
+          <li>영향 인자: <span class="hl">압력, 온도, 시간</span></li>
+          <li>NOx: 매우 높은 화염 온도 + 긴 체류 시간</li>
+          <li>대책: 화염을 빨리 냉각, 연소 시간 축소</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ==============================
+     Ch.5 터빈 (Turbine)
+     ============================== -->
+<div class="section" id="turbine">
+
+  <div class="sec-header">
+    <div class="sec-num">5</div>
+    <h2>터빈 (Turbine)</h2>
+  </div>
+
+  <!-- 터빈 개요 -->
+  <div class="card">
+    <div class="card-title">⚙️ 터빈 기본 역할</div>
+    <ul class="point-list">
+      <li>배기가스 압력 에너지 + 열 에너지 → <span class="hl">기계적 에너지</span> 변환 → 압축기 및 부속 장치 구동</li>
+      <li>터보제트: 연소된 연료에서 얻을 수 있는 에너지의 약 <span class="hl">4분의 3</span>이 압축기 구동에 필요</li>
+      <li>터보프롭: 배기가스 에너지의 최대 <span class="hl">90%</span>가 터빈을 통해 프로펠러 구동에 사용</li>
+      <li>터빈 블레이드는 연소기 바로 하류 → 압축기 블레이드보다 <span class="hl-red">훨씬 가혹한 환경</span></li>
+    </ul>
+    <div class="warn-box">⚠️ 고효율 가스 터빈은 높은 터빈 입구 온도(TIT) 요구 → 터빈 블레이드는 녹는점 이상의 고온에서 장시간 작동 & 고속 회전 원심력 견뎌야 함</div>
+  </div>
+
+  <!-- 터빈 구성 요소 -->
+  <div class="card">
+    <div class="card-title">🔩 주요 구성 요소</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:6px;">노즐 (Nozzle / Stationary Blade)</p>
+        <ul class="point-list">
+          <li>연소기에서 방출되는 고온 가스의 압력 에너지 → 운동 에너지 변환</li>
+          <li>수렴형 덕트(Convergent duct) 형성 → 가속</li>
+          <li>가스를 최적 각도로 터빈 버킷으로 유도 → 최대 효율 회전</li>
+          <li>속이 비어 있으며 압축기 공기로 냉각</li>
+          <li>내열성이 가장 중요한 특성</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent1); font-weight:700; margin-bottom:6px;">버킷 (Bucket / Rotor Blade)</p>
+        <ul class="point-list">
+          <li>고온 가스의 운동 에너지 → 기계 에너지 변환</li>
+          <li>Dovetail로 로터 디스크에 고정</li>
+          <li>Cover(Shroud): 버킷 끝부분 가스 누출 방지</li>
+          <li>Fir Tree Base 구조로 디스크에 고정</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 터빈 열역학 -->
+  <div class="card">
+    <div class="card-title">🔬 터빈 열역학 (Turbine Thermodynamics)</div>
+    <ul class="point-list">
+      <li>터빈을 통과하는 유체의 <span class="hl">압력과 온도 감소</span></li>
+      <li>터빈 압력비 TPR = p₀₄/p₀₃ → <span class="hl">항상 1.0보다 작음</span></li>
+      <li>과정: <span class="hl-blue">단열(등엔트로피) 과정</span> — 열 출입 없음, 유체가 터빈과 축을 회전시키는 일을 함</li>
+      <li>열역학 제1법칙에 따라 터빈 일(TW) = 터빈 입구~출구 유체의 엔탈피 변화량</li>
+    </ul>
+    <div class="formula">TW = η_T(h₀₃ - h₀₄) = η_T·c_p·T₀₃·(1 - TPR^((γ-1)/γ))</div>
+    <div class="note-box">💡 연소실에서 나온 가스의 온도가 높을수록 터빈이 추출할 수 있는 에너지가 커짐 → 현대 엔진들이 고온 내열 합금과 냉각 기술을 사용하는 핵심 이유</div>
+    <div class="exam-point">TPR(터빈 압력비) = 터빈을 빠져나가는 공기 압력 / 터빈으로 들어가는 공기 압력 → 항상 1보다 작음</div>
+  </div>
+
+  <!-- 속도 삼각형 -->
+  <div class="card">
+    <div class="card-title">📐 속도 삼각형 (Velocity Triangle)</div>
+    <div class="grid2">
+      <div>
+        <p style="font-size:0.85rem; color:var(--text2); margin-bottom:8px;">유동 속도 두 성분:</p>
+        <ul class="point-list">
+          <li><span class="hl-blue">c</span>: 유체의 절대 속도</li>
+          <li><span class="hl-green">u</span>: 버킷의 접선 속도 (회전 속도)</li>
+          <li><span class="hl-purple">w</span>: 버킷에 대한 유체의 상대 속도</li>
+        </ul>
+        <p style="font-size:0.8rem; color:var(--text3); margin-top:8px;">유동 속도 = 축방향(z) + 접선방향(θ) 성분</p>
+      </div>
+      <div>
+        <div class="diagram-box" style="padding:0.75rem;">
+          <svg width="200" height="120" viewBox="0 0 200 120">
+            <text x="100" y="15" fill="#9aa3c2" font-size="10" text-anchor="middle">Nozzle Row → Bucket Row</text>
+            <line x1="20" y1="60" x2="100" y2="30" stroke="#4f8ef7" stroke-width="2"/>
+            <text x="55" y="38" fill="#4f8ef7" font-size="9">c₂</text>
+            <line x1="20" y1="60" x2="120" y2="60" stroke="#5bd4b0" stroke-width="2"/>
+            <text x="70" y="55" fill="#5bd4b0" font-size="9">u</text>
+            <line x1="100" y1="30" x2="120" y2="60" stroke="#a07ef4" stroke-width="2" stroke-dasharray="4,2"/>
+            <text x="118" y="48" fill="#a07ef4" font-size="9">w₂</text>
+            <circle cx="20" cy="60" r="3" fill="#f4a946"/>
+            <text x="100" y="100" fill="#9aa3c2" font-size="9" text-anchor="middle">c = u + w (벡터합)</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 반작용도 -->
+  <div class="card">
+    <div class="card-title">⚖️ 반작용도 (Degree of Reaction, ξ)</div>
+    <div class="formula">ξ = (로터에서의 엔탈피 변화 / 스테이지 전체 엔탈피 변화) × 100(%)</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:6px;">충동 터빈 (Impulse Turbine, ξ=0%)</p>
+        <ul class="point-list">
+          <li>버킷을 통과하는 기체의 압력·속도: <span class="hl">변화 없음</span></li>
+          <li>방향만 변화 (방향 변화를 통해 에너지 흡수)</li>
+          <li>터빈 반작용 = 0</li>
+          <li>모든 압력 강하가 스테이터(Stator)에서 발생</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent1); font-weight:700; margin-bottom:6px;">반동 터빈 (Reaction Turbine, ξ=50%)</p>
+        <ul class="point-list">
+          <li>버킷 통과 시 속도 증가 + 압력 감소</li>
+          <li>수렴 덕트(Convergent duct)를 통해 유동 가속</li>
+          <li>반작용력으로 에너지 추출</li>
+          <li>대칭형 블레이드 설계 가능</li>
+          <li>스테이터와 로터에서 압력 강하가 절반씩</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exam-point">실제 터빈 버킷은 하나의 블레이드에 충돌형과 반동형이 혼재된 <strong>충동-반동 블레이드(Impulse-Reaction Blade)</strong></div>
+  </div>
+
+  <!-- 슈라우드 블레이드 -->
+  <div class="card">
+    <div class="card-title">🛡️ 슈라우드 블레이드 (Shrouded Blade)</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent2); font-weight:700; margin-bottom:6px;">Shrouded Blade (덮개 있는 블레이드)</p>
+        <ul class="point-list">
+          <li>블레이드 끝부분에 Extension cast 주조 → 인접 블레이드와 맞물려 연속적인 링(Continuous ring) 형성</li>
+          <li>블레이드 진동 특성 향상</li>
+          <li>Sealing effect (효율 증가)</li>
+          <li>Tip 부위 공력 특성 향상</li>
+          <li>개방형 블레이드 끝의 와류 제거</li>
+        </ul>
+        <div class="warn-box" style="margin-top:8px;">⚠️ 무게 증가 → 원심력과 크리프 현상에 더 취약</div>
+      </div>
+      <div>
+        <p style="color:var(--text2); font-weight:700; margin-bottom:6px;">Free Tip Blade (개방형)</p>
+        <ul class="point-list">
+          <li>고속 회전에 적합 (원심력 문제 최소화)</li>
+          <li>Squealer Tip 사용: 마모 시 슈라우드 링과 접촉 최소화</li>
+          <li>팁 누설 와류 문제 존재</li>
+        </ul>
+        <div class="note-box" style="margin-top:8px;">팁 슈라우드를 사용하면 더 가벼운 구조(길고 얇은 날개) 가능</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 냉각 방법 -->
+  <div class="card">
+    <div class="card-title">❄️ 터빈 블레이드 냉각 방법</div>
+    <div class="grid2">
+      <div class="cooling-card">
+        <h4>① 대류 냉각 (Convection)</h4>
+        <div class="progress-bar"><div class="progress-fill" style="width:60%; background:var(--accent1);"></div></div>
+        <p style="font-size:0.8rem; color:var(--text2);">냉각 공기가 터빈 노즐과 버킷 내부를 흐르면서 벽을 통해 열 제거. 현대 가스 터빈에서 가장 널리 사용<br><span style="color:var(--accent1);">q = hA(Tᵥ - T∞)</span></p>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent2);">
+        <h4>② 막 냉각 (Film Cooling)</h4>
+        <div class="progress-bar"><div class="progress-fill" style="width:75%; background:var(--accent2);"></div></div>
+        <p style="font-size:0.8rem; color:var(--text2);">냉각 공기가 날개 표면 작은 구멍으로 주입되어 뜨거운 가스 흐름과 날개 표면 사이에 단열층 형성 → 날개 보호</p>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent3);">
+        <h4>③ 충돌 냉각 (Impingement)</h4>
+        <div class="progress-bar"><div class="progress-fill" style="width:80%; background:var(--accent3);"></div></div>
+        <p style="font-size:0.8rem; color:var(--text2);">고속 공기 분사기로 에어포일 내쪽 표면에 분사 → 금속 표면에서 냉각 공기로 열 전달. 날개 앞전(Leading Edge)에 특히 효과적</p>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent5);">
+        <h4>④ 발한 냉각 (Transpiration)</h4>
+        <div class="progress-bar"><div class="progress-fill" style="width:95%; background:var(--accent5);"></div></div>
+        <p style="font-size:0.8rem; color:var(--text2);">냉각수가 블레이드 재질의 다공성 벽을 통과 → 열 전달이 냉각수와 뜨거운 가스 사이에 직접 일어남. 매우 높은 온도에서도 효과적</p>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:6px;">TBC (Thermal Barrier Coating)</p>
+        <ul class="point-list">
+          <li>두께: <span class="hl">15~25mil</span> (코팅층 1mil = 8~16°F 온도 감소)</li>
+          <li>소재: ZrO₂-Y₂O₃ 기반 세라믹</li>
+          <li>코팅 두께 100~300μm → 금속 온도 <span class="hl">100~150℃</span> 낮춤</li>
+          <li>플라즈마 스프레이 공법으로 도포</li>
+          <li>알루미나이드 코팅: 산화 및 부식 저항성 향상</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent1); font-weight:700; margin-bottom:6px;">ACCS (능동 간극 제어)</p>
+        <ul class="point-list">
+          <li>딜레마: 이륙/상승 시 블레이드 팽창 → 케이스와 간극 좁아짐</li>
+          <li>순항 시 냉각 → 간극 벌어짐 → 효율 저하</li>
+          <li>해결: FADEC 제어 + 외부 터빈 케이스에 압축 공기 분사 → 케이스를 능동적으로 수축 → 팁 누설 최소화</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 크리프 -->
+  <div class="card">
+    <div class="card-title">📈 크리프 (Creep)</div>
+    <ul class="point-list">
+      <li>크리프: 회전 부품에 발생하는 <span class="hl">영구적인 길이 증가</span> 현상</li>
+      <li>원인: 작동 중 열 부하 + 원심력</li>
+      <li>터빈 블레이드가 가열/회전 → 정지 반복(엔진 사이클) → 이전보다 약간 더 길어짐</li>
+    </ul>
+    <div class="grid3">
+      <div class="mini-card">
+        <div class="label">1차 크리프 (비교적 빠름)</div>
+        <div style="color:var(--accent3); font-weight:700;">Primary Phase</div>
+        <p style="font-size:0.8rem; color:var(--text2);">엔진 초기 운전 중 발생</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">2차 크리프 (매우 느림)</div>
+        <div style="color:var(--accent1); font-weight:700;">Secondary Phase</div>
+        <p style="font-size:0.8rem; color:var(--text2);">변형률/시간 그래프 평평 구간. 엔진 제조업체가 터빈 수명 예측의 기준</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">3차 크리프 (빠름 → 파손)</div>
+        <div style="color:var(--accent4); font-weight:700;">Tertiary Phase</div>
+        <p style="font-size:0.8rem; color:var(--text2);">과열, 고출력 장시간 운전, 이물질 유입 시 발생</p>
+      </div>
+    </div>
+    <div class="danger-box">🚨 3차 크리프(가속 크리프) 원인: 과열 / 고출력 장시간 운전 / 이물질 유입에 의한 블레이드 침식</div>
+  </div>
+
+  <!-- 블레이드 재료 -->
+  <div class="card">
+    <div class="card-title">⚗️ 터빈 블레이드 재료 발전</div>
+    <div class="flow" style="justify-content:center; flex-direction:column; gap:8px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="flow-box" style="width:180px; text-align:center;">
+          <span class="tag tag-blue">등축정 결정<br>(Equiaxed Crystal)</span><br>
+          <span style="font-size:0.75rem; color:var(--text3);">1970년 항공 적용<br>크리프 특성 낮음</span>
+        </div>
+        <span class="arrow">→</span>
+        <div class="flow-box" style="width:180px; text-align:center;">
+          <span class="tag tag-green">방향성 응고<br>(DS: Directionally Solidified)</span><br>
+          <span style="font-size:0.75rem; color:var(--text3);">1982년 항공 적용<br>횡방향 결정립계 없음</span>
+        </div>
+        <span class="arrow">→</span>
+        <div class="flow-box" style="width:180px; text-align:center;">
+          <span class="tag tag-red">단결정<br>(SC: Single Crystal)</span><br>
+          <span style="font-size:0.75rem; color:var(--text3);">1990년 항공 적용<br>크리프 특성 최고</span>
+        </div>
+      </div>
+    </div>
+    <div class="note-box" style="margin-top:12px;">
+      DS 블레이드: 부품 주축과 평행한 결정 구조 + 횡방향 결정립계 없음 → 크리프 및 파괴 강도 향상. 등축 블레이드보다 변형 제어/열 피로 10배 이상 우수<br><br>
+      SC 블레이드: 모든 결정립계 제거 → 에어포일 형상 단결정 생성 → LCF(저주기 피로) 수명 약 10% 향상
+    </div>
+    <div class="exam-point">크리프 저항: 등축정 &lt; 방향성 응고(DS) &lt; 단결정(SC) 순으로 향상</div>
+  </div>
+
+</div>
+
+
+<!-- ==============================
+     Ch.6 배기계통
+     ============================== -->
+<div class="section" id="exhaust">
+
+  <div class="sec-header">
+    <div class="sec-num">6</div>
+    <h2>가스 터빈 배기계통 (Gas Turbine Exhaust System)</h2>
+  </div>
+
+  <!-- 배기계통 개요 -->
+  <div class="card">
+    <div class="card-title">💨 배기계통 일반사항</div>
+    <ul class="point-list">
+      <li>항공기용 가스터빈은 원하는 방향으로 <span class="hl">터빈 배기가스를 고속 배출</span>하기 위한 배기계통 보유</li>
+      <li><span class="hl-blue">배기콘(Exhaust cone)</span>: 테일콘 내부에 디퓨저 형상 → 터빈 하류 압력 회복 & 속도 감소 → 난류강도 약화</li>
+      <li><span class="hl-blue">지지대(Struts)</span>: 배기가스 흐름이 축 방향 되도록 유도</li>
+      <li><span class="hl-blue">테일파이프(Tail pipe)</span> = 제트파이프 = 배기덕트: 항공기 목적에 맞게 설계/제작</li>
+      <li>아음속 항공기: 수축형 테일파이프 사용</li>
+      <li>수축형 테일파이프는 배기가스를 <span class="hl">마하 1</span>까지 가속 가능 → 마하 1 도달 시 배기노즐 출구에서 질식 유동(Choked flow) 발생</li>
+      <li>초음속 비행: <span class="hl">수축-확산 노즐(Convergent-Divergent nozzle)</span> 설치 필요</li>
+    </ul>
+  </div>
+
+  <!-- 질식 유동 -->
+  <div class="card">
+    <div class="card-title">🌊 질식 유동 (Choked Flow)</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:8px;">주요 속도 방정식 도출</p>
+        <div class="formula">V₂ = √(2p₁υ₁·γ/(γ-1)·[1-(p₂/p₁)^((γ-1)/γ)])</div>
+        <div class="formula" style="margin-top:8px;">dV₂/d(p₂/p₁) = 0 → 최대 속도 (임계 속도)</div>
+        <div class="formula" style="margin-top:8px;">V_critical = √(γRT₂) = <span style="color:var(--accent4);">음속 a₂</span></div>
+        <p style="font-size:0.82rem; color:var(--text2); margin-top:6px;">📌 물리적 의미: 수축 노즐에서 도달 가능한 최대 속도 = 출구에서의 <span class="hl">음속(Mach 1)</span></p>
+      </div>
+      <div>
+        <p style="color:var(--accent1); font-weight:700; margin-bottom:8px;">임계 압력비 (Critical Pressure Ratio)</p>
+        <div class="formula">(p₂/p₁)_critical = (2/(γ+1))^(γ/(γ-1))</div>
+        <div class="formula" style="margin-top:8px;">(γ = 1.4 for air) → p₂/p₁ = <span style="color:var(--accent4);">0.528</span></div>
+        <div style="margin-top:8px;">
+          <p style="font-size:0.82rem; color:var(--text2);">p₂ = p_atm (대기압)</p>
+          <p style="font-size:0.82rem; color:var(--accent3);">p₁ = 1.89 × p_atm (터빈 방출 압력)</p>
+        </div>
+        <div class="exam-point" style="margin-top:8px;">터빈 downstream 압력이 대기압의 1.89배가 되면 → 노즐 출구에서 M=1인 질식 유동 발생</div>
+      </div>
+    </div>
+    <hr class="divider">
+    <p style="color:var(--accent2); font-weight:700; margin-bottom:8px;">질식 유동 상태의 특징</p>
+    <div class="grid3">
+      <div class="mini-card">
+        <div class="label">특징 1</div>
+        <div class="value" style="font-size:0.9rem;">M = 1</div>
+        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">노즐 출구 속도 = 정확히 음속</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">특징 2</div>
+        <div class="value" style="font-size:0.9rem;">유량 고정</div>
+        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">입구 압력 더 높여도, 출구 압력 더 낮춰도 → 속도·유량 불변</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">특징 3</div>
+        <div class="value" style="font-size:0.9rem;">압력 추력</div>
+        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">p₂ > p_atm → 잔여 압력 에너지가 압력 추력(Pressure Thrust) 추가 제공</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 배기 노즐 종류 -->
+  <div class="card">
+    <div class="card-title">🔧 배기 노즐 종류</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent2); font-weight:700; margin-bottom:8px;">고정면적 배기노즐 (아음속)</p>
+        <ul class="point-list">
+          <li>터보팬/터보프롭 등 아음속 항공기에 사용</li>
+          <li>원추형 테일콘 + 원형 단면 → 수축형 노즐 형성</li>
+          <li>압력비 약 <span class="hl">1.9 초과</span> 시 분출 속도 증가하지 않음 (Choked nozzle)</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:8px;">가변면적 배기노즐 (초음속)</p>
+        <ul class="point-list">
+          <li>초음속 비행 위해 수축-확산 노즐 사용</li>
+          <li>이륙 저속 → 고고도 아음속 → 초음속: 넓은 속도 범위 운전</li>
+          <li>각 속도 영역에 맞는 노즐 필요 → <span class="hl">가변 배기 노즐</span></li>
+          <li>C-D 노즐에서 목(Throat)에서 M=1, 확산부에서 M>1</li>
+        </ul>
+      </div>
+    </div>
+    <div class="diagram-box" style="margin-top:8px;">
+      <svg width="440" height="80" viewBox="0 0 440 80">
+        <text x="220" y="14" fill="#9aa3c2" font-size="10" text-anchor="middle">Convergent-Divergent Nozzle (C-D Nozzle)</text>
+        <polygon points="10,20 180,35 180,45 10,60" fill="#1e2132" stroke="#4f8ef7"/>
+        <polygon points="180,35 260,25 260,55 180,45" fill="#1e2132" stroke="#a07ef4"/>
+        <text x="95" y="43" fill="#4f8ef7" font-size="10" text-anchor="middle">수렴부 M&lt;1</text>
+        <text x="220" y="43" fill="#a07ef4" font-size="10" text-anchor="middle">확산부 M&gt;1</text>
+        <line x1="180" y1="20" x2="180" y2="60" stroke="#f4a946" stroke-width="1.5" stroke-dasharray="3,2"/>
+        <text x="180" y="17" fill="#f4a946" font-size="9" text-anchor="middle">목 M=1</text>
+        <text x="330" y="35" fill="#5bd4b0" font-size="11" font-weight="bold">초음속</text>
+        <text x="330" y="50" fill="#5bd4b0" font-size="9">M &gt; 1 달성</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 유도 배기 노즐 -->
+  <div class="card">
+    <div class="card-title">🎯 유도 배기 노즐 (Vectoring Exhaust Nozzle)</div>
+    <ul class="point-list">
+      <li>현재 <span class="hl-red">군용기에만 사용</span></li>
+      <li>항공기 이륙 또는 저속 비행 성능 향상을 위해 배기가스 방향 조절</li>
+      <li>배기가스 상방향 배출 → 항공기 앞부분(Nose)이 빠르게 들어올려짐</li>
+      <li>착륙 시 배기가스 <span class="hl">역방향</span> 배출 → 제동력 강화</li>
+      <li>대표 사례: F-22 랩터에 사용되는 <span class="hl-blue">F-119 터보팬 엔진</span></li>
+    </ul>
+  </div>
+
+  <!-- 후기 연소 -->
+  <div class="card">
+    <div class="card-title">🔥 후기 연소 (Afterburning / Reheat)</div>
+    <ul class="point-list">
+      <li>위치: <span class="hl">터빈과 제트파이프 추진 노즐 사이</span></li>
+      <li>연소에 필요한 산소: 배기가스에 포함된 <span class="hl">미연산소</span> 이용</li>
+      <li>후기연소 → 배기가스 온도 상승 → 비체적 증가 → 제트 속도 증가 → <span class="hl">추력 증가</span></li>
+      <li>후기연소기 작동 시 추력 <span class="hl">100%까지 증가</span> 가능, 그러나 연료량 <span class="hl-red">3~5배 증가</span></li>
+      <li>→ 연료소모 증가 + 열효율 감소 = <span class="hl-red">매우 비효율적</span></li>
+      <li>사용 시기: 짧은 활주로 이륙, 공중전처럼 <span class="hl">연료 효율이 문제되지 않는 경우</span></li>
+    </ul>
+    <div class="formula">V₂/V₁ = √(T₂/T₁) &nbsp;&nbsp;←&nbsp;&nbsp; 배기가스 속도 증가는 온도비의 제곱근에 비례</div>
+    <div class="note-box">💡 예시: 후기연소 전후 온도 600°C → 1202°C (온도비 = 1.69)<br>배기가스 속도 증가 = √1.69 = 1.3 → <span style="color:var(--accent3);">총추력 30% 증가</span></div>
+    <div class="exam-point">일부 현대식 항공기는 후기연소기 추력 증가를 15~20%로 제한 (이미 엔진 추진력이 매우 크기 때문)</div>
+  </div>
+
+  <!-- 후기연소 구성 -->
+  <div class="card">
+    <div class="card-title">🔩 후기연소기 주요 구성</div>
+    <div class="grid2">
+      <div>
+        <ul class="point-list">
+          <li><span class="hl-blue">분사막대(Spray bars)</span>: 연료 노즐 — 테일파이프 입구에 설치</li>
+          <li><span class="hl-blue">화염유지기(Flame holders)</span>: 연료 노즐 하류에 튜브형 격자 또는 수레바퀴 바큇살 형태</li>
+          <li>재순환 영역에 화염이 갇혀 <span class="hl">점화원 역할</span> → 안정된 연소</li>
+          <li><span class="hl-blue">가변 추진 노즐(Variable Propelling Nozzle)</span>: 후기연소 작동 시 노즐 면적 확대 (Nozzle Fully Open)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="note-box">
+          💡 후기연소기를 장착하면:<br>
+          • 후기연소기 장치 = 유동 장애물 → 비작동 시 추력 약간 감소<br>
+          • 더 무거운 제트파이프 + 후기연소기 장치 → 전체 무게 증가
+        </div>
+        <div style="margin-top:8px;">
+          <p style="font-size:0.82rem; color:var(--text2);">후기연소 전: 노즐 완전 닫힘(Fully Shut)</p>
+          <p style="font-size:0.82rem; color:var(--accent3);">후기연소 작동 시: 노즐 완전 열림(Fully Open)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 역추력장치 -->
+  <div class="card">
+    <div class="card-title">🛑 역추력장치 (Thrust Reverser)</div>
+    <ul class="point-list">
+      <li>착륙 및 이륙실패 초기 단계에서 항공기 <span class="hl">속도를 줄이기 위해 설치</span></li>
+      <li>역추력장치는 타이어 마모 줄이고 착륙거리 단축</li>
+      <li>정상 활주로에서 제동력의 약 <span class="hl">20%</span> 생산</li>
+      <li>역방향으로 정격 추력의 <span class="hl">35~50%</span> 정도 생산</li>
+      <li>활주로가 젖거나 동결 시 효과적 → 항공기 제동력의 약 <span class="hl">50%</span> 담당</li>
+    </ul>
+    <div class="warn-box">⚠️ 지상에서 저속 이동 시 역추력 작동 → 고온 배기가스가 엔진으로 재흡입 → 압축기 실속 위험 + 모래/파편 흡입 → 부품 침식</div>
+    <hr class="divider">
+    <p style="color:var(--accent2); font-weight:700; margin-bottom:8px;">역추력장치 종류:</p>
+    <div class="grid3">
+      <div class="mini-card">
+        <div class="label">① 캐스케이드형</div>
+        <div style="color:var(--accent1); font-weight:700;">찬공기 (터보팬)</div>
+        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">팬을 통과한 공기(Cold stream)를 역방향 전환. 차단문(Blocker doors) + 캐스케이드 베인 사용</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">② 조개껍데기형</div>
+        <div style="color:var(--accent2); font-weight:700;">Clam Shell Door</div>
+        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">뜨거운 배기가스를 역방향으로 전환하는 문 시스템</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">③ 버킷타겟형</div>
+        <div style="color:var(--accent3); font-weight:700;">Bucket Target</div>
+        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">유압 작동. 양동이 형태 문으로 뜨거운 배기가스를 역방향 유도. 전진추력 모드 시 C-D 노즐 형성</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 배기 소음 -->
+  <div class="card">
+    <div class="card-title">🔊 배기 소음 (Exhaust Noise)</div>
+    <div class="formula">배기 소음 ≈ (V_jet)⁸</div>
+    <ul class="point-list">
+      <li>제트 속도의 <span class="hl">8제곱</span>에 비례 → 속도가 조금만 증가해도 소음이 급격히 증가</li>
+      <li>소음 감소 방법: 배기 노즐을 여러 개의 작은 노즐로 분할 (꽃잎 모양 분사) → 제트와 주변 공기의 혼합 증가 → 속도 급격한 감소 유도</li>
+      <li>현대 고바이패스 터보팬 엔진: 차가운 팬 에어가 뜨거운 코어 제트를 감싸 → 자연적 소음 감소</li>
+    </ul>
+  </div>
+
+</div>
+
+
+<!-- ==============================
+     핵심 요약 (Summary)
+     ============================== -->
+<div class="section" id="summary">
+
+  <div class="sec-header">
+    <div class="sec-num">★</div>
+    <h2>핵심 요약 & 시험 체크리스트</h2>
+  </div>
+
+  <!-- 숫자 정리 -->
+  <div class="card">
+    <div class="card-title">🔢 꼭 외워야 할 숫자들</div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:10px;">
+      <div class="mini-card">
+        <div class="label">디퓨저 입구 마하수</div>
+        <div class="value">M = 0.5</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">디퓨저 출구 마하수</div>
+        <div class="value">M = 0.35</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">연소 효율</div>
+        <div class="value">~99%</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">1차 공기 연료/공기비</div>
+        <div class="value">60:1</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">연소기 압력 손실</div>
+        <div class="value">2~4%</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">초기 엔진 냉각 공기</div>
+        <div class="value">70~75%</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">현대 엔진 연소 공기</div>
+        <div class="value">45%</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">임계 압력비 (γ=1.4)</div>
+        <div class="value">0.528</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">Choked 발생 압력비</div>
+        <div class="value">1.89×p_atm</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">역추력 정격추력 비</div>
+        <div class="value">35~50%</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">TBC 금속 온도 감소</div>
+        <div class="value">100~150°C</div>
+      </div>
+      <div class="mini-card">
+        <div class="label">스월러 재순환 속도</div>
+        <div class="value">5~6 fps</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 개념 대응 -->
+  <div class="card">
+    <div class="card-title">🔗 핵심 개념 대응 정리</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>개념</th><th>정의/역할</th><th>시험 키워드</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>디퓨저</td><td>속도 에너지 → 압력 에너지 변환. 가스 터빈에서 가장 높은 압력 지점</td><td>확산형 덕트, M: 0.5→0.35</td></tr>
+        <tr><td>스월러</td><td>재순환 영역 형성 → 화염 안정화, 연소실 길이 단축</td><td>5~6fps, 연소기 길이 축소</td></tr>
+        <tr><td>Primary Zone</td><td>연료와 공기 혼합 + 연소 (연료/공기비 약 60:1)</td><td>화학양론적 연소</td></tr>
+        <tr><td>Traverse Factor</td><td>터빈 노즐 설계 평균 온도 상승 대비 최고~평균 온도 차이</td><td>0.05~0.15, 낮을수록 좋음</td></tr>
+        <tr><td>TPR</td><td>터빈 압력비 = 출구 압력/입구 압력, 항상 1보다 작음</td><td>1보다 작음, 단열 과정</td></tr>
+        <tr><td>Degree of Reaction</td><td>로터 엔탈피 변화/스테이지 전체 변화 × 100%</td><td>충동=0%, 반동=50%</td></tr>
+        <tr><td>Choked Flow</td><td>노즐 출구 속도 = 음속(M=1), 압력 더 높여도 유량 불변</td><td>0.528, 1.89×p_atm</td></tr>
+        <tr><td>Afterburner</td><td>미연산소 이용 재연소 → 온도 상승 → 추력 증가</td><td>V₂/V₁=√(T₂/T₁), 3~5배 연료 증가</td></tr>
+        <tr><td>Thrust Reverser</td><td>배기가스 역방향 → 착륙 제동력 증가</td><td>정격추력의 35~50%, 제동력 20%</td></tr>
+        <tr><td>Creep</td><td>열 + 원심력 → 터빈 블레이드 영구 길이 증가</td><td>1차/2차/3차 크리프</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 연소기 종류 암기 -->
+  <div class="card">
+    <div class="card-title">📝 연소기 3종류 한눈에 비교</div>
+    <div class="grid3">
+      <div style="background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:1rem; border-top:3px solid var(--accent4);">
+        <p style="color:var(--accent4); font-weight:700; margin-bottom:6px;">Can Type</p>
+        <p style="font-size:0.8rem; color:var(--accent2);">장점</p>
+        <p style="font-size:0.78rem; color:var(--text2);">• 유지보수 쉬움<br>• 개발 쉬움<br>• 독립 정비 가능</p>
+        <p style="font-size:0.8rem; color:var(--accent4); margin-top:6px;">단점</p>
+        <p style="font-size:0.78rem; color:var(--text2);">• 불균일 출구 유동<br>• 진동 심함<br>• 무겁고 길음</p>
+      </div>
+      <div style="background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:1rem; border-top:3px solid var(--accent3);">
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:6px;">Can-Annular</p>
+        <p style="font-size:0.8rem; color:var(--accent2);">장점</p>
+        <p style="font-size:0.78rem; color:var(--text2);">• 다중+환형 절충<br>• 테스트 용이<br>• 안정성</p>
+        <p style="font-size:0.8rem; color:var(--accent4); margin-top:6px;">단점</p>
+        <p style="font-size:0.78rem; color:var(--text2);">• 화염 전파 문제<br>• 구조 복잡</p>
+      </div>
+      <div style="background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:1rem; border-top:3px solid var(--accent2);">
+        <p style="color:var(--accent2); font-weight:700; margin-bottom:6px;">Annular ⭐현대</p>
+        <p style="font-size:0.8rem; color:var(--accent2);">장점</p>
+        <p style="font-size:0.78rem; color:var(--text2);">• 짧고 가벼움<br>• 균일 출구 유동<br>• 냉각 효율 우수<br>• 진동 없음</p>
+        <p style="font-size:0.8rem; color:var(--accent4); margin-top:6px;">단점</p>
+        <p style="font-size:0.78rem; color:var(--text2);">• 유지보수 어려움<br>• 개발 어려움<br>• 대형 시험 시설 필요</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 터빈 냉각 비교 -->
+  <div class="card">
+    <div class="card-title">❄️ 터빈 냉각 4가지 암기</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>방법</th><th>원리</th><th>특징/용도</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="hl-blue">대류냉각</span></td><td>냉각 공기가 블레이드 내부 흐르며 벽을 통해 열 제거</td><td>가장 널리 사용. q = hA(Tw-T∞)</td></tr>
+        <tr><td><span class="hl-green">막냉각</span></td><td>소형 구멍으로 냉각 공기 주입 → 단열층 형성</td><td>날개 표면 보호. 탄소 퇴적 방지</td></tr>
+        <tr><td><span class="hl">충돌냉각</span></td><td>고속 공기 분사 → 에어포일 내쪽 표면에 직접 충돌</td><td>국부 집중 냉각. 날개 앞전에 효과적</td></tr>
+        <tr><td><span class="hl-purple">발한냉각</span></td><td>냉각수가 다공성 블레이드 벽 통과</td><td>최고 효율. 매우 높은 온도에서 효과적</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 역추력 종류 -->
+  <div class="card">
+    <div class="card-title">🛑 역추력장치 3종류</div>
+    <table class="compare-table">
+      <thead>
+        <tr><th>종류</th><th>작동 유체</th><th>작동 원리</th><th>사용 항공기</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="hl-blue">캐스케이드형</span></td>
+          <td>찬공기 (Cold stream)</td>
+          <td>이동식 카울 후방 이동 + 차단문 접음 → 팬 공기가 캐스케이드 베인 통해 역방향</td>
+          <td>고바이패스 터보팬 (여객기)</td>
+        </tr>
+        <tr>
+          <td><span class="hl-green">조개껍데기형</span></td>
+          <td>뜨거운 가스 (Hot stream)</td>
+          <td>조개 모양 문이 배기 흐름 차단 + 역방향 유도</td>
+          <td>저바이패스 / 소형 엔진</td>
+        </tr>
+        <tr>
+          <td><span class="hl">버킷타겟형</span></td>
+          <td>뜨거운 가스 (Hot stream)</td>
+          <td>유압 작동 양동이 형태 문 → 역방향 유도. 전진 시 C-D 노즐 형성</td>
+          <td>소형 / 군용 제트기</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 최종 체크리스트 -->
+  <div class="card">
+    <div class="card-title">✅ 최종 시험 체크리스트</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:8px;">Ch.4 연소기</p>
+        <ul class="point-list">
+          <li>디퓨저 역할 & 마하수 변화 (0.5→0.35)</li>
+          <li>1차/2차 공기 역할 구분</li>
+          <li>연소 3단계 (흡열 분해→발열 생성→CO 산화)</li>
+          <li>에너지 80%가 2단계에서 방출</li>
+          <li>연소 효율(99%) & 연소 강도 공식</li>
+          <li>압력 손실 2~4%, PLF 공식</li>
+          <li>Traverse Factor 정의 & 적정 범위</li>
+          <li>Can / Annular 비교 장단점</li>
+          <li>3가지 냉각 방법 (충돌/막/TBC)</li>
+          <li>배출물 4종류 & 영향 인자</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent1); font-weight:700; margin-bottom:8px;">Ch.5 터빈 & Ch.6 배기</p>
+        <ul class="point-list">
+          <li>터빈 역할 & 노즐/버킷 기능 구분</li>
+          <li>TPR 정의 & 항상 1보다 작음</li>
+          <li>TW 공식 & 단열 과정</li>
+          <li>속도 삼각형 c, u, w 정의</li>
+          <li>충동 터빈(ξ=0%) vs 반동 터빈(ξ=50%)</li>
+          <li>크리프 3단계 & 가속 크리프 원인</li>
+          <li>블레이드 재료 발전 (등축→DS→SC)</li>
+          <li>4가지 냉각 방법 & TBC 구조</li>
+          <li>ACCS 역할 (팁 간극 능동 제어)</li>
+          <li>질식 유동 임계 압력비 (0.528, 1.89배)</li>
+          <li>C-D 노즐 원리</li>
+          <li>후기연소 작동 원리 & V₂/V₁=√(T₂/T₁)</li>
+          <li>역추력장치 3종류 & 효과 (35~50%)</li>
+          <li>배기 소음 ≈ V_jet⁸</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ch.7 요약 -->
+  <div class="card">
+    <div class="card-title">⛽ Ch.7 연료계통 핵심 체크리스트</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:8px;">연료 & 펌프</p>
+        <ul class="point-list">
+          <li>연료 흐름 순서: 탱크→부스터→LP필터→가열기→EDP→HP필터→FCU→P&amp;D→매니폴드→노즐</li>
+          <li>펌프 3종: 부스터(전기모터/Impeller) / 저압단(EDP/Impeller) / 고압단(EDP/Gear)</li>
+          <li>고압 기어 펌프 = Positive Displacement (용적형) → 회전수에 비례하여 정량 송출</li>
+          <li>Shear Section = 기계적 퓨즈 (과부하 시 차단)</li>
+          <li>초과 연료 → 차압조절밸브 → 펌프 입구 바이패스</li>
+          <li>Vapor Lock: 기체 처리 장치를 통해 제한 → 이착륙 구간에만 연결기</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent1); font-weight:700; margin-bottom:8px;">FCU & 노즐 & P&D Valve</p>
+        <ul class="point-list">
+          <li>FCU = 기계식 컴퓨터. 입력(PLA·N1/N2·Pt2·Ps4·Pb·Tt2) → 연산(벨로즈·레버·캠) → 출력(Main Metering Valve)</li>
+          <li>거버너: 과속→연료 감소 / 저속→연료 증가</li>
+          <li>FADEC: 디지털 전자식. 트리밍 불필요</li>
+          <li>FCU Trimming: EGT 증가 추세 → 트리밍 필요 신호</li>
+          <li>Simplex: 1개 오리피스. Sector Burning (절반 노즐만 사용)</li>
+          <li>Duplex(단선/복선): 1차(Pilot) + 2차(Main) 분리</li>
+          <li>P&D Valve: 1차/2차 분배 + 정지 시 Dump(드레인)</li>
+          <li>Hot Streaking 원인: 이물질 / 카본 침착</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="divider">
+    <p style="color:var(--accent2); font-weight:700; margin-bottom:8px;">연료 종류 암기</p>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:8px;">
+      <div class="mini-card"><div class="label">Jet A-1</div><div class="value" style="font-size:0.85rem;">민간 여객기</div><p style="font-size:0.75rem; color:var(--text2);">등유유분+첨가제</p></div>
+      <div class="mini-card"><div class="label">JP-4</div><div class="value" style="font-size:0.85rem;">전투기 (Wide-cut)</div><p style="font-size:0.75rem; color:var(--text2);">등유+가솔린 50:50. 결빙점 -60°C</p></div>
+      <div class="mini-card"><div class="label">JP-5</div><div class="value" style="font-size:0.85rem;">미 해군 수송기</div><p style="font-size:0.75rem; color:var(--text2);">높은 인화점 Kerosene</p></div>
+      <div class="mini-card"><div class="label">JP-8 ⭐</div><div class="value" style="font-size:0.85rem; color:var(--accent3);">현재 국내 군용</div><p style="font-size:0.75rem; color:var(--text2);">JP-4 대비 안정성↑. 탱크·차량에도 사용 가능</p></div>
+      <div class="mini-card"><div class="label">Prist 첨가제</div><div class="value" style="font-size:0.85rem;">방빙 & 미생물 억제</div><p style="font-size:0.75rem; color:var(--text2);">휴스턴화학. 물의 빙점을 연료 온도보다 낮게 유지</p></div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ==============================
+     Ch.7 연료계통 (Fuel System)
+     ============================== -->
+<div class="section" id="fuel">
+
+  <div class="sec-header">
+    <div class="sec-num">7</div>
+    <h2>연료 및 연료계통 (Fuel &amp; Fuel System)</h2>
+  </div>
+
+  <!-- 연료계통 흐름도 (Schematic) -->
+  <div class="card">
+    <div class="card-title">🗺️ 연료계통 Schematic (전체 흐름)</div>
+    <p style="font-size:0.82rem; color:var(--text2); margin-bottom:10px;">필기 핵심: <span class="hl">연료탱크 → 부스터 펌프 → 연료여과기 → 주연료 펌프(EDP) → 연료여과기 → FCU → P&amp;D Valve → 연료 매니폴드 → 연료노즐 → 연소실</span></p>
+    <div class="diagram-box" style="padding:1rem; overflow-x:auto;">
+      <svg width="860" height="260" viewBox="0 0 860 260" style="min-width:700px;">
+        <!-- 배경 레인 -->
+        <rect x="0" y="0" width="860" height="260" fill="#181c2a" rx="8"/>
+        <!-- 레인 라벨 -->
+        <text x="8" y="38" fill="#6470a0" font-size="9">저압부</text>
+        <text x="8" y="148" fill="#6470a0" font-size="9">고압부</text>
+        <text x="8" y="228" fill="#6470a0" font-size="9">제어부</text>
+        <line x1="0" y1="88" x2="860" y2="88" stroke="#2e3350" stroke-width="0.5" stroke-dasharray="4,3"/>
+        <line x1="0" y1="178" x2="860" y2="178" stroke="#2e3350" stroke-width="0.5" stroke-dasharray="4,3"/>
+
+        <!-- ① 연료탱크 -->
+        <rect x="18" y="14" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#4f8ef7" stroke-width="1.2"/>
+        <text x="54" y="34" fill="#4f8ef7" font-size="9" text-anchor="middle" font-weight="700">연료탱크</text>
+        <text x="54" y="47" fill="#9aa3c2" font-size="8" text-anchor="middle">Fuel Tank</text>
+        <text x="54" y="58" fill="#6470a0" font-size="7.5" text-anchor="middle">저압 연료 공급</text>
+
+        <!-- 화살표 →  -->
+        <line x1="90" y1="38" x2="118" y2="38" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#a1)"/>
+
+        <!-- ② 부스터 펌프 -->
+        <rect x="120" y="14" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#5bd4b0" stroke-width="1.2"/>
+        <text x="156" y="31" fill="#5bd4b0" font-size="9" text-anchor="middle" font-weight="700">부스터 펌프</text>
+        <text x="156" y="43" fill="#9aa3c2" font-size="8" text-anchor="middle">Boost Pump</text>
+        <text x="156" y="56" fill="#6470a0" font-size="7.5" text-anchor="middle">Impeller/전기모터</text>
+
+        <line x1="192" y1="38" x2="218" y2="38" stroke="#5bd4b0" stroke-width="1.5" marker-end="url(#a2)"/>
+
+        <!-- ③ LP 여과기 -->
+        <rect x="220" y="14" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#5bd4b0" stroke-width="1.2"/>
+        <text x="256" y="31" fill="#5bd4b0" font-size="9" text-anchor="middle" font-weight="700">LP 여과기</text>
+        <text x="256" y="43" fill="#9aa3c2" font-size="8" text-anchor="middle">Low-P Filter</text>
+        <text x="256" y="56" fill="#6470a0" font-size="7.5" text-anchor="middle">8~10 PSID 바이패스</text>
+
+        <line x1="292" y1="38" x2="316" y2="38" stroke="#5bd4b0" stroke-width="1.5" marker-end="url(#a2)"/>
+
+        <!-- ④ 연료가열기 -->
+        <rect x="318" y="14" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#f4a946" stroke-width="1.2"/>
+        <text x="354" y="31" fill="#f4a946" font-size="9" text-anchor="middle" font-weight="700">연료가열기</text>
+        <text x="354" y="43" fill="#9aa3c2" font-size="8" text-anchor="middle">Fuel Heater</text>
+        <text x="354" y="56" fill="#6470a0" font-size="7.5" text-anchor="middle">결빙 방지/이륙 전 1분</text>
+
+        <!-- 세로 화살표 LP→HP -->
+        <line x1="354" y1="62" x2="354" y2="108" stroke="#f4a946" stroke-width="1.5" marker-end="url(#a3)"/>
+
+        <!-- ⑤ 주연료 펌프 (EDP) -->
+        <rect x="318" y="110" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#a07ef4" stroke-width="1.8"/>
+        <text x="354" y="127" fill="#a07ef4" font-size="9" text-anchor="middle" font-weight="700">주연료 펌프</text>
+        <text x="354" y="139" fill="#9aa3c2" font-size="8" text-anchor="middle">EDP (기어 펌프)</text>
+        <text x="354" y="152" fill="#6470a0" font-size="7.5" text-anchor="middle">Positive Displacement</text>
+
+        <line x1="390" y1="134" x2="418" y2="134" stroke="#a07ef4" stroke-width="1.5" marker-end="url(#a4)"/>
+
+        <!-- ⑥ HP 여과기 -->
+        <rect x="420" y="110" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#a07ef4" stroke-width="1.2"/>
+        <text x="456" y="127" fill="#a07ef4" font-size="9" text-anchor="middle" font-weight="700">HP 여과기</text>
+        <text x="456" y="139" fill="#9aa3c2" font-size="8" text-anchor="middle">High-P Filter</text>
+        <text x="456" y="152" fill="#6470a0" font-size="7.5" text-anchor="middle">막힘→경고등 점등</text>
+
+        <line x1="492" y1="134" x2="518" y2="134" stroke="#a07ef4" stroke-width="1.5" marker-end="url(#a4)"/>
+
+        <!-- ⑦ FCU -->
+        <rect x="520" y="110" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#e05c7a" stroke-width="1.8"/>
+        <text x="556" y="127" fill="#e05c7a" font-size="9" text-anchor="middle" font-weight="700">FCU</text>
+        <text x="556" y="139" fill="#9aa3c2" font-size="8" text-anchor="middle">연료조절장치</text>
+        <text x="556" y="152" fill="#6470a0" font-size="7.5" text-anchor="middle">기계식 컴퓨터</text>
+
+        <!-- FCU 바이패스 라인 (되돌림) -->
+        <path d="M556,158 Q556,172 490,172 Q420,172 354,172 Q318,172 318,158" stroke="#e05c7a" stroke-width="1" fill="none" stroke-dasharray="4,2"/>
+        <text x="450" y="170" fill="#e05c7a" font-size="7.5" text-anchor="middle">차압조절밸브 → 펌프 입구로 바이패스</text>
+
+        <line x1="592" y1="134" x2="618" y2="134" stroke="#e05c7a" stroke-width="1.5" marker-end="url(#a5)"/>
+
+        <!-- ⑧ P&D Valve -->
+        <rect x="620" y="110" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#e05c7a" stroke-width="1.2"/>
+        <text x="656" y="127" fill="#e05c7a" font-size="9" text-anchor="middle" font-weight="700">P&amp;D Valve</text>
+        <text x="656" y="139" fill="#9aa3c2" font-size="8" text-anchor="middle">가압 &amp; 덤프</text>
+        <text x="656" y="152" fill="#6470a0" font-size="7.5" text-anchor="middle">1차/2차 연료 분배</text>
+
+        <line x1="692" y1="134" x2="718" y2="134" stroke="#e05c7a" stroke-width="1.5" marker-end="url(#a5)"/>
+
+        <!-- ⑨ 연료 매니폴드 -->
+        <rect x="720" y="110" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#f4a946" stroke-width="1.2"/>
+        <text x="756" y="127" fill="#f4a946" font-size="9" text-anchor="middle" font-weight="700">연료 매니폴드</text>
+        <text x="756" y="139" fill="#9aa3c2" font-size="8" text-anchor="middle">Fuel Manifold</text>
+        <text x="756" y="152" fill="#6470a0" font-size="7.5" text-anchor="middle">각 노즐에 분배</text>
+
+        <!-- 매니폴드 → 노즐 (세로 위로) -->
+        <line x1="756" y1="110" x2="756" y2="70" stroke="#f4a946" stroke-width="1.5" marker-end="url(#a6)"/>
+
+        <!-- ⑩ 연료노즐 -->
+        <rect x="720" y="14" width="72" height="48" rx="5" fill="#1e2a3a" stroke="#5bd4b0" stroke-width="1.2"/>
+        <text x="756" y="31" fill="#5bd4b0" font-size="9" text-anchor="middle" font-weight="700">연료 노즐</text>
+        <text x="756" y="43" fill="#9aa3c2" font-size="8" text-anchor="middle">Simplex/Duplex</text>
+        <text x="756" y="56" fill="#6470a0" font-size="7.5" text-anchor="middle">무화 → 연소실</text>
+
+        <!-- 노즐 → 연소실 -->
+        <line x1="792" y1="38" x2="818" y2="38" stroke="#5bd4b0" stroke-width="1.5" marker-end="url(#a2)"/>
+
+        <!-- ⑪ 연소실 -->
+        <rect x="820" y="14" width="32" height="48" rx="5" fill="#2a1a1a" stroke="#e05c7a" stroke-width="1.5"/>
+        <text x="836" y="35" fill="#e05c7a" font-size="8" text-anchor="middle" font-weight="700">연소</text>
+        <text x="836" y="48" fill="#e05c7a" font-size="8" text-anchor="middle">🔥</text>
+
+        <!-- FCU 제어 신호 라인 (아래 제어부) -->
+        <line x1="556" y1="158" x2="556" y2="200" stroke="#6470a0" stroke-width="1" stroke-dasharray="3,2"/>
+        <rect x="490" y="200" width="132" height="40" rx="5" fill="#1a1d27" stroke="#6470a0" stroke-width="1"/>
+        <text x="556" y="215" fill="#9aa3c2" font-size="8.5" text-anchor="middle" font-weight="700">FCU 입력 신호</text>
+        <text x="556" y="228" fill="#6470a0" font-size="7.5" text-anchor="middle">PLA · N1/N2 · Pt2 · Ps4 · Pb · Tt2</text>
+        <text x="556" y="238" fill="#6470a0" font-size="7" text-anchor="middle">파워레버·회전수·공기압력·연소실압·온도</text>
+
+        <!-- 마커 정의 -->
+        <defs>
+          <marker id="a1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4f8ef7"/></marker>
+          <marker id="a2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5bd4b0"/></marker>
+          <marker id="a3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f4a946"/></marker>
+          <marker id="a4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#a07ef4"/></marker>
+          <marker id="a5" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e05c7a"/></marker>
+          <marker id="a6" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f4a946"/></marker>
+        </defs>
+
+        <!-- 범례 -->
+        <rect x="10" y="195" width="8" height="8" fill="none" stroke="#4f8ef7"/>
+        <text x="22" y="203" fill="#4f8ef7" font-size="7.5">저압 공급</text>
+        <rect x="80" y="195" width="8" height="8" fill="none" stroke="#a07ef4"/>
+        <text x="92" y="203" fill="#a07ef4" font-size="7.5">고압 공급</text>
+        <rect x="150" y="195" width="8" height="8" fill="none" stroke="#e05c7a"/>
+        <text x="162" y="203" fill="#e05c7a" font-size="7.5">제어/분배</text>
+        <line x1="10" y1="216" x2="18" y2="216" stroke="#e05c7a" stroke-dasharray="3,2"/>
+        <text x="22" y="220" fill="#6470a0" font-size="7.5">바이패스 라인</text>
+      </svg>
+    </div>
+    <div class="note-box" style="margin-top:8px;">💡 <strong>필기 핵심:</strong> 정상 단계: <span class="hl-blue">저압부(탱크→부스터→LP필터→가열기)</span> → <span class="hl-purple">고압부(EDP→HP필터→FCU)</span> → <span class="hl-red">분배부(P&amp;D Valve→매니폴드→노즐)</span>. FCU에서 요구량 초과 연료는 차압조절밸브로 펌프 입구에 바이패스 됨.</div>
+  </div>
+
+  <!-- 연료계통 원리 -->
+  <div class="card">
+    <div class="card-title">⚙️ 연료계통 기본 원리 (Principles of Fuel Systems)</div>
+    <ul class="point-list">
+      <li>주요 기능: 지상 및 공중 운용의 모든 조건에서 엔진에 <span class="hl">정확한 양의 연료</span>를 공급</li>
+      <li><span class="hl-red">증기 잠금(Vapor Lock)</span> 방지 — 기체가 아닌 액체를 처리하도록 설계된 장치를 통해 연료 흐름을 제한하는 현상 → <span class="hl">이착륙 구간에만 연결기</span> 사용</li>
+      <li>더 높은 추력이 필요할 때 스로틀을 열면 연료 분사 노즐의 압력이 증가하고 연료 유량이 증가 → <span class="hl">터빈 입압(TIT) 증가 → 터빈 통과 배기가스 속도 빨라짐 → 회전수 증가 → 추력 증가</span></li>
+      <li>연료 흐름은 <span class="hl-blue">공기 흐름의 변화에 맞춰 조정</span>되어야 하며, 공기 흐름 대 연료 흐름 비율이 변하면 스로틀을 레버 위치로 원래 설정된 엔진 속도보다 증가하거나 감소하게 됨</li>
+      <li>고도·기온·항공기 속도 변화 → 공기 밀도 변화 → 유입 공기 질량 변화 → FCU가 자동 조절</li>
+    </ul>
+  </div>
+
+  <!-- 펌프 3종류 -->
+  <div class="card">
+    <div class="card-title">🔧 연료계통 펌프 3종류 (필기 핵심)</div>
+    <div class="grid3">
+      <div class="cooling-card" style="border-top-color:var(--accent1);">
+        <h4>① 부스터 펌프 (Boost Pump)</h4>
+        <ul class="point-list">
+          <li>임펠러(Impeller) 타입</li>
+          <li><span class="hl-blue">전기 모터</span>에 의해 구동</li>
+          <li>연료탱크 내부에 잠겨 있음 (Submerged)</li>
+          <li>탱크 → 주연료 펌프 입구로 이송</li>
+          <li>Vapor Lock 방지</li>
+        </ul>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent5);">
+        <h4>② 저압단 펌프 (Low Stage)</h4>
+        <ul class="point-list">
+          <li>임펠러(Impeller) 타입 (원심형)</li>
+          <li><span class="hl-purple">EDP(엔진 구동 펌프)</span>에 의해 구동</li>
+          <li>기어박스(GIB)에 부착 → 엔진이 돌림</li>
+          <li>1단 원심승압 역할 (30~50 PSID)</li>
+        </ul>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent3);">
+        <h4>③ 고압단 펌프 (High Stage)</h4>
+        <ul class="point-list">
+          <li><span class="hl">기어 타입 (Gear Type)</span></li>
+          <li>용적형 펌프 (Positive Displacement)</li>
+          <li>회전수만큼 <span class="hl">정확한 연료량</span> 송출</li>
+          <li>공기량도 고려 → FCU에 신호 전달</li>
+          <li>기계적 결함/고착 시 Shear Section이 끊겨 엔진 보호</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warn-box">⚠️ EDP(고압 기어 펌프): <span style="color:var(--yellow)">용적형 펌프</span>이므로 항상 일정량을 토출함 → 과잉 연료는 차압조절밸브(Pressure Relief Valve)로 펌프 입구에 바이패스. FCU를 끄면 연료가 남아 있으므로 Dump 시켜줘야 함 (P&D Valve)</div>
+    <div class="exam-point">펌프 구동 방식: 부스터 펌프 = 전기 모터 / 저압단+고압단 = 엔진 기어박스(GIB) 구동. Shear Section = 기계적 퓨즈 역할</div>
+  </div>
+
+  <!-- 주연료 펌프 상세 -->
+  <div class="card">
+    <div class="card-title">🔩 주연료 펌프 (EDP) 상세</div>
+    <div class="grid2">
+      <div>
+        <ul class="point-list">
+          <li>엔진으로 구동 — 엔진 속도 증가 → 펌프 속도 증가 → 더 많은 연료 공급</li>
+          <li>엔진에서 요구하는 것보다 <span class="hl">초과하는 양</span>의 연료를 연료조절기에 연속적으로 공급할 수 있도록 설계</li>
+          <li>연료조절기는 요구량 공급 후 <span class="hl-blue">나머지 연료를 차압조절밸브를 통해 펌프 입구로 되돌려 보냄</span></li>
+          <li>자가 윤활 방식 — 연료로 윤활함</li>
+          <li>일반적으로 1~2개의 스퍼기어 요소 + 가끔 원심승압 요소 포함</li>
+        </ul>
+      </div>
+      <div>
+        <div class="note-box">
+          <p style="font-weight:700; color:var(--accent1); margin-bottom:6px;">EDP 구조 (Fig 12-3)</p>
+          <p style="font-size:0.82rem;">• <span class="hl-blue">1단: Low-pressure centrifugal impeller</span> (저압 원심 임펠러)<br>• <span class="hl-purple">2단: Dual spur-gear type high-pressure stage</span> (기어 타입 고압단)<br>• Pressure relief valve: 출력 압력 제어<br>• Check valve: 역류 방지<br>• Shear section: 기계적 과부하 차단 (퓨즈 역할)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 연료 가열기 -->
+  <div class="card">
+    <div class="card-title">🌡️ 연료 가열기 (Fuel Heater)</div>
+    <ul class="point-list">
+      <li>연료 공급 중 유입된 물에 의해 <span class="hl">얼음 결정이 형성되는 것을 방지</span></li>
+      <li>결빙 → 필터 막힘 → 여과되지 않은 연료가 하류 구성품으로 흘러감</li>
+      <li>심한 경우 결빙이 연료 흐름방해를 초래하며, 필터 하류 구성품에 다시 결빙 발생 시 <span class="hl-red">엔진 꺼짐</span></li>
+      <li>필터 결빙이 지나쳐 압력이 저하되면 계기판에 <span class="hl">경고등 켜짐</span></li>
+      <li>연료-오일냉각기 또는 연료가열기는 엔진연료 <span class="hl-blue">부스트 펌프와 주연료 펌프 필터 입구 사이</span>에 설치</li>
+    </ul>
+    <div class="danger-box">🚨 연료가열기 작동 제한:<br>• <span style="color:var(--accent4)">이륙 전 1분간 사용</span> — 과잉 가열은 증기폐쇄의 원인, 연료조절기에 열손상 유발<br>• 이륙, 착륙, 복행 시에는 작동시키면 안 됨 — 극한 비행 영역에서 연료증발로 인한 연소정지 위험</div>
+    <div class="note-box">💡 연료-오일냉각기만으로 연료의 결빙을 막을 수 있는 경우에는 독립된 연료가열기 사용하지 않음. 연료-오일냉각기 대신 <span class="hl">공기-오일냉각기</span>를 사용하는 경우 보통 연료가열기 사용</div>
+  </div>
+
+  <!-- 연료노즐 -->
+  <div class="card">
+    <div class="card-title">💧 연료 노즐 (Fuel Nozzle) — 3종류</div>
+    <p style="font-size:0.82rem; color:var(--text2); margin-bottom:10px;">연료계통 마지막 구성품. 연료분배기(fuel distributor)라고도 불림. 연료는 액체 상태에서 연소되지 않기 때문에 <span class="hl">무화(atomization)</span>시켜 연소실에 공급</p>
+    <div class="grid3">
+      <div class="cooling-card" style="border-top-color:var(--accent2);">
+        <h4>① 단식 노즐 (Simplex)</h4>
+        <ul class="point-list">
+          <li>작고 둥근 오리피스로 하나의 분무 제공</li>
+          <li>내부 플루트형 스핀실에서 선회운동 → 연료 축방향 속도 줄이며 무화</li>
+          <li>체크밸브: 엔진 정지 후 연료를 차단, 연료가 연소실 내부로 흘러가는 것 방지</li>
+          <li>단식 노즐 적용 시 <span class="hl">부문연소(Sector Burning)</span> 실시 — 엔진 시동 시 전체 노즐 중 절반 또는 그 이상을 사용, 시동 후 아이들속도까지 운전</li>
+          <li>→ 비행 아이들 속도에서는 연료 압력이 충분히 높아져서 모든 연료 노즐 사용</li>
+        </ul>
+        <div class="tag tag-blue">프라이머 / 시동 노즐</div>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent3);">
+        <h4>② 단선 복식 노즐 (Single-line Duplex)</h4>
+        <ul class="point-list">
+          <li>하나의 입구도 연료를 공급받아 <span class="hl">두 개의 분무 오리피스</span>로 분배</li>
+          <li>엔진 시동과 가속: 중앙 등근 오리피스 = <span class="hl-blue">1차 연료(Primary Fuel)</span></li>
+          <li>2차 연료(Secondary Fuel): 외부 환형 노즐이 미리 정해진 연료압력이 올라오면 열리면서 파일럿 연료와 함께 분사</li>
+          <li>외부 오리피스로부터 분사되는 연료는 압력이 높고 양도 많으므로 고출력 시에도 연료가 라이너에 부딪히지 않도록 <span class="hl">좁은 각도</span>로 분사</li>
+          <li>복식노즐: 효율적인 연료 분무 및 연료-공기 혼합 위해 각 오리피스 마다 스핀실 사용</li>
+        </ul>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent5);">
+        <h4>③ 복선 복식 노즐 (Dual-line Duplex)</h4>
+        <ul class="point-list">
+          <li>단선 복식노즐과 유사, 단 일차·이차 연료를 분리하는 <span class="hl">유량분배기 없음</span></li>
+          <li><span class="hl-red">P&amp;D valve</span>를 이용하여 1차 연료(Pilot Fuel)와 2차 연료(Main Fuel)를 분배</li>
+        </ul>
+        <table class="compare-table" style="margin-top:8px; font-size:0.75rem;">
+          <tr><th>구분</th><th>1차(Primary/Pilot)</th><th>2차(Secondary/Main)</th></tr>
+          <tr><td>작동 시점</td><td>시동 및 전 구간</td><td>고출력 및 정상 비행 시</td></tr>
+          <tr><td>주요 목적</td><td>점화 및 안정적 화염 유지</td><td>고출력 및 대량 연료 공급</td></tr>
+          <tr><td>흐름 경로</td><td>중앙의 좁은 오리피스</td><td>외곽의 넓은 오리피스</td></tr>
+        </table>
+      </div>
+    </div>
+    <hr class="divider">
+    <p style="color:var(--accent4); font-weight:700; margin-bottom:6px;">🔥 핫 스트리킹 (Hot Streaking)</p>
+    <ul class="point-list">
+      <li>무화되지 않은 연료의 흐름 → 냉각공기 막을 뚫고 연소기 라이너에 충돌하거나 터빈 노즐 같은 하류 구성품까지 진행 → <span class="hl-red">위험</span></li>
+      <li>원인: <span class="hl">노즐 내에 이물질 존재 / 노즐 오리피스 외부에 카본 침착</span></li>
+      <li>분무 형태가 약간 뒤틀리면 화염이 라이너 중앙에 위치하지 않고 라이너 표면에 닿아 열점을 형성 → 심한 경우 라이너에 구멍 생성</li>
+    </ul>
+    <div class="exam-point">시험 출제 예고 — Scavenge 구멍 뚫어서 문제 낼 거임: 노즐에서 연료가 모두 연소된 후 남은 연료를 배출하는 스캐빈지 구멍의 역할과 위치</div>
+  </div>
+
+  <!-- P&D Valve -->
+  <div class="card">
+    <div class="card-title">🔀 P&amp;D Valve (Pressuring &amp; Dump Valve)</div>
+    <ul class="point-list">
+      <li>복선 복식 연료노즐 이용 시 <span class="hl">1차 연료와 2차 연료를 분배</span></li>
+      <li>FCU와 연료 매니폴드 사이에 설치</li>
+      <li><span class="hl-blue">가압(Pressuring)</span>: 미리 정해진 압력에 의해 P&amp;D valve 내의 가압밸브를 열어 1차 연료 매니폴드 뿐 아니라 2차 연료 매니폴드로도 연료가 흐르게 하는 것을 의미</li>
+    </ul>
+    <div class="grid3">
+      <div class="mini-card">
+        <div class="label">시동 및 저출력</div>
+        <div style="color:var(--accent2); font-weight:700; font-size:0.85rem;">1차 연료만 흐름</div>
+        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">연료량 최대 출력의 1/10 수준. 압력도 낮아 2차 연료의 여압밸브는 스프링 힘으로 닫혀 있음</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">출력 증가</div>
+        <div style="color:var(--accent3); font-weight:700; font-size:0.85rem;">압력 일정값 도달</div>
+        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">연료량 증가 → 압력 증가 → 여압밸브가 열려 2차 연료도 흐르게 됨</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">엔진 정지 시</div>
+        <div style="color:var(--accent4); font-weight:700; font-size:0.85rem;">덤프(Dump)</div>
+        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">매니폴드 계통 내 연료를 모두 비움 → 탄화물 발생 방지 → 1차 연료를 드레인 탱크에 배내고 대기 중으로 방출 (최근 방출구를 막아 대기오염 방지)</p>
+      </div>
+    </div>
+    <div class="warn-box">⚠️ 기관 정지 후 매니폴드 내에 연료가 남아 있으면 탄화를 발생시킬 위험, 남아 있는 연료는 엔진 열에 의해 연료가 끓게 됨 → 고체물질이 정밀하게 보정되어 있는 흐름통로에 부착되어 흐름통로를 막음</div>
+  </div>
+
+  <!-- FCU -->
+  <div class="card">
+    <div class="card-title">🖥️ FCU (Fuel Control Unit) — 기계식 컴퓨터</div>
+    <div class="note-box" style="margin-bottom:10px;">💡 FCU의 핵심 역할: <span class="hl">Main Metering Valve</span>의 개구 면적을 결정하여 연소실로 가는 Metered Fuel 양 조절. 파워레버 위치에 적합한 연료량을 기관에 공급</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent1); font-weight:700; margin-bottom:6px;">1. 센싱부 (Sensing Section) — 입력</p>
+        <ul class="point-list">
+          <li><span class="hl-blue">① PLA (Power Lever Angle)</span>: 파워 레버 위치</li>
+          <li><span class="hl-blue">② 엔진 속도 N1/N2</span>: 연료조절기 내부 <span class="hl">플라이웨이트 거버너</span>를 통해 전달</li>
+          <li><span class="hl-blue">③ 압축기 입구 압력 Pt2</span>: 연료조절기의 벨로즈(Bellows)로 전달 — 비행 속도, 고도에 따라 변하는 공기밀도 조건 감지</li>
+          <li><span class="hl-blue">④ 압축기 출구 압력 Ps4</span>: 내부 벨로즈로 공기의 정압 전달 → 공기 질량 유량을 연료조절기에 제공</li>
+          <li><span class="hl-blue">⑤ 연소실 압력 Pb</span>: 연소기 라이너 내부 정압 → 연소실 압력과 공기 중량 사이에 선형적 관계 → 연소실 벨로즈는 10% 더 많은 연료를 보내서 정확한 공연비 유지</li>
+          <li><span class="hl-blue">⑥ 압축기 입구 온도 Tt2</span>: 모세관 튜브로 연료조절기에 보내며, 온도에 따라 수축 또는 팽창 → 공기의 밀도값을 연료조절기에 제공</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:6px;">2. 컴퓨팅부 (Computing Section) — 연산</p>
+        <ul class="point-list">
+          <li><span class="hl">벨로즈(Bellows)</span>: 압력·온도 신호를 기계적 변위로 변환</li>
+          <li><span class="hl">레버(Lever)</span>: 힘 전달 및 증폭</li>
+          <li><span class="hl">캠(Cam)</span>: 복합적인 위치 변화를 만듦</li>
+        </ul>
+        <p style="color:var(--accent2); font-weight:700; margin-bottom:6px; margin-top:10px;">3. 미터링부 (Metering Section) — 출력 = Valve</p>
+        <ul class="point-list">
+          <li><span class="hl-purple">Main Metering Valve</span>: 개구 면적을 결정 → 연소실로 가는 연료량 최종 조절</li>
+          <li>거버너(Governor) 플라이웨이트: 과속 방지 — 회전수에 따른 원심력으로 연료량을 제한하는 피드백 루프 담당</li>
+        </ul>
+        <div class="warn-box" style="margin-top:8px;">⚠️ 가속 시: 급격한 파워레버 → 연료량 즉시 증가하나 관성력에 의해 기관 회전은 급격히 증가되지 않음 → 혼합기 농후→ 화염소실, 과도한 TIT 상승, 압축기 실속 위험</div>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent4); font-weight:700; margin-bottom:6px;">거버너(Governor) 동작</p>
+        <div class="grid2" style="gap:6px;">
+          <div class="mini-card">
+            <div class="label">과속 상태</div>
+            <p style="font-size:0.78rem; color:var(--text2);">① 엔진 부하 감소 → 가속<br>② 플라이웨이트 밖으로 벌어짐 → 연료 공급 일부 막힘<br>③ 엔진이 정속으로 돌아옴</p>
+          </div>
+          <div class="mini-card">
+            <div class="label">저속 상태</div>
+            <p style="font-size:0.78rem; color:var(--text2);">① 엔진 부하 증가 → 감속<br>② 플라이웨이트 안쪽으로 움직임 → 연료 공급 증가<br>③ 엔진이 정속으로 돌아옴</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--accent2); font-weight:700; margin-bottom:6px;">FADEC (Full Authority Digital Electric Control)</p>
+        <ul class="point-list">
+          <li>전자기술 발달로 기존 유압-기계식 FCU와 아날로그 전자식 FCU 대신 <span class="hl">디지털 전자식 엔진 조절장치</span> 출현</li>
+          <li>고성능 마이크로 컴퓨터로 되어 있음</li>
+          <li>엔진 연료 유량(FMU), 압축기 가변 스테이터 각도, 실속 방지용 압축기 블리드 밸브, ACCS 등을 종합적으로 조절</li>
+          <li>비상상태에 최적인 상태로 엔진을 조절하기 때문에 비행 상태량뿐만 아니라 비행 상태량을 포함한 다수의 입력신호를 전산처리함</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FCU Trimming -->
+  <div class="card">
+    <div class="card-title">🎛️ FCU 트리밍 (FCU Trimming)</div>
+    <ul class="point-list">
+      <li>FCU Trimming = 엔진 트리밍이라고도 함</li>
+      <li>FCU는 기계 장치라서 조정 필요 (FADEC는 트리밍 필요 없음)</li>
+      <li><span class="hl">목적 ①</span>: 정해진 회전수와 운용 관계를 초과하지 않은 상태에서 <span class="hl">정격 출력을 유지하기 위해 실시</span></li>
+      <li><span class="hl">목적 ②</span>: 신규 엔진은 최적의 성능을 발휘하지만 엔진의 사용 기간이 늘어남에 따라 압축기 부문의 파울링(erosion/distortion) 등이 발생하면 압축기 효율이 저하되어 <span class="hl">엔진 출력 저하</span> → 출력감소를 보상하기 위해 FCU Trimming 실시</li>
+      <li>특정 EPR에서 <span class="hl">EGT가 증가하는 경향</span>이 있다면 Trimming이 필요하다고 판단함</li>
+      <li>트리밍 = 민감도 조절 = spring back → 케이블 tension이 적절한지 확인하는 과정</li>
+      <li>max보다 좀 더 갈 수 있게 쿠셔닝(Margin) 확보하는 과정</li>
+    </ul>
+    <div class="note-box">💡 현대 고성능 엔진은 대부분 컴퓨터가 연료량을 제어하여, 엔진 상태에 적합하도록 연료량이 자동 조절되므로 Trimming이 필요치 않음</div>
+  </div>
+
+  <!-- 가스터빈 연료 종류 -->
+  <div class="card">
+    <div class="card-title">⛽ 가스 터빈 연료 종류</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent1); font-weight:700; margin-bottom:6px;">항공유 2대 계열</p>
+        <ul class="point-list">
+          <li>항공유에는 크게 두 가지 종류 — <span class="hl-blue">항공유(avgas, 가솔린)</span>와 <span class="hl-green">제트 연료(kerosene계)</span></li>
+          <li>제트 연료는 등유와 유사한 액체 탄화수소이며, 일부는 휘발유와 혼합됨</li>
+          <li>항공유는 성분상 등유(kerosene)와 동일하며, 항공유는 등유 유분에 여러 가지 첨가제를 혼합하여 제조</li>
+          <li>가스 터빈 연료는 왕복 엔진 연료처럼 색상으로 구분되지는 않지만, 자연적으로 옅은 노란색</li>
+        </ul>
+      </div>
+      <div>
+        <table class="compare-table">
+          <thead><tr><th>연료</th><th>특징</th><th>사용처</th></tr></thead>
+          <tbody>
+            <tr><td><span class="hl-blue">Jet A-1</span></td><td>DERD 2494(영국), ASTM D 1655 규격. 등유 유분에 첨가제</td><td>민간 여객기</td></tr>
+            <tr><td><span class="hl-green">JP-4</span></td><td>등유 + 가솔린(나프타) 각 50% 혼합. Wide-cut gasoline</td><td>전투기. 결빙온도 -60°C</td></tr>
+            <tr><td><span class="hl-purple">JP-5</span></td><td>높은 인화점 Kerosene, 초음속용</td><td>미 해군 수송기. 높은 인화점 → 안정성</td></tr>
+            <tr><td><span class="hl">JP-8</span></td><td>MIL-T-83133 규격. JP-4 대비 안정성 우수</td><td>군용. <span class="hl">현재 국내 군용 항공유는 JP-8</span>. 탱크, 차량에도 사용 가능</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3); font-weight:700; margin-bottom:6px;">Wide-cut Gasoline (JP-4) 단점</p>
+        <ul class="point-list">
+          <li>고고도에서 연료의 증발로 인한 손실 증가</li>
+          <li>지상에서 발화 위험 증가</li>
+          <li>항공기 충돌 시 생존 가능성 저하</li>
+          <li>→ 미군은 1970년대 다시 kerosene-type fuel(JP-8) 복귀</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent2); font-weight:700; margin-bottom:6px;">연료 구비 조건</p>
+        <ul class="point-list">
+          <li>발열량이 클 것</li>
+          <li>연소성이 좋고 <span class="hl">Soot(그을음) 발생이 적을 것</span></li>
+          <li>휘발성이 적당하고 시동성과 <span class="hl">재착화 특성</span>이 좋으면서 Vapor Lock을 일으키지 않을 것</li>
+          <li>저온에서 <span class="hl">동결되지 않을 것</span> (제트연료 결빙점: -40 ~ -60°C)</li>
+          <li>부식성이 없을 것 (<span class="hl">황성분 최소화</span> — 황산으로 변하여 터빈 구성품 부식)</li>
+          <li>열안정성이 좋을 것</li>
+          <li>이물질이 들어 있지 않을 것</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 첨가제 -->
+  <div class="card">
+    <div class="card-title">🧪 연료 첨가제 (Fuel Additives)</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent4); font-weight:700; margin-bottom:6px;">미생물 억제제 (Biocide)</p>
+        <ul class="point-list">
+          <li>연료탱크에 물이 포함되어 있는 경우 자연스럽게 미생물 성장</li>
+          <li>미생물은 유기체와 박테리아나 공팡이류에 관계없이 심각한 효과를 나타냄</li>
+          <li>이들 <span class="hl-red">미생물은 부식화합물을 형성하여 연료탱크의 금속 벽과 바닥을 부식시킴</span></li>
+          <li>대형 항공기: 날개를 연료탱크로 사용(wet wings) → 날개가 구조적으로 약해지는 문제 발생</li>
+          <li>날개를 연료탱크로 사용하는 항공기는 연료탱크 내벽을 <span class="hl">부식저항성을 가지는 물질로 코팅</span>처리</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent2); font-weight:700; margin-bottom:6px;">방빙 첨가제 (Anti-icing) — Prist</p>
+        <ul class="point-list">
+          <li>항공기 연료는 아무리 주의를 기울여도 연료 주입과정에서 일정량의 물이 연료와 함께 주입</li>
+          <li>항공기가 고고도에서 장시간 비행한 후에는 연료탱크 표면과 연료 온도가 지상에서 주입할 때보다 낮아짐 → 결빙 위험</li>
+          <li>가장 일반적인 연료 첨가제 = <span class="hl">연료 방빙 및 미생물 억제제</span></li>
+          <li>가장 많이 사용하는 연료 방빙 및 미생물 억제제: <span class="hl-blue">Prist</span> (휴스턴화학 제조)</li>
+          <li>Prist는 연료 온도가 내려감에 따라 첨가제가 더 높은 농도로 물과 결합하여 물의 빙점을 연료 온도보다 낮게 유지시켜 줌</li>
+          <li>Prist 첨가제는 장기간 공기와의 접촉을 포함하여 <span class="hl-red">산화제와의 접촉을 피해야만 함</span></li>
+          <li>대부분의 경우 첨가제는 연료공급회사가 연료에 섞음. 만일 연료공급회사가 연료에 미리 섞지 않으면 연료를 항공기에 주입할 때 넣어야 함</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 기어박스 -->
+  <div class="card">
+    <div class="card-title">⚙️ Accessory Section (기어박스)</div>
+    <ul class="point-list">
+      <li>엔진 구동식 외장형 기어박스는 부속 장치의 주요 구성 요소</li>
+      <li>연료 펌프, 오일 펌프, 연료 제어 장치, 시동 장치 등 엔진 작동에 필수적인 부속 장치와 유압 펌프, 발전기 등의 부품은 주 기어박스(GIB)에 장착</li>
+      <li>엔진 코어 축 → 베벨 기어 → 레디얼 드라이브 샤프트 → 기어박스로 동력 전달</li>
+      <li>GIB는 엔진 팬 케이스 아래 또는 측면에 위치 (위치 = 주 기어박스)</li>
+    </ul>
+    <div class="note-box">💡 전체가 다 물려 있음 — 엔진 N2 축에서 에너지를 받아 GIB를 통해 연료 펌프, 오일 펌프, 발전기, 유압펌프 등 모든 부속 장치가 구동됨</div>
+  </div>
+
+</div>
+
+
+</div><!-- end content -->
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
