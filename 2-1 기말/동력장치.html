@@ -1399,7 +1399,7 @@
     <div class="card-title">⚙️ 연료계통 기본 원리 (Principles of Fuel Systems)</div>
     <ul class="point-list">
       <li>주요 기능: 지상 및 공중 운용의 모든 조건에서 엔진에 <span class="hl">정확한 양의 연료</span>를 공급</li>
-      <li><span class="hl-red">증기 잠금(Vapor Lock)</span> 방지 — 기체가 아닌 액체를 처리하도록 설계된 장치를 통해 연료 흐름을 제한하는 현상 → <span class="hl">이착륙 구간에만 연결기</span> 사용</li>
+      <li><span class="hl-red">증기 잠금(Vapor Lock)</span> 방지 — 기체가 아닌 액체를 처리하도록 설계된 장치를 통해 연료 흐름을 제한하는 현상</li>
       <li>더 높은 추력이 필요할 때 스로틀을 열면 연료 분사 노즐의 압력이 증가하고 연료 유량이 증가 → <span class="hl">터빈 입압(TIT) 증가 → 터빈 통과 배기가스 속도 빨라짐 → 회전수 증가 → 추력 증가</span></li>
       <li>연료 흐름은 <span class="hl-blue">공기 흐름의 변화에 맞춰 조정</span>되어야 하며, 공기 흐름 대 연료 흐름 비율이 변하면 스로틀을 레버 위치로 원래 설정된 엔진 속도보다 증가하거나 감소하게 됨</li>
       <li>고도·기온·항공기 속도 변화 → 공기 밀도 변화 → 유입 공기 질량 변화 → FCU가 자동 조절</li>
@@ -1408,7 +1408,7 @@
 
   <!-- 펌프 3종류 -->
   <div class="card">
-    <div class="card-title">🔧 연료계통 펌프 3종류 (필기 핵심)</div>
+    <div class="card-title">🔧 연료계통 펌프 3종류</div>
     <div class="grid3">
       <div class="cooling-card" style="border-top-color:var(--accent1);">
         <h4>① 부스터 펌프 (Boost Pump)</h4>
@@ -1433,7 +1433,7 @@
         <h4>③ 고압단 펌프 (High Stage)</h4>
         <ul class="point-list">
           <li><span class="hl">기어 타입 (Gear Type)</span></li>
-          <li>용적형 펌프 (Positive Displacement)</li>
+          <li><span class="hl">용적형 펌프 (Positive Displacement)</span></li>
           <li>회전수만큼 <span class="hl">정확한 연료량</span> 송출</li>
           <li>공기량도 고려 → FCU에 신호 전달</li>
           <li>기계적 결함/고착 시 Shear Section이 끊겨 엔진 보호</li>
@@ -1453,7 +1453,7 @@
           <li>엔진으로 구동 — 엔진 속도 증가 → 펌프 속도 증가 → 더 많은 연료 공급</li>
           <li>엔진에서 요구하는 것보다 <span class="hl">초과하는 양</span>의 연료를 연료조절기에 연속적으로 공급할 수 있도록 설계</li>
           <li>연료조절기는 요구량 공급 후 <span class="hl-blue">나머지 연료를 차압조절밸브를 통해 펌프 입구로 되돌려 보냄</span></li>
-          <li>자가 윤활 방식 — 연료로 윤활함</li>
+          <li><span class="hl-purple">자가 윤활 방식</span> — 연료로 윤활함</li>
           <li>일반적으로 1~2개의 스퍼기어 요소 + 가끔 원심승압 요소 포함</li>
         </ul>
       </div>
@@ -1476,7 +1476,10 @@
       <li>필터 결빙이 지나쳐 압력이 저하되면 계기판에 <span class="hl">경고등 켜짐</span></li>
       <li>연료-오일냉각기 또는 연료가열기는 엔진연료 <span class="hl-blue">부스트 펌프와 주연료 펌프 필터 입구 사이</span>에 설치</li>
     </ul>
-    <div class="danger-box">🚨 연료가열기 작동 제한:<br>• <span style="color:var(--accent4)">이륙 전 1분간 사용</span> — 과잉 가열은 증기폐쇄의 원인, 연료조절기에 열손상 유발<br>• 이륙, 착륙, 복행 시에는 작동시키면 안 됨 — 극한 비행 영역에서 연료증발로 인한 연소정지 위험</div>
+    <div class="danger-box">🚨 연료가열기 작동 제한:<br>
+      • <span style="color:var(--accent4)">이륙 전 1분간 사용</span> — 과잉 가열은 증기폐쇄의 원인, 연료조절기에 열손상 유발<br>
+      • 연료필터 바이패스 등이 켜지면 작동<br>
+      • 이륙, 착륙, 복행 시에는 작동시키면 안 됨 — 극한 비행 영역에서 연료증발로 인한 연소정지 위험</div>
     <div class="note-box">💡 연료-오일냉각기만으로 연료의 결빙을 막을 수 있는 경우에는 독립된 연료가열기 사용하지 않음. 연료-오일냉각기 대신 <span class="hl">공기-오일냉각기</span>를 사용하는 경우 보통 연료가열기 사용</div>
   </div>
 
@@ -1491,17 +1494,17 @@
           <li>작고 둥근 오리피스로 하나의 분무 제공</li>
           <li>내부 플루트형 스핀실에서 선회운동 → 연료 축방향 속도 줄이며 무화</li>
           <li>체크밸브: 엔진 정지 후 연료를 차단, 연료가 연소실 내부로 흘러가는 것 방지</li>
-          <li>단식 노즐 적용 시 <span class="hl">부문연소(Sector Burning)</span> 실시 — 엔진 시동 시 전체 노즐 중 절반 또는 그 이상을 사용, 시동 후 아이들속도까지 운전</li>
-          <li>→ 비행 아이들 속도에서는 연료 압력이 충분히 높아져서 모든 연료 노즐 사용</li>
+          <li>단식 노즐 적용 시 <span class="hl">부분연소(Sector Burning)</span> 실시 — 엔진 시동 시 전체 노즐 중 절반 또는 그 이상을 사용, 시동 후 아이들속도까지 운전 → 비행 아이들 속도에서는 연료 압력이 충분히 높아져서 모든 연료 노즐 사용</li>
         </ul>
         <div class="tag tag-blue">프라이머 / 시동 노즐</div>
+        → 점화 완료 후 이 밸브는 작동하지 않음
       </div>
       <div class="cooling-card" style="border-top-color:var(--accent3);">
         <h4>② 단선 복식 노즐 (Single-line Duplex)</h4>
         <ul class="point-list">
           <li>하나의 입구도 연료를 공급받아 <span class="hl">두 개의 분무 오리피스</span>로 분배</li>
           <li>엔진 시동과 가속: 중앙 등근 오리피스 = <span class="hl-blue">1차 연료(Primary Fuel)</span></li>
-          <li>2차 연료(Secondary Fuel): 외부 환형 노즐이 미리 정해진 연료압력이 올라오면 열리면서 파일럿 연료와 함께 분사</li>
+          <li><span class="hl-blue">2차 연료(Secondary Fuel)</span>: 외부 환형 노즐이 미리 정해진 연료압력이 올라오면 열리면서 파일럿 연료와 함께 분사</li>
           <li>외부 오리피스로부터 분사되는 연료는 압력이 높고 양도 많으므로 고출력 시에도 연료가 라이너에 부딪히지 않도록 <span class="hl">좁은 각도</span>로 분사</li>
           <li>복식노즐: 효율적인 연료 분무 및 연료-공기 혼합 위해 각 오리피스 마다 스핀실 사용</li>
         </ul>
@@ -1624,11 +1627,12 @@
       <li>FCU는 기계 장치라서 조정 필요 (FADEC는 트리밍 필요 없음)</li>
       <li><span class="hl">목적 ①</span>: 정해진 회전수와 운용 관계를 초과하지 않은 상태에서 <span class="hl">정격 출력을 유지하기 위해 실시</span></li>
       <li><span class="hl">목적 ②</span>: 신규 엔진은 최적의 성능을 발휘하지만 엔진의 사용 기간이 늘어남에 따라 압축기 부문의 파울링(erosion/distortion) 등이 발생하면 압축기 효율이 저하되어 <span class="hl">엔진 출력 저하</span> → 출력감소를 보상하기 위해 FCU Trimming 실시</li>
-      <li>특정 EPR에서 <span class="hl">EGT가 증가하는 경향</span>이 있다면 Trimming이 필요하다고 판단함</li>
+      <li><span class="hl">목적 ③</span>: 특정 EPR에서 <span class="hl">EGT가 증가하는 경향</span>이 있다면 Trimming이 필요하다고 판단함</li>
       <li>트리밍 = 민감도 조절 = spring back → 케이블 tension이 적절한지 확인하는 과정</li>
       <li>max보다 좀 더 갈 수 있게 쿠셔닝(Margin) 확보하는 과정</li>
+      <li>현대 고성능 엔진은 대부분 컴퓨터가 연료량을 제어하여, 엔진 상태에 적합하도록 연료량이 자동 조절되므로 Trimming이 필요치 않음</li>
     </ul>
-    <div class="note-box">💡 현대 고성능 엔진은 대부분 컴퓨터가 연료량을 제어하여, 엔진 상태에 적합하도록 연료량이 자동 조절되므로 Trimming이 필요치 않음</div>
+    <div class="note-box">💡 조종석 레버 위치가 엔진의 실제 출력과 100% 기계적으로 일치하면서도, 물리적 파손을 막기 위한 안전 여유를 확보하는 과정</div>
   </div>
 
   <!-- 가스터빈 연료 종류 -->
@@ -1729,13 +1733,40 @@
 </div><!-- end content -->
 
 <script>
-function showSection(id) {
+const SECTIONS = ['combustor', 'turbine', 'exhaust', 'fuel', 'summary'];
+
+function showSection(id, pushState) {
+  if (!document.getElementById(id)) return;
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  event.target.classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  const btn = document.querySelector(`.nav-btn[data-section="${id}"]`);
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (pushState !== false) {
+    history.pushState({ section: id }, '', '#' + id);
+  }
 }
+
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  const match = btn.getAttribute('onclick')?.match(/showSection\('([^']+)'\)/);
+  if (match) {
+    btn.setAttribute('data-section', match[1]);
+    btn.setAttribute('onclick', `showSection('${match[1]}')`);
+  }
+});
+
+window.addEventListener('popstate', e => {
+  const id = (e.state?.section) || location.hash.slice(1) || SECTIONS[0];
+  showSection(id, false);
+});
+
+(function init() {
+  const hash = location.hash.slice(1);
+  const id = SECTIONS.includes(hash) ? hash : SECTIONS[0];
+  showSection(id, false);
+  if (!location.hash) history.replaceState({ section: id }, '', '#' + id);
+})();
 </script>
 </body>
 </html>
