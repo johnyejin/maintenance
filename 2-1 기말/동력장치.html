@@ -22,6 +22,7 @@
     --green: #4caf80;
     --red: #e05c7a;
     --yellow: #f4a946;
+    --sidebar-w: 220px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -30,41 +31,200 @@
     font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
     font-size: 14px;
     line-height: 1.7;
+    display: flex;
+    min-height: 100vh;
   }
-  /* 헤더 */
-  .header {
-    background: linear-gradient(135deg, #141829 0%, #1a2040 100%);
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: #12151f;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    z-index: 200;
+    overflow-y: auto;
+    transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+  }
+  .sidebar-header {
+    padding: 1.4rem 1.2rem 1rem;
     border-bottom: 1px solid var(--border);
-    padding: 2rem 2rem 1.5rem;
+    flex-shrink: 0;
+  }
+  .sidebar-header .badge {
+    background: var(--accent1);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .sidebar-header h1 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .sidebar-header p {
+    font-size: 0.72rem;
+    color: var(--text3);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .sidebar-nav {
+    flex: 1;
+    padding: 0.75rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--text2);
+    padding: 9px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.83rem;
+    font-family: inherit;
+    transition: all 0.18s;
+    text-align: left;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1.3;
+  }
+  .nav-btn:hover {
+    background: rgba(79,142,247,0.1);
+    color: var(--accent1);
+  }
+  .nav-btn.active {
+    background: rgba(79,142,247,0.15);
+    color: var(--accent1);
+    font-weight: 700;
+    border-left: 3px solid var(--accent1);
+    padding-left: 9px;
+  }
+  .nav-btn .ch-num {
+    font-size: 0.68rem;
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    padding: 1px 5px;
+    flex-shrink: 0;
+    color: var(--text3);
+  }
+  .nav-btn.active .ch-num {
+    background: rgba(79,142,247,0.25);
+    color: var(--accent1);
+  }
+  .sidebar-footer {
+    padding: 0.75rem 0.6rem 1.2rem;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .home-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border-radius: 7px;
+    font-size: 0.82rem;
+    color: var(--text2);
+    text-decoration: none;
+    transition: all 0.18s;
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .home-btn:hover {
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+    border-color: var(--text3);
+  }
+
+  /* ─── OVERLAY (mobile) ─── */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 199;
+  }
+  .sidebar-overlay.show { display: block; }
+
+  /* ─── MAIN ─── */
+  .main-wrap {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .topbar {
+    background: #12151f;
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 1.5rem;
+    display: none;
+    align-items: center;
+    gap: 12px;
     position: sticky;
     top: 0;
     z-index: 100;
   }
-  .header-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-  .header h1 { font-size: 1.5rem; font-weight: 700; color: var(--accent1); letter-spacing: -0.02em; }
-  .header p { color: var(--text2); font-size: 0.85rem; }
-  .badge { background: var(--accent1); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; }
-  /* 탭 네비 */
-  .nav { display: flex; gap: 4px; flex-wrap: wrap; }
-  .nav-btn {
-    background: transparent;
+  .burger {
+    background: none;
     border: 1px solid var(--border);
-    color: var(--text2);
-    padding: 6px 14px;
     border-radius: 6px;
+    color: var(--text2);
+    width: 36px; height: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
     cursor: pointer;
-    font-size: 0.82rem;
-    font-family: inherit;
-    transition: all 0.2s;
-    white-space: nowrap;
+    flex-shrink: 0;
+    transition: border-color 0.2s;
   }
-  .nav-btn:hover { border-color: var(--accent1); color: var(--accent1); }
-  .nav-btn.active { background: var(--accent1); border-color: var(--accent1); color: #fff; font-weight: 600; }
-  /* 컨텐츠 영역 */
-  .content { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .burger:hover { border-color: var(--accent1); }
+  .burger span {
+    display: block;
+    width: 16px; height: 2px;
+    background: var(--text2);
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+  .burger:hover span { background: var(--accent1); }
+  .topbar-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    width: 100%;
+  }
+
+  /* ─── SECTIONS ─── */
   .section { display: none; }
   .section.active { display: block; }
-  /* 카드 */
+
+  /* ─── CARDS & LAYOUT (preserve existing) ─── */
   .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -81,8 +241,6 @@
     align-items: center;
     gap: 8px;
   }
-  .card-title .icon { font-size: 1.1rem; }
-  /* 섹션 헤더 */
   .sec-header {
     display: flex;
     align-items: center;
@@ -102,7 +260,6 @@
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  /* 리스트 스타일 */
   .point-list { list-style: none; }
   .point-list li {
     padding: 5px 0 5px 1.2rem;
@@ -120,17 +277,14 @@
     font-size: 0.75rem;
     top: 6px;
   }
-  /* 강조 텍스트 */
   .hl { color: var(--accent3); font-weight: 600; }
   .hl-blue { color: var(--accent1); font-weight: 600; }
   .hl-red { color: var(--accent4); font-weight: 600; }
   .hl-green { color: var(--green); font-weight: 600; }
   .hl-purple { color: var(--accent5); font-weight: 600; }
-  /* 2단 그리드 */
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
   @media (max-width: 680px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
-  /* 수식 박스 */
   .formula {
     background: var(--bg3);
     border-left: 3px solid var(--accent1);
@@ -141,7 +295,6 @@
     font-size: 0.9rem;
     color: var(--accent2);
   }
-  /* 경고/노트 박스 */
   .note-box {
     background: rgba(79,142,247,0.08);
     border: 1px solid rgba(79,142,247,0.25);
@@ -169,7 +322,6 @@
     font-size: 0.85rem;
     color: var(--accent4);
   }
-  /* 비교 테이블 */
   .compare-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 0.75rem 0; }
   .compare-table th {
     background: var(--bg3);
@@ -188,7 +340,6 @@
   .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
   .compare-table .plus { color: var(--green); }
   .compare-table .minus { color: var(--red); }
-  /* 다이어그램 박스 */
   .diagram-box {
     background: var(--bg3);
     border: 1px solid var(--border);
@@ -197,7 +348,6 @@
     margin: 0.75rem 0;
     text-align: center;
   }
-  /* 흐름 다이어그램 */
   .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin: 0.75rem 0; }
   .flow-box {
     background: var(--bg3);
@@ -212,21 +362,12 @@
   .flow-box.cool { border-color: var(--accent1); color: var(--accent1); }
   .flow-box.neutral { border-color: var(--accent2); color: var(--accent2); }
   .arrow { color: var(--text3); font-size: 1rem; }
-  /* 태그 */
-  .tag {
-    display: inline-block;
-    font-size: 0.72rem;
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-weight: 600;
-    margin: 2px;
-  }
+  .tag { display: inline-block; font-size: 0.72rem; padding: 2px 8px; border-radius: 12px; font-weight: 600; margin: 2px; }
   .tag-blue { background: rgba(79,142,247,0.15); color: var(--accent1); }
   .tag-green { background: rgba(76,175,128,0.15); color: var(--green); }
   .tag-red { background: rgba(224,92,122,0.15); color: var(--accent4); }
   .tag-yellow { background: rgba(244,169,70,0.15); color: var(--yellow); }
   .tag-purple { background: rgba(160,126,244,0.15); color: var(--accent5); }
-  /* 시험 포인트 */
   .exam-point {
     background: rgba(244,169,70,0.07);
     border: 1px solid rgba(244,169,70,0.35);
@@ -236,11 +377,8 @@
     font-size: 0.85rem;
   }
   .exam-point::before { content: '⭐ 시험 포인트: '; color: var(--yellow); font-weight: 700; }
-  /* 구분선 */
   .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
-  /* SVG 다이어그램 */
   svg text { font-family: 'Noto Sans KR', sans-serif; }
-  /* 미니 카드 */
   .mini-card {
     background: var(--bg3);
     border: 1px solid var(--border);
@@ -249,7 +387,6 @@
   }
   .mini-card .label { font-size: 0.75rem; color: var(--text3); margin-bottom: 4px; }
   .mini-card .value { font-size: 1.1rem; font-weight: 700; color: var(--accent2); }
-  /* 냉각 방법 카드 */
   .cooling-card {
     background: var(--bg3);
     border: 1px solid var(--border);
@@ -260,28 +397,610 @@
   .cooling-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--accent1); margin-bottom: 0.5rem; }
   .progress-bar { height: 6px; background: var(--border); border-radius: 3px; margin: 4px 0 8px; overflow: hidden; }
   .progress-fill { height: 100%; border-radius: 3px; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 860px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); }
+    .main-wrap { margin-left: 0; }
+    .topbar { display: flex; }
+    .content { padding: 1.25rem 1rem 4rem; }
+  }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-top">
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
     <div class="badge">동력장치 II</div>
-    <div>
-      <h1>✈ 항공기 동력장치 시험 정리노트</h1>
-      <p>Ch.4 연소기 · Ch.5 터빈 · Ch.6 배기계통 · Ch.7 연료계통 — 핵심 개념 완전 정리</p>
+    <h1>✈ 항공기 동력장치<br>시험 정리노트</h1>
+    <p>핵심 개념 완전 정리</p>
+  </div>
+  <nav class="sidebar-nav">
+    <button class="nav-btn" data-section="combustor" onclick="showSection('combustor')">
+      <span class="ch-num">Ch.4</span>🔥 연소기
+    </button>
+    <button class="nav-btn" data-section="turbine" onclick="showSection('turbine')">
+      <span class="ch-num">Ch.5</span>⚙️ 터빈
+    </button>
+    <button class="nav-btn" data-section="exhaust" onclick="showSection('exhaust')">
+      <span class="ch-num">Ch.6</span>💨 배기계통
+    </button>
+    <button class="nav-btn" data-section="fuel" onclick="showSection('fuel')">
+      <span class="ch-num">Ch.7</span>⛽ 연료계통
+    </button>
+    <button class="nav-btn" data-section="lube" onclick="showSection('lube')">
+      <span class="ch-num">Ch.9</span>🛢️ 윤활계통
+    </button>
+    <button class="nav-btn" data-section="summary" onclick="showSection('summary')">
+      <span class="ch-num">★</span>📋 핵심 요약
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="https://johnyejin.github.io/maintenance/" class="home-btn">
+      🏠 <span>홈으로 돌아가기</span>
+    </a>
+  </div>
+</aside>
+
+<!-- Mobile overlay -->
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- Main -->
+<div class="main-wrap">
+  <div class="topbar">
+    <button class="burger" id="burger" onclick="toggleSidebar()" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="topbar-title" id="topbar-title">항공기 동력장치 시험 정리노트</span>
+  </div>
+
+  <div class="content" id="main-content">
+
+<!-- Ch.9 윤활계통 섹션 -->
+<div class="section" id="lube">
+
+  <div class="sec-header">
+    <div class="sec-num">9</div>
+    <h2>윤활계통 (Lubricants &amp; Lubrication System)</h2>
+  </div>
+
+  <!-- 윤활계통 Schematic -->
+  <div class="card">
+    <div class="card-title">🗺️ 윤활계통 Schematic (전체 흐름)</div>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:10px;"><span class="hl">Supply 공급 → Distribution 분배 → Scavenge 회수</span> 3단계 계통</p>
+    <div class="diagram-box" style="padding:1rem;overflow-x:auto;">
+      <svg width="820" height="230" viewBox="0 0 820 230" style="min-width:660px;">
+        <rect x="0" y="0" width="820" height="230" fill="#181c2a" rx="8"/>
+        <!-- 레인 라벨 -->
+        <text x="6" y="34" fill="#6470a0" font-size="9" font-weight="700">공급(Supply)</text>
+        <text x="6" y="124" fill="#6470a0" font-size="9" font-weight="700">분배(Dist.)</text>
+        <text x="6" y="200" fill="#6470a0" font-size="9" font-weight="700">회수(Scavenge)</text>
+        <line x1="0" y1="78" x2="820" y2="78" stroke="#2e3350" stroke-width="0.5" stroke-dasharray="4,3"/>
+        <line x1="0" y1="158" x2="820" y2="158" stroke="#2e3350" stroke-width="0.5" stroke-dasharray="4,3"/>
+
+        <!-- ① 오일탱크 -->
+        <rect x="18" y="10" width="72" height="52" rx="5" fill="#1e2a3a" stroke="#4f8ef7" stroke-width="1.5"/>
+        <text x="54" y="30" fill="#4f8ef7" font-size="9" text-anchor="middle" font-weight="700">오일탱크</text>
+        <text x="54" y="43" fill="#9aa3c2" font-size="8" text-anchor="middle">Oil Tank</text>
+        <text x="54" y="56" fill="#6470a0" font-size="7.5" text-anchor="middle">10% 팽창공간 확보</text>
+
+        <line x1="90" y1="36" x2="116" y2="36" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#la1)"/>
+
+        <!-- ② 오일펌프 (Main Oil Pump) -->
+        <rect x="118" y="10" width="76" height="52" rx="5" fill="#1e2a3a" stroke="#a07ef4" stroke-width="1.8"/>
+        <text x="156" y="28" fill="#a07ef4" font-size="9" text-anchor="middle" font-weight="700">주 오일펌프</text>
+        <text x="156" y="40" fill="#9aa3c2" font-size="8" text-anchor="middle">Main Oil Pump</text>
+        <text x="156" y="53" fill="#6470a0" font-size="7.5" text-anchor="middle">용적형(기어/베인/지로터)</text>
+
+        <line x1="194" y1="36" x2="218" y2="36" stroke="#a07ef4" stroke-width="1.5" marker-end="url(#la2)"/>
+
+        <!-- ③ 압력조절밸브 -->
+        <rect x="220" y="10" width="76" height="52" rx="5" fill="#1e2a3a" stroke="#a07ef4" stroke-width="1.2"/>
+        <text x="258" y="28" fill="#a07ef4" font-size="9" text-anchor="middle" font-weight="700">압력조절밸브</text>
+        <text x="258" y="40" fill="#9aa3c2" font-size="8" text-anchor="middle">P. Relief Valve</text>
+        <text x="258" y="53" fill="#6470a0" font-size="7.5" text-anchor="middle">과압 시 탱크로 바이패스</text>
+
+        <line x1="296" y1="36" x2="318" y2="36" stroke="#a07ef4" stroke-width="1.5" marker-end="url(#la2)"/>
+
+        <!-- ④ 오일필터 -->
+        <rect x="320" y="10" width="76" height="52" rx="5" fill="#1e2a3a" stroke="#5bd4b0" stroke-width="1.5"/>
+        <text x="358" y="28" fill="#5bd4b0" font-size="9" text-anchor="middle" font-weight="700">오일필터</text>
+        <text x="358" y="40" fill="#9aa3c2" font-size="8" text-anchor="middle">Main Oil Filter</text>
+        <text x="358" y="53" fill="#6470a0" font-size="7.5" text-anchor="middle">막힘 → 바이패스 밸브</text>
+
+        <line x1="396" y1="36" x2="418" y2="36" stroke="#5bd4b0" stroke-width="1.5" marker-end="url(#la3)"/>
+
+        <!-- ⑤ 오일냉각기 -->
+        <rect x="420" y="10" width="76" height="52" rx="5" fill="#1e2a3a" stroke="#f4a946" stroke-width="1.5"/>
+        <text x="458" y="28" fill="#f4a946" font-size="9" text-anchor="middle" font-weight="700">오일냉각기</text>
+        <text x="458" y="40" fill="#9aa3c2" font-size="8" text-anchor="middle">Fuel-Oil Cooler</text>
+        <text x="458" y="53" fill="#6470a0" font-size="7.5" text-anchor="middle">연료로 오일 냉각</text>
+
+        <!-- 냉각기에서 분배부로 수직 화살표 -->
+        <line x1="458" y1="62" x2="458" y2="88" stroke="#f4a946" stroke-width="1.5" marker-end="url(#la4)"/>
+
+        <!-- ⑥ 베어링/기어박스 분배 -->
+        <rect x="370" y="90" width="174" height="52" rx="5" fill="#1e2a3a" stroke="#e05c7a" stroke-width="1.5"/>
+        <text x="457" y="108" fill="#e05c7a" font-size="9" text-anchor="middle" font-weight="700">베어링 &amp; 기어박스</text>
+        <text x="457" y="120" fill="#9aa3c2" font-size="8" text-anchor="middle">Bearings / Gearbox</text>
+        <text x="457" y="133" fill="#6470a0" font-size="7.5" text-anchor="middle">유막 형성 → 마찰·냉각·밀봉</text>
+
+        <!-- 분배 → 회수 -->
+        <line x1="457" y1="142" x2="457" y2="168" stroke="#e05c7a" stroke-width="1.5" marker-end="url(#la5)"/>
+
+        <!-- ⑦ 스캐빈지 펌프 -->
+        <rect x="370" y="170" width="174" height="52" rx="5" fill="#1e2a3a" stroke="#5bd4b0" stroke-width="1.5"/>
+        <text x="457" y="188" fill="#5bd4b0" font-size="9" text-anchor="middle" font-weight="700">스캐빈지 펌프</text>
+        <text x="457" y="200" fill="#9aa3c2" font-size="8" text-anchor="middle">Scavenge Pump</text>
+        <text x="457" y="213" fill="#6470a0" font-size="7.5" text-anchor="middle">용량 더 큼(공기 섞여서)</text>
+
+        <!-- 회수 → 칩 검출기 -->
+        <line x1="370" y1="196" x2="348" y2="196" stroke="#5bd4b0" stroke-width="1.5" marker-end="url(#la3r)"/>
+
+        <!-- ⑧ 칩 검출기 -->
+        <rect x="222" y="170" width="124" height="52" rx="5" fill="#1e2a3a" stroke="#f4a946" stroke-width="1.5"/>
+        <text x="284" y="188" fill="#f4a946" font-size="9" text-anchor="middle" font-weight="700">칩 검출기</text>
+        <text x="284" y="200" fill="#9aa3c2" font-size="8" text-anchor="middle">Chip Detector</text>
+        <text x="284" y="213" fill="#6470a0" font-size="7.5" text-anchor="middle">자석식·위치: 탱크·GIB</text>
+
+        <!-- 칩검출기 → 디에어레이터 -->
+        <line x1="222" y1="196" x2="200" y2="196" stroke="#f4a946" stroke-width="1.5" marker-end="url(#la4r)"/>
+
+        <!-- ⑨ 디에어레이터 -->
+        <rect x="88" y="170" width="110" height="52" rx="5" fill="#1e2a3a" stroke="#a07ef4" stroke-width="1.5"/>
+        <text x="143" y="188" fill="#a07ef4" font-size="9" text-anchor="middle" font-weight="700">디에어레이터</text>
+        <text x="143" y="200" fill="#9aa3c2" font-size="8" text-anchor="middle">De-aerator</text>
+        <text x="143" y="213" fill="#6470a0" font-size="7.5" text-anchor="middle">공기-오일 분리</text>
+
+        <!-- 디에어레이터 → 탱크 (복귀) -->
+        <line x1="88" y1="196" x2="54" y2="196" stroke="#a07ef4" stroke-width="1.5" marker-end="url(#la2r)"/>
+        <line x1="54" y1="196" x2="54" y2="65" stroke="#a07ef4" stroke-width="1" stroke-dasharray="4,2"/>
+        <text x="36" y="135" fill="#a07ef4" font-size="7.5" text-anchor="middle">탱크</text>
+        <text x="36" y="145" fill="#a07ef4" font-size="7.5" text-anchor="middle">복귀</text>
+
+        <!-- 벤트 라인 표시 -->
+        <rect x="600" y="90" width="110" height="52" rx="5" fill="#1a1d27" stroke="#6470a0" stroke-width="1" stroke-dasharray="4,2"/>
+        <text x="655" y="108" fill="#9aa3c2" font-size="9" text-anchor="middle" font-weight="700">브리더/벤트</text>
+        <text x="655" y="120" fill="#6470a0" font-size="8" text-anchor="middle">Breather/Vent</text>
+        <text x="655" y="133" fill="#6470a0" font-size="7.5" text-anchor="middle">공기압 평형 유지</text>
+
+        <!-- 마커 정의 -->
+        <defs>
+          <marker id="la1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4f8ef7"/></marker>
+          <marker id="la2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#a07ef4"/></marker>
+          <marker id="la3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5bd4b0"/></marker>
+          <marker id="la4" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f4a946"/></marker>
+          <marker id="la5" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e05c7a"/></marker>
+          <marker id="la3r" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#5bd4b0"/></marker>
+          <marker id="la4r" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#f4a946"/></marker>
+          <marker id="la2r" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto"><path d="M6,0 L0,3 L6,6 Z" fill="#a07ef4"/></marker>
+        </defs>
+
+        <!-- 범례 -->
+        <rect x="590" y="170" width="8" height="8" fill="none" stroke="#4f8ef7"/>
+        <text x="602" y="178" fill="#4f8ef7" font-size="7.5">공급(Supply)</text>
+        <rect x="590" y="184" width="8" height="8" fill="none" stroke="#e05c7a"/>
+        <text x="602" y="192" fill="#e05c7a" font-size="7.5">분배(Distribution)</text>
+        <rect x="590" y="198" width="8" height="8" fill="none" stroke="#5bd4b0"/>
+        <text x="602" y="206" fill="#5bd4b0" font-size="7.5">회수(Scavenge)</text>
+        <rect x="700" y="170" width="8" height="8" fill="none" stroke="#a07ef4"/>
+        <text x="712" y="178" fill="#a07ef4" font-size="7.5">복귀(Return)</text>
+      </svg>
     </div>
   </div>
-  <div class="nav">
-    <button class="nav-btn active" onclick="showSection('combustor')">🔥 Ch.4 연소기</button>
-    <button class="nav-btn" onclick="showSection('turbine')">⚙️ Ch.5 터빈</button>
-    <button class="nav-btn" onclick="showSection('exhaust')">💨 Ch.6 배기계통</button>
-    <button class="nav-btn" onclick="showSection('fuel')">⛽ Ch.7 연료계통</button>
-    <button class="nav-btn" onclick="showSection('summary')">📋 핵심 요약</button>
-  </div>
-</div>
 
-<div class="content">
+  <!-- 윤활계통 구분 -->
+  <div class="card">
+    <div class="card-title">🔀 윤활계통 구분 (3계통)</div>
+    <div class="grid3">
+      <div class="cooling-card" style="border-top-color:var(--accent1);">
+        <h4>① Supply (공급) 계통</h4>
+        <ul class="point-list">
+          <li>오일탱크에서 펌프를 통해 베어링·기어박스로 가압된 오일 전달</li>
+          <li>압력 조절 밸브로 과압 방지</li>
+          <li>Supply line = 압력 오일</li>
+        </ul>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent3);">
+        <h4>② Distribution (분배) 계통</h4>
+        <ul class="point-list">
+          <li>Last Chance Filter 통해 각 베어링에 오일 공급</li>
+          <li>오일 제트(Oil Jets)로 베어링에 직접 분사</li>
+          <li>유막 형성 → 마찰·냉각·밀봉</li>
+        </ul>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent2);">
+        <h4>③ Scavenge (회수) 계통</h4>
+        <ul class="point-list">
+          <li>사용된 오일을 기어박스·베어링 부품 사이에서 빨아들여 탱크로 복귀</li>
+          <li>용량이 더 큼 (공기 섞여 부피 증가)</li>
+          <li>Chip Detector → De-aerator → 오일탱크</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warn-box">⚠️ 벤트(Vent) 계통: 시스템 내부의 공기 압력을 평형하게 유지하고 오일 증기를 배출. Breather Vent &amp; Centrifugal Breather 사용</div>
+  </div>
+
+  <!-- 윤활의 목적 -->
+  <div class="card">
+    <div class="card-title">🎯 윤활의 목적 & 기본 원리</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent1);font-weight:700;margin-bottom:8px;">4가지 주요 목적</p>
+        <ul class="point-list">
+          <li><span class="hl">① 유막 형성</span>: 금속 표면의 불규칙한 부분을 채워 유막을 형성 → 금속간 직접 접촉 방지 → 마찰 감소</li>
+          <li><span class="hl">② 기밀작용 (Sealing)</span>: 베어링 챔버 등 특정 구역에서 외부 먼지 유입 차단 및 내부 압력 조절</li>
+          <li><span class="hl">③ 청결</span>: 오일이 엔진을 순환하면서 이물질을 필터로 운반하여 걸러냄</li>
+          <li><span class="hl">④ 냉각</span>: 오일이 엔진 열을 흡수하여 오일탱크나 열교환기로 전달</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent3);font-weight:700;margin-bottom:8px;">윤활 원리</p>
+        <ul class="point-list">
+          <li>유막이 끊기지 않으면 <span class="hl">금속마찰이 유체마찰로 전환</span> → 마찰이 크게 줄어듦</li>
+          <li>유체마찰 발생 시 윤활유 온도 상승 → 점도가 낮아짐 → 윤활을 마친 오일은 냉각기로 보내짐</li>
+          <li>→ <span class="hl-red">점도가 높은 윤활유</span> 사용 필요</li>
+          <li>Oil pump는 오일에 잠겨 있어 자발적으로 윤활시킴</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="padding-top: 12px;">
+      <p style="color:var(--accent2);font-weight:700;margin-bottom:8px;">윤활계통 일반사항</p>
+      <ul class="point-list">
+        <li>윤활계통 종류: <span class="hl">① 압력경감밸브계통</span> - 오일펌프에서 압력을 제한해 오일 유량 조절 / <span class="hl">② 전유량계통</span> - 엔진 RPM 변화에 따라 오일압력이 달라짐</li>
+        <li>가스터빈은 피스톤엔진에 비해 <span class="hl">오일 소모가 적음</span> → 비교적 작은 오일탱크 사용. <span class="hl">합성윤활유</span>(synthetic lubricants) 사용</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 윤활유 구비조건 -->
+  <div class="card">
+    <div class="card-title">🧪 합성 윤활유 구비조건 (Requirements)</div>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:10px;">석유계 윤활유는 가스터빈의 고온에서 윤활특성이 급격히 저하 → 합성윤활유(광물성+식물성+동물성 혼합) 사용</p>
+    <div class="grid2">
+      <div>
+        <ul class="point-list">
+          <li><span class="hl-blue">① 낮은 휘발성</span>: 고고도에서 증발 최소화</li>
+          <li><span class="hl-blue">② 거품억제성</span>: 윤활유 성능 향상, 공동현상(Cavitation) 방지</li>
+          <li><span class="hl-blue">③ 적은 락커(lacquer)·코크(coke) 침전물</span>: 고체입자 형성 최소화 — 윤활유가 뜨거워지면 반들반들해짐(탄화)</li>
+          <li><span class="hl-blue">④ 높은 인화점 (Flash Point)</span>: 오일을 가열할 때 가연성 증기가 발생하여 점화원에 최초로 점화되는 온도 — 오일은 불이 잘 안 꺼지므로 <span class="hl">잘 타지 않아야 함</span></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="point-list">
+          <li><span class="hl-green">⑤ 낮은 유동점 (Pour Point)</span>: 오일이 중력에 의해 흐르는 가장 낮은 온도 — <span class="hl">낮은 유동점을 가져야 함</span> (높은 유동점을 가져야 하는 것은 아님!)</li>
+          <li><span class="hl-green">⑥ 유막 강도 (Film Strength)</span>: 응집력(cohesion)과 접착력(adhesion)의 뛰어난 특성 — 압력 하중 및 원심하중 작용 시 표면에 달라붙는 특성</li>
+          <li><span class="hl-green">⑦ 넓은 온도 범위</span>: 약 -60℉~+400℉, 약 -40℉에서 예열 불필요</li>
+          <li><span class="hl-green">⑧ 높은 점도지수 (Viscosity Index)</span>: 운전온도로 가열 시 얼마나 잘 점도를 유지하는가 — 높을수록 양호</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exam-point">유동점 = 낮아야 좋음 / 인화점·점도지수 = 높아야 좋음. 자주 혼동하는 포인트!</div>
+  </div>
+
+  <!-- FAA 요구사항 -->
+  <div class="card">
+    <div class="card-title">📋 윤활계통에 대한 FAA 요구사항</div>
+    <ul class="point-list">
+      <li>오일탱크 주입구 근처에 "오일"이라는 말이 적혀있어야 함</li>
+      <li>부주의하게 오일탱크 팽창공간을 채울 수 없도록 어떤 수단이 마련되어야 함</li>
+      <li><span class="hl">10%의 오일 팽창공간</span>을 마련해야 함 → <span class="hl">"air lock 효과"</span>: 부주의한 과충전 방지</li>
+      <li>엔진에 있는 배출구로 쏟아져 나온 오일이 이동할 수 있도록 <span class="hl">오일탱크 배수구</span>를 마련해야 함</li>
+      <li>오일필터는 계통 모든 곳에 오일이 흐를 수 있도록 해주는 형태여야 함</li>
+    </ul>
+    <div class="grid2" style="margin-top:12px;">
+      <div class="danger-box">
+        🚨 <strong>건식 섬프(Dry Sump) 필요성</strong><br>
+        항공기는 급선회, 배면 비행, 고고도 상승 등 격렬한 자세 변화를 겪기 때문에 오일이 한쪽으로 쏠리면 공급이 끊김 → 별도의 독립된 오일탱크 필수
+      </div>
+      <div class="danger-box">
+        🚨 <strong>과충전(Overfill) 위험성</strong><br>
+        오일을 너무 많이 넣으면 탱크 내 공기(Ullage Space)가 줄어 계통 압력 급상승 → 공기-오일 분리(De-aeration) 기능 마비 → 오일 미스트가 브리더를 통해 외부로 뿜어져 화재 위험 / 베어링 시일 손상
+      </div>
+    </div>
+    <div class="note-box">💡 압력 유지 관련 부품: Breather Vent &amp; Centrifugal Breather, Overflow Valve, Level Sensor &amp; Sight Glass, Pressure Relief Valve</div>
+  </div>
+
+  <!-- SOAP -->
+  <div class="card">
+    <div class="card-title">🔬 Oil Sampling &amp; SOAP</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent1);font-weight:700;margin-bottom:6px;">분광오일분석 (SOAP)</p>
+        <ul class="point-list">
+          <li>SOAP = <span class="hl">Spectrometric Oil Analysis Program</span></li>
+          <li>오일 분광계(Oil Spectrometer)를 통해 오일에 포함되어 있는 이물질을 <span class="hl">ppm 단위(10⁻⁶ 미크론 단위)</span>로 분석</li>
+          <li>엔진을 분해하지 않고도 엔진 손상 정도와 위치 파악</li>
+          <li>샘플 채취 시점: <span class="hl">엔진 정지 후와 엔진 운전 직전 — 오일탱크 내의 침전물이 없는 위치</span>에서 채취</li>
+        </ul>
+        <div class="note-box" style="margin-top:8px;">💡 분석 원리: 오일샘플 → 회전 흑연디스크 표면 유막 형성 → 고압 교류 스파크 → 빛 발생 → 슬릿(slit) 통과 → 파장 분석 → <span class="hl">빛의 밝기를 측정</span></div>
+      </div>
+      <div>
+        <p style="color:var(--accent3);font-weight:700;margin-bottom:6px;">분석 대상 금속 &amp; 의미</p>
+        <table class="compare-table" style="font-size:0.78rem;">
+          <thead><tr><th>금속</th><th>의미 (어떤 부품 마모)</th></tr></thead>
+          <tbody>
+            <tr><td>철(Fe)</td><td>기어, 샤프트, 베어링 레이스 마모</td></tr>
+            <tr><td>구리(Cu)</td><td>베어링 케이지, 부싱 마모</td></tr>
+            <tr><td>알루미늄(Al)</td><td>압축기 부품, 기어박스 하우징</td></tr>
+            <tr><td>은(Ag)</td><td>베어링 케이지 (은 도금 부품)</td></tr>
+            <tr><td>크롬(Cr)</td><td>강철 합금 부품</td></tr>
+            <tr><td>티타늄(Ti)</td><td>팬/압축기 블레이드</td></tr>
+          </tbody>
+        </table>
+        <p style="color:var(--accent2);font-weight:700;margin-top:10px;margin-bottom:4px;">샘플링 주기</p>
+        <ul class="point-list">
+          <li>소형엔진: 최소 <span class="hl">25 엔진작동시간</span></li>
+          <li>대형엔진: 최대 <span class="hl">250 엔진작동시간</span></li>
+          <li>마모 징후 상승 시 → 주기 단축</li>
+        </ul>
+      </div>
+    </div>
+    <div class="danger-box">
+      <p>🚨 최초로 과도한 마모 징후 나타나면 정비사는 판단</p>
+      <ul class="point-list">
+        <li>① 샘플링 주기 단축</li>
+        <li>② 메인 오일필터를 오일 흐름 반대방향으로 세척 후 마모입자 수집·분석</li>
+        <li>③ 오일 교환</li>
+        <li>④ 오일계통 세척(Flushing)</li>
+        <li>⑤ 엔진 장탈하여 부품 점검</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 오일탱크 & 구성 -->
+  <div class="card">
+    <div class="card-title">🛢️ 오일탱크 구성요소 (대형 가스터빈 기준)</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent1);font-weight:700;margin-bottom:6px;">건식 윤활계통 오일탱크 주요 부품</p>
+        <table class="compare-table">
+          <thead><tr><th>번호</th><th>명칭</th><th>역할</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Scavenge Return Line In</td><td>회수 라인</td></tr>
+            <tr><td>2</td><td>Tank Pressurizing Check Valve</td><td>압력 유지</td></tr>
+            <tr><td>3</td><td>Vent Tube</td><td>공기 벤트</td></tr>
+            <tr><td>8</td><td>Pressure Fill Port</td><td>압력 급유 / 지상 급유</td></tr>
+            <tr><td>9</td><td>Scupper Drain</td><td>오일 흘러내리지 않게 함</td></tr>
+            <tr><td>11</td><td>Overflow Port</td><td>넘치면(과충전) 빠져나가게 함</td></tr>
+            <tr><td>12</td><td>Mounting Strap</td><td>—</td></tr>
+            <tr><td>13</td><td>Filler Cap &amp; Dipstick</td><td>중력식 주입구 / 압력으로 오일 밀어넣음. 오일 양 확인</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p style="color:var(--accent2);font-weight:700;margin-bottom:6px;">건식 vs 습식 계통 비교</p>
+        <table class="compare-table">
+          <thead><tr><th>구분</th><th>건식 (Dry Sump)</th><th>습식 (Wet Sump)</th></tr></thead>
+          <tbody>
+            <tr><td>오일 저장</td><td>별도 독립 오일탱크</td><td>엔진 섬프(기어박스)에 저장</td></tr>
+            <tr><td>사용처</td><td>대부분 가스터빈</td><td>APU, GPU, 구형 소형 엔진</td></tr>
+            <tr><td>자세 변화</td><td><span class="hl-green">안전</span> — 어떤 자세에서도 공급</td><td><span class="hl-red">위험</span> — 급기동 시 공급 불안정</td></tr>
+            <tr><td>오일탱크</td><td>필수 (별도 위치)</td><td>불필요</td></tr>
+          </tbody>
+        </table>
+        <div class="note-box" style="margin-top:8px;">💡 대부분의 가스터빈은 건식계통 채택. 오일탱크는 대부분 압력이 가해져 있어 오일이 오일펌프 입구로 잘 흘러들어가게 함 → 탱크 가압 시 캐비테이션 방지</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 오일펌프 종류 -->
+  <div class="card">
+    <div class="card-title">🔧 오일 펌프 종류 (용적형 3가지)</div>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:10px;">가장 많이 사용되는 펌프: 베인 펌프, 지로터 펌프, 기어 펌프 — 모두 <span class="hl">용적형 펌프(Positive Displacement Pump)</span>이며 자체 윤활 방식</p>
+    <div class="grid3">
+      <div class="cooling-card" style="border-top-color:var(--accent1);">
+        <h4>① 베인 펌프 (Vane Pump)</h4>
+        <ul class="point-list">
+          <li>슬라이딩 베인이 케이스 내벽을 따라 회전하며 오일 이송</li>
+          <li>회전당 정해진 양 송출</li>
+          <li>상대적으로 단순한 구조</li>
+        </ul>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent5);">
+        <h4>② 지로터 펌프 (Gerotor Pump) ⭐</h4>
+        <ul class="point-list">
+          <li>내접기어펌프 — 내부 구동기어 + 외부 아이들러기어</li>
+          <li>치차 1개 더 있음 (Supply 1개 / Scavenge는 베어링마다)</li>
+          <li><span class="hl-green">소형으로 고효율</span></li>
+          <li>맥동 감소</li>
+          <li>거품도 잘 안 생김</li>
+          <li>Dry Sump의 Scavenge용으로 최적</li>
+          <li>흡입액체가 역류하지 않음</li>
+        </ul>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent3);">
+        <h4>③ 기어 펌프 (Gear Pump)</h4>
+        <ul class="point-list">
+          <li>외접형: 구동 기어 + 피동 기어 외부에서 맞물림 → 고속 고압 가능</li>
+          <li>내접형: 크레센트(초승달 모양) 격벽으로 입·출구 분리 → 저전단, 민감한 고점도 이송에 유리</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exam-point">Supply 펌프 1개, Scavenge 펌프 베어링마다(여러 개). 지로터 펌프 = Dry Sump Scavenge 용도에 최적</div>
+  </div>
+
+  <!-- 오일필터 -->
+  <div class="card">
+    <div class="card-title">🔍 오일 필터 (Oil Filter)</div>
+    <div class="grid2">
+      <div>
+        <ul class="point-list">
+          <li>오일 펌프 → <span class="hl">Main Oil Filter</span> → 엔진 공급</li>
+          <li>필터 막힘 시 <span class="hl">Bypass Valve</span> 열려 여과 안 된 오일 공급 (엔진 보호 우선)</li>
+          <li><span class="hl">Anti-Static Leak Check Valve (2~3 PSID)</span>: 엔진 정지 후 오일이 필터에서 역류하는 것 방지</li>
+          <li>System Relief Valve: 펌프 출구 과압 시 바이패스</li>
+          <li>필터 막힘 경고: 차압(PSID) 증가 → 계기판 경고등 켜짐</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent2);font-weight:700;margin-bottom:6px;">Last Chance Filter</p>
+        <ul class="point-list">
+          <li>각 베어링 바로 앞에 설치된 최종 필터</li>
+          <li>마지막 이물질 차단 역할</li>
+          <li>No.1·1.5·2·3·4 베어링 + AGB·MGB 등 각각 설치</li>
+        </ul>
+        <div class="note-box" style="margin-top:8px;">💡 Normal Operation: 오일이 필터를 통과 → 엔진으로. Filter Clogged: 바이패스 밸브 열림 → 미여과 오일이 엔진으로 (경고등 점등)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 오일 냉각기 -->
+  <div class="card">
+    <div class="card-title">❄️ 오일 냉각기 (Oil Cooler)</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent1);font-weight:700;margin-bottom:6px;">Fuel-Oil Heat Exchanger</p>
+        <ul class="point-list">
+          <li>뜨거워진 오일을 연료와 열교환 → <span class="hl">오일은 냉각, 연료는 예열</span></li>
+          <li>CFM56 등 현대 엔진에서 주로 사용</li>
+          <li>Cold Mode: Oil Temperature Differential Pressure &amp; Thermostatic By-pass Valve — 오일이 냉각기를 바이패스</li>
+          <li>Hot Mode: 서모스탯이 열려 오일이 냉각기를 통과 → 연료로 열 전달</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent2);font-weight:700;margin-bottom:6px;">Oil Cooler Bypass Valve (55~75 PSID)</p>
+        <ul class="point-list">
+          <li>냉각기 막힘 또는 저온 시 바이패스</li>
+          <li>오일 점도가 너무 높을 때(저온 시동 직후) 냉각기를 우회하여 오일을 빠르게 엔진으로 공급</li>
+        </ul>
+        <div class="warn-box" style="margin-top:8px;">⚠️ 연료-오일 냉각기에서 연료를 너무 데우면 안 됨 (케로신 등유) → 이륙 전까지만 연료 사용</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 베어링 -->
+  <div class="card">
+    <div class="card-title">⚙️ 베어링 (Bearings)</div>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:10px;">가스터빈 엔진의 주 베어링: 볼 베어링 또는 롤러 베어링과 같은 <span class="hl">마찰 방지형(anti-friction) 베어링</span>. 왕복 엔진과 달리 일반 베어링(부싱)은 주축에 사용 안 함 — 빠른 속도로 마찰열 발생이 크기 때문</p>
+    <div class="grid3">
+      <div class="cooling-card" style="border-top-color:var(--accent4);">
+        <h4>일반 베어링 (Plain/Bushing)</h4>
+        <ul class="point-list">
+          <li>면접촉 (Sliding)</li>
+          <li>마찰 저항 큼 (특히 시동 시)</li>
+          <li>터빈엔진 주축 <span class="hl-red">적용 불가</span> — 용융·파손 위험</li>
+          <li>부속품 등 하중 적은 일부 부위에 사용</li>
+        </ul>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent1);">
+        <h4>볼 베어링 (Ball Bearing) ⭐</h4>
+        <ul class="point-list">
+          <li>점접촉 (Rolling) — 마찰 매우 작음</li>
+          <li>Grooved Inner Race에서 회전</li>
+          <li><span class="hl">축방향(추력) + 반경방향(원심력) 동시 지지</span></li>
+          <li>필수 — 1번/최전방에서 추력 지지</li>
+        </ul>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent2);">
+        <h4>롤러 베어링 (Roller Bearing) ⭐</h4>
+        <ul class="point-list">
+          <li>선접촉 (Rolling) — 마찰 약간 작음</li>
+          <li>Flat Inner Race — 볼보다 접촉면적 넓음</li>
+          <li><span class="hl">반경 방향 하중 대용량</span> 흡수</li>
+          <li>작동 중 엔진의 <span class="hl">축 방향 팽창 수용</span> 가능하도록 배치됨 → Cover 범위가 넓음</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exam-point">볼 베어링 = 축방향(추력) + 반경방향 동시 지지 / 롤러 베어링 = 반경방향 대용량 + 열팽창 수용. 테이퍼 롤러 베어링은 거의 사용 안 함</div>
+  </div>
+
+  <!-- 칩 검출기 -->
+  <div class="card">
+    <div class="card-title">🧲 칩 검출기 (Chip Detectors)</div>
+    <ul class="point-list">
+      <li>소기계통에 설치 → 오일탱크와 압력계통을 순환하며 엔진 마모와 손상의 원인이 되는 <span class="hl">쇳조각을 붙잡아 걸러냄</span></li>
+      <li>위치: <span class="hl">오일탱크, GIB(기어박스)</span></li>
+      <li>자석(Magnetic Plug)이 금속 입자를 포착 → 조종석 경고등 점등</li>
+      <li>경고등이 켜지면 → 다른 엔진계기 지시에 따라 운항 중 엔진 정지, 아이들 상태에서 계속 운전, 정상순항에서 계속 운전할 것인지 판단</li>
+      <li><span class="hl-blue">Quick Release / Quick Disconnect</span> 구조: 이거 장착 안 하고 비행해도 오일 새지 않게 되어 있음 (자동 차단 밸브 구조, Self-Sealing Valve Housing + Bayonet Fitting)</li>
+      <li>Poppet(sleeve): 강력한 Check Spring, 칩 디텍터를 분리할 때 오일이 밖으로 새는 것을 막는 밸브</li>
+    </ul>
+    <div style="margin-top:10px;">
+      <div>
+        <p style="color:var(--accent2);font-weight:700;margin-bottom:6px;">칩 판단 기준</p>
+        <table class="compare-table">
+          <thead><tr><th>상태</th><th>크기 기준</th><th>조치</th></tr></thead>
+          <tbody>
+            <tr><td><span class="hl-green">Acceptable</span></td><td>0.1인치 미만</td><td>계속 운전 가능 (정상 마모)</td></tr>
+            <tr><td><span class="hl-red">Unacceptable</span></td><td>0.1인치 초과</td><td>엔진 내부 심각한 손상 징후 → 점검 필요</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p style="color:var(--accent3);font-weight:700;margin:14px 0 8px;">칩 검출기 세대별 발전</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table" style="font-size:0.83rem; min-width:600px;">
+        <thead>
+          <tr>
+            <th style="width:90px;">구분</th>
+            <th style="background:#1a3a6a; color:#7eb8ff;">1세대<br><span style="font-weight:400; font-size:0.78rem;">표준형 자석식 칩 검출기</span></th>
+            <th style="background:#1a3a6a; color:#7eb8ff;">2세대<br><span style="font-weight:400; font-size:0.78rem;">펄스형 칩 검출기 (Pulsed)</span></th>
+            <th style="background:#1a3a6a; color:#7eb8ff;">3세대<br><span style="font-weight:400; font-size:0.78rem;">정량적 모니터 (QDM)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700; color:var(--text2);">판단 방식</td>
+            <td>회로 단락 (단순 On/Off)</td>
+            <td>전기 태움 분리 (Burn-off 후 On/Off)</td>
+            <td>전자기 유도 (실시간 데이터화)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700; color:var(--text2);">미세 입자 대응</td>
+            <td><span class="hl-red">오작동(False Alarm) 유발</span></td>
+            <td>전기 펄스로 태워서 제거</td>
+            <td><span class="hl-green">태우지 않고 크기를 측정하여 분류</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700; color:var(--text2);">제공 정보</td>
+            <td>접촉 여부</td>
+            <td>큰 입자 잔존 여부</td>
+            <td><span class="hl">입자의 정확한 개수, 크기, 누적 질량</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700; color:var(--text2);">정비 방식</td>
+            <td>사후 정비<br><span style="font-size:0.78rem;color:var(--text3)">(경고등 점등 시 탈거)</span></td>
+            <td>조건부 정비<br><span style="font-size:0.78rem;color:var(--text3)">(Burn-off 실패 시 조치)</span></td>
+            <td>예측 정비<br><span style="font-size:0.78rem;color:var(--text3)">(시간 경과에 따른 마모 트렌드 분석)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="exam-point">Pulsed Chip Detector: 전기에너지로 금속입자를 고온 가열 → 분리(Burn-off). 미세입자면 사라지고 경고등 꺼짐. 큰 입자면 경고등 계속 켜짐 → 엔진 출력 감소 또는 정지</div>
+  </div>
+
+  <!-- 계통 모니터링 -->
+  <div class="card">
+    <div class="card-title">📊 모니터링 및 유지관리</div>
+    <div class="grid3">
+      <div class="mini-card">
+        <div class="label">조종실 지시계</div>
+        <div style="color:var(--accent2);font-weight:700;font-size:0.88rem;">압력·온도·잔량</div>
+        <p style="font-size:0.8rem;color:var(--text2);margin-top:4px;">실시간 표시. 한계치 초과 시 <span style="color:var(--yellow)">호박색(주의)</span> 또는 <span style="color:var(--red)">적색(경고)</span>으로 색상 변화</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">오일 보충 시기</div>
+        <div style="color:var(--accent3);font-weight:700;font-size:0.88rem;">정지 후 30분 이내</div>
+        <p style="font-size:0.8rem;color:var(--text2);margin-top:4px;">엔진 정지 후 30분 이내 점검. 캡 열기 전 <span class="hl">최소 5분</span> 대기 — 중력에 의해 오일이 내려가기 때문</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">Magnetic Chip Detector</div>
+        <div style="color:var(--accent4);font-weight:700;font-size:0.88rem;">자주 검사 권장</div>
+        <p style="font-size:0.8rem;color:var(--text2);margin-top:4px;">메인베어링 손상 여부 확인 가능. 소량 입자·금속가루는 정상 마모로 계속 운전 가능</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END Ch.9 -->
+
+
+
 
 <!-- ==============================
      Ch.4 연소기 (Combustor)
@@ -1730,10 +2449,20 @@
 </div>
 
 
+
 </div><!-- end content -->
+</div><!-- end main-wrap -->
 
 <script>
-const SECTIONS = ['combustor', 'turbine', 'exhaust', 'fuel', 'summary'];
+const SECTIONS = ['combustor', 'turbine', 'exhaust', 'fuel', 'lube', 'summary'];
+const SECTION_TITLES = {
+  combustor: 'Ch.4 연소기',
+  turbine:   'Ch.5 터빈',
+  exhaust:   'Ch.6 배기계통',
+  fuel:      'Ch.7 연료계통',
+  lube:      'Ch.9 윤활계통',
+  summary:   '핵심 요약'
+};
 
 function showSection(id, pushState) {
   if (!document.getElementById(id)) return;
@@ -1742,22 +2471,33 @@ function showSection(id, pushState) {
   document.getElementById(id).classList.add('active');
   const btn = document.querySelector(`.nav-btn[data-section="${id}"]`);
   if (btn) btn.classList.add('active');
+  // scroll to top of main content area
+  const mc = document.getElementById('main-content');
+  if (mc) mc.scrollIntoView({ behavior: 'smooth', block: 'start' });
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // topbar title
+  const tt = document.getElementById('topbar-title');
+  if (tt) tt.textContent = SECTION_TITLES[id] || id;
   if (pushState !== false) {
     history.pushState({ section: id }, '', '#' + id);
   }
+  // auto-close sidebar on mobile
+  if (window.innerWidth <= 860) closeSidebar();
 }
 
-document.querySelectorAll('.nav-btn').forEach(btn => {
-  const match = btn.getAttribute('onclick')?.match(/showSection\('([^']+)'\)/);
-  if (match) {
-    btn.setAttribute('data-section', match[1]);
-    btn.setAttribute('onclick', `showSection('${match[1]}')`);
-  }
-});
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
 
 window.addEventListener('popstate', e => {
-  const id = (e.state?.section) || location.hash.slice(1) || SECTIONS[0];
+  const id = (e.state && e.state.section) || location.hash.slice(1) || SECTIONS[0];
   showSection(id, false);
 });
 

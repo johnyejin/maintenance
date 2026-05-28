@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>재료역학 시험 정리</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>
+window.MathJax = {
+  tex: { inlineMath:[['\\(','\\)'],['$','$']], displayMath:[['\\[','\\]'],['$$','$$']] },
+  options: { skipHtmlTags:['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+:root {
+  --bg:#0d1117; --surface:#161b22; --surface2:#21262d;
+  --border:#30363d; --accent:#58a6ff; --accent2:#f78166;
+  --accent3:#3fb950; --accent4:#d2a8ff;
+  --text:#e6edf3; --text-muted:#8b949e; --warn:#e3b341;
+  --sidebar-w:248px; --topbar-h:54px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;font-size:15px;padding-top:var(--topbar-h);overflow:hidden;height:100vh}
+
+/* ── TOPBAR ─────────────────────────────────────────────── */
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--topbar-h);background:rgba(13,17,23,0.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:12px;z-index:300}
+.topbar-home{display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--text-muted);font-size:12px;font-weight:500;padding:5px 10px;border-radius:6px;border:1px solid var(--border);transition:all .18s;white-space:nowrap;flex-shrink:0}
+.topbar-home:hover{color:var(--accent);border-color:var(--accent);background:rgba(88,166,255,.06)}
+.topbar-home svg{width:14px;height:14px;flex-shrink:0}
+.topbar-divider{width:1px;height:22px;background:var(--border);flex-shrink:0}
+.topbar-title{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.topbar-title span{color:var(--text-muted);font-weight:400}
+.hamburger{display:none;align-items:center;justify-content:center;width:36px;height:36px;background:none;border:1px solid var(--border);border-radius:6px;cursor:pointer;color:var(--text-muted);transition:all .18s;flex-shrink:0;margin-left:auto}
+.hamburger:hover{color:var(--accent);border-color:var(--accent);background:rgba(88,166,255,.06)}
+.hamburger svg{width:16px;height:16px}
+
+/* ── LAYOUT ─────────────────────────────────────────────── */
+.page-body{display:flex;height:calc(100vh - var(--topbar-h))}
+
+/* ── SIDEBAR ────────────────────────────────────────────── */
+.sidebar{width:var(--sidebar-w);height:100%;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;overflow-x:hidden;flex-shrink:0;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.sidebar-inner{padding:18px 0 40px}
+.sidebar-label{font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--text-muted);padding:0 18px 10px}
+.sidebar-nav{list-style:none}
+.sidebar-nav li{margin:1px 0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 18px;cursor:pointer;font-size:13px;color:var(--text-muted);border-left:2px solid transparent;transition:all .15s;line-height:1.35;user-select:none}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.04);border-left-color:var(--border)}
+.nav-item.active{color:var(--accent);background:rgba(88,166,255,.08);border-left-color:var(--accent);font-weight:600}
+.nav-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);background:var(--surface2);border:1px solid var(--border);padding:1px 5px;border-radius:3px;flex-shrink:0;min-width:26px;text-align:center}
+.nav-item.active .nav-num{background:rgba(88,166,255,.14);border-color:rgba(88,166,255,.4);color:var(--accent)}
+.nav-divider{height:1px;background:var(--border);margin:10px 16px}
+
+/* ── MAIN ────────────────────────────────────────────────── */
+.main{flex:1;overflow-y:auto;overflow-x:hidden;height:100%}
+.main::-webkit-scrollbar{width:6px}
+.main::-webkit-scrollbar-track{background:transparent}
+.main::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* ── OVERLAY ─────────────────────────────────────────────── */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;backdrop-filter:blur(2px)}
+.sidebar-overlay.active{display:block}
+
+/* ── SECTIONS (tab visibility) ──────────────────────────── */
+.section{display:none;animation:fadeIn .22s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero{background:linear-gradient(135deg,#0d1117 0%,#1a1f2e 50%,#0d1117 100%);border-bottom:1px solid var(--border);padding:40px 44px 30px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-70px;right:-70px;width:300px;height:300px;background:radial-gradient(circle,rgba(88,166,255,.07) 0%,transparent 70%);pointer-events:none}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.hero-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:600;background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.25);padding:3px 8px;border-radius:4px}
+.hero-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);background:var(--surface2);border:1px solid var(--border);padding:3px 8px;border-radius:4px}
+.hero h1{font-size:24px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px}
+.hero p{color:var(--text-muted);font-size:13px}
+.hero-nav{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.hero-nav button{font-size:12px;color:var(--text-muted);background:none;padding:5px 12px;border:1px solid var(--border);border-radius:5px;cursor:pointer;transition:all .15s;font-family:'Noto Sans KR',sans-serif;display:flex;align-items:center;gap:5px}
+.hero-nav button:hover{color:var(--text);border-color:var(--text-muted)}
+.hero-nav .prev::before{content:'←';margin-right:4px}
+.hero-nav .next::after{content:'→';margin-left:4px}
+
+/* ── CONTAINER ──────────────────────────────────────────── */
+.container{max-width:880px;padding:36px 44px 60px}
+
+/* ── INDEX CARDS ────────────────────────────────────────── */
+.index-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:4px}
+.index-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;cursor:pointer;transition:all .18s;border-left-width:3px}
+.index-card:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.index-card-num{font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:5px;font-weight:600}
+.index-card-title{font-size:14px;font-weight:600;color:var(--text)}
+.index-card-sub{font-size:12px;color:var(--text-muted);margin-top:3px}
+
+/* ── CONTENT SECTIONS ───────────────────────────────────── */
+.sub-section{margin-bottom:48px}
+.sub-header{display:flex;align-items:center;gap:12px;margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.sub-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.3);padding:3px 8px;border-radius:4px;letter-spacing:1px;flex-shrink:0}
+.sub-header h2{font-size:18px;font-weight:700;color:var(--text)}
+
+/* ── CARD ───────────────────────────────────────────────── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:14px}
+.card h3{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px}
+.card p,.card li{color:#cdd5df;font-size:14px;line-height:1.85}
+.card ul,.card ol{padding-left:18px}
+.card li{margin-bottom:4px}
+
+/* ── FORMULA ────────────────────────────────────────────── */
+.formula-block{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:8px;padding:15px 20px;margin:12px 0;font-family:'JetBrains Mono',monospace;overflow-x:auto}
+.formula-block.important{border-left-color:var(--accent2);background:rgba(247,129,102,.04)}
+.formula-block.key{border-left-color:var(--accent3);background:rgba(63,185,80,.04)}
+.formula-block .label{font-size:11px;color:var(--text-muted);margin-bottom:7px;font-family:'Noto Sans KR',sans-serif}
+
+/* ── NOTE ───────────────────────────────────────────────── */
+.note{border-radius:8px;padding:12px 16px;margin:10px 0;font-size:13.5px;line-height:1.7;display:flex;gap:9px}
+.note.warn{background:rgba(227,179,65,.08);border:1px solid rgba(227,179,65,.3);color:var(--warn)}
+.note.info{background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.2);color:#8dc8ff}
+.note.tip{background:rgba(63,185,80,.06);border:1px solid rgba(63,185,80,.25);color:#6de08a}
+.note.danger{background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.25);color:#ff8b8b}
+.note-icon{font-size:15px;flex-shrink:0;margin-top:2px}
+
+/* ── TABLE ──────────────────────────────────────────────── */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{background:var(--surface2);color:var(--accent);padding:9px 13px;text-align:left;font-weight:600;border:1px solid var(--border);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+td{padding:8px 13px;border:1px solid var(--border);color:#cdd5df;vertical-align:top;line-height:1.55}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+
+/* ── DIAGRAM ────────────────────────────────────────────── */
+.diagram-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;margin:12px 0;overflow-x:auto}
+.diagram-caption{font-size:11.5px;color:var(--text-muted);margin-top:8px;text-align:center;font-style:italic}
+
+/* ── HIGHLIGHT ──────────────────────────────────────────── */
+.hl{color:var(--warn);font-weight:600}
+.hl-blue{color:var(--accent);font-weight:600}
+.hl-green{color:var(--accent3);font-weight:600}
+.hl-red{color:var(--accent2);font-weight:600}
+.hl-purple{color:var(--accent4);font-weight:600}
+
+/* ── COMPARE GRID ───────────────────────────────────────── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.compare-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.compare-item h4{font-size:12.5px;font-weight:600;margin-bottom:8px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.compare-item p,.compare-item li{font-size:13px;color:#bcc8d4}
+
+/* ── STEP LIST ──────────────────────────────────────────── */
+.step-list{counter-reset:step;list-style:none;padding:0}
+.step-list li{counter-increment:step;display:flex;gap:12px;margin-bottom:10px;font-size:13.5px;color:#cdd5df}
+.step-list li::before{content:counter(step);background:var(--accent);color:var(--bg);width:21px;height:21px;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+
+/* ── BADGE ──────────────────────────────────────────────── */
+.badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.4px;padding:2px 6px;border-radius:4px;margin-left:5px;vertical-align:middle}
+.badge-exam{background:rgba(247,129,102,.2);color:var(--accent2);border:1px solid rgba(247,129,102,.4)}
+.badge-key{background:rgba(63,185,80,.2);color:var(--accent3);border:1px solid rgba(63,185,80,.4)}
+
+svg text{font-family:'Noto Sans KR',sans-serif}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media(max-width:800px){
+  body{overflow:auto;height:auto}
+  .page-body{height:auto;flex-direction:column}
+  .sidebar{position:fixed;top:var(--topbar-h);left:0;height:calc(100vh - var(--topbar-h));z-index:250;transform:translateX(calc(-1 * var(--sidebar-w)))}
+  .sidebar.open{transform:translateX(0);box-shadow:4px 0 24px rgba(0,0,0,.5)}
+  .main{height:auto;overflow:visible}
+  .hamburger{display:flex}
+  .hero{padding:24px 20px 18px}
+  .hero h1{font-size:20px}
+  .container{padding:24px 18px 48px}
+  .compare-grid{grid-template-columns:1fr}
+  .topbar-title span{display:none}
+}
+@media(max-width:480px){
+  .topbar{padding:0 12px;gap:8px}
+  .topbar-home{font-size:11px;padding:4px 8px}
+  .card{padding:14px 14px}
+  .formula-block{padding:12px 12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── TOPBAR ──────────────────────────────────────────────────── -->
+<header class="topbar">
+  <button class="hamburger" id="hamburgerBtn" aria-label="메뉴">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+  <a href="https://johnyejin.github.io/maintenance/" class="topbar-home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+      <polyline points="9 21 9 13 15 13 15 21"/>
+    </svg>홈
+  </a>
+  <div class="topbar-divider"></div>
+  <div class="topbar-title" id="topbarTitle">재료역학 시험 정리</div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ── LAYOUT ──────────────────────────────────────────────────── -->
+<div class="page-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-label">목차</div>
+      <ul class="sidebar-nav">
+        <li><div class="nav-item active" onclick="show('index')"><span class="nav-num">홈</span>목차</div></li>
+        <li><div class="nav-item" onclick="show('sec1')"><span class="nav-num">01</span>열응력</div></li>
+        <li><div class="nav-item" onclick="show('sec2')"><span class="nav-num">02</span>얇은 압력용기</div></li>
+        <li><div class="nav-item" onclick="show('sec3')"><span class="nav-num">03</span>회전하는 얇은 원환체</div></li>
+        <li><div class="nav-item" onclick="show('sec4')"><span class="nav-num">04</span>탄성에너지</div></li>
+        <li><div class="nav-item" onclick="show('sec5')"><span class="nav-num">05</span>경사단면 응력</div></li>
+        <li><div class="nav-item" onclick="show('sec6')"><span class="nav-num">06</span>충격하중</div></li>
+        <li><div class="nav-item" onclick="show('sec7')"><span class="nav-num">07</span>단면 1차 모멘트·도심</div></li>
+        <div class="nav-divider"></div>
+        <li><div class="nav-item" onclick="show('checklist')"><span class="nav-num" style="color:var(--warn);border-color:rgba(227,179,65,.4);">★</span>최종 체크리스트</div></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="mainArea">
+
+    <!-- ════════════════════════════════════════════════════
+         INDEX
+    ════════════════════════════════════════════════════ -->
+    <div class="section active" id="sec-index">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span></div>
+        <h1>재료역학 정리 노트</h1>
+      </div>
+      <div class="container">
+        <div class="card">
+          <h3>챕터 목록</h3>
+          <div class="index-grid">
+            <div class="index-card" style="border-left-color:var(--accent);" onclick="show('sec1')">
+              <div class="index-card-num" style="color:var(--accent);">01</div>
+              <div class="index-card-title">열응력</div>
+              <div class="index-card-sub">Thermal Stress · σ = EαΔT</div>
+            </div>
+            <div class="index-card" style="border-left-color:var(--accent2);" onclick="show('sec2')">
+              <div class="index-card-num" style="color:var(--accent2);">02</div>
+              <div class="index-card-title">얇은 압력용기</div>
+              <div class="index-card-sub">Thin-Walled Pressure Vessel · 후프응력</div>
+            </div>
+            <div class="index-card" style="border-left-color:var(--accent3);" onclick="show('sec3')">
+              <div class="index-card-num" style="color:var(--accent3);">03</div>
+              <div class="index-card-title">회전하는 얇은 원환체</div>
+              <div class="index-card-sub">Rotating Thin Ring · 원심응력</div>
+            </div>
+            <div class="index-card" style="border-left-color:var(--accent4);" onclick="show('sec4')">
+              <div class="index-card-num" style="color:var(--accent4);">04</div>
+              <div class="index-card-title">탄성에너지</div>
+              <div class="index-card-sub">Strain Energy · Resilience</div>
+            </div>
+            <div class="index-card" style="border-left-color:var(--warn);" onclick="show('sec5')">
+              <div class="index-card-num" style="color:var(--warn);">05</div>
+              <div class="index-card-title">경사단면 응력</div>
+              <div class="index-card-sub">Inclined Section · σcos²θ, τsin2θ/2</div>
+            </div>
+            <div class="index-card" style="border-left-color:#f85149;" onclick="show('sec6')">
+              <div class="index-card-num" style="color:#f85149;">06</div>
+              <div class="index-card-title">충격하중</div>
+              <div class="index-card-sub">Impact Load · 충격계수</div>
+            </div>
+            <div class="index-card" style="border-left-color:var(--accent);" onclick="show('sec7')">
+              <div class="index-card-num" style="color:var(--accent);">07</div>
+              <div class="index-card-title">단면 1차 모멘트·도심</div>
+              <div class="index-card-sub">First Moment of Area · Centroid</div>
+            </div>
+            <div class="index-card" style="border-left-color:var(--warn);background:rgba(227,179,65,.04);" onclick="show('checklist')">
+              <div class="index-card-num" style="color:var(--warn);">★</div>
+              <div class="index-card-title">최종 체크리스트</div>
+              <div class="index-card-sub">핵심 원리 요약 · 자주 하는 실수</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /index -->
+
+    <!-- ════════════════════════════════════════════════════
+         SEC1: 열응력
+    ════════════════════════════════════════════════════ -->
+    <div class="section" id="sec-sec1">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span><span class="hero-num">01 / 07</span></div>
+        <h1>열응력 (Thermal Stress)</h1>
+        <p>온도 변화에 의해 발생하는 응력 — 변형 억제가 핵심</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('index')">목차</button>
+          <button class="next" onclick="show('sec2')">얇은 압력용기</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">개념</span><h2>왜 열을 가하면 응력이 생기나?</h2></div>
+          <div class="card">
+            <p>재료에 열이 가해지면 원자의 진동에너지가 증가하고, 진동의 폭이 커지면서 원자들 사이의 평균 거리가 멀어진다 → 재료가 팽창한다.</p>
+            <p style="margin-top:10px;"><span class="hl">핵심 구분:</span> 변형이 <strong>자유롭게 허용</strong>되면 응력은 발생하지 않는다. 변형이 <span class="hl-red">외부에 의해 억제</span>되어야 비로소 열응력이 발생한다. 예) 벽에 고정된 봉, 철도 레일</p>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">①</span><h2>선팽창계수 α (Coefficient of Linear Expansion)</h2></div>
+          <div class="card">
+            <p>온도가 1°C 변화할 때 원래 길이에 대한 길이 변화 비율</p>
+            <div class="formula-block key">
+              <div class="label">선팽창계수 정의</div>
+              \[ \alpha = \frac{\Delta L / L}{\Delta t} \quad \Rightarrow \quad \frac{\Delta L}{L} = \alpha \cdot \Delta t \]
+            </div>
+            <div class="note info"><span class="note-icon">ℹ</span><span>α가 클수록 같은 온도 변화에도 더 많이 늘어난다. 단위: /°C 또는 /K. α는 재료 고유의 성질이다.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">②</span><h2>열변형량 δ (Thermal Deformation)</h2></div>
+          <div class="card">
+            <p>균일 단면, 균질 재료의 봉이 온도 ΔT 변화할 때 늘어나는 길이:</p>
+            <div class="formula-block key">
+              <div class="label">열변형량</div>
+              \[ \delta_T = L \cdot \alpha \cdot \Delta T \]
+            </div>
+            <table>
+              <tr><th>기호</th><th>의미</th><th>단위</th></tr>
+              <tr><td>δ<sub>T</sub></td><td>열에 의한 변형량 (늘어난 길이)</td><td>m, mm</td></tr>
+              <tr><td>L</td><td>봉의 원래 길이</td><td>m, mm</td></tr>
+              <tr><td>α</td><td>선팽창계수</td><td>/°C</td></tr>
+              <tr><td>ΔT = t₂ − t₁</td><td>온도 변화량</td><td>°C</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">③</span><h2>열응력 σ 유도 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <p>봉이 양쪽에 고정되어 있어서 팽창을 <strong>못 하는 상황</strong>을 생각하자.</p>
+            <div class="diagram-wrap">
+              <svg viewBox="0 0 520 120" width="100%" style="max-width:520px;display:block;margin:0 auto;">
+                <line x1="40" y1="20" x2="40" y2="100" stroke="#8b949e" stroke-width="2"/>
+                <line x1="40" y1="20" x2="20" y2="0" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="40" y1="40" x2="20" y2="20" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="40" y1="60" x2="20" y2="40" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="40" y1="80" x2="20" y2="60" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="40" y1="100" x2="20" y2="80" stroke="#8b949e" stroke-width="1.5"/>
+                <rect x="40" y="45" width="200" height="30" fill="#21262d" stroke="#58a6ff" stroke-width="1.5" rx="2"/>
+                <line x1="240" y1="20" x2="240" y2="100" stroke="#8b949e" stroke-width="2"/>
+                <line x1="240" y1="20" x2="260" y2="0" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="240" y1="40" x2="260" y2="20" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="240" y1="60" x2="260" y2="40" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="240" y1="80" x2="260" y2="60" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="240" y1="100" x2="260" y2="80" stroke="#8b949e" stroke-width="1.5"/>
+                <text x="130" y="40" fill="#f78166" font-size="11" text-anchor="middle">🔥 온도 ΔT 상승</text>
+                <text x="370" y="55" fill="#3fb950" font-size="11" text-anchor="middle">← P (압축반력)</text>
+                <text x="370" y="70" fill="#3fb950" font-size="11" text-anchor="middle">P →</text>
+                <text x="370" y="90" fill="#8b949e" font-size="10" text-anchor="middle">팽창 억제 → 내부 압축응력</text>
+              </svg>
+              <p class="diagram-caption">양단 고정 봉에 열이 가해질 때 — 팽창이 억제되면 압축응력 발생</p>
+            </div>
+            <p><strong>유도:</strong> 자유 열변형량 = 반력에 의한 변형량 (실제 변형 = 0)</p>
+            <div class="formula-block">
+              <div class="label">변형 적합 조건</div>
+              \[ \delta_T = L\alpha\Delta T = \delta_P = \frac{PL}{AE} \]
+            </div>
+            <p>P/A (응력)로 정리하면:</p>
+            <div class="formula-block important">
+              <div class="label">열응력 (Thermal Stress)</div>
+              \[ \sigma = E \alpha \Delta T \]
+            </div>
+            <div class="note warn"><span class="note-icon">⚠</span><span><strong>주의:</strong> 응력(σ)은 길이 L과 무관하다. 변형량(δ = LαΔT)은 L에 비례. 이 차이를 반드시 구분할 것.</span></div>
+            <div class="note tip"><span class="note-icon">✓</span><span>온도 상승 → 팽창 억제 → <span class="hl-red">압축응력</span> / 온도 하강 → 수축 억제 → <span class="hl-blue">인장응력</span></span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">④</span><h2>열반력 P</h2></div>
+          <div class="card">
+            <p>고정된 봉에서 발생하는 반력:</p>
+            <div class="formula-block">
+              \[ P = \sigma A = E \alpha \Delta T \cdot A = EA\alpha(t_2 - t_1) \]
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sec1 -->
+
+    <!-- ════════════════════════════════════════════════════
+         SEC2: 얇은 압력용기
+    ════════════════════════════════════════════════════ -->
+    <div class="section" id="sec-sec2">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span><span class="hero-num">02 / 07</span></div>
+        <h1>얇은 압력용기 (Thin-Walled Pressure Vessel)</h1>
+        <p>내압을 받는 원통·구형 용기 — 후프응력이 축응력의 2배</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec1')">열응력</button>
+          <button class="next" onclick="show('sec3')">회전하는 얇은 원환체</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">기본</span><h2>기본 가정 및 설계 목표</h2></div>
+          <div class="card">
+            <p>압력용기 설계 시 결정할 것: <span class="hl">① 면적(단면), ② 두께</span></p>
+            <p style="margin-top:8px;">두께 t가 안지름 d보다 훨씬 작을 때(<span class="hl-blue">t ≪ d, 보통 t/d &lt; 1/20</span>) → 두께 방향 응력이 균일하다고 가정.</p>
+            <div class="note info"><span class="note-icon">ℹ</span><span>설계 흐름: 내압 p와 지름 d로 두께 t를 결정. 두 방향(원주 방향, 축 방향)으로 응력을 각각 계산한다.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">①</span><h2>원통형 압력용기의 두 응력 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <div class="diagram-wrap">
+              <svg viewBox="0 0 600 280" width="100%" style="max-width:600px;display:block;margin:0 auto;">
+                <defs>
+                  <marker id="arrR" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f78166"/></marker>
+                </defs>
+                <text x="10" y="18" fill="#58a6ff" font-size="12" font-weight="bold">Case 1) 원주방향 절단 → 후프응력(σ_θ)</text>
+                <ellipse cx="80" cy="130" rx="50" ry="20" fill="none" stroke="#8b949e" stroke-width="1.5"/>
+                <rect x="80" y="110" width="120" height="40" fill="#21262d" stroke="#8b949e" stroke-width="1" rx="1"/>
+                <line x1="110" y1="130" x2="110" y2="145" stroke="#f78166" stroke-width="1.5" marker-end="url(#arrR)"/>
+                <line x1="130" y1="130" x2="130" y2="145" stroke="#f78166" stroke-width="1.5" marker-end="url(#arrR)"/>
+                <line x1="150" y1="130" x2="150" y2="145" stroke="#f78166" stroke-width="1.5" marker-end="url(#arrR)"/>
+                <line x1="170" y1="130" x2="170" y2="145" stroke="#f78166" stroke-width="1.5" marker-end="url(#arrR)"/>
+                <text x="140" y="165" fill="#f78166" font-size="10" text-anchor="middle">내압 p</text>
+                <text x="80" y="100" fill="#3fb950" font-size="10" text-anchor="middle">← σ_θ</text>
+                <text x="200" y="100" fill="#3fb950" font-size="10" text-anchor="middle">σ_θ →</text>
+                <text x="320" y="100" fill="#e6edf3" font-size="11">힘 균형: p·d·l = 2·σ_θ·t·l</text>
+                <text x="320" y="122" fill="#3fb950" font-size="14" font-weight="bold">∴ σ_θ = pd / (2t)</text>
+                <text x="320" y="140" fill="#8b949e" font-size="10">(후프응력, Hoop Stress)</text>
+                <text x="10" y="210" fill="#58a6ff" font-size="12" font-weight="bold">Case 2) 축방향 절단 → 축방향응력(σ_x)</text>
+                <circle cx="80" cy="250" r="20" fill="#21262d" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="68" y1="240" x2="60" y2="232" stroke="#f78166" stroke-width="1.2" marker-end="url(#arrR)"/>
+                <line x1="82" y1="236" x2="82" y2="226" stroke="#f78166" stroke-width="1.2" marker-end="url(#arrR)"/>
+                <line x1="96" y1="240" x2="104" y2="232" stroke="#f78166" stroke-width="1.2" marker-end="url(#arrR)"/>
+                <text x="130" y="250" fill="#d2a8ff" font-size="11">σ_x·(πdt) = p·(πd²/4)</text>
+                <text x="130" y="270" fill="#d2a8ff" font-size="14" font-weight="bold">∴ σ_x = pd / (4t) = σ_θ / 2</text>
+              </svg>
+              <p class="diagram-caption">FBD(자유물체도)를 이용한 힘 균형으로 응력 유도</p>
+            </div>
+            <div class="compare-grid">
+              <div class="compare-item">
+                <h4 style="color:#3fb950;">후프응력 (원주방향, Hoop Stress)</h4>
+                <div class="formula-block key" style="margin:8px 0;">\[ \sigma_\theta = \frac{pd}{2t} \]</div>
+                <ul style="padding-left:16px;"><li>원통이 세로로 쪼개지려는 힘에 저항</li><li>더 큰 응력 → 설계 기준</li></ul>
+              </div>
+              <div class="compare-item">
+                <h4 style="color:#d2a8ff;">축방향응력 (세로방향)</h4>
+                <div class="formula-block" style="margin:8px 0;border-left-color:#d2a8ff;">\[ \sigma_x = \frac{pd}{4t} = \frac{1}{2}\sigma_\theta \]</div>
+                <ul style="padding-left:16px;"><li>뚜껑 면을 밀어내는 힘에 저항</li><li>후프응력의 절반</li></ul>
+              </div>
+            </div>
+            <div class="note warn"><span class="note-icon">⚠</span><span><strong>핵심:</strong> σ_θ = 2σ_x. 원통 압력용기는 원주방향이 2배 더 위험하다. 소시지 껍질이 세로로 터지는 이유.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">②</span><h2>두께 설계 공식 (실무)</h2></div>
+          <div class="card">
+            <p>허용응력 σ<sub>allow</sub>을 기준으로 최소 두께 산정:</p>
+            <div class="formula-block">\[ t = \frac{pD}{2\sigma_{allow}} + 1\text{ mm (부식여유)} \]</div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">③</span><h2>구형 압력용기</h2></div>
+          <div class="card">
+            <p>구는 어느 방향으로 잘라도 대칭 → 응력이 모든 방향에서 동일:</p>
+            <div class="formula-block">\[ \sigma = \frac{pd}{4t} \]</div>
+            <p style="margin-top:8px;">구형이 원통형보다 구조적으로 효율적이다 (같은 내압에서 응력이 절반).</p>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">④</span><h2>잔류응력 (Residual Stress)</h2></div>
+          <div class="card">
+            <p>너트를 꽉 조이면 풀림 방지되는 이유: 접촉면에 <span class="hl">압축잔류응력</span>이 발생하기 때문.</p>
+            <div class="note info"><span class="note-icon">ℹ</span><span>잔류응력: 외부하중 제거 후에도 재료 내부에 남아있는 응력. 압축잔류응력 → 피로수명 증가 / 인장잔류응력 → 피로수명 감소.</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sec2 -->
+
+    <!-- ════════════════════════════════════════════════════
+         SEC3: 회전하는 얇은 원환체
+    ════════════════════════════════════════════════════ -->
+    <div class="section" id="sec-sec3">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span><span class="hero-num">03 / 07</span></div>
+        <h1>회전하는 얇은 원환체 (Rotating Thin Ring)</h1>
+        <p>원운동 기초부터 원심응력까지 — 엔진 회전 부품 설계의 핵심</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec2')">얇은 압력용기</button>
+          <button class="next" onclick="show('sec4')">탄성에너지</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">①</span><h2>등속 원운동 기초 <span class="badge badge-key">기초</span></h2></div>
+          <div class="card">
+            <div class="compare-grid">
+              <div class="compare-item">
+                <h4 style="color:#8b949e;">등속 직선운동</h4>
+                <ul><li>가속도 a = 0</li><li>속도 v = 일정</li><li>힘 F = 0</li></ul>
+              </div>
+              <div class="compare-item">
+                <h4 style="color:#58a6ff;">등속 원운동</h4>
+                <ul><li>각가속도 α = 0</li><li>각속도 ω = 일정</li><li>속력 v = rω = 일정 (방향은 변함)</li><li>구심가속도 a<sub>c</sub> = v²/r</li><li>토크 τ = 0</li><li>구심력 F = mv²/r</li></ul>
+              </div>
+            </div>
+            <div class="note warn"><span class="note-icon">⚠</span><span>등속 원운동에서 <strong>속력은 일정</strong>하지만 방향이 바뀌므로 속도(벡터)는 변한다 → 가속도 존재 → 구심 방향.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">②</span><h2>각도·호·속도 관계식</h2></div>
+          <div class="card">
+            <div class="formula-block"><div class="label">호의 길이 (반드시 라디안)</div>\[ l = r\theta \]</div>
+            <div class="formula-block"><div class="label">선속도 = 반지름 × 각속도</div>\[ v = r\omega \]</div>
+            <div class="formula-block"><div class="label">각속도, 주기, 진동수</div>\[ \omega = \frac{2\pi}{T} = 2\pi f \]</div>
+            <div class="formula-block"><div class="label">RPM → 각속도 (N: 분당 회전수)</div>\[ \omega = \frac{2\pi N}{60} \text{ [rad/sec]}, \quad v = \frac{\pi d N}{60} \text{ [m/sec]} \]</div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">③</span><h2>구심가속도 유도 — 이등변삼각형 닮음 <span class="badge badge-exam">시험 원리</span></h2></div>
+          <div class="card">
+            <p>위치벡터 삼각형과 속도벡터 삼각형이 모두 꼭짓각 Δθ의 이등변삼각형 → 닮음:</p>
+            <div class="formula-block">\[ \frac{\Delta r}{r} = \frac{\Delta v}{v} \quad \Rightarrow \quad \Delta v = \frac{v}{r}\Delta r \]</div>
+            <div class="formula-block key"><div class="label">구심가속도</div>\[ a_c = \frac{\Delta v}{\Delta t} = \frac{v}{r} \cdot \frac{\Delta r}{\Delta t} = \frac{v^2}{r} = r\omega^2 \]</div>
+            <div class="note tip"><span class="note-icon">✓</span><span>Δv의 방향이 항상 중심 방향 → 구심가속도. 속력 변화 ≠ 속도 변화.</span></div>
+            <div class="card" style="margin-top:12px;background:var(--surface2);">
+              <h3>구심력</h3>
+              <div class="formula-block">\[ F = ma_c = mr\omega^2 = m\frac{v^2}{r} \]</div>
+              <p>항상 <span class="hl-blue">중심 방향</span>으로 작용. 속력을 변화시키지 않는다 (운동 방향에 수직 → 일 = 0).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">④</span><h2>회전 원환체의 원심응력 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <p>RPM으로 회전하는 링에는 원심력으로 인해 내부에 인장응력이 생긴다.</p>
+            <div class="formula-block important"><div class="label">원심응력 (γ: 단위중량 [kgf/m³])</div>\[ \sigma_\theta = \frac{\gamma v^2}{g} = \frac{\gamma r^2\omega^2}{g} = \frac{\gamma\pi^2 d^2 N^2}{60^2 g} \]</div>
+            <div class="note info"><span class="note-icon">ℹ</span><span>응력 ∝ v² → RPM이 2배가 되면 응력은 4배. 이것이 엔진 부품의 RPM 한계가 중요한 이유이다.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">⑤</span><h2>원운동 핵심 성질 &amp; 인공위성</h2></div>
+          <div class="card">
+            <ul style="padding-left:18px;color:#cdd5df;font-size:14px;line-height:2.1;">
+              <li>구심력은 속력을 <span class="hl-red">증가시키지 못한다</span> (운동 방향에 수직 → 일 = 0)</li>
+              <li>일정 구심력 → 등속 원운동</li>
+              <li>속력을 바꾸려면 접선방향 힘(토크)이 필요: F_θ = mrα</li>
+              <li>인공위성: 중력(구심력)과 원심 효과 균형 → 토크 = 0 → 각운동량 보존 → 계속 회전</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sec3 -->
+
+    <!-- ════════════════════════════════════════════════════
+         SEC4: 탄성에너지
+    ════════════════════════════════════════════════════ -->
+    <div class="section" id="sec-sec4">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span><span class="hero-num">04 / 07</span></div>
+        <h1>탄성에너지 (Strain Energy)</h1>
+        <p>하중-변형 그래프 아래 면적 = 재료에 저장된 에너지</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec3')">회전하는 얇은 원환체</button>
+          <button class="next" onclick="show('sec5')">경사단면 응력</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">①</span><h2>탄성에너지의 개념</h2></div>
+          <div class="card">
+            <p>물체에 하중 작용 → 변형 → 변형에너지가 탄성한도 내에서 재료 내부에 저장 → 하중 제거 시 복원</p>
+            <div class="diagram-wrap">
+              <svg viewBox="0 0 480 180" width="100%" style="max-width:480px;display:block;margin:0 auto;">
+                <text x="80" y="20" fill="#58a6ff" font-size="12" font-weight="bold">탄성한도 이내 (P-δ 선형)</text>
+                <line x1="30" y1="160" x2="30" y2="30" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="30" y1="160" x2="170" y2="160" stroke="#8b949e" stroke-width="1.5"/>
+                <text x="15" y="25" fill="#8b949e" font-size="10">P</text>
+                <text x="165" y="175" fill="#8b949e" font-size="10">δ</text>
+                <line x1="30" y1="160" x2="130" y2="60" stroke="#3fb950" stroke-width="2"/>
+                <polygon points="30,160 130,60 130,160" fill="rgba(63,185,80,0.15)"/>
+                <text x="75" y="147" fill="#3fb950" font-size="11" text-anchor="middle">탄성에너지</text>
+                <text x="75" y="159" fill="#3fb950" font-size="11" text-anchor="middle">U = ½Pδ</text>
+                <circle cx="130" cy="60" r="3" fill="#3fb950"/>
+                <text x="310" y="20" fill="#f78166" font-size="12" font-weight="bold">소성변형 포함</text>
+                <line x1="230" y1="160" x2="230" y2="30" stroke="#8b949e" stroke-width="1.5"/>
+                <line x1="230" y1="160" x2="450" y2="160" stroke="#8b949e" stroke-width="1.5"/>
+                <path d="M230,160 C260,100 310,60 360,50 L380,52 L390,55" fill="none" stroke="#f78166" stroke-width="2"/>
+                <polygon points="260,160 330,90 330,160" fill="rgba(88,166,255,0.1)"/>
+                <text x="295" y="145" fill="#58a6ff" font-size="10" text-anchor="middle">탄성에너지</text>
+                <polygon points="230,160 260,160 330,90 380,52 360,50 310,60 260,100" fill="rgba(247,129,102,0.1)"/>
+                <text x="310" y="95" fill="#f78166" font-size="10">소성에너지</text>
+                <text x="310" y="107" fill="#f78166" font-size="10">(열로 손실)</text>
+              </svg>
+              <p class="diagram-caption">P-δ 그래프 아래 삼각형 면적 = 저장된 탄성에너지 U</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">②</span><h2>수직력에 의한 탄성에너지 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <p>후크의 법칙 성립 범위에서 P-δ 선형 → 에너지 = 삼각형 면적:</p>
+            <div class="formula-block key"><div class="label">탄성에너지 (전체)</div>\[ U = \frac{1}{2}P\delta = \frac{P^2 L}{2AE} = \frac{\sigma^2 AL}{2E} = \frac{\sigma^2 V}{2E} \]</div>
+            <div class="formula-block key"><div class="label">단위 체적당 탄성에너지 (Resilience, u)</div>\[ u = \frac{U}{V} = \frac{\sigma^2}{2E} = \frac{E\varepsilon^2}{2} = \frac{\sigma\varepsilon}{2} \]</div>
+            <div class="note warn"><span class="note-icon">⚠</span><span>식 변환 핵심: σ = Eε, δ = PL/(AE), P = σA, V = AL — 이 관계를 자유롭게 대입해 변환할 줄 알아야 한다.</span></div>
+            <div class="note info"><span class="note-icon">ℹ</span><span><strong>레질리언스(Resilience):</strong> 탄성한도 내 단위 체적당 저장 가능한 탄성에너지 최대량. 재료의 에너지 흡수 능력.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">③</span><h2>전단력에 의한 탄성에너지</h2></div>
+          <div class="card">
+            <p>수직응력 σ → τ, E → G(전단탄성계수), ε → γ(전단변형률)로 대체:</p>
+            <div class="formula-block">\[ U = \frac{\tau^2 V}{2G} = \frac{AG\gamma^2 L}{2}, \quad u = \frac{\tau^2}{2G} = \frac{G\gamma^2}{2} = \frac{\tau\gamma}{2} \]</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sec4 -->
+
+    <!-- ════════════════════════════════════════════════════
+         SEC5: 경사단면 응력
+    ════════════════════════════════════════════════════ -->
+    <div class="section" id="sec-sec5">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span><span class="hero-num">05 / 07</span></div>
+        <h1>경사단면 위에서의 1축 응력</h1>
+        <p>축하중을 받는 봉의 경사단면에서 수직응력과 전단응력 분석</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec4')">탄성에너지</button>
+          <button class="next" onclick="show('sec6')">충격하중</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">①</span><h2>기본 설정 및 FBD</h2></div>
+          <div class="card">
+            <p>봉에 축방향 하중 P가 작용할 때, θ만큼 기울어진 경사단면에서의 응력을 구한다.</p>
+            <div class="diagram-wrap">
+              <svg viewBox="0 0 500 200" width="100%" style="max-width:500px;display:block;margin:0 auto;">
+                <defs><marker id="arrOr" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f78166"/></marker></defs>
+                <rect x="30" y="80" width="300" height="40" fill="#21262d" stroke="#8b949e" stroke-width="1.5" rx="2"/>
+                <line x1="0" y1="100" x2="30" y2="100" stroke="#f78166" stroke-width="2" marker-end="url(#arrOr)"/>
+                <text x="10" y="94" fill="#f78166" font-size="11">P</text>
+                <line x1="330" y1="100" x2="360" y2="100" stroke="#f78166" stroke-width="2" marker-end="url(#arrOr)"/>
+                <text x="365" y="94" fill="#f78166" font-size="11">P</text>
+                <line x1="200" y1="65" x2="170" y2="130" stroke="#58a6ff" stroke-width="2"/>
+                <path d="M190,100 A12,12 0 0,0 200,88" fill="none" stroke="#3fb950" stroke-width="1.2"/>
+                <text x="196" y="87" fill="#3fb950" font-size="10">θ</text>
+                <text x="158" y="148" fill="#58a6ff" font-size="11">경사단면 m-n</text>
+                <text x="400" y="115" fill="#8b949e" font-size="10">A' = A/cosθ</text>
+              </svg>
+              <p class="diagram-caption">경사각 θ인 단면에서 P를 법선분력 N과 접선분력 T로 분해</p>
+            </div>
+            <div class="formula-block"><div class="label">분력 분해 및 경사 면적</div>\[ N = P\cos\theta,\quad T = P\sin\theta,\quad A' = \frac{A}{\cos\theta} \]</div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">②</span><h2>경사단면 응력 공식 유도 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <div class="formula-block key"><div class="label">수직응력 (법선응력)</div>\[ \sigma_\theta = \frac{N}{A'} = \frac{P\cos\theta}{A/\cos\theta} = \sigma_x \cos^2\theta \]</div>
+            <div class="formula-block key"><div class="label">전단응력</div>\[ \tau_\theta = \frac{T}{A'} = \frac{P\sin\theta}{A/\cos\theta} = \frac{1}{2}\sigma_x\sin 2\theta \]</div>
+            <table>
+              <tr><th>각도 θ</th><th>σ_θ</th><th>τ_θ</th></tr>
+              <tr><td>0° (수직단면)</td><td>σ_x (최대)</td><td>0</td></tr>
+              <tr><td>45°</td><td>σ_x/2</td><td>σ_x/2 <span style="color:#f78166;">(최대 전단응력)</span></td></tr>
+              <tr><td>90° (평행단면)</td><td>0</td><td>0</td></tr>
+            </table>
+            <div class="note info"><span class="note-icon">ℹ</span><span><strong>최대 전단응력은 45° 단면에서 발생</strong> (크기: σ_x/2). 연성재료의 파단면이 45°인 이유.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">③</span><h2>보완응력 (Complementary Stress)</h2></div>
+          <div class="card">
+            <p>θ' = θ + 90° 방향 단면에서:</p>
+            <div class="formula-block">\[ \sigma_{\theta'} = \sigma_x\sin^2\theta, \quad \tau_{\theta'} = -\tau_\theta \]</div>
+            <p style="margin-top:8px;">서로 수직인 두 단면의 전단응력은 크기가 같고 방향이 반대 → <span class="hl">짝힘(쌍)으로 작용</span></p>
+            <div class="formula-block"><div class="label">합 관계</div>\[ \sigma_\theta + \sigma_{\theta'} = \sigma_x(\cos^2\theta + \sin^2\theta) = \sigma_x \]</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sec5 -->
+
+    <!-- ════════════════════════════════════════════════════
+         SEC6: 충격하중
+    ════════════════════════════════════════════════════ -->
+    <div class="section" id="sec-sec6">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span><span class="hero-num">06 / 07</span></div>
+        <h1>충격하중에 의한 응력과 변형률</h1>
+        <p>에너지 보존으로 유도 — 갑자기 가해도 정적의 2배</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec5')">경사단면 응력</button>
+          <button class="next" onclick="show('sec7')">단면 1차 모멘트·도심</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">①</span><h2>충격하중이란?</h2></div>
+          <div class="card">
+            <p>물체가 갑작스러운 충돌이나 하중을 받을 때 발생하는 응력. <span class="hl-red">정적 하중보다 훨씬 크며</span>, 운동에너지가 순간적으로 재료의 변형에너지로 전환된다.</p>
+            <div class="note danger"><span class="note-icon">💥</span><span>충격하중 응력 ≥ 정적 하중 응력의 2배. 충격 시간(Δt)이 짧을수록 힘이 더 커진다 (충격량 = 힘 × 시간 = 일정).</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">②</span><h2>에너지 보존으로 충격응력 유도 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <p>무게 W인 물체가 높이 h에서 봉 위로 낙하할 때:</p>
+            <div class="diagram-wrap">
+              <svg viewBox="0 0 400 220" width="100%" style="max-width:400px;display:block;margin:0 auto;">
+                <defs><marker id="arrG2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#3fb950"/></marker></defs>
+                <line x1="100" y1="10" x2="100" y2="70" stroke="#8b949e" stroke-width="2"/>
+                <line x1="100" y1="10" x2="80" y2="0" stroke="#8b949e" stroke-width="1.2"/>
+                <line x1="100" y1="30" x2="80" y2="20" stroke="#8b949e" stroke-width="1.2"/>
+                <line x1="100" y1="50" x2="80" y2="40" stroke="#8b949e" stroke-width="1.2"/>
+                <line x1="100" y1="70" x2="80" y2="60" stroke="#8b949e" stroke-width="1.2"/>
+                <rect x="92" y="70" width="16" height="120" fill="#21262d" stroke="#58a6ff" stroke-width="1.5" rx="2"/>
+                <text x="116" y="130" fill="#58a6ff" font-size="10">봉 (l, A, E)</text>
+                <rect x="82" y="30" width="36" height="25" fill="#f78166" stroke="#f78166" stroke-width="1" rx="2" opacity="0.4"/>
+                <text x="100" y="46" fill="#e6edf3" font-size="9" text-anchor="middle">W</text>
+                <line x1="156" y1="55" x2="156" y2="70" stroke="#3fb950" stroke-width="1.5"/>
+                <text x="166" y="65" fill="#3fb950" font-size="10">h</text>
+                <line x1="100" y1="55" x2="100" y2="68" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrG2)"/>
+                <rect x="82" y="70" width="36" height="25" fill="#f78166" stroke="#f78166" stroke-width="1" rx="2"/>
+                <text x="100" y="86" fill="#e6edf3" font-size="9" text-anchor="middle">W</text>
+                <line x1="156" y1="70" x2="156" y2="190" stroke="#d2a8ff" stroke-width="1.5" stroke-dasharray="3"/>
+                <text x="163" y="135" fill="#d2a8ff" font-size="10">δ</text>
+                <text x="225" y="50" fill="#e6edf3" font-size="11">에너지 보존:</text>
+                <text x="225" y="68" fill="#3fb950" font-size="11">W(h+δ) = AEδ²/(2l)</text>
+                <text x="225" y="86" fill="#8b949e" font-size="10">위치에너지 = 변형에너지</text>
+              </svg>
+              <p class="diagram-caption">무게 W가 높이 h에서 낙하 → 봉이 δ만큼 압축</p>
+            </div>
+            <div class="formula-block">\[ W(h + \delta) = \frac{AE\delta^2}{2l} \]</div>
+            <p>이차방정식으로 풀면 (δ<sub>st</sub> = Wl/AE, σ<sub>st</sub> = W/A):</p>
+            <div class="formula-block important"><div class="label">충격 최대 변형량</div>\[ \delta = \delta_{st}\left(1 + \sqrt{1 + \frac{2h}{\delta_{st}}}\right) \]</div>
+            <div class="formula-block important"><div class="label">충격응력</div>\[ \sigma = \sigma_{st}\left(1 + \sqrt{1 + \frac{2h}{\delta_{st}}}\right) \]</div>
+            <div class="note warn"><span class="note-icon">⚠</span><span>괄호 안 <strong>(1 + √…)</strong>가 <span class="hl">충격계수(Impact Factor)</span>. 항상 1보다 크므로 충격응력 &gt; 정적응력.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">③</span><h2>근사값 공식 및 특수 경우</h2></div>
+          <div class="card">
+            <p><strong>h ≫ δ인 경우</strong> (δ 무시 가능):</p>
+            <div class="formula-block"><div class="label">h ≫ δ 근사</div>\[ \sigma \approx \sqrt{\frac{2EWh}{Al}} \]</div>
+            <p style="margin-top:12px;"><strong>h = 0인 경우</strong> (갑자기 올려놓는 경우):</p>
+            <div class="formula-block"><div class="label">h = 0 급하중</div>\[ \delta = 2\delta_{st}, \quad \sigma = 2\sigma_{st} \]</div>
+            <div class="note tip"><span class="note-icon">✓</span><span>낙하 높이 = 0이어도 정적 응력의 2배! 이것이 동적 하중이 위험한 이유이다.</span></div>
+          </div>
+          <div class="card">
+            <h3>충격계수 (Impact Factor)</h3>
+            <div class="formula-block">\[ \text{충격계수} = \frac{\delta_{max}}{\delta_{st}} = 1 + \sqrt{1 + \frac{2h}{\delta_{st}}} \]</div>
+            <p>구조물의 정적 반응에 대한 동적 반응의 비율. 설계 허용응력 결정에 활용.</p>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sec6 -->
+
+    <!-- ════════════════════════════════════════════════════
+         SEC7: 단면 1차 모멘트와 도심
+    ════════════════════════════════════════════════════ -->
+    <div class="section" id="sec-sec7">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span><span class="hero-num">07 / 07</span></div>
+        <h1>단면 1차 모멘트와 도심</h1>
+        <p>First Moment of Area &amp; Centroid — 면적의 기하학적 중심 위치 결정</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec6')">충격하중</button>
+          <button class="next" onclick="show('checklist')">최종 체크리스트</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">①</span><h2>도심(Centroid)이란?</h2></div>
+          <div class="card">
+            <p><span class="hl">무게중심</span>: 물체가 정지해있을 때 중력이 집중되는 위치 (균질 물체에서 무게중심 = 도심)</p>
+            <p style="margin-top:8px;"><span class="hl-blue">도심</span>: 밀도 일정 시 기하학적 중심. 어떤 축에서나 면적을 균등하게 나누는 점.</p>
+            <div class="note info"><span class="note-icon">ℹ</span><span>도심 좌표 (x̄, ȳ)를 알면 단면의 모든 기하학적 특성을 계산할 수 있다. 도심축에 대한 단면 1차 모멘트 Q = 0.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">②</span><h2>단면 1차 모멘트 Q <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <p>"모멘트" = 어떤 물리량에 거리를 곱함. Q는 미소 면적에 거리를 1차로 곱하여 적분한 값.</p>
+            <div class="formula-block key"><div class="label">x축에 대한 단면 1차 모멘트</div>\[ Q_x = \int_A y \, dA = A \cdot \bar{y} \]</div>
+            <div class="formula-block key"><div class="label">y축에 대한 단면 1차 모멘트</div>\[ Q_y = \int_A x \, dA = A \cdot \bar{x} \]</div>
+            <p>단위: <span class="hl-blue">길이의 세제곱 [m³, mm³]</span> (면적 × 거리)</p>
+            <div class="note warn"><span class="note-icon">⚠</span><span>Q는 축의 위치에 따라 양수·음수 가능. 도심축에서는 Q = 0.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">③</span><h2>도심 좌표 공식</h2></div>
+          <div class="card">
+            <div class="formula-block key">\[ \bar{x} = \frac{Q_y}{A} = \frac{1}{A}\int_A x \, dA, \qquad \bar{y} = \frac{Q_x}{A} = \frac{1}{A}\int_A y \, dA \]</div>
+            <div class="note tip"><span class="note-icon">✓</span><span>대칭축이 있으면 그 축에 대한 Q = 0 → 도심은 그 대칭축 위에 있다.</span></div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">④</span><h2>기본 도형의 도심 <span class="badge badge-exam">시험 원리</span></h2></div>
+          <div class="card">
+            <p><strong>삼각형 (밑변 b, 높이 h)</strong> — 적분 유도:</p>
+            <div class="formula-block">\[ Q_x = \int_0^h y \cdot \frac{b(h-y)}{h} dy = \frac{bh^2}{6} \quad \Rightarrow \quad \bar{y} = \frac{h}{3} \]</div>
+            <table>
+              <tr><th>도형</th><th>x̄</th><th>ȳ</th><th>면적 A</th></tr>
+              <tr><td>직사각형 (b×h)</td><td>b/2</td><td>h/2</td><td>bh</td></tr>
+              <tr><td>삼각형 (밑변 b, 높이 h)</td><td>b/3</td><td>h/3</td><td>bh/2</td></tr>
+              <tr><td>반원 (반지름 r)</td><td>0 (대칭)</td><td>4r/(3π)</td><td>πr²/2</td></tr>
+              <tr><td>1/4원 (반지름 r)</td><td>4r/(3π)</td><td>4r/(3π)</td><td>πr²/4</td></tr>
+              <tr><td>반타원 (a, b)</td><td>0 (대칭)</td><td>4b/(3π)</td><td>πab/2</td></tr>
+              <tr><td>반포물선 (a, h)</td><td>3a/8 또는 3a/5</td><td>3h/5</td><td>2ah/3</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">⑤</span><h2>복합 도형의 도심 — 분할법 <span class="badge badge-exam">시험 출제</span></h2></div>
+          <div class="card">
+            <p>복잡한 단면 → 기본 도형으로 분할 후 가중평균. 구멍은 음수 면적으로 처리.</p>
+            <div class="formula-block key"><div class="label">합성 도형 도심 (n개 부분 도형)</div>\[ \bar{x} = \frac{\sum_{i=1}^n \bar{x}_i A_i}{\sum_{i=1}^n A_i}, \qquad \bar{y} = \frac{\sum_{i=1}^n \bar{y}_i A_i}{\sum_{i=1}^n A_i} \]</div>
+            <div class="note info"><span class="note-icon">ℹ</span><span><strong>풀이 순서:</strong> ① 기본 도형 분할 (구멍 = 음수) ② A_i, x̄_i, ȳ_i 계산 ③ A_i·x̄_i, A_i·ȳ_i 계산 ④ 가중평균</span></div>
+            <div class="card" style="margin-top:12px;background:var(--surface2);border-color:var(--accent);">
+              <h3 style="color:#d2a8ff;">실제 예제 (삼각형 + 직사각형 − 원)</h3>
+              <table>
+                <tr><th>도형</th><th>면적 A</th><th>x̄</th><th>ȳ</th><th>A·x̄</th><th>A·ȳ</th></tr>
+                <tr><td>△ 삼각형</td><td>18</td><td>4</td><td>2</td><td>72</td><td>36</td></tr>
+                <tr><td>□ 직사각형</td><td>18</td><td>7.5</td><td>3</td><td>135</td><td>54</td></tr>
+                <tr><td>○ 원 (빼기)</td><td>-2π</td><td>5</td><td>6/π+2</td><td>-10π</td><td>-16/π</td></tr>
+                <tr style="font-weight:700;"><td>합계 Σ</td><td>36−2π</td><td>—</td><td>—</td><td>207−10π</td><td>90−16/π</td></tr>
+              </table>
+              <div class="formula-block" style="margin-top:10px;">\[ \bar{X} = \frac{207 - 10\pi}{36 - 2\pi} \approx 5.91, \qquad \bar{Y} = \frac{90 - \frac{16}{\pi}}{36 - 2\pi} \approx 1.85 \]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">⑥</span><h2>단면 2차 모멘트 I (참고)</h2></div>
+          <div class="card">
+            <div class="formula-block">\[ I = \int_A y^2 \, dA \quad (\text{단위: mm}^4) \]</div>
+            <div class="formula-block"><div class="label">비교</div>\[ Q = \int y\,dA \quad\text{(1차: 도심 위치)} \qquad I = \int y^2\,dA \quad\text{(2차: 굽힘 강성)} \]</div>
+            <p>더 멀리 있는 재료일수록 I에 대한 기여가 크다(거리 제곱) → I형 단면이 효율적인 이유.</p>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sec7 -->
+
+    <!-- ════════════════════════════════════════════════════
+         CHECKLIST
+    ════════════════════════════════════════════════════ -->
+       <div class="section" id="sec-checklist">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag" style="background:rgba(227,179,65,.12);border-color:rgba(227,179,65,.3);color:#e3b341;">&#9733; 최종</span></div>
+        <h1>시험 전 최종 체크리스트</h1>
+        <p>핵심 원리 요약 + 자주 하는 실수 정리</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec7')">단면 1차 모멘트&#183;도심</button>
+          <button class="next" onclick="show('index')">목차로 돌아가기</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <div class="sub-section">
+          <div class="sub-header">
+            <span class="sub-num" style="background:rgba(227,179,65,.1);color:#e3b341;border-color:rgba(227,179,65,.3);">핵심</span>
+            <h2>꼭 알아야 할 원리들</h2>
+          </div>
+          <div class="card">
+            <ol class="step-list">
+              <li><strong>열응력 &#963; = E&#945;&#8710;T</strong> — 응력은 길이와 무관. 변형량 &#948; = L&#945;&#8710;T는 길이에 비례. 이 차이 구분.</li>
+              <li><strong>압력용기 후프응력 &gt; 축응력</strong> — 후프 = pd/(2t), 축 = pd/(4t) = 후프/2. 원통은 원주방향이 더 위험.</li>
+              <li><strong>구심가속도 a = v²/r = r&#969;²</strong> — 이등변삼각형 닮음에서 유도. 속력 일정하지만 방향 변화 → 가속도 존재.</li>
+              <li><strong>탄성에너지 U = P²L/(2AE) = &#963;²V/(2E)</strong> — P-&#948; 그래프 아래 삼각형 면적. 단위체적당 u = &#963;²/(2E).</li>
+              <li><strong>경사단면 &#964; 최대 = 45°에서 &#963;_x/2</strong> — &#964; = &#189;&#963;_x&#183;sin2&#952;. 45°에서 sin90° = 1로 최대.</li>
+              <li><strong>충격응력 = &#963;_st &#215; (1 + &#8730;(1+2h/&#948;_st))</strong> — h=0이어도 충격계수 = 2. 항상 정적보다 크다.</li>
+              <li><strong>도심 x&#772; = &#8721;A_i&#183;x&#772;_i / &#8721;A_i</strong> — 복합 도형은 분할 후 가중평균. 구멍은 음수 면적.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header">
+            <span class="sub-num" style="background:rgba(247,129,102,.1);color:#f78166;border-color:rgba(247,129,102,.3);">&#9888;</span>
+            <h2>자주 하는 실수</h2>
+          </div>
+          <div class="card" style="border-color:rgba(247,129,102,.4);">
+            <ul style="padding-left:18px;color:#cdd5df;font-size:14px;line-height:2.4;">
+              <li>열응력 공식에 L을 넣으려는 경우 → &#963; = E&#945;&#8710;T에 L 없다</li>
+              <li>후프응력/축응력 어느게 큰지 헷갈리는 경우 → 후프가 2배 크다</li>
+              <li>단면 1차 모멘트 Q 단위를 mm²로 쓰는 경우 → mm³이다 (면적×거리)</li>
+              <li>복합도형 도심 계산 시 구멍을 더하는 경우 → 빼야 한다 (음수 면적)</li>
+              <li>충격하중에서 h=0이면 충격계수=1로 착각 → h=0이어도 계수=2</li>
+              <li>구심가속도 방향을 바깥쪽으로 착각 → 항상 중심(안) 방향</li>
+              <li>탄성에너지 U와 단위체적당 u 혼동 → u = U/V = &#963;²/(2E)</li>
+              <li>경사단면 최대 전단응력 각도를 90°로 착각 → 45°에서 최대</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sub-section">
+          <div class="sub-header">
+            <span class="sub-num" style="background:rgba(88,166,255,.1);color:#58a6ff;border-color:rgba(88,166,255,.3);">식</span>
+            <h2>핵심 공식 한눈에 보기</h2>
+          </div>
+          <div class="card">
+            <table>
+              <tr><th>챕터</th><th>핵심 공식</th><th>비고</th></tr>
+              <tr><td>열응력</td><td>&#963; = E&#945;&#8710;T<br>&#948; = L&#945;&#8710;T</td><td>&#963;는 L 무관, &#948;는 L 비례</td></tr>
+              <tr><td>압력용기</td><td>&#963;_&#952; = pd/(2t)<br>&#963;_x = pd/(4t)</td><td>&#963;_&#952; = 2&#963;_x</td></tr>
+              <tr><td>원환체</td><td>v = &#960;dN/60<br>&#963; = &#947;v²/g</td><td>응력 &#8733; v²</td></tr>
+              <tr><td>탄성에너지</td><td>U = P²L/(2AE)<br>u = &#963;²/(2E)</td><td>U는 전체, u는 단위체적당</td></tr>
+              <tr><td>경사단면</td><td>&#963;_&#952; = &#963;_x&#183;cos²&#952;<br>&#964;_&#952; = &#189;&#963;_x&#183;sin2&#952;</td><td>&#964; 최대: &#952;=45°</td></tr>
+              <tr><td>충격하중</td><td>&#948; = &#948;_st(1+&#8730;(1+2h/&#948;_st))</td><td>h=0 → 계수=2</td></tr>
+              <tr><td>도심</td><td>x&#772; = &#8721;A_i&#183;x&#772;_i / &#8721;A_i</td><td>대칭축 → Q=0</td></tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /checklist -->
+
+  </main>
+</div><!-- /page-body -->
+
+<script>
+// ── 탭 활성화 (공통 로직) ──────────────────────────────────────
+function activateTab(id) {
+  const target = document.getElementById('sec-' + id);
+  if (!target) return;
+
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  target.classList.add('active');
+
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') === "show('" + id + "')") {
+      n.classList.add('active');
+    }
+  });
+
+  // 스크롤 최상단 이동 (main 영역 + window 모두)
+  const main = document.querySelector('.main');
+  if (main) main.scrollTop = 0;
+  window.scrollTo({ top: 0 });
+}
+
+// ── show() 공개 함수 ────────────────────────────────────────────
+function show(id) {
+  history.pushState(null, '', '#' + id);
+
+  const titles = {
+    index:     '재료역학 시험 정리',
+    sec1:      '01. 열응력',
+    sec2:      '02. 얇은 압력용기',
+    sec3:      '03. 회전하는 얇은 원환체',
+    sec4:      '04. 탄성에너지',
+    sec5:      '05. 경사단면 응력',
+    sec6:      '06. 충격하중',
+    sec7:      '07. 단면 1차 모멘트·도심',
+    checklist: '★ 최종 체크리스트',
+  };
+  const titleEl = document.getElementById('topbarTitle');
+  if (titleEl) {
+    titleEl.innerHTML = (titles[id] || '재료역학 시험 정리') + ' <span>· 재료역학</span>';
+  }
+
+  activateTab(id);
+
+  if (window.innerWidth <= 800) closeSidebar();
+
+  if (window.MathJax && MathJax.typesetPromise) {
+    const el = document.getElementById('sec-' + id);
+    if (el) MathJax.typesetPromise([el]).catch(console.error);
+  }
+}
+
+// ── 사이드바 토글 ────────────────────────────────────────────────
+const sidebar      = document.getElementById('sidebar');
+const overlay      = document.getElementById('sidebarOverlay');
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+
+function openSidebar()  { sidebar.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+hamburgerBtn.addEventListener('click', () => sidebar.classList.contains('open') ? closeSidebar() : openSidebar());
+overlay.addEventListener('click', closeSidebar);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+
+// ── 초기 로드: hash 처리 ─────────────────────────────────────────
+window.addEventListener('load', () => {
+  const hash = window.location.hash.slice(1);
+  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','checklist'];
+  show(validIds.includes(hash) ? hash : 'index');
+});
+
+// ── 브라우저 뒤로/앞으로 버튼 대응 ─────────────────────────────
+window.addEventListener('popstate', () => {
+  const hash = window.location.hash.slice(1);
+  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','checklist'];
+  activateTab(validIds.includes(hash) ? hash : 'index');
+});
+</script>
+</body>
+</html>
