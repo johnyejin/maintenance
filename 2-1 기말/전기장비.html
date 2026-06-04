@@ -113,6 +113,35 @@ body {
 }
 .nav-item.active .nav-dot { background: var(--purple); }
 
+/* ── Home button ── */
+.home-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 12px 4px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text3);
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.home-btn:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: var(--border2);
+  color: var(--text2);
+}
+.home-btn svg {
+  width: 14px; height: 14px;
+  stroke: currentColor; fill: none;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
 /* ── Main ── */
 .main {
   flex: 1;
@@ -235,7 +264,7 @@ p { color: var(--text2); margin-bottom: 10px; font-size: 14px; }
 }
 .callout-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
 .callout-content { flex: 1; }
-.callout-content strong { display: block; margin-bottom: 4px; }
+.callout-content strong { margin-bottom: 4px; }
 .callout-content p { margin: 0; font-size: 13px; }
 
 .callout-key { background: var(--purple-bg); border: 1px solid rgba(124,111,247,0.3); color: #c4bcff; }
@@ -443,8 +472,13 @@ strong { color: var(--text); font-weight: 600; }
 <nav class="sidebar">
   <div class="sidebar-logo">
     <div class="title">전기장비</div>
-    <div class="sub">시험 정리노트 · 8~11주차</div>
+    <div class="sub">시험 정리노트 · 8~12주차</div>
   </div>
+
+  <a class="home-btn" href="https://johnyejin.github.io/maintenance">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    홈으로 돌아가기
+  </a>
 
   <div class="nav-group">
     <div class="nav-group-title">대형기 전기계통</div>
@@ -453,6 +487,14 @@ strong { color: var(--text); font-weight: 600; }
     <div class="nav-item" onclick="show('bus')"><span class="nav-dot"></span>전력 BUS</div>
     <div class="nav-item" onclick="show('panel')"><span class="nav-dot"></span>B737ng 패널</div>
     <div class="nav-item" onclick="show('lru')"><span class="nav-dot"></span>주요 용어(LRU)</div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">배터리</div>
+    <div class="nav-item" onclick="show('battery')"><span class="nav-dot"></span>배터리 종류 & 특성</div>
+    <div class="nav-item" onclick="show('capacity')"><span class="nav-dot"></span>용량 & 정격</div>
+    <div class="nav-item" onclick="show('charging')"><span class="nav-dot"></span>충전 방식</div>
+    <div class="nav-item" onclick="show('compare')"><span class="nav-dot"></span>배터리 비교표</div>
   </div>
   
   <div class="nav-group">
@@ -468,11 +510,14 @@ strong { color: var(--text); font-weight: 600; }
   </div>
 
   <div class="nav-group">
-    <div class="nav-group-title">배터리</div>
-    <div class="nav-item" onclick="show('battery')"><span class="nav-dot"></span>배터리 종류 & 특성</div>
-    <div class="nav-item" onclick="show('capacity')"><span class="nav-dot"></span>용량 & 정격</div>
-    <div class="nav-item" onclick="show('charging')"><span class="nav-dot"></span>충전 방식</div>
-    <div class="nav-item" onclick="show('compare')"><span class="nav-dot"></span>배터리 비교표</div>
+    <div class="nav-group-title">조명계통</div>
+    <div class="nav-item" onclick="show('lighting-overview')"><span class="nav-dot"></span>조명계통 개요</div>
+    <div class="nav-item" onclick="show('exterior-lights')"><span class="nav-dot"></span>외부등</div>
+    <div class="nav-item" onclick="show('position-lights')"><span class="nav-dot"></span>위치등</div>
+    <div class="nav-item" onclick="show('anticollision-lights')"><span class="nav-dot"></span>충돌 방지등</div>
+    <div class="nav-item" onclick="show('landing-taxi')"><span class="nav-dot"></span>착륙등·유도등</div>
+    <div class="nav-item" onclick="show('wing-logo')"><span class="nav-dot"></span>날개검사등·로고등</div>
+    <div class="nav-item" onclick="show('mel-lighting')"><span class="nav-dot"></span>MEL / 운항 제한</div>
   </div>
 </nav>
 
@@ -507,18 +552,6 @@ strong { color: var(--text); font-weight: 600; }
       <strong>BITE (Built-In Test Equipment)</strong>
       <p>항공기 전기계통이 자체적으로 결함을 점검하고 시험할 수 있는 기능. 비정상 계통은 작동이 멈추고 조종석에 즉시 경고 표시.</p>
     </div>
-  </div>
-
-  <h2>항공기 전기계통의 구성 위치 (대형기 기준)</h2>
-  <div class="table-wrap">
-    <table>
-      <tr><th>위치</th><th>구성 요소</th></tr>
-      <tr><td>① Engine</td><td>IDG (Integrated Drive Generator), air/oil cooler</td></tr>
-      <tr><td>② APU Compartment</td><td>APU starter-generator</td></tr>
-      <tr><td>③ External Power</td><td>GPU (Ground Power Unit) 연결 포트</td></tr>
-      <tr><td>④ EE Compartment (동체 전방 하부)</td><td>Battery, Battery charger, GCU, BPCU, SCU, PDP, Junction boxes</td></tr>
-      <tr><td>⑤ Flight Compartment (조종석)</td><td>Control switches, Indication, P6·P18 panels, Relays, SPCU</td></tr>
-    </table>
   </div>
 </div>
 
@@ -624,7 +657,7 @@ strong { color: var(--text); font-weight: 600; }
   <div class="table-wrap">
     <table>
       <tr><th>모드</th><th>전력 소스</th><th>흐름</th></tr>
-      <tr><td><strong>Normal (IDG)</strong></td><td>IDG 1 + IDG 2</td><td>IDG → GCB → AC XFR BUS → TR → DC BUS</td></tr>
+      <tr><td><strong>Normal (IDG)</strong></td><td>IDG 1 + IDG 2</td><td>IDG → GCB → AC XFR BUS → TRU → DC BUS</td></tr>
       <tr><td><strong>Normal (ASG/APU)</strong></td><td>APU Generator</td><td>APB → BTB → 양쪽 AC XFR BUS</td></tr>
       <tr><td><strong>Alternate</strong></td><td>배터리 + Static Inverter</td><td>Battery → Static Inverter → AC STBY BUS / Battery → DC STBY BUS</td></tr>
     </table>
@@ -636,6 +669,11 @@ strong { color: var(--text); font-weight: 600; }
   <div class="section-header">
     <div class="section-tag">Chapter 04</div>
     <h1>B737ng 전기 패널 (스위치 & 라이트)</h1>
+  </div>
+
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/elec_panel.webp" style="max-height:600px; width:auto; max-width:100%; margin: 0 auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">B737 Electrical Panel</p>
   </div>
 
   <h2>패널 라이트 (Elec Panel Light)</h2>
@@ -671,11 +709,11 @@ strong { color: var(--text); font-weight: 600; }
       <tr><td><strong>BUS TRANSFER</strong></td><td>BUS 자동 연결 기능</td><td>AUTO → BTB 자동 제어</td><td>OFF → BUS 완전 분리</td><td style="color:var(--amber);font-weight:600">가장 중요한 스위치</td></tr>
       <tr><td><strong>GRD PWR</strong></td><td>지상 전원 사용</td><td>외부 전원 공급</td><td>공급 안 함</td><td>AVAILABLE ≠ ON</td></tr>
       <tr><td><strong>BUS TIE (BTB)</strong></td><td>BUS 1 ↔ BUS 2 연결</td><td>닫힘 → 전원 공유</td><td>열림 → 분리</td><td>BUS TRANSFER OFF와 연동</td></tr>
-      <tr><td><strong>STANDBY POWER</strong></td><td>배터리/인버터 사용</td><td>AUTO → 자동 공급</td><td>비상 전원 차단</td><td>평소엔 영향 없음</td></tr>
+      <tr><td><strong>STANDBY POWER</strong></td><td>배터리/인버터 사용</td><td>AUTO → 필요시 자동 공급</td><td>비상 전원 차단</td><td>평소엔 영향 없음</td></tr>
     </table>
   </div>
 
-  <h2>전원 공급 절차별 라이트 변화</h2>
+  <h2>전원 공급 절차별 Light 변화</h2>
 
   <div class="phase-block">
     <div class="phase-head"><div class="phase-num pn-blue">1</div><div class="phase-title">지상 전원 공급 — GPU + 항공기 연결</div></div>
@@ -750,9 +788,17 @@ strong { color: var(--text); font-weight: 600; }
       <p>· 필수 계통(비상)에 AC 공급</p>
     </div>
     <div class="card card-amber">
-      <h3>GCB & BTB</h3>
-      <p>· <strong>GCB</strong> — 발전기 전원을 BUS에 연결/분리</p>
-      <p>· <strong>BTB</strong> — 버스와 버스 사이 연결/분리 (BCB라고도 함)</p>
+      <h3>Charger</h3>
+      <p>· 충전기로 AC를 받아서 TRU와 같이 28VDC로 변화시켜 Battery 먼저 충전</p>
+      <p>· 충전 끝나면 TRU와 같이 작동</p>
+    </div>
+    <div class="card card-amber">
+      <h3>GCB</h3>
+      <p>· 발전기 전원을 BUS에 연결/분리</p>
+    </div>
+    <div class="card card-amber">
+      <h3>BTB</h3>
+      <p>· 버스와 버스 사이 연결/분리 (BCB라고도 함)</p>
       <p>· BUS TRANSFER AUTO 시 BTB가 자동으로 작동</p>
     </div>
   </div>
@@ -880,6 +926,22 @@ strong { color: var(--text); font-weight: 600; }
     <h1>소형 단발 항공기 전기 시스템 (2.3.1)</h1>
   </div>
 
+  <h2>C172 전기 결함과 보호</h2>
+  <div class="grid2">
+    <div class="card card-blue">
+      <h3>전기 결함의 2종류</h3>
+      <p>· <strong class="hl-a">개방(open)</strong> — 회로가 분리되었을 때 일어나는 전기 결함</p>
+      <p>· <strong class="hl-r">단락(short)</strong> — 1개 이상의 회로가 원치 않는 접속을 만들 때 일어나는 전기 결함</p>
+      <p>· 가장 위험한 단락 회로: (+)전선이 (-)접속 또는 접지를 만들 때 → 일반적으로 <strong>합선 또는 접지</strong></p>
+    </div>
+    <div class="card card-amber">
+      <h3>결함으로부터 전기 시스템을 보호하는 2가지 방법</h3>
+      <p>· <strong>① 기계적 방법</strong> — 전선과 부품을 적절하게 장착하고 보호 덮개와 차폐(shields)를 추가하여 마찰과 과도한 마모를 방지</p>
+      <p>· <strong>② 전기적 방법</strong> — 회로차단기와 퓨즈를 사용하여 보호</p>
+      <p style="margin-top:6px;font-size:12px;color:var(--text3)">회로차단기: 단락 회로인 경우 전류의 과도한 흐름으로 인한 손상으로부터 시스템을 보호<br>퓨즈: 회로차단기 대신 사용, 일반적으로 구형 항공기에서 사용</p>
+    </div>
+  </div>
+
   <div class="callout callout-warn">
     <span class="callout-icon">⚠️</span>
     <div class="callout-content">
@@ -889,18 +951,18 @@ strong { color: var(--text); font-weight: 600; }
     </div>
   </div>
 
-  <h2>C172S 전기 회로도 (Figure 7-7 Sheet 1 of 3)</h2>
-  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-    <img src="img/c172_elec_schematic.jpg" style="max-height:600px; width:auto; max-width:100%; margin: 0 auto; display:block; border-radius: 8px;" />
-    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">Figure 7-7 (Sheet 1 of 3) — Cessna 172S NAV III · Electrical System (Section 7)</p>
-  </div>
-
   <h2>소형 단발 항공기 기본 구조</h2>
   <div class="card card-teal">
     <p>· <strong>DC(직류) 시스템</strong>이 기본이고, AC(교류)는 직접 생산하지 않고, 필요 시 인버터로 변환</p>
     <p>· 전원 공급 우선순위: <strong>1. 배터리 → 2. 알터네이터 → 3. 인버터 AC (필요 시)</strong></p>
     <p>· BAT load는 최소화 — 배터리는 ALT load보다 작아야 함</p>
     <p>· Avionics Master 켜면 Avionics BUS 2개만 켜짐</p>
+  </div>
+
+  <h2>C172S 전기 회로도</h2>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/c172_elec_schematic.jpg" style="max-height:600px; width:auto; max-width:100%; margin: 0 auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">Figure 7-7 (Sheet 1 of 3) — Cessna 172S NAV III · Electrical System (Section 7)</p>
   </div>
 
   <h2>C172 전기 공급 순서 (DC 중심 흐름)</h2>
@@ -918,14 +980,14 @@ strong { color: var(--text); font-weight: 600; }
       <div class="flow-num">1</div>
       <div class="flow-content">
         <div class="flow-title">배터리 (Battery)</div>
-        <div class="flow-desc">시동 전 & 초기 전원 공급. 마스터 스위치 ON 시 항공기 전체에 DC 공급 시작.<br>BAT에서 ALT까지 공급됨 (첫 시작 전원 = BAT)</div>
+        <div class="flow-desc">시동 전 & 초기 전원 공급. <strong class="hl-a">마스터 스위치 ON</strong> 시 항공기 전체에 DC 공급 시작.<br>BAT에서 ALT까지 공급됨 (첫 시작 전원 = BAT)</div>
       </div>
     </div>
     <div class="flow-item">
       <div class="flow-num">2</div>
       <div class="flow-content">
         <div class="flow-title">알터네이터 (Alternator) → DC를 만들어냄</div>
-        <div class="flow-desc">엔진 시동 후 작동. 배터리를 충전하면서 항공기 전기 대부분을 공급</div>
+        <div class="flow-desc">엔진 시동 후 작동. 배터리를 충전하면서 항공기 전기 대부분을 공급.</div>
         <div class="flow-desc">운항 중 주전원</div>
       </div>
     </div>
@@ -940,7 +1002,7 @@ strong { color: var(--text); font-weight: 600; }
       <div class="flow-num">4</div>
       <div class="flow-content">
         <div class="flow-title">인버터 (Inverter) → AC 생성 (극히 일부)</div>
-        <div class="flow-desc">일부 계기(구형 자세지시계 등)에 필요. DC → AC 변환하여 공급. AC는 여기서만 만들어짐 (필요 시만)</div>
+        <div class="flow-desc">일부 계기(구형 자세지시계 등)에 필요. DC → AC 변환하여 공급.<br>AC는 여기서만 만들어짐 (필요 시만)</div>
       </div>
     </div>
   </div>
@@ -956,21 +1018,15 @@ strong { color: var(--text); font-weight: 600; }
       <tr><td><strong>AC System</strong></td><td>15A (인버터), 각 장비별</td><td>메인 버스 (DC)</td><td>Inverter C/B (15A), 각 장비별 C/B</td><td>DC를 AC로 변환하여 일부 장비에 공급 (버스 없음)</td></tr>
     </table>
   </div>
-
-  <h2>C172 전기 결함과 보호</h2>
-  <div class="grid2">
-    <div class="card card-blue">
-      <h3>전기 결함의 2종류</h3>
-      <p>· <strong class="hl-a">개방(open)</strong> — 회로가 분리되었을 때 일어나는 전기 결함</p>
-      <p>· <strong class="hl-r">단락(short)</strong> — 1개 이상의 회로가 원치 않는 접속을 만들 때 일어나는 전기 결함</p>
-      <p>· 가장 위험한 단락 회로: (+)전선이 (-)접속 또는 접지를 만들 때 → 일반적으로 <strong>합선 또는 접지</strong></p>
-    </div>
-    <div class="card card-amber">
-      <h3>결함으로부터 전기 시스템을 보호하는 2가지 방법</h3>
-      <p>· <strong>① 기계적 방법</strong> — 전선과 부품을 적절하게 장착하고 보호 덮개와 차폐(shields)를 추가하여 마찰과 과도한 마모를 방지</p>
-      <p>· <strong>② 전기적 방법</strong> — 회로차단기와 퓨즈를 사용하여 보호</p>
-      <p style="margin-top:6px;font-size:12px;color:var(--text3)">회로차단기: 단락 회로인 경우 전류의 과도한 흐름으로 인한 손상으로부터 시스템을 보호<br>퓨즈: 회로차단기 대신 사용, 일반적으로 구형 항공기에서 사용</p>
-    </div>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/c172_elec_diagram.jpg" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">Cessna 172S 전기 회로도</p>
+  </div>
+  
+  <h2>C172 전기 공급 순서 (AC/DC)</h2>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/c172_process.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">C172 전기 시스템 전원 공급 순서</p>
   </div>
 
   <h2>C172 전기 장비 위치 (C172S)</h2>
@@ -1026,7 +1082,7 @@ strong { color: var(--text); font-weight: 600; }
       <p>① <strong>마스터 ON (기본 전원 공급)</strong>: Battery → Master solenoid → Main Bus → 항공기 전기 시스템 활성화</p>
       <p>② <strong>시동 시 (빨간선)</strong>: Battery → Starter solenoid → Starter → 큰 전류로 엔진 회전</p>
       <p>③ <strong>발전 후 (엔진 가동)</strong>: Alternator → Main Bus 공급 + 동시에 Battery 충전</p>
-      <p>④ <strong>외부전원 사용</strong>: External power jack → 릴레이 → Bus (배터리 없이도 전원 사용 가능, BAT와 동일하게 작동)</p>
+      <p>④ <strong>외부전원 사용</strong>: External power jack → 릴레이 → Bus (배터리 없이도 전원 사용 가능)</p>
     </div>
   </div>
 
@@ -1143,22 +1199,27 @@ strong { color: var(--text); font-weight: 600; }
     <div class="card card-teal">
       <h3>황산납 배터리 (Lead-acid)</h3>
       <span class="badge bg2">소형기·구형기</span>
-      <p style="margin-top:8px">· (1) 건식 충전 셀: 침수식(flooded)/습식(wet)이라고도 함</p>
-      <p>· 6셀: 약 12V / 12셀: 약 24V (직렬 연결)</p>
+      <p style="margin-top:8px">· (1) <strong>건식 충전 셀</strong>: 침수식(flooded)/습식(wet)이라고도 함</p>
+      <p>· 6셀: 약 12V / 12셀: 약 24V (<strong class="hl-r">직렬 연결</strong>)</p>
       <p>· 경항공기·소형 프로펠러 항공기(훈련기, Cessna 계열)</p>
-      <p style="margin-top:6px">· (2) VRLA(밸브-조절 황산납): 밀폐형 배터리, 전해액 없는 유리 매트</p>
+      <p style="margin-top:6px">· (2) <strong>VRLA(밸브-조절 황산납)</strong>: 밀폐형 배터리, 전해액 없는 유리 매트</p>
       <p>· 범용 항공기와 터빈항공기 사용, NiCd 대체품</p>
       <p>· 소형 항공기, 비즈니스 제트기, 헬리콥터 일부</p>
+      <div class="divider" style="margin:10px 0"></div>
+      <p>· 개개의 셀을 떼어놓을 수 없도록 조립됨</p>
+      <p>· 완전히 방전된 배터리는 제충전 불가</p>
+      <p>· 높은 방전율, 저온에서 높은 성능</p>
     </div>
     <div class="card card-purple">
       <h3>니켈카드뮴 배터리 (NiCd)</h3>
       <span class="badge bp">대형 여객기 표준</span>
-      <p style="margin-top:8px">· 셀당 정격 전압: <strong>1.2V</strong></p>
+      <p style="margin-top:8px">· 항공기 전원 12V 또는 24V를 얻기 위해 <strong class="hl-r">직렬로 연결</strong></p>
+      <p>· 셀당 정격 전압: <strong>1.2V</strong></p>
       <p>· 다수의 셀을 스테인리스강/수지 피복강/도색강/티타늄 박스로 제작</p>
       <p>· 배기식 셀(vented cell) 유형 — vent valve 또는 low pressure release valve 보유</p>
       <p>· 셀 교체 시 배터리 수명 5년 이상 연장</p>
       <p>· 정격 용량 작동 온도: <strong>16~32°C (60~90°F)</strong></p>
-      <p>· B737/777, A320/330, 군용기, 일부 비즈니스 제트기(G550)</p>
+      <p>· 대형 여객기(B737/777, A320/330), 군용기, 일부 비즈니스 제트기(G550)</p>
     </div>
     <div class="card card-amber">
       <h3>리튬이온 배터리 (Li-Ion)</h3>
@@ -1167,7 +1228,12 @@ strong { color: var(--text); font-weight: 600; }
       <p>· B787, A350, G500/600, 일부 군용기·드론</p>
       <div class="callout callout-warn" style="margin-top:8px">
         <span class="callout-icon">🔥</span>
-        <div class="callout-content"><strong>폭발 위험 이유</strong><p>Li의 높은 반응성 / 공기·수분 접촉 시 발화 / 외부 충격·단락 시 열폭주 → 금속 캔 폭발</p></div>
+        <div class="callout-content">
+          <strong>폭발 위험 이유</strong>
+          <p>① Li의 휘발유보다 높은 반응성</p>
+          <p>② 공기·수분 접촉 시 불이 붙는 인화특성</p>
+          <p>③ 외부 충격· 압력에 의해 short(합선) 시 열폭주 → 금속 캔 폭발, 리튬 성분이 공기와 만나 발화</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1193,7 +1259,7 @@ strong { color: var(--text); font-weight: 600; }
   <div class="card card-purple">
     <p>실온에서 정해진 <strong>차단 전압(cut-off voltage)</strong>으로 명시된 <strong>방전율(discharge rate)</strong>로 전달되는 <strong>암페어 아워(AH)</strong>로서 정량적으로 측정한다.</p>
     <div class="formula">용량 (AH) = 방전 전류 (A) × 방전 시간 (h)</div>
-    <p style="font-size:12px;color:var(--text3)">차단 전압 = 셀당 0.1V</p>
+    <p style="font-size:12px;color:var(--text3)">차단 전압: 셀당 0.1V, 배터리를 더 이상 방전시키면 안되는 최소 전압</p>
   </div>
 
   <h2>배터리 유효 용량에 영향을 주는 4가지 요인</h2>
@@ -1206,15 +1272,27 @@ strong { color: var(--text); font-weight: 600; }
 
   <h2>배터리 정격 — 1시간 정격</h2>
   <div class="card card-purple">
-    <p>배터리가 <strong>1시간 동안</strong> 지속적으로 공급(방전)을 하는 경우로, 아래 전압 기준을 만족할 때를 의미한다.</p>
+    <p>배터리가 <strong>1시간 동안</strong> 지속적으로 공급(방전)을 하는 경우로, 아래 전압 기준을 만족할 때를 의미한다. (배터리를 1시간 방전했을때 기준이 되는 전류값)</p>
     <div class="grid3" style="margin-top:12px">
-      <div class="stat-card"><div class="stat-label">일반 기준 (NiCd 등)</div><div class="stat-value" style="color:var(--purple-light)">셀당 1.67V 이상 또는 24V</div></div>
+      <div class="stat-card"><div class="stat-label">일반 기준 (NiCd 등)</div><div class="stat-value" style="color:var(--purple-light)">셀당 1.67V 이상</div></div>
       <div class="stat-card"><div class="stat-label">황산납 (24V 시스템)</div><div class="stat-value" style="color:var(--teal-light)">20V</div></div>
       <div class="stat-card"><div class="stat-label">황산납 12V짜리</div><div class="stat-value" style="color:var(--amber)">10V</div></div>
     </div>
     <div class="callout callout-tip" style="margin-top:12px">
       <span class="callout-icon">✅</span>
-      <div class="callout-content"><p><strong>흐름 암기:</strong> 셀당 1.67V 이상 또는 24V → 황산납(24V 시스템)은 20V → 12V짜리 황산납은 10V<br>즉, 배터리 시스템 전압에 따라 1시간 정격의 최저 허용 전압이 달라진다.</p></div>
+      <div class="callout-content">
+        <p><strong>정격이란?</strong> 배터리가 어느정도 전압과 전류용량을 낼 수 있는지 나타낸 값</p>
+        <p>① 전압정격: 12V / 24V, 배터리가 공급하는 기준 전압</p>
+        <p>② 용량정격: 40Ah / 60Ah, 얼마나 오래 전류 공급이 가능한지</p>
+      </div>
+    </div>
+    <div class="callout callout-tip" style="margin-top:12px">
+      <span class="callout-icon">✅</span>
+      <div class="callout-content"><p><strong>Ah로 측정한 1시간 용량 = end voltage 방전율 x 시간</strong></p></div>
+    </div>
+    <div class="callout callout-tip" style="margin-top:12px">
+      <span class="callout-icon">✅</span>
+      <div class="callout-content"><p><strong>흐름 암기:</strong> 셀당 1.67V 이상 → 황산납(24V 시스템)은 20V → 12V짜리 황산납은 10V<br>즉, 배터리 시스템 전압에 따라 1시간 정격의 최저 허용 전압이 달라진다.</p></div>
     </div>
   </div>
 
@@ -1222,7 +1300,7 @@ strong { color: var(--text); font-weight: 600; }
   <div class="callout callout-warn">
     <span class="callout-icon">⚡</span>
     <div class="callout-content">
-      <strong>비상률 = 30분 동안 필수 버스에 공급하는 데 필요한 총 필수 부하</strong>
+      <strong>비상률 = 30분 동안 필수 버스(STBY BUS)에 공급하는 데 필요한 총 필수 부하</strong>
       <p>비상 상황에서 항공기가 안전하게 착륙하는 데 필요한 최소 전기 공급 시간. 배터리 용량 선정 시 반드시 충족해야 함.</p>
     </div>
   </div>
@@ -1233,7 +1311,7 @@ strong { color: var(--text); font-weight: 600; }
       <tr><th>항목</th><th>내용</th><th>암기 포인트</th></tr>
       <tr><td>용량 단위</td><td>암페어 아워 (AH)</td><td>AH = A × h</td></tr>
       <tr><td>차단 전압</td><td>셀당 0.1V</td><td>cut-off voltage = 0.1V/cell</td></tr>
-      <tr><td>1시간 정격 (일반)</td><td>셀당 1.67V 이상 또는 24V</td><td>NiCd 등 기준</td></tr>
+      <tr><td>1시간 정격 (일반)</td><td>셀당 1.67V 이상</td><td>NiCd 등 기준</td></tr>
       <tr><td>1시간 정격 (황산납 24V)</td><td style="color:var(--teal-light);font-weight:600">20V</td><td>12셀 황산납</td></tr>
       <tr><td>1시간 정격 (황산납 12V)</td><td style="color:var(--amber);font-weight:600">10V</td><td>6셀 황산납</td></tr>
       <tr><td>비상률 기준 시간</td><td style="color:var(--red);font-weight:600">30분</td><td>emergency rate = 30 min</td></tr>
@@ -1271,6 +1349,15 @@ strong { color: var(--text); font-weight: 600; }
       <p>· 과충전 또는 추가 충전(top-up) 시: 셀 전압 1.6V 넘어 서서히 떨어지기 시작</p>
       <p>· 어떤 셀도 1.71V 이상 올라가거나 1.55V 이하로 떨어지지 않아야 함</p>
     </div>
+    <div class="card card-amber">
+      <h3>CC/CV 충전</h3>
+      <span class="badge ba">리튬이온 배터리 충전에 적합</span>
+      <p style="margin-top:8px">· 충전 시작하면 CC 먼저 -> CV 충전이 순서대로 이뤄짐</p>
+      <p>· 배터리에 충전기를 접속하면 먼저 CC 조건을 발동하고 흐르는 전류량을 일정하게 유지</p>
+      <p>· 시간이 지나면, 어느 순간 배터리 내부 전압이 기준치에 도달</p>
+      <p>· 전압은 일정하게 유지하되, 전류의 양을 서서히 줄여주는 방식</p>
+      <p>· 이후 전류가 Cut-off에 도달하면 충전이 완료</p>
+    </div>
   </div>
 
   <h2>CC/CV 충전 비교표</h2>
@@ -1299,6 +1386,11 @@ strong { color: var(--text); font-weight: 600; }
     <div class="flow-item"><div class="flow-num">6</div><div class="flow-content"><div class="flow-title">종료 조건</div><div class="flow-desc">전류가 일정 이하로 감소 시 종료 / 컷오프 기준 적용 / 과충전 방지</div></div></div>
     <div class="flow-item"><div class="flow-num">7</div><div class="flow-content"><div class="flow-title">충전 후 처리</div><div class="flow-desc">충전 차단 또는 유지 / 시스템 제어 / 안정 상태 유지</div></div></div>
   </div>
+
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/cc_cv.webp" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">CC/CV 충전 과정</p>
+  </div>
 </div>
 
 <!-- ⑬ 배터리 비교표 -->
@@ -1323,6 +1415,20 @@ strong { color: var(--text); font-weight: 600; }
       <tr><td>특징</td><td>경제성, 낮은 에너지 밀도, 무거움</td><td>낮은 에너지 밀도, 메모리 효과</td><td>경량, 고출력, 폭발 위험성, 열화/스웰링</td></tr>
       <tr><td><strong>항공 용도</strong></td><td>경항공기, 소형 훈련기, 비상 조명</td><td style="color:var(--teal-light)"><strong>B737/777/A320 등 대형 여객기 표준</strong></td><td>B787, A350, 드론, UAM</td></tr>
     </table>
+  </div>
+  <div class="callout callout-tip" style="margin-top:12px">
+    <span class="callout-icon">✅</span>
+    <div class="callout-content">
+      <p><strong>방전 종지 전압: </strong>더 이상 방전되어서는 안되는 최소 전압</p>
+      <p><strong>충전 종지 전압: </strong>최대 충전 전압</p>
+      <p><strong>메모리 효과: </strong>배터리를 완전히 방전하지 않고 반복 충전할 경우 사용 가능한 용량이 감소하는 현상.
+        예) 원래 100까지 쓸 수 있는 배터리를 매번
+        -> 50까지만 쓰고
+        -> 다시 충전
+        -> 또 50까지만 쓰고 충전
+        -> 이걸 반복하면 👉 배터리가 “아~ 원래 50까지만 쓰는 배터리구나” 라고 인식
+        -> 결과 👉 실제 사용 시간이 짧아짐</p>
+    </div>
   </div>
 
   <h2>리튬이온 대비 부피·무게 비교</h2>
@@ -1363,6 +1469,548 @@ strong { color: var(--text); font-weight: 600; }
       <p>정전압 충전 소스를 사용하면 셀이 단락된 NiCd 배터리가 과충전으로 인해 과열되고 열 폭주 발생 → 항공기 안전 위험!<br>
       재조정 주기(reconditioning cycle) 및 충전 주기(charging cycle)에 대한 충전 방식(charging regime)은 항공기제작사가 정의하므로 반드시 준수.</p>
     </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ⑭ 조명계통 개요 -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="sec-lighting-overview" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 14 · 12주차</div>
+    <h1>2.6 항공기 조명계통 (Aircraft Lighting System)</h1>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>조명계통 3대 기능</strong>
+      <p>① 실내 용도 — 조종석, 객실 및 화물칸에 조명 제공</p>
+      <p>② 실외 용도 — 항법등, 충돌 방지등, 착륙등 제공</p>
+      <p>③ 비상 전원 — 정상 전원 결함 시 비상등 작동을 위한 별도 비상 전원 계통 제공</p>
+    </div>
+  </div>
+
+  <h2>조명 분류 체계</h2>
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>🔵 내부 조명 (Interior)</h3>
+      <p>· <strong>조종석 (Cockpit / Flight Compartment)</strong></p>
+      <p>· <strong>객실 (Cabin / Passenger Compartment)</strong></p>
+      <p>· <strong>화장실 (Lavatory)</strong></p>
+    </div>
+    <div class="card card-teal">
+      <h3>🟡 외부 조명 (Exterior)</h3>
+      <p>· 항공기 동체(Fuselage) → 3축 (Rudder, Stabilizer 등)</p>
+      <p>· Cargo / Wheel Well / E&E → 정비 목적의 애매한 부분들</p>
+    </div>
+  </div>
+
+  <h2>조명 전체 트리 구조</h2>
+  <div class="card card-blue">
+    <p style="font-weight:700;color:var(--blue);margin-bottom:12px">LIGHTS</p>
+    <div class="table-wrap" style="margin:0">
+      <table>
+        <tr><th>대분류</th><th>세부 내용</th></tr>
+        <tr>
+          <td><strong>Flight Compartment</strong></td>
+          <td>조종석 계기판, 패널 조명</td>
+        </tr>
+        <tr>
+          <td><strong>Passenger Compartment</strong></td>
+          <td>객실 천장등, 독서등, 좌석 주변 조명</td>
+        </tr>
+        <tr>
+          <td><strong>Cargo Compartments</strong></td>
+          <td>화물 적재 칸 조명</td>
+        </tr>
+        <tr>
+          <td><strong>Service Compartments</strong></td>
+          <td>Wheel Well, E&amp;E bay, Cargo 등 정비 목적</td>
+        </tr>
+        <tr>
+          <td><strong>Exterior</strong></td>
+          <td>Navigation, Strobe, Beacon, Landing, Taxi, Logo, Wing Inspection</td>
+        </tr>
+        <tr>
+          <td><strong>Emergency</strong></td>
+          <td>내·외부 모두 해당 / 전원은 <span class="hl-r">배터리</span>, 별도 비상 전원 있음</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <h2>외부등 종류 한눈에 보기</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>등 이름</th><th>한국어</th><th>색상</th><th>용도 / 특징</th></tr>
+      <tr><td><strong>Navigation Lights</strong><br><span style="font-size:11px;color:var(--text3)">(Position Lights)</span></td><td>위치등 / 항법등</td><td>좌: 적색, 우: 녹색, 후: 백색</td><td>비행 중 <span class="hl-r">반드시 ON</span> (빨/초/흰2 - 4개 장착, 비행 중 무조건 켜야 함)</td></tr>
+      <tr><td><strong>Strobe Lights</strong><br><span style="font-size:11px;color:var(--text3)">(White Anti-collision)</span></td><td>백색 충돌 방지등</td><td>백색(White)</td><td>Wing tip + 미부 말단 설치 / 고전압 방전으로 섬광 발생</td></tr>
+      <tr><td><strong>Beacon Lights</strong><br><span style="font-size:11px;color:var(--text3)">(Red Anti-collision)</span></td><td>적색 충돌 방지등</td><td>적색(Red)</td><td>토잉·엔진 작동 중 ON / 동체 상하에 장착 / 회전하며 깜빡</td></tr>
+      <tr><td><strong>Landing Lights</strong></td><td>착륙등</td><td>백색(White)</td><td>야간 착륙 시 활주로 조명 / 가장 강한 빔 / 지상에서 작동 지양</td></tr>
+      <tr><td><strong>Taxi Lights</strong></td><td>유도등</td><td>백색(White)</td><td>지상 이동(Taxi) 중 ON / Nose Gear에 장착 (대형기)</td></tr>
+      <tr><td><strong>Runway Turnoff Lights</strong></td><td>활주로 옆길 등</td><td>백색(White)</td><td>활주로 이탈 후 유도로(Taxiway)로 회전 시 사용</td></tr>
+      <tr><td><strong>Wing Illumination Lights</strong><br><span style="font-size:11px;color:var(--text3)">(Wing Scan Light)</span></td><td>날개 검사등</td><td>백색(White)</td><td>야간 날개 결빙·FOD 확인 목적 / Wing &amp; Engine scan light</td></tr>
+      <tr><td><strong>Logo Lights</strong></td><td>로고등</td><td>백색(White)</td><td>수평 안정판(Horizontal Stabilizer)에 장착 → 수직 안정판의 항공사 로고 조명</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ⑮ 외부등 개요 -->
+<div id="sec-exterior-lights" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 15</div>
+    <h1>2.6.1 외부등 (Exterior Lights)</h1>
+  </div>
+
+  <div class="callout callout-key">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>외부등의 목적</strong>
+      <p>항공기 식별, 방향 및 <strong>항공기의 안전한 운항을 돕기 위해 조명을 제공</strong>한다.</p>
+    </div>
+  </div>
+
+  <h2>외부등 상세 설명</h2>
+
+  <div class="card card-purple">
+    <h3>Wing Illumination Lights (날개 검사등)</h3>
+    <p>· <strong>= Wing Scan Light = Wing &amp; Engine Scan Light</strong> 으로도 불림</p>
+    <p>· 날개 Leading Edge 결빙이나 엔진 결빙 상태를 확인하기 위한 조명</p>
+    <p>· Wing &amp; Engine scan light라고도 하며, 날개 검사등으로도 불린다</p>
+  </div>
+
+  <div class="card card-red">
+    <h3>Landing Lights (착륙등)</h3>
+    <p>· <strong>빔이 가장 강함</strong> — 외부등 중 가장 강력한 광원</p>
+    <p>· 지상에서는 작동을 <strong>지양</strong>한다 (지상 과열 우려)</p>
+    <p>· 파라볼릭 반사경(parabolic reflector)으로 빔의 최대 도달 거리 극대화</p>
+    <p>· Retractable형(대형기, 평소엔 들어가 있고 필요 시 튀어나옴) vs Fixed형(동체에 고정)</p>
+  </div>
+
+  <div class="card card-amber">
+    <h3>Red Anti-Collision Lights = Beacon Light (적색 충돌 방지등)</h3>
+    <p>· <strong>토잉·엔진 작동 중 ON</strong> — 지상에서 작업 중임을 알리는 신호</p>
+    <p>· 동체 또는 미익위(tail/wing)에 설치, 회전하면서 깜빡거림 (Rotating Beacon)</p>
+    <p>· 동체 <strong>상하</strong>에 장착 (대형 항공기의 경우)</p>
+    <p>· 앞뒤에 1개씩 — 회전 빔 방식</p>
+  </div>
+
+  <div class="card card-teal">
+    <h3>White Anti-Collision Lights = Strobe Light (백색 충돌 방지등)</h3>
+    <p>· 날개끝(Wing Tip) + 미부 말단에 설치 / <strong>3개</strong> 있음</p>
+    <p>· 고전압 커패시터의 <strong>방전(high-voltage discharge)</strong>으로 섬광 생성</p>
+    <p>· 분당 <strong class="hl-r">40~100 [cycle]</strong> 섬광률(flash rate)로 깜빡임</p>
+  </div>
+
+  <div class="card card-blue">
+    <h3>Position Lights = Navigation Lights (위치등 / 항법등)</h3>
+    <p>· 좌: <span class="hl-r">적색(Red)</span>, 우: <span class="hl-t">녹색(Green)</span>, 후: 백색(White) — 비행 중 <strong>반드시 ON</strong></p>
+    <p>· 하나의 S/W 한 개로 좌우 모두 담당 → S/W 망가지면 둘 다 안 켜짐</p>
+    <p>· 각 위치에 <strong>Lamp 2개</strong> 들어있음 (한 개 고장 시 백업)</p>
+  </div>
+
+  <div class="card card-green">
+    <h3>Taxi Lights (유도등)</h3>
+    <p>· 항공기 택시 중 ON 하는 등</p>
+    <p>· 대형기: Nose Landing Gear에 하나 붙어있음</p>
+    <p>· 소형기: 동체에 붙어있음</p>
+  </div>
+
+  <div class="card card-purple">
+    <h3>Logo Lights (로고등)</h3>
+    <p>· 수평 안정판(Horizontal Stabilizer) 상단에 장착</p>
+    <p>· 수직 안정판(Vertical Stabilizer)에 있는 항공사 로고를 비추는 등</p>
+    <p>· 특히 <strong>야간</strong>에 항공사 로고나 상징(emblem)이 잘 보이도록</p>
+  </div>
+
+  <h2>B737 외부등 위치 요약</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>위치</th><th>등 종류</th><th>색상</th></tr>
+      <tr><td>좌측 날개끝 (Left Wing Tip)</td><td>Position Light + Strobe Light</td><td>적색 + 백색</td></tr>
+      <tr><td>우측 날개끝 (Right Wing Tip)</td><td>Position Light + Strobe Light</td><td>녹색 + 백색</td></tr>
+      <tr><td>항공기 후미 (Tail)</td><td>Position Light (백색) + Strobe Light</td><td>백색</td></tr>
+      <tr><td>동체 상하 (Fuselage Top/Bottom)</td><td>Anti-Collision Light (Beacon)</td><td>적색</td></tr>
+      <tr><td>날개 루트 근처</td><td>Wing Illumination / Scan Light</td><td>백색</td></tr>
+      <tr><td>수평 안정판</td><td>Logo Light</td><td>백색</td></tr>
+      <tr><td>Nose Gear (대형기)</td><td>Taxi Light</td><td>백색</td></tr>
+      <tr><td>날개 Leading Edge / Wing Root 부근 (대형기)</td><td>Landing Light (Fixed + Retractable)</td><td>백색</td></tr>
+      <tr><td>Nose Gear 근처</td><td>Runway Turnoff Light</td><td>백색</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ⑯ 위치등 -->
+<div id="sec-position-lights" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 16</div>
+    <h1>2.6.1.1 위치등 (Position Lights)</h1>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>비행 중 무조건 ON — 4개 장착</strong>
+      <p>야간 비행 시 미 연방 규정집(CFR, Code of Federal Regulations) Title 14에 명기된 최소 요구사항에 합당하는 위치등을 갖추고 있어야 한다.</p>
+    </div>
+  </div>
+
+  <h2>위치등 색상 구성 (암기)</h2>
+  <div class="grid3">
+    <div class="stat-card">
+      <div class="stat-label">좌측 날개끝 (Left Wing Tip)</div>
+      <div class="stat-value" style="color:var(--red);font-size:18px">🔴 적색</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:6px">Red · 110°</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">우측 날개끝 (Right Wing Tip)</div>
+      <div class="stat-value" style="color:var(--teal-light);font-size:18px">🟢 녹색</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:6px">Green · 110°</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">항공기 후미 (Tail)</div>
+      <div class="stat-value" style="color:var(--text);font-size:18px">⚪ 백색</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:6px">White · 140°</div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div class="callout-content">
+      <strong>위치등의 기능</strong>
+      <p>항공기 <strong>위치, 비행 방향 및 자세</strong> 등을 알 수 있게 한다.</p>
+      <p>상대방 항공기에서 볼 때: 적색이 보이면 → 해당 항공기의 왼쪽(좌측), 녹색이 보이면 → 오른쪽(우측)</p>
+    </div>
+  </div>
+
+  <h2>위치등 전기 회로도 해설</h2>
+  <div class="card card-purple">
+    <h3>전원 계통</h3>
+    <p>· <strong>115V AC → GND SVC BUS 1 → SECT 1</strong> 에서 전원을 받음</p>
+    <p>· GND BUS에서 가지치기 → Section으로 분기됨</p>
+    <p>· <strong>Transformer (XFMR)</strong>: 위치등은 XFMR 사용 → 이걸로 전압의 범위를 만들어줌 (밝기 조절)</p>
+  </div>
+  <div class="card card-teal">
+    <h3>스위치 (Position Switch P5)</h3>
+    <p>· <strong>STEADY</strong>: Position light만 들어옴</p>
+    <p>· <strong>STROBE &amp; STEADY</strong>: Position + Strobe 둘 다 들어옴 (이때 Strobe는 White)</p>
+    <p>· <strong>S/W 1개로 Right + Left light 모두 담당</strong></p>
+    <p>· S/W 망가지면 <strong>둘 다 안 켜짐</strong></p>
+  </div>
+  <div class="card card-amber">
+    <h3>램프 구성</h3>
+    <p>· 하나의 위치에 <strong>Lamp 2개</strong> 들어있음</p>
+    <p>· 정상: 위에서 동시에 움직임 (한 쪽이 나가도 나머지 작동)</p>
+    <p>· Right FWD Wing Tip Light / Right Tail Position Light</p>
+    <p>· Left FWD Wing Tip Light / Left Tail Position Light</p>
+  </div>
+
+  <h2>위치등 회로 흐름</h2>
+  <div class="flow">
+    <div class="flow-item"><div class="flow-num">1</div><div class="flow-content"><div class="flow-title">115V AC · GND SVC BUS 1 · SECT 1</div><div class="flow-desc">전원 공급 시작 / P18 CB Panel에서 Circuit Breaker 연결</div></div></div>
+    <div class="flow-item"><div class="flow-num">2</div><div class="flow-content"><div class="flow-title">EXTERIOR LT POSITION RIGHT / LEFT (CB)</div><div class="flow-desc">각 사이드별 Circuit Breaker — GND BUS → Section 가지치기</div></div></div>
+    <div class="flow-item"><div class="flow-num">3</div><div class="flow-content"><div class="flow-title">POSITION SWITCH (P5) — STEADY / OFF / STROBE &amp; STEADY</div><div class="flow-desc">스위치 조작에 따라 Position only 또는 Strobe+Position 동작</div></div></div>
+    <div class="flow-item"><div class="flow-num">4</div><div class="flow-content"><div class="flow-title">RIGHT / LEFT POSITION LTS XFMR</div><div class="flow-desc">Transformer로 밝기(전압 범위) 조절</div></div></div>
+    <div class="flow-item"><div class="flow-num">5</div><div class="flow-content"><div class="flow-title">Wing Tip Light + Tail Position Light (각 2개 Lamp)</div><div class="flow-desc">Right FWD Wing Tip / Right Tail Position / Left FWD Wing Tip / Left Tail Position</div></div></div>
+  </div>
+</div>
+
+<!-- ⑰ 충돌 방지등 -->
+<div id="sec-anticollision-lights" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 17</div>
+    <h1>2.6.1.2 충돌 방지등 (Anti-Collision Lights)</h1>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>3개 있음 — 총 2가지 종류</strong>
+      <p>① <strong>Red Anti-Collision (Beacon Light)</strong> — 동체 상하 2개, 회전하면서 깜빡임</p>
+      <p>② <strong>White Anti-Collision (Strobe Light)</strong> — 날개끝 2개 + 미부 말단 1개 = 총 3개</p>
+    </div>
+  </div>
+
+  <h2>공통 특징</h2>
+  <div class="card card-blue">
+    <p>· 하나 이상의 라이트로 구성</p>
+    <p>· 동체 또는 미익위(tail/wing)에 설치 — 보통 승무원의 시야에 영향을 주지 않으면서 위치등의 가시성(visibility)을 방해하지 않는 위치에 <strong>회전 빔 조명</strong></p>
+    <p>· 대형 항공기의 경우 충돌 방지등은 <strong>동체 상하에 장착</strong>되어 작동</p>
+    <p>· 반사경이 원호(arc)로 회전하며 결과 섬광률(flash rate): <strong class="hl-r">분당 40~100 [cycle]</strong></p>
+  </div>
+
+  <h2>① Red Anti-Collision Light (Beacon Light)</h2>
+  <div class="card card-red">
+    <p>· <strong>= 비컨 라이트(Beacon Light)</strong> 라고도 함</p>
+    <p>· <strong>토잉, 엔진 작동 중 ON</strong> — 지상 작업 시 안전 신호</p>
+    <p>· 앞뒤에 1개씩 — 동체 위아래에서 <strong>넓게 비춰줌</strong></p>
+    <p>· 전원: PSU(Power Supply Unit) 사용 → 정기적으로 light 켤 때만 PSU 사용</p>
+    <p style="margin-top:8px;color:var(--text3);font-size:12px">ℹ️ 여기서 Strobe는 RED / 위치등은 XFMR</p>
+  </div>
+
+  <div class="card card-teal" style="margin-top:0">
+    <h3>Red Anti-Collision 회로 흐름</h3>
+    <div class="flow">
+      <div class="flow-item"><div class="flow-num">1</div><div class="flow-content"><div class="flow-title">115V AC · XFR BUS 1 · SECT 1</div><div class="flow-desc">P8 CB Panel → EXTERIOR LIGHTING ANTI-COLLISION RED</div></div></div>
+      <div class="flow-item"><div class="flow-num">2</div><div class="flow-content"><div class="flow-title">ANTI-COLLISION SWITCH (P5) — OFF / ON</div><div class="flow-desc">스위치 ON 시 회로 활성화</div></div></div>
+      <div class="flow-item"><div class="flow-num">3</div><div class="flow-content"><div class="flow-title">UPPER / LOWER Anti-Collision Light POWER SUPPLY (PSU)</div><div class="flow-desc">PSU에서 ANODE, TRIGGER, RETURN TRIGGER, CATHODE 단자로 연결</div></div></div>
+      <div class="flow-item"><div class="flow-num">4</div><div class="flow-content"><div class="flow-title">UPPER / LOWER ANTI-COLLISION LIGHT 점등</div><div class="flow-desc">동체 상하 두 개가 동시에 적색으로 점멸</div></div></div>
+    </div>
+  </div>
+
+  <h2>② White Anti-Collision Light (Strobe Light)</h2>
+  <div class="card card-amber">
+    <p>· <strong>= 백색 섬광등(white strobe light)</strong></p>
+    <p>· 날개끝(wing tip) + 미부 말단에 설치 — <strong>총 3개</strong> (Left wing tip, Right wing tip, Tail)</p>
+    <p>· <strong>커패시터의 고전압 방전(high-voltage discharge)</strong>에 의해 매우 밝은 간헐적 섬광(intermittent flash) 생성</p>
+    <p>· 분당 <strong class="hl-r">40~100 cycle</strong> 섬광</p>
+  </div>
+
+  <div class="card card-blue" style="margin-top:0">
+    <h3>White Anti-Collision 회로 흐름 &amp; 스위치 동작</h3>
+    <p>· 전원: <strong>115V AC XFR BUS 1</strong> → P18 CB Panel → EXTERIOR LIGHTING ANTI-COLLISION WHITE</p>
+    <p>· <strong>POSITION SWITCH (P5)</strong> 3단계:</p>
+    <p style="padding-left:12px">— <strong>STEADY</strong>: Position light만 들어옴 (Strobe X)</p>
+    <p style="padding-left:12px">— <strong>OFF</strong>: 꺼짐</p>
+    <p style="padding-left:12px">— <strong>STROBE &amp; STEADY</strong>: Position + Strobe 둘 다 들어옴 (이때 Strobe는 White)</p>
+    <p>· 스위치 → RIGHT/LEFT Wing Tip Anti-Collision Light Power Supply → FWD Wing Tip Light 점등</p>
+    <p>· Tail Strobe Light 도 동일 스위치에서 공급</p>
+  </div>
+
+  <h2>Red vs White Anti-Collision 비교표</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>구분</th><th>Red (Beacon)</th><th>White (Strobe)</th></tr>
+      <tr><td>별칭</td><td>Beacon Light / Rotating Beacon</td><td>Strobe Light</td></tr>
+      <tr><td>색상</td><td style="color:var(--red);font-weight:700">적색 (Red)</td><td style="color:var(--text);font-weight:700">백색 (White)</td></tr>
+      <tr><td>설치 위치</td><td>동체 상하 (2개)</td><td>Wing Tip 좌우 + Tail (3개)</td></tr>
+      <tr><td>발광 방식</td><td>반사경 회전 (Rotating)</td><td>커패시터 고전압 방전 (Discharge)</td></tr>
+      <tr><td>전원 공급</td><td>PSU (Power Supply Unit)</td><td>Wing Tip Anti-Collision Power Supply</td></tr>
+      <tr><td>스위치</td><td>ANTI-COLLISION SW (P5)</td><td>POSITION SW (P5) — Strobe &amp; Steady</td></tr>
+      <tr><td>사용 시기</td><td>토잉, 엔진 작동 중</td><td>비행 중 (충돌 방지)</td></tr>
+      <tr><td>섬광률</td><td>분당 40~100 cycle</td><td>분당 40~100 cycle</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ⑱ 착륙등·유도등 -->
+<div id="sec-landing-taxi" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 18</div>
+    <h1>2.6.1.3 착륙등과 유도등 (Landing and Taxi Lights)</h1>
+  </div>
+
+  <h2>착륙등 (Landing Lights)</h2>
+
+  <div class="callout callout-key">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>야간 착륙 시에 활주로를 비추기 위하여 항공기에 장착</strong>
+      <p>외부등 중 <strong>빔이 가장 강함</strong> — 파라볼릭 반사장치(parabolic reflector)로 최대 도달 거리 극대화</p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-red">
+      <h3>Retractable (수납식) Landing Light</h3>
+      <p>· <strong>대형기</strong>에 사용</p>
+      <p>· 평소엔 동체 안에 들어가 있고, 필요 시 튀어나옴 (= OFF 상태)</p>
+      <p>· 날개 루트(Wing Root) 앞쪽에 붙어있음</p>
+      <p>· 스위치: <strong>RETRACT ↔ L ON R (RETRACTABLE)</strong></p>
+    </div>
+    <div class="card card-teal">
+      <h3>Fixed (고정식) Landing Light</h3>
+      <p>· 동체에 고정되어 있음</p>
+      <p>· 소형 항공기의 착륙등은 보통 양쪽 날개의 앞전(leading edge)의 중간에 위치하거나 항공기 표피 안에 있음</p>
+      <p>· 대형 운송용 항공기: 날개의 리딩 에지(Leading Edge)에 위치 → 날개 끝쪽에 붙어있음</p>
+      <p>· 스위치: <strong>L ON R (FIXED)</strong></p>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <h3>Landing Light 전체 정리</h3>
+    <p>· 소형기: 동체에 / 대형기: Wing에 / 대형기는 Landing Gear 쪽에도 있음</p>
+    <p>· 스위치 패널: LANDING — RETRACT/OFF, L ON R (RETRACTABLE) / OFF, L ON R (FIXED)</p>
+    <p>· Runway Turnoff Light도 같은 패널에 있음 (좌우 각각 ON/OFF)</p>
+  </div>
+
+  <h2>유도등 (Taxi Lights)</h2>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div class="callout-content">
+      <strong>목적</strong>
+      <p>활주로, 유도로(taxi strip), 또는 격납고 지역(hangar area)으로 항공기를 유도 또는 견인하는 동안 <strong>지상에 조명을 제공</strong></p>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>대형기 유도등</h3>
+      <p>· 세발 착륙 장치(tricycle landing gear) 항공기에서 단일 or 다등형 유도등</p>
+      <p>· <strong>전방 착륙 장치(nose landing gear)의 비조향 부분(non-steerable part)</strong>에 설치</p>
+      <p>· Nose L/G에 하나 붙어있음</p>
+    </div>
+    <div class="card card-teal">
+      <h3>소형기 유도등</h3>
+      <p>· 소형기는 동체에 붙어있음</p>
+      <p>· 날개 앞전(wing leading edge)의 오목한 지역에 설치되고, 가끔 고정식 착륙등(fixed landing light)과 함께 동일한 지역에 설치</p>
+    </div>
+  </div>
+
+  <h2>⭐ Taxi Light 회로 — "AUTO" 기능 (시험 출제 예정)</h2>
+  <div class="callout callout-warn">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>이거 시험에 낼 거임 — relay, NLG lock S/W 기능 알아야 함</strong>
+      <p>"AUTO"로 설정하면 → 28V DC PWR가 있어야 light를 켜줄 수 있음 (relay 작동 조건)</p>
+    </div>
+  </div>
+
+  <div class="card card-amber">
+    <h3>Nose Gear Taxi Light S/W "AUTO" 동작 원리</h3>
+    <p>· <strong>28V AC XFER BUS 2 SECT 2</strong> → Runway Turnoff Light (좌우 각각)</p>
+    <p>· <strong>28V DC BUS 1 SECT 1</strong> → ① 릴레이 작동 전원</p>
+    <p>· <strong>28V AC XFER BUS 1 SECT 2</strong> → ⑥ light 켜주는 전원</p>
+    <p style="margin-top:8px">— Nose Gear Taxi Light S/W = <strong>OFF / AUTO</strong></p>
+    <p>— AUTO 위치: <strong>Nose Gear Down and Locked (E11 PSEU)</strong> 신호 ④를 받아야 relay ③ 작동</p>
+    <p>— relay(R444 Taxi Light Cont Relay) → J4 Junction Box → Nose Gear Taxi Light 점등</p>
+    <p style="margin-top:8px;color:var(--text3);font-size:12px">ℹ️ PSEU = Proximity Switch Electronic Unit — 랜딩기어 잠금 상태를 감지하는 장치</p>
+  </div>
+
+  <h2>Runway Turnoff Lights (활주로 옆길 등)</h2>
+  <div class="card card-blue">
+    <p>· 야간에 착륙 후 활주로(runway)를 벗어나 유도로(taxiway)로 회전할 때</p>
+    <p>· <strong>유도로 상태를 먼저 볼 수 있도록 비추어 주는 라이트</strong></p>
+    <p>· 스위치: RUNWAY TURNOFF — L OFF R / ON</p>
+    <p>· 넓게 비춰줌 (착륙등보다 덜 밝지만 폭이 넓음)</p>
+  </div>
+</div>
+
+<!-- ⑲ 날개 검사등·로고등 -->
+<div id="sec-wing-logo" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 19</div>
+    <h1>2.6.1.4~5 날개 검사등 &amp; 로고등</h1>
+  </div>
+
+  <h2>2.6.1.4 날개 검사등 (Wing Inspection Lights)</h2>
+
+  <div class="callout callout-key">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>= Wing &amp; Engine Scan Light = Wing Illumination Light</strong>
+      <p>비행 중에 <strong>날개의 리딩 에지 결빙</strong>이나 <strong>FOD 여부</strong>를 검사하기 위해 비추는 라이트 — <strong>목적</strong></p>
+    </div>
+  </div>
+
+  <div class="card card-teal">
+    <p>· 날개 및 엔진 검사등(wing &amp; engine scan light)이라고도 함</p>
+    <p>· 비행 중에 날개의 리딩 에지 결빙이나 FOD 여부를 검사하기 위해 비춤</p>
+    <p>· <strong>야간에</strong> 비행하는 동안 날개 리딩 에지에 결빙 형성의 육안 탐지를 가능케 함</p>
+    <p>· 목적: 날개 Leading Edge 결빙 or 엔진 결빙 확인</p>
+  </div>
+
+  <h2>2.6.1.5 활주로 옆길 등 (Runway Turnoff Light) &amp; 로고등 (Logo Light)</h2>
+
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>Runway Turnoff Light (활주로 옆길 등)</h3>
+      <p>· <strong>야간에</strong> 착륙 후 활주로(runway)를 벗어나 유도로(taxiway)로 회전할 때</p>
+      <p>· 유도로 상태를 먼저 볼 수 있도록 비추어주는 라이트</p>
+      <p>· 넓게 비추는 형태 (착륙등보다 좁은 빔 강도, 더 넓은 조사 범위)</p>
+    </div>
+    <div class="card card-amber">
+      <h3>Logo Light (로고등)</h3>
+      <p>· 특히 <strong>야간에</strong> 항공사의 로고나 상징(emblem)이 잘 보이도록 비추는 라이트</p>
+      <p>· <strong>수직 안정판(vertical stabilizer)</strong>에 있는 로고를 비추도록</p>
+      <p>· <strong>수평 안정판(horizontal stabilizer)</strong>에 장착 → <strong>상단(上端)</strong>에 위치</p>
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <span class="callout-icon">📌</span>
+    <div class="callout-content">
+      <strong>Logo Light 위치 암기</strong>
+      <p>수평 안정판(Horizontal Stabilizer)에서 위로 수직 안정판(Vertical Stabilizer)을 비춤<br>
+      → 수평 안정판 상단에 장착 (上段)</p>
+    </div>
+  </div>
+</div>
+
+<!-- ⑳ MEL / 운항 제한 -->
+<div id="sec-mel-lighting" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 20</div>
+    <h1>MEL &amp; 조명계통 운항 제한</h1>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>B737-800/-900 MEL ATA 33 — Wing Tip Position Lights (33-11)</strong>
+      <p>위치등에 대한 MEL — Position Light이 아니어도 비행 가능한 조건 이해 필수</p>
+    </div>
+  </div>
+
+  <h2>B737-800/-900 MEL 33-11 Wing Tip Position Lights</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>항목</th><th>내용</th></tr>
+      <tr><td><strong>Interval</strong></td><td>C</td></tr>
+      <tr><td><strong>Installed</strong></td><td><span class="hl-a">4개</span> 장착됨</td></tr>
+      <tr><td><strong>Required</strong></td><td><span class="hl-r">0</span> — 0개여도 비행 가능</td></tr>
+      <tr><td><strong>Procedure</strong></td><td>(O) — Operations 절차 따름</td></tr>
+      <tr><td><strong>After Door Close</strong></td><td>Crew Defer</td></tr>
+    </table>
+  </div>
+
+  <div class="callout callout-info">
+    <span class="callout-icon">💡</span>
+    <div class="callout-content">
+      <strong>핵심: Required = 0 의 의미</strong>
+      <p>위치등 4개 장착 → <strong>0개 있어도 비행 가능</strong></p>
+      <p>BUT → <strong>"May be inoperative for DAY operations"</strong></p>
+      <p>→ 주간에는 작동이 안 돼도 된다 = <span class="hl-r">야간엔 비행 못한다</span></p>
+    </div>
+  </div>
+
+  <h2>운항 제한 (Operations — Flight Planning Restrictions)</h2>
+  <div class="card card-red">
+    <p style="font-weight:700;color:var(--red)">Night Operations — Not Authorized</p>
+    <p style="margin-top:8px">야간 운항 금지 (Position Light INOP 시)</p>
+  </div>
+
+  <div class="card card-amber">
+    <h3>예시 시나리오 이해</h3>
+    <p>· <strong>주간에 이륙 → 야간에 착륙은 가능</strong> (이미 출발한 상태)</p>
+    <p>· <strong>야간에 이륙은 불가</strong> (Night Operations Not Authorized → 야간 비행 자체가 허가 안 됨)</p>
+    <p>· 즉, 10일 안에 고쳐야 하고, 고치지 않은 채로 야간에 이륙하면 규정 위반</p>
+  </div>
+
+  <h2>PLACARD &amp; Maintenance Note</h2>
+  <div class="card card-blue">
+    <p>· <strong>PLACARD</strong>: POSITION Light Switch — ____ POSITION LIGHT INOP</p>
+    <p>· <strong>MAINTENANCE NOTE</strong>: Contact MCC for Dispatch Approval</p>
+    <p>· FLIGHT CREW: Contact dispatcher for flight release update and "FLIGHT PLANNING RESTRICTIONS" confirmation</p>
+  </div>
+
+  <h2>조명계통 핵심 암기 정리</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>등 이름</th><th>반드시 기억할 내용</th></tr>
+      <tr><td>Position Lights</td><td>비행 중 <span class="hl-r">무조건 ON</span> / 좌적·우녹·후백 / S/W 1개로 좌우 모두 / Lamp 2개 / XFMR 사용</td></tr>
+      <tr><td>Strobe Light (White)</td><td>Wing Tip 3개 / 고전압 방전 섬광 / 40~100 cycle/min / STROBE&amp;STEADY SW</td></tr>
+      <tr><td>Beacon Light (Red)</td><td>동체 상하 2개 / 토잉·엔진 작동 중 ON / 회전 빔 / PSU 사용</td></tr>
+      <tr><td>Landing Light</td><td>가장 강한 빔 / 지상 작동 지양 / Retractable(대형) vs Fixed</td></tr>
+      <tr><td>Taxi Light</td><td>대형기 Nose Gear / AUTO = NLG Down &amp; Locked 시 자동 점등 / relay 작동 조건</td></tr>
+      <tr><td>Wing Inspection Light</td><td>= Wing Scan Light / 야간 날개 결빙·FOD 확인</td></tr>
+      <tr><td>Logo Light</td><td>수평 안정판 장착 → 수직 안정판 로고 비춤</td></tr>
+      <tr><td>Runway Turnoff Light</td><td>착륙 후 활주로 이탈 시 유도로 조명</td></tr>
+      <tr><td>Emergency Light</td><td>내·외부 모두 / 전원 = 배터리 (별도 비상 전원)</td></tr>
+      <tr><td>MEL 33-11</td><td>Position Light 0개도 가능 / DAY만 / 야간 이륙 불가</td></tr>
+    </table>
   </div>
 </div>
 

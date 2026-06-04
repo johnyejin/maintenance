@@ -433,6 +433,12 @@
     <button class="nav-btn" data-section="lube" onclick="showSection('lube')">
       <span class="ch-num">Ch.9</span>🛢️ 윤활계통
     </button>
+    <button class="nav-btn" data-section="starting" onclick="showSection('starting')">
+      <span class="ch-num">Ch.10</span>🔑 시동계통
+    </button>
+    <button class="nav-btn" data-section="ignition" onclick="showSection('ignition')">
+      <span class="ch-num">Ch.11</span>⚡ 점화계통
+    </button>
     <button class="nav-btn" data-section="summary" onclick="showSection('summary')">
       <span class="ch-num">★</span>📋 핵심 요약
     </button>
@@ -2450,17 +2456,657 @@
 
 
 
+<!-- ==============================
+     Ch.10 시동계통 (Starting System)
+     ============================== -->
+<div class="section" id="starting">
+  <div class="sec-header">
+    <div class="sec-num">10</div>
+    <h2>엔진 시동계통 (Starting &amp; Ignition Systems)</h2>
+  </div>
+
+  <!-- 일반사항 -->
+  <div class="card">
+    <div class="card-title">🔑 시동계통 일반사항</div>
+    <div class="grid2">
+      <div>
+        <ul class="point-list">
+          <li>가스터빈엔진 시동: <span class="hl">시동계통 + 점화계통</span> 동시 필요</li>
+          <li>시동계통: 압축기와 터빈을 회전시켜 연소계통으로 <span class="hl">압축공기가 공급되도록</span> 해줌</li>
+          <li>점화계통: 연소기 내부에 형성된 <span class="hl">연료-공기 혼합기에 점화원을 공급</span>하여 화염이 형성되도록 해줌</li>
+          <li>대부분의 가스터빈엔진은 시동을 위해 <span class="hl">APU 사용</span> (지상에선 GPU)</li>
+          <li>APU는 압축기에 큰 토오크를 전달해줄 수 있는 <span class="hl-red">시동모터(Starter Motor)</span> 보유</li>
+          <li>시동 방법: 전기식, 유압식, 공기식 등 다양한 방법</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="point-list">
+          <li>일부 APU는 바퀴 달린 카트에 설치(<span class="hl-blue">GPU</span>라 함)하여 다른 항공기 시동에 사용</li>
+          <li>APU는 항공기 도관에 호스를 이용하여 연결 — 호스에는 <span class="hl">체크밸브</span>가 설치되어 APU→항공기로 공기 흐를 수 있지만, <span class="hl-red">메인엔진의 블리드 공기가 APU로 역류하지 못하도록</span> 되어 있음</li>
+          <li>APU: 엔진이 정지해 있는 동안 선실 점등과 압력 및 다른 계통에 충분한 동력 공급</li>
+          <li>대개 APU는 적당한 속도에서 자동으로 스위치가 꺼지는 자체의 <span class="hl">전기시동모터</span>에 의해 시동</li>
+          <li>메인엔진이 시동 걸리고 적당한 조건에 도달하면, APU는 스위치가 꺼지고 엔진과 천천히 분리됨</li>
+        </ul>
+        <div class="note-box" style="margin-top:8px;">💡 <strong>필기:</strong> Run-up = 항공기 엔진이 도는 것. Ignition은 전기가 해줌 (115V AC or 28V DC)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 시동 절차 & EGT 그래프 -->
+  <div class="card">
+    <div class="card-title">📈 시동 절차 &amp; RPM/EGT 그래프 (시험 출제!)</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3);font-weight:700;margin-bottom:8px;">Sequence 순서 (암기)</p>
+        <div style="counter-reset:seq;">
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+            <div style="background:var(--accent1);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;">①</div>
+            <div style="font-size:0.85rem;"><span class="hl">Starter ON</span> — 시동 모터를 작동시킴</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+            <div style="background:var(--accent1);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;">②</div>
+            <div style="font-size:0.85rem;"><span class="hl">5~10% RPM</span>에서 점화 장치 작동 + 연료 레버를 열어 연료 공급(Fuel ON)</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+            <div style="background:var(--accent1);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;">③</div>
+            <div style="font-size:0.85rem;">정상적인 점화는 <span class="hl-red">20초 이내</span>에 이루어짐 — EGT 상승으로 확인 (Light-up)</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+            <div style="background:var(--accent2);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;">④</div>
+            <div style="font-size:0.85rem;">정해진 시간 내 점화가 안 되면 → <span class="hl-red">시동 중단 후 고장 원인 조사</span></div>
+          </div>
+        </div>
+        <div class="warn-box">⚠️ 시동 저하 원인: 낮은 시동 출력 / 약한 점화 / 연료 라인에 공기 유입 → 점화가 느리거나 아예 안 됨</div>
+      </div>
+      <div>
+        <!-- RPM/EGT 그래프 SVG -->
+        <div class="diagram-box" style="padding:0.75rem;">
+          <p style="font-size:0.75rem;color:var(--accent3);font-weight:700;margin-bottom:6px;">⭐ RPM and EGT curves during start (그래프 순서 암기)</p>
+          <svg width="300" height="220" viewBox="0 0 300 220">
+            <rect width="300" height="220" fill="#181c2a" rx="6"/>
+            <!-- 축 -->
+            <line x1="40" y1="10" x2="40" y2="190" stroke="#3a4060" stroke-width="1.5"/>
+            <line x1="40" y1="190" x2="295" y2="190" stroke="#3a4060" stroke-width="1.5"/>
+            <text x="8" y="100" fill="#6470a0" font-size="7.5" text-anchor="middle" transform="rotate(-90,8,100)">COMPRESSOR RPM / EGT</text>
+            <text x="165" y="208" fill="#6470a0" font-size="7.5" text-anchor="middle">TIME — SECONDS →</text>
+
+            <!-- EGT 곡선 (점선, 빨강) -->
+            <path d="M40,185 L70,183 L95,175 L115,120 L135,60 L155,80 L200,100 L260,95" stroke="#e05c7a" stroke-width="1.8" fill="none" stroke-dasharray="5,2"/>
+            <!-- RPM 곡선 (실선, 파랑) -->
+            <path d="M40,185 L70,180 L95,175 L115,165 L145,145 L175,115 L210,80 L260,70" stroke="#4f8ef7" stroke-width="1.8" fill="none"/>
+
+            <!-- 이벤트 점 & 라벨 -->
+            <!-- STARTER ON -->
+            <circle cx="40" cy="185" r="3" fill="#f4a946"/>
+            <text x="42" y="198" fill="#f4a946" font-size="6.5">STARTER ON</text>
+
+            <!-- FUEL ON -->
+            <circle cx="70" cy="183" r="3" fill="#5bd4b0"/>
+            <text x="52" y="178" fill="#5bd4b0" font-size="6.5">FUEL ON</text>
+
+            <!-- IGNITION ON -->
+            <circle cx="70" cy="183" r="5" fill="none" stroke="#5bd4b0" stroke-width="1"/>
+            <text x="42" y="168" fill="#5bd4b0" font-size="6.5">IGNITION ON</text>
+
+            <!-- ENGINE LIGHTS UP -->
+            <circle cx="115" cy="120" r="3" fill="#e05c7a"/>
+            <line x1="115" y1="120" x2="135" y2="108" stroke="#e05c7a" stroke-width="0.8" stroke-dasharray="2,1"/>
+            <text x="136" y="107" fill="#e05c7a" font-size="6">ENGINE LIGHTS UP</text>
+            <text x="136" y="115" fill="#e05c7a" font-size="6">(EGT RISE = LIGHT-UP)</text>
+
+            <!-- PEAK STARTING EGT -->
+            <circle cx="135" cy="60" r="3" fill="#e05c7a"/>
+            <line x1="135" y1="60" x2="170" y2="40" stroke="#e05c7a" stroke-width="0.8" stroke-dasharray="2,1"/>
+            <text x="172" y="38" fill="#e05c7a" font-size="6.5">PEAK STARTING EGT</text>
+
+            <!-- SELF-ACCELERATING -->
+            <circle cx="145" cy="145" r="3" fill="#4f8ef7"/>
+            <text x="148" y="143" fill="#4f8ef7" font-size="6">ENGINE ATTAINS</text>
+            <text x="148" y="151" fill="#4f8ef7" font-size="6">SELF-ACCELERATING SPD</text>
+
+            <!-- IGNITION OFF -->
+            <circle cx="175" cy="115" r="3" fill="#a07ef4"/>
+            <text x="178" y="113" fill="#a07ef4" font-size="6.5">IGNITION OFF</text>
+
+            <!-- STARTER CUTS OUT -->
+            <circle cx="175" cy="112" r="6" fill="none" stroke="#a07ef4" stroke-width="0.8"/>
+            <text x="178" y="105" fill="#a07ef4" font-size="6.5">STARTER CUTS OUT</text>
+
+            <!-- IDLE EGT / RPM -->
+            <circle cx="260" cy="95" r="3" fill="#e05c7a"/>
+            <text x="245" y="90" fill="#e05c7a" font-size="6.5">IDLE EGT</text>
+            <circle cx="260" cy="70" r="3" fill="#4f8ef7"/>
+            <text x="237" y="65" fill="#4f8ef7" font-size="6.5">ENGINE IDLE RPM</text>
+
+            <!-- 범례 -->
+            <line x1="45" y1="14" x2="65" y2="14" stroke="#e05c7a" stroke-width="1.5" stroke-dasharray="4,2"/>
+            <text x="68" y="17" fill="#e05c7a" font-size="6.5">EGT</text>
+            <line x1="45" y1="24" x2="65" y2="24" stroke="#4f8ef7" stroke-width="1.5"/>
+            <text x="68" y="27" fill="#4f8ef7" font-size="6.5">RPM</text>
+          </svg>
+          <p style="font-size:0.72rem;color:var(--text3);margin-top:4px;">필기: 그래프 → 객관식이면 순서로, 주관식이면 빈칸 뚫어놓고 적어</p>
+        </div>
+      </div>
+    </div>
+    <div class="exam-point">EGT 보고 엔진 불 붙은 걸 판단. 시동 순서: Starter ON → Fuel ON + Ignition ON (5~10% RPM) → Light-up (EGT 상승) → Peak EGT → Self-accelerating → Ignition OFF → Starter Cuts Out → Idle RPM</div>
+  </div>
+
+  <!-- 시동 불량 -->
+  <div class="card">
+    <div class="card-title">🚨 시동 불량 (Starting Malfunctions)</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3);font-weight:700;margin-bottom:6px;">Hung Start [결핍 시동]</p>
+        <ul class="point-list">
+          <li>현상 ①: 엔진이 시동기가 차단된 상태(Starter Cut)에 머물러 있으면서 정상적으로 Idle 상태에 도달하지 못하고 회전 — 즉 <span class="hl-red">Idle RPM까지 올라가지 못함</span></li>
+          <li>현상 ②: 엔진이 매우 느리게 가속되며, <span class="hl">EGT 또는 TIT가 느리게 증가</span></li>
+          <li>원인: 보통 시동기에 충분한 동력이 공급되지 못해서 / 연료 공급량이 부족해서 발생</li>
+          <li>조치: 엔진을 정지시킨 후 문제점 조사 실시</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent4);font-weight:700;margin-bottom:6px;">Hot Start [고온 시동]</p>
+        <ul class="point-list">
+          <li>현상: 연료 공급량이 비정상적으로 많아서 엔진 시동 시 <span class="hl-red">EGT 또는 TIT가 제한치 이상으로 올라가는 상태</span></li>
+          <li>원인: <span class="hl">연료가 과다 공급</span>되어 연료농후 상태에서 발생 (결핍시동 상태에서 연료를 추가로 공급하면 대부분 Hot Start로 이어짐)</li>
+          <li>기타 원인: 블리드밸브 고장, VIGVs와 가변정익 고장, 교정 잘못, 압축기 FOD</li>
+          <li>고온시동 시 <span class="hl">압축기 서지를 유발</span>시키기도 함</li>
+          <li>만약 Hot Start로 damage를 받았다면 <span class="hl-red">엔진을 교환해야 할 정도</span>로 문제가 커짐</li>
+          <li>조치: 엔진을 정지시킨 후 문제점 조사 실시</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Starter Systems 원리 -->
+  <div class="card">
+    <div class="card-title">⚙️ Starter Systems 기본 원리</div>
+    <ul class="point-list">
+      <li>가스터빈엔진은 일반적으로 시동 모터의 동력이 <span class="hl">주 부속 기어박스에 전달</span>되어 압축기를 회전시킴으로써 시동</li>
+      <li>이중 압축기 가스터빈(dual-compressor)에서 시동 모터는 <span class="hl">고압 압축기 시스템만 회전</span>시킴</li>
+      <li>단일 압축기를 사용하는 프리 터빈, 터보프롭, 터보샤프트 엔진: 시동 모터가 <span class="hl">액세서리 기어박스를 통해 압축기만 회전</span>시킴 — <span class="hl-red">프리 터빈은 시동 모터 구동 장치에 연결되어 있지 않음</span></li>
+      <li>시동 모터와 터빈 휠 각각은 단독으로는 정지 상태에서 공회전 속도까지 올릴 만큼 충분하지 않지만, 함께 사용하면 약 <span class="hl">30초 만에 부드럽게 공회전 속도(약 45%)에 도달</span></li>
+      <li>시동 모터는 자체 가속 속도에 도달한 후 <span class="hl">5~10% RPM에서 속도 센서 장치에 의해 자동으로 정지</span>되는 경우가 많음 — 이 시점부터는 터빈 동력만으로 공회전 속도까지 올릴 수 있음</li>
+      <li>터보프롭·터보샤프트 엔진: 로터의 <span class="hl">항력을 줄이고</span> 속도와 공기 흐름을 증가시키기 위해 <span class="hl">저피치로 시동</span>됨 (load가 걸리지 않게)</li>
+    </ul>
+  </div>
+
+  <!-- Sprag Clutch Stage 다이어그램 -->
+  <div class="card">
+    <div class="card-title">🔄 Sprag Clutch 작동 단계 (공기식 시동기 분리 메커니즘)</div>
+    <div class="diagram-box">
+      <svg width="560" height="140" viewBox="0 0 560 140">
+        <rect width="560" height="140" fill="#181c2a" rx="6"/>
+        <!-- Stage 1 -->
+        <rect x="10" y="10" width="160" height="120" rx="6" fill="#1a2540" stroke="#4f8ef7" stroke-width="1.5"/>
+        <text x="90" y="28" fill="#4f8ef7" font-size="11" font-weight="700" text-anchor="middle">Stage 1</text>
+        <circle cx="90" cy="78" r="38" fill="#222636" stroke="#4f8ef7" stroke-width="1.5"/>
+        <circle cx="90" cy="78" r="16" fill="#1a2540" stroke="#5bd4b0" stroke-width="1.5"/>
+        <!-- sprag engaged -->
+        <rect x="60" y="56" width="10" height="16" rx="2" fill="#f4a946" transform="rotate(-30,65,64)"/>
+        <rect x="105" y="56" width="10" height="16" rx="2" fill="#f4a946" transform="rotate(30,110,64)"/>
+        <rect x="83" y="100" width="10" height="16" rx="2" fill="#f4a946"/>
+        <text x="90" y="125" fill="#5bd4b0" font-size="9" text-anchor="middle" font-weight="700">Fully Engaged</text>
+        <text x="90" y="136" fill="#6470a0" font-size="8" text-anchor="middle">시동기 → 엔진 구동</text>
+
+        <!-- Stage 2 -->
+        <rect x="195" y="10" width="160" height="120" rx="6" fill="#1a2540" stroke="#f4a946" stroke-width="1.5"/>
+        <text x="275" y="28" fill="#f4a946" font-size="11" font-weight="700" text-anchor="middle">Stage 2</text>
+        <circle cx="275" cy="78" r="38" fill="#222636" stroke="#f4a946" stroke-width="1.5"/>
+        <circle cx="275" cy="78" r="16" fill="#1a2540" stroke="#5bd4b0" stroke-width="1.5"/>
+        <!-- sprag partially -->
+        <rect x="245" y="56" width="10" height="14" rx="2" fill="#a07ef4" transform="rotate(-15,250,63)"/>
+        <rect x="292" y="58" width="10" height="14" rx="2" fill="#a07ef4" transform="rotate(15,297,65)"/>
+        <text x="275" y="125" fill="#f4a946" font-size="9" text-anchor="middle" font-weight="700">Partially Engaged</text>
+        <text x="275" y="136" fill="#6470a0" font-size="8" text-anchor="middle">Sprag / Ratchet 분리 중</text>
+
+        <!-- Stage 3 -->
+        <rect x="380" y="10" width="160" height="120" rx="6" fill="#1a2540" stroke="#5bd4b0" stroke-width="1.5"/>
+        <text x="460" y="28" fill="#5bd4b0" font-size="11" font-weight="700" text-anchor="middle">Stage 3</text>
+        <circle cx="460" cy="78" r="38" fill="#222636" stroke="#5bd4b0" stroke-width="1.5"/>
+        <circle cx="460" cy="78" r="16" fill="#1a2540" stroke="#5bd4b0" stroke-width="1.5"/>
+        <!-- disengaged - sprags flat -->
+        <rect x="428" y="58" width="10" height="10" rx="2" fill="#3a4060"/>
+        <rect x="482" y="58" width="10" height="10" rx="2" fill="#3a4060"/>
+        <rect x="455" y="100" width="10" height="10" rx="2" fill="#3a4060"/>
+        <text x="460" y="125" fill="#e05c7a" font-size="9" text-anchor="middle" font-weight="700">Fully Disengaged</text>
+        <text x="460" y="136" fill="#6470a0" font-size="8" text-anchor="middle">Self-sustaining 후 자동 분리</text>
+
+        <!-- 화살표 -->
+        <text x="183" y="82" fill="#6470a0" font-size="16" text-anchor="middle">→</text>
+        <text x="368" y="82" fill="#6470a0" font-size="16" text-anchor="middle">→</text>
+      </svg>
+    </div>
+    <div class="note-box">💡 <strong>Sprag Clutch</strong>: 시동기와 엔진을 연결하는 일방향 클러치. 엔진이 자력 회전(Self-sustaining speed) 가능해지면 자동으로 분리 → 역회전 방지. <strong>Ratchet</strong>은 같은 역할을 하는 래칫 방식 기구. 엔진 내 N 앞에 장착</div>
+    <div class="exam-point">self-sustaining = 자력회전 가능. Stage 1(Fully Engaged) → Stage 2(Partially Engaged, Sprag/Ratchet 분리 시작) → Stage 3(Fully Disengaged, 시동기 완전 분리)</div>
+  </div>
+
+  <!-- 시동기 종류 -->
+  <div class="card">
+    <div class="card-title">🔧 시동기 종류 (Types of Starters)</div>
+
+    <!-- 1. 전기식 -->
+    <div style="border-left:3px solid var(--accent1); padding-left:12px; margin-bottom:16px;">
+      <p style="color:var(--accent1);font-weight:700;margin-bottom:6px;">1. 전기 시동기 (Electric Starter)</p>
+      <div class="grid2">
+        <ul class="point-list">
+          <li>전기 시동기는 <span class="hl-red">무거워서</span> 항공기 엔진에 널리 사용되지 않음</li>
+          <li>APU와 GPU, 그리고 일부 소형 항공기용 엔진에 사용</li>
+          <li>모터와 엔진을 연결하는 <span class="hl">기어와 클러치 판</span>에 의해 작동</li>
+          <li>클러치는 최적의 속도가 얻어졌을 때 모터와 엔진을 분리하는 데 사용 → <span class="hl">모터와 엔진 분리는 자동적으로 일어남</span></li>
+          <li>공급된 전기는 점화뿐만 아니라 <span class="hl">모터를 시동하는 데 사용</span></li>
+          <li>전압은 대개 시동기 속도가 증가함에 따라 느리게 증가</li>
+          <li>전기 공급: <span class="hl">28V DC</span></li>
+          <li><span class="hl-red">대형기는 Pneumatic (공기식) Starter 사용</span></li>
+        </ul>
+        <div>
+          <p style="font-size:0.82rem;color:var(--text2);margin-bottom:6px;">주요 구성 (Overrunning Clutch)</p>
+          <ul class="point-list">
+            <li><span class="hl-blue">Overrunning 될 때 자동 분리</span> — 안 떨어지면 모터 망가짐</li>
+            <li>Pawls: 역회전 방지 클릭 기구</li>
+            <li>Ratchet Engine Drive Gear: 엔진에 토크 전달</li>
+            <li>Friction Clutch Plates: 부드러운 토크 전달</li>
+            <li>Clutch Retract Spring: 분리 후 복귀</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 시동기-발전기 -->
+    <div style="border-left:3px solid var(--accent2); padding-left:12px; margin-bottom:16px;">
+      <p style="color:var(--accent2);font-weight:700;margin-bottom:6px;">2. 시동기-발전기 (Starter-Generator)</p>
+      <div class="grid2">
+        <ul class="point-list">
+          <li>소형 가스터빈의 <span class="hl">시동장치로 널리 사용</span></li>
+          <li>소용량이라 대형 가스터빈엔진에는 적용 불가</li>
+          <li>두 개를 하나로 해결할 수 있어 무게를 절감 → <span class="hl">소형 제트항공기(예: 비즈니스 제트)에서 널리 사용</span></li>
+          <li>GIB에 Spline으로 연결됨</li>
+        </ul>
+        <div>
+          <p style="font-size:0.82rem;color:var(--accent3);margin-bottom:6px;">GCU (Generator Control Unit) — 이게 핵심 장치!</p>
+          <ul class="point-list">
+            <li><span class="hl">① 시동 모드 제어</span> (Starter 제어)</li>
+            <li><span class="hl">② 모드 전환</span> (Cut-out 및 변환 단계) ← 자력회전(Self-Sustaining Speed) 가능해지면</li>
+            <li><span class="hl">③ 발전 모드 제어</span> (Generator 및 전압 조절)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 공기식 -->
+    <div style="border-left:3px solid var(--accent3); padding-left:12px; margin-bottom:16px;">
+      <p style="color:var(--accent3);font-weight:700;margin-bottom:6px;">3. 공기식 시동기 (Pneumatic Starter / Air Turbine Starter) ⭐</p>
+      <div class="grid2">
+        <div>
+          <ul class="point-list">
+            <li>공기 터빈 형태로 높은 <span class="hl">출력/무게 비율</span> — 크기에 비해 출력이 큼</li>
+            <li>공기식 시동기의 중량은 전기 시동기의 약 <span class="hl">1/5 정도</span>로 가벼움</li>
+            <li>거의 모든 대형 상업용 항공기와 대형 군사용 수송기에 사용되고 있으며, 소형 항공기에도 사용 증가하는 추세</li>
+            <li>저압(45 psig)의 대량 공기(50~100 lb/min)를 항공기에 장착된 APU, GPU, 또는 다른 작동 중인 메인엔진에서 공급받음</li>
+            <li>일반적으로 APU나 GPU를 이용하여 한 엔진을 먼저 시동하고, 시동이 완료된 엔진으로부터 공기를 공급받아 나머지 엔진 시동 = <span class="hl">Cross Feed</span></li>
+            <li>시동기의 터빈은 <span class="hl">60,000~80,000 rpm</span>으로 회전하며, 높은 토크를 얻기 위해 <span class="hl">20~30:1로 감속</span></li>
+            <li>보잉 747: 30 lb 중량으로 200 마력 생산 (시동기는 빨리 돌고 토크는 천천히 줌)</li>
+            <li>엔진 GIB에 장착</li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;color:var(--accent2);margin-bottom:6px;">공기식 시동기 주요 구성</p>
+          <ul class="point-list">
+            <li><span class="hl-blue">Starter Air Valve</span>: 공기 유입 제어</li>
+            <li><span class="hl-blue">Air Turbine Starter</span>: 공기 에너지 → 회전력</li>
+            <li><span class="hl-blue">Reduction Gears</span>: 감속비 20~30:1 (크기에 비해 출력 큼)</li>
+            <li><span class="hl-blue">Sprag Clutch Ratchet</span>: 자력회전 후 자동 분리</li>
+            <li><span class="hl-blue">Shear Point</span>: shaft에 흠집을 내어 고장나면 Starter만 끊어져서 나머지 보호. Lubrication에도 Shear Point(Pump) 있었음</li>
+            <li><span class="hl-blue">Flyweight Cutout Switch</span>: 속도가 빠르면 Cut-off 시킴 (원심력비교)</li>
+            <li><span class="hl-blue">Magnet Drain Chip Detector</span>: 자석식 드레인 칩 검출기</li>
+            <li><span class="hl-blue">QAD (Quick Attach Detach)</span>: 즉각 분리 연결 구조</li>
+          </ul>
+          <div class="note-box" style="margin-top:8px;">💡 지상에서도 APU 끌 수 있음. Cross Feed Diagram에서 처음엔 13단계 블리드에서 공기를 뽑아 씀. 고압공기가 들어가면 Starter 망가지니까 적당한 Orifice를 통해 공기가 들어감</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APU & GPU -->
+    <hr class="divider">
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent5);font-weight:700;margin-bottom:6px;">APU (Auxiliary Power Unit)</p>
+        <ul class="point-list">
+          <li>항공기에 부착된 소형 가스터빈엔진 — 소형 가스터빈을 이용하여 대형 엔진 시동</li>
+          <li>APU 압축기로부터 대량의 <span class="hl">저압공기(40~70 psi)</span>를 엔진 시동계통으로 보냄</li>
+          <li>압축공기 이외에도 전기, 또는 hydraulic power (pump) 생산</li>
+          <li>엔진 정지 시 메인 엔진 역할 수행</li>
+          <li><span class="hl">후방동체에 위치</span> — 꼬리날개 쪽</li>
+        </ul>
+      </div>
+      <div>
+        <p style="color:var(--accent2);font-weight:700;margin-bottom:6px;">GPU (Ground Power Unit)</p>
+        <ul class="point-list">
+          <li>바퀴 달린 카트에 설치한 APU</li>
+          <li><span class="hl">GTC (Gas Turbine Compressor)</span>: 압축공기 생산</li>
+          <li><span class="hl">GTG (Gas Turbine Generator)</span>: 전기 생산</li>
+          <li>지상에서만 사용</li>
+        </ul>
+        <div class="note-box" style="margin-top:8px;">💡 항공기 엔진 최초 시동 시: GPU 또는 APU를 사용하여 첫 엔진을 시동 → 시동된 엔진의 블리드 공기로 나머지 엔진 Cross Feed 시동</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 기타 시동기 -->
+  <div class="card">
+    <div class="card-title">📋 기타 시동기 종류 (명칭과 개념만 파악)</div>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:10px;">기타 시동기들은 명칭, 이게 뭔지만 간단하게 알고 있으면 됨 — 현재 대부분 범용이나 상업용 항공기에 이상 사용되지 않음</p>
+    <div class="grid2">
+      <div>
+        <table class="compare-table" style="font-size:0.82rem;">
+          <thead><tr><th>시동기 종류</th><th>특징</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="hl-blue">4. 고-저압 공기식</span></td>
+              <td>저압 또는 항공기 장착된 저압/고압(3,000 psi) 공기를 이용하는 공기터빈 형태. 보기류 기어박스에 장착. Self-contain Start(자체시동) 가능</td>
+            </tr>
+            <tr>
+              <td><span class="hl-green">5. 카트리지-공기식</span></td>
+              <td>전기 시동기보다 빠르게 시동 가능 → 빠른 시동 요구되는 <span class="hl">일부 군용기에 적용</span>. 화약과 유사한 <span class="hl">폭발성 고체 추진제</span>를 사용하거나 공기식 시동기와 유사하게 큰 체적을 가지는 저압 공기를 사용. 추진제는 항공기 배터리를 이용하여 전기적으로 점화 → APU나 GPU 없이 <span class="hl">자체시동능력</span></td>
+            </tr>
+            <tr>
+              <td><span class="hl">6. 연료-공기 연소식</span></td>
+              <td>보기류 기어박스에 장착. 고압공기(3,000~6,000 psi)에 연료를 분사하여 연소시켜 사용. 스파크플러그 사용. 소형 가스터빈과 유사. 항공기 배터리를 이용하여 전기적인 점화 → 자체시동능력</td>
+            </tr>
+            <tr>
+              <td><span class="hl-purple">7. 터빈충돌 시동</span></td>
+              <td>체적이 큰 저압공기(45 psig)를 터빈 휠로 보내 블레이드에 직접 충돌시켜 터빈을 회전시켜 시동. 가스터빈이 자체가속속도에 도달하면 공기 공급 중단. Starter가 없고 바로 터빈 돌려줌 — GPU가 필수적</td>
+            </tr>
+            <tr>
+              <td><span class="hl-red">8. 유압 시동기</span></td>
+              <td>보기류 기어박스에 장착. APU에 장착된 유압펌프나 수동펌프(hand pump)와 축압기(accumulator)로부터 공급되는 유체에 의해 구동. 장점: 유압 떨어지면 재충전만 해주면 됨. 현재 사용 X</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="warn-box">⚠️ 기타 시동기들은 명칭, 이게 뭔지만 간단하게 알고 있으면 됨. 현재는 범용이나 상업용 항공기에 더 이상 사용되지 않음</div>
+        <div class="exam-point">카트리지-공기식 = 군용기 / 자체시동 가능. 연료-공기 연소식 = 자체시동 가능. 터빈충돌 시동 = GPU 필수, Starter 없이 직접 터빈 구동</div>
+        <div class="note-box" style="margin-top:10px;">
+          <p style="font-weight:700; color:var(--accent3); margin-bottom:4px;">공기식 시동기 외관 주요 구성품 (QAD)</p>
+          <ul class="point-list">
+            <li><span class="hl-blue">QAD adapter</span> / <span class="hl-blue">QAD coupling clamp</span>: Quick Attach Detach — 즉각 분리·연결</li>
+            <li><span class="hl">Oil fill plug</span>: 오일 채워주는 곳</li>
+            <li><span class="hl">Magnetic oil drain plug</span>: 자석식 드레인 칩 검출기</li>
+            <li><span class="hl">Sight glass</span>: 오일 양 확인</li>
+            <li><span class="hl">Oil level overflow</span>: 과충전 방지</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- END Ch.10 -->
+
+
+<!-- ==============================
+     Ch.11 점화계통 (Ignition System)
+     ============================== -->
+<div class="section" id="ignition">
+  <div class="sec-header">
+    <div class="sec-num">11</div>
+    <h2>점화계통 (Ignition Systems)</h2>
+  </div>
+
+  <!-- 점화 일반사항 -->
+  <div class="card">
+    <div class="card-title">⚡ 점화계통 일반사항</div>
+    <div class="grid2">
+      <div>
+        <ul class="point-list">
+          <li>대개 연소계통에는 서로 다른 위치에 <span class="hl">두 개의 점화플러그</span>가 설치</li>
+          <li>항공기 배터리로부터 저전압 전류(대개 <span class="hl">28V DC</span>) 공급받음</li>
+          <li>이 저전압 전류는 점화여자기(Ignition Exciters)에서 승압된 후에 높은 에너지를 가진 스파크를 발생시킴</li>
+          <li>현대식 가스터빈 점화계통은 단속임무나 연속임무 사이클을 가지는 고전압 충전지방전식 임</li>
+          <li>충전지방전 점화계통은 <span class="hl">고압계통(단속임무형)</span>과 <span class="hl">저압계통(연속임무형)</span>으로 분류</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="point-list">
+          <li>주점화계통은 기본적으로 <span class="hl">지상시동 시 사용</span>하며, 시동이 종료된 후에는 꺼짐</li>
+          <li>정상시동 후에는 <span class="hl">연소실 화염이 점화원 역할</span> — 가스터빈 점화계통은 짧은 시간 동안만 사용하기 때문에 고장발생 거의 없음</li>
+          <li>단속임무형이란: 점화계통 구성품에 과열손상을 입힐 정도로 매우 높은 전류를 사용하기 때문에 작동시간에 제한이 따르며, 작동 후에는 냉각기간이 필요 (대표적인 시간제한: 2분간 "on", 3분간 "off", 두 번째 2분간 "on"이 필요하다면 20분간 냉각시간 필요)</li>
+          <li>연속임무형은 저압계통(low tension system)으로서 <span class="hl">작동시간에 전혀 제한 없이 장기간</span> 사용 가능</li>
+          <li>주점화계통이 단속임무형일 때 흔히 하나의 연속임무형 점화계통을 추가로 설치하여 <span class="hl-red">이륙 및 착륙과 같은 극한 운전 시 불꽃 정지를 방지</span></li>
+          <li>스파크 비율: 분당 <span class="hl">60~100 스파크</span></li>
+          <li>작동 전원: 직류 28V, 또는 교류 115V 400Hz, <span class="hl">또는 두 가지 모두</span></li>
+        </ul>
+        <div class="warn-box" style="margin-top:8px;">⚠️ 대부분의 현대식 시동계통이 작동할 때 사람이 리드선과 접촉하는 경우 치명적인 위험이 될 수 있는 높은 전류(20~40 kV)가 흐르기 때문에 시동계통이 작동할 때는 <span style="color:var(--accent4)">안전에 매우 중요</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 자동점화 -->
+  <div class="card">
+    <div class="card-title">🔁 자동점화 (Auto-Ignition)</div>
+    <ul class="point-list">
+      <li>많은 항공기에 <span class="hl">자동점화 회로 장착</span></li>
+      <li>자동점화장치는 엔진 흡입구 결빙으로 인해 <span class="hl">출력을 잃어 화염정지 위험 발생 시 즉시 점화 생성</span></li>
+      <li><span class="hl">토크오일압력(Torque Oil Pressure)</span> 저하나 압축기 배출 압력 저하가 감지되면 자동점화장치가 작동하고 조종실 경고등이 켜짐</li>
+      <li>필기: <span class="hl-red">엔진의 기계적 출력 저하를 가장 빠르게 보여주는 지표</span> → 터보프롭에서 사용. 이걸 보고 엔진 시동 여부 확인</li>
+    </ul>
+    <div class="note-box">💡 주점화계통의 2차적인 기능: 이륙, 착륙, 또는 악천후 속에서 일어날지 모르는 비행 중 화염정지 시 재점화. 비행 중 재점화 필요 시 연소실을 원활한 충분한 스파크를 발생시키지 못하기 때문에 제한된 시간 내에서 <span class="hl">주점화계통을 사용함</span></div>
+    <div class="note-box" style="margin-top:6px;">💡 Critical Phase(이륙·착륙): 한쪽이 한 번만 꺼지면 속둘 다 켜기도 함 — EEC가 Continuous mode 수행, 전압 전달</div>
+  </div>
+
+  <!-- 점화계통 구성요소 -->
+  <div class="card">
+    <div class="card-title">🔩 점화계통 구성요소 (Ignition System Components)</div>
+
+    <!-- Ignition Exciter 비교표 -->
+    <p style="color:var(--accent1);font-weight:700;margin-bottom:8px;">1. 점화 여자기 (Ignition Exciter) — 비교 ⭐</p>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:8px;">항공기 저전압 전류를 고전압 전류로 변환. Induction type과 Capacitor discharge type 두 가지. 최근에는 <span class="hl">캐패시터형 고에너지 회로가 주로 사용</span>. 고공에서 공기밀도가 떨어지는 경우 절연불량에 의한 flash over(섬광 단락) 발생과 점화성능 저하를 방지하기 위해 작은 사각형 박스로 완전히 밀폐시키는 것이 일반화</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table" style="min-width:560px;">
+        <thead>
+          <tr>
+            <th>비교 항목</th>
+            <th style="color:#7eb8ff;">유도형 (Induction Type)</th>
+            <th style="color:#f4a946;">축전형 (Capacitor Type) ⭐현대</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;">원리</td>
+            <td>1차 코일과 2차 코일이 같인 변압기(Induction Coil)와 차단기(진동자)를 이용해 직류를 고전압으로 승압. <br><span style="font-size:0.78rem;color:var(--text3)">옛날 방식 / 유도점화방식</span></td>
+            <td>커패시터(콘덴서)에 전기를 충전했다가 방전시키는 방식으로 <span class="hl">매우 강력하고 순간적인 고에너지 불꽃</span>을 생성.<br><span style="font-size:0.78rem;color:var(--text3)">갖고 있다가 필요할 때만 넣어줌 / 고전압 대전류 / 안정적 점화</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">주요 에너지 저장원</td>
+            <td>코일의 자기장 (Magnetic Field)</td>
+            <td>축전기(Capacitor)의 전기장 (Electric Field)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">스파크 특성</td>
+            <td>전압은 높으나 전류(에너지)가 약함, 비교적 긴 방전</td>
+            <td><span class="hl">높은 전압과 폭발적인 전류(대전류), 극도로 짧은 방전</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">플러그 오염 영향</td>
+            <td>그을음이나 수분에 의해 불꽃 불발 가능성 높음</td>
+            <td>오염 물질을 태워버리는 <span class="hl">자가 세척(Self-cleaning) 가능</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">현대 항공기 적용</td>
+            <td>소형 가스터빈, 보조 계통 일부</td>
+            <td><span class="hl">대형 터보팬(CFM56, GE90 등) 표준 적용</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">모양</td>
+            <td>내부에 코일이 빽빽하게 감겨 있는 원통형 구조. 소형 모터만 하며, 전기적 배선을 연결할 수 있는 단자들과 진동 소자가 포함된 금속 케이스로 밀봉</td>
+            <td>현대 항공기에서 주로 사용. 일반적으로 <span class="hl">밀봉된 원통형 캔(Can-type)</span> 모양. 무게를 줄이고 방열성을 높이기 위해 알루미늄이나 특수 합금 케이스. 한쪽 끝에는 항공기 전원 및 점화 플러그와 연결하기 위한 견고한 터미널(소켓)이 돌출. 내부에는 커패시터, 변압기, 정류기 등이 빈틈없이 채워져 있음</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="exam-point">Induction type = 유도점화방식·옛날방식·안정하지만 오염에 약함 / Capacitor type = 갖고 있다가 필요할 때만 방전·고전압 대전류·Self-cleaning 가능·대형 터보팬 표준</div>
+
+    <hr class="divider">
+
+    <!-- 점화계통 구성 -->
+    <p style="color:var(--accent2);font-weight:700;margin-bottom:8px;">점화계통 구성 (3요소)</p>
+    <div class="grid3">
+      <div class="cooling-card" style="border-top-color:var(--accent1);">
+        <h4>① Ignition Exciter (1개)</h4>
+        <p style="font-size:0.8rem;color:var(--text2);">입력 전압을 펄스 고압으로 변환. 저전압 → 고전압 승압기</p>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent3);">
+        <h4>② High Tension Lead (2개)</h4>
+        <p style="font-size:0.8rem;color:var(--text2);">고전압 전류를 여자기(Exciter)로부터 점화플러그로 전달하는 고압 케이블</p>
+      </div>
+      <div class="cooling-card" style="border-top-color:var(--accent4);">
+        <h4>③ Igniter / Igniter Plug (2개)</h4>
+        <p style="font-size:0.8rem;color:var(--text2);">고전압 전류를 이용해 스파크를 발생시켜 연료-공기 혼합기 점화. 연소기에 2개 설치</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Igniter Plug -->
+  <div class="card">
+    <div class="card-title">🔌 2. 점화 플러그 (Igniter Plug)</div>
+    <div class="grid2">
+      <div>
+        <ul class="point-list">
+          <li>가스터빈용 점화플러그는 왕복엔진과 <span class="hl">크게 다름</span></li>
+          <li>가스터빈용 점화플러그 팁은 <span class="hl">갭이 훨씬 넓으며</span>, 훨씬 더 높은 강도의 스파크에 견딜 수 있도록 설계</li>
+          <li>점화플러그는 점화가 일어날 때마다 탄소와 다른 침전물을 높은 에너지를 가진 스파크가 제거해주기 때문에 <span class="hl">파울링 발생이 덜함</span> — 오염에 강함</li>
+          <li>재료는 <span class="hl">니켈-크롬 합금</span>을 사용하기 때문에 부식저항성이 크고 <span class="hl-red">열팽창계수가 작음</span></li>
+          <li>대부분의 나사산은 고착 방지를 위해 <span class="hl">은도금</span>됨</li>
+          <li>고가임</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="point-list">
+          <li>점화플러그 고온 쪽 <span class="hl">쉘(Shell)은 일반적으로 공기냉각</span>을 통하여 주위 가스온도보다 <span class="hl">500~600℉ 더 낮은 온도</span> 유지하여 고온부식과 고온침식이 생기지 않도록 해줌</li>
+        </ul>
+        <div class="note-box" style="margin-top:8px;">
+          <p style="font-weight:700;color:var(--accent3);margin-bottom:4px;">점화 플러그 2가지 타입 — 잘 보도록!</p>
+          <ul class="point-list">
+            <li><span class="hl-blue">Air-cooled Ground Electrode</span>: 공기 냉각 접지 전극 타입</li>
+            <li><span class="hl-purple">Tungsten Tip</span>: 텅스텐 팁 타입</li>
+          </ul>
+        </div>
+        <div class="note-box" style="margin-top:8px;">
+          <p style="font-weight:700;color:var(--accent2);margin-bottom:4px;">점화계통 제어</p>
+          <ul class="point-list">
+            <li>얘가 다 Control — <span class="hl">EEC (FADEC)</span>: 엔진 상태에 따라 자동 제어</li>
+            <li>최적의 와류 영역(Vane 위치) 자동 조절</li>
+            <li>폭우·폭설일 때 Igniter가 어질 수 있음</li>
+            <li>EEC가 Continuous mode 수행, 전압 전달해줌</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 점화계통 레이아웃 -->
+  <div class="card">
+    <div class="card-title">📐 점화계통 전체 구성 레이아웃 (CFM56 기준)</div>
+    <div class="diagram-box">
+      <svg width="600" height="160" viewBox="0 0 600 160">
+        <rect width="600" height="160" fill="#181c2a" rx="6"/>
+
+        <!-- Exciter -->
+        <rect x="20" y="50" width="90" height="60" rx="6" fill="#1e2a3a" stroke="#4f8ef7" stroke-width="1.5"/>
+        <text x="65" y="72" fill="#4f8ef7" font-size="9" text-anchor="middle" font-weight="700">Ignition</text>
+        <text x="65" y="83" fill="#4f8ef7" font-size="9" text-anchor="middle" font-weight="700">Exciter</text>
+        <text x="65" y="96" fill="#9aa3c2" font-size="7.5" text-anchor="middle">(1개)</text>
+        <text x="65" y="107" fill="#6470a0" font-size="7" text-anchor="middle">입력: 28V DC</text>
+        <text x="65" y="117" fill="#6470a0" font-size="7" text-anchor="middle">또는 115V AC</text>
+
+        <!-- 전원 입력 -->
+        <rect x="20" y="15" width="90" height="26" rx="4" fill="#1a1d27" stroke="#6470a0" stroke-width="1"/>
+        <text x="65" y="26" fill="#9aa3c2" font-size="8" text-anchor="middle">항공기 전원</text>
+        <text x="65" y="36" fill="#6470a0" font-size="7.5" text-anchor="middle">28V DC / 115V AC</text>
+        <line x1="65" y1="41" x2="65" y2="50" stroke="#4f8ef7" stroke-width="1.2" marker-end="url(#ign_a1)"/>
+
+        <!-- High tension lead 1 -->
+        <line x1="110" y1="70" x2="200" y2="70" stroke="#f4a946" stroke-width="1.5" marker-end="url(#ign_a2)"/>
+        <text x="155" y="65" fill="#f4a946" font-size="7.5" text-anchor="middle">High Tension Lead ①</text>
+
+        <!-- High tension lead 2 -->
+        <line x1="110" y1="100" x2="200" y2="100" stroke="#f4a946" stroke-width="1.5" marker-end="url(#ign_a2)"/>
+        <text x="155" y="115" fill="#f4a946" font-size="7.5" text-anchor="middle">High Tension Lead ②</text>
+
+        <!-- Igniter 1 -->
+        <rect x="202" y="50" width="80" height="35" rx="5" fill="#1e2a3a" stroke="#e05c7a" stroke-width="1.5"/>
+        <text x="242" y="63" fill="#e05c7a" font-size="9" text-anchor="middle" font-weight="700">Igniter #1</text>
+        <text x="242" y="75" fill="#9aa3c2" font-size="7.5" text-anchor="middle">연소기 내 설치</text>
+        <text x="242" y="83" fill="#6470a0" font-size="7" text-anchor="middle">스파크 발생</text>
+
+        <!-- Igniter 2 -->
+        <rect x="202" y="90" width="80" height="35" rx="5" fill="#1e2a3a" stroke="#e05c7a" stroke-width="1.5"/>
+        <text x="242" y="103" fill="#e05c7a" font-size="9" text-anchor="middle" font-weight="700">Igniter #2</text>
+        <text x="242" y="115" fill="#9aa3c2" font-size="7.5" text-anchor="middle">연소기 내 설치</text>
+        <text x="242" y="123" fill="#6470a0" font-size="7" text-anchor="middle">서로 다른 위치</text>
+
+        <!-- 점화 화살표 -->
+        <line x1="282" y1="68" x2="360" y2="68" stroke="#e05c7a" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#ign_a3)"/>
+        <line x1="282" y1="108" x2="360" y2="108" stroke="#e05c7a" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#ign_a3)"/>
+
+        <!-- 연소기 -->
+        <rect x="362" y="40" width="100" height="90" rx="6" fill="#2a1a1a" stroke="#f4a946" stroke-width="1.5"/>
+        <text x="412" y="65" fill="#f4a946" font-size="9" text-anchor="middle" font-weight="700">연소기</text>
+        <text x="412" y="77" fill="#9aa3c2" font-size="8" text-anchor="middle">Combustion</text>
+        <text x="412" y="88" fill="#9aa3c2" font-size="8" text-anchor="middle">Chamber</text>
+        <text x="412" y="102" fill="#e05c7a" font-size="10" text-anchor="middle">🔥 점화!</text>
+        <text x="412" y="118" fill="#6470a0" font-size="7" text-anchor="middle">연료-공기 혼합기</text>
+
+        <!-- EEC 제어 -->
+        <rect x="480" y="50" width="110" height="70" rx="6" fill="#1a1a2a" stroke="#a07ef4" stroke-width="1.2" stroke-dasharray="5,2"/>
+        <text x="535" y="70" fill="#a07ef4" font-size="9" text-anchor="middle" font-weight="700">EEC / FADEC</text>
+        <text x="535" y="83" fill="#9aa3c2" font-size="8" text-anchor="middle">전체 제어</text>
+        <text x="535" y="95" fill="#6470a0" font-size="7.5" text-anchor="middle">시동/점화 시기</text>
+        <text x="535" y="107" fill="#6470a0" font-size="7.5" text-anchor="middle">Auto-Ignition</text>
+        <text x="535" y="119" fill="#6470a0" font-size="7.5" text-anchor="middle">Continuous mode</text>
+
+        <!-- EEC → Exciter -->
+        <path d="M480,85 Q450,85 450,80 Q450,15 115,15 Q70,15 65,41" stroke="#a07ef4" stroke-width="0.8" fill="none" stroke-dasharray="3,2"/>
+
+        <!-- 마커 -->
+        <defs>
+          <marker id="ign_a1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4f8ef7"/></marker>
+          <marker id="ign_a2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f4a946"/></marker>
+          <marker id="ign_a3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#e05c7a"/></marker>
+        </defs>
+
+        <!-- 범례 -->
+        <line x1="20" y1="148" x2="40" y2="148" stroke="#4f8ef7" stroke-width="1.5"/>
+        <text x="44" y="151" fill="#4f8ef7" font-size="7.5">저전압 전원</text>
+        <line x1="100" y1="148" x2="120" y2="148" stroke="#f4a946" stroke-width="1.5"/>
+        <text x="124" y="151" fill="#f4a946" font-size="7.5">고압 리드선</text>
+        <line x1="190" y1="148" x2="210" y2="148" stroke="#e05c7a" stroke-width="1.2" stroke-dasharray="4,2"/>
+        <text x="214" y="151" fill="#e05c7a" font-size="7.5">스파크(점화)</text>
+        <line x1="280" y1="148" x2="300" y2="148" stroke="#a07ef4" stroke-width="0.8" stroke-dasharray="3,2"/>
+        <text x="304" y="151" fill="#a07ef4" font-size="7.5">EEC 제어신호</text>
+      </svg>
+    </div>
+    <div class="note-box">💡 CFM56 터보팬 엔진: 2 Exciters (115 VAC) + 2 Ignition Lead Assemblies + 2 Igniter Plugs. 3단위 대칭 — 정비사가 기억해야 할 수: 여자기 1개, 고압 리드선 2개, 점화플러그 2개</div>
+  </div>
+
+</div>
+<!-- END Ch.11 -->
+
+
 </div><!-- end content -->
 </div><!-- end main-wrap -->
 
 <script>
-const SECTIONS = ['combustor', 'turbine', 'exhaust', 'fuel', 'lube', 'summary'];
+const SECTIONS = ['combustor', 'turbine', 'exhaust', 'fuel', 'lube', 'starting', 'ignition', 'summary'];
 const SECTION_TITLES = {
   combustor: 'Ch.4 연소기',
   turbine:   'Ch.5 터빈',
   exhaust:   'Ch.6 배기계통',
   fuel:      'Ch.7 연료계통',
   lube:      'Ch.9 윤활계통',
+  starting:  'Ch.10 시동계통',
+  ignition:  'Ch.11 점화계통',
   summary:   '핵심 요약'
 };
 
