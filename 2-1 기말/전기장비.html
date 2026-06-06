@@ -1126,11 +1126,19 @@ strong { color: var(--text); font-weight: 600; }
       Main Bus 문제 → 대부분의 장비 작동 불가</p>
     </div>
   </div>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/alternator_circuit.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">교류기 컨트롤 회로</p>
+  </div>
 
   <h2>외부 전원 회로 (2.3.1.4 External Power Circuit)</h2>
   <div class="card card-green">
     <p>· 외부 전원은 엔진 작동 없이 항공기에서 정비 및 점검을 위해 필요한 전기 공급을 위해 사용</p>
     <p>· <strong>다이오드</strong>는 외부전원연결이 부정확한 극성을 가질 경우, 예를 들어 양과 음의 배선이 반대로 되는 경우, 우발적인 연결을 방지하기 위해 사용 (역전류흐름방지 다이오드)</p>
+  </div>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/external_circuit.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">외부 전원 연결 회로</p>
   </div>
 
   <h2>시동기 회로 (2.3.1.5 Starter Circuit)</h2>
@@ -1177,6 +1185,10 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 교류 발전기 출력을 균등화하는 이 과정을 <strong>병렬 운전(paralleling)</strong>이라 한다</p>
     <p>· 대부분 쌍발 항공기 경우 교류발전기가 작동하는 상태에서 전압은 <strong>26.5~28[VDC]</strong> 사이</p>
     <p>· 다발기는 병렬로 동작 → 단발 빼고 병렬 운전</p>
+  </div>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/parallel_alternator.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">병렬운전 교류발전기 진동 지점 시스템</p>
   </div>
 </div>
 
@@ -1554,6 +1566,11 @@ strong { color: var(--text); font-weight: 600; }
       <tr><td><strong>Logo Lights</strong></td><td>로고등</td><td>백색(White)</td><td>수평 안정판(Horizontal Stabilizer)에 장착 → 수직 안정판의 항공사 로고 조명</td></tr>
     </table>
   </div>
+
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/exterior_light.png" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">B737 외부 조명</p>
+  </div>
 </div>
 
 <!-- ⑮ 외부등 개요 -->
@@ -1714,6 +1731,11 @@ strong { color: var(--text); font-weight: 600; }
     <div class="flow-item"><div class="flow-num">4</div><div class="flow-content"><div class="flow-title">RIGHT / LEFT POSITION LTS XFMR</div><div class="flow-desc">Transformer로 밝기(전압 범위) 조절</div></div></div>
     <div class="flow-item"><div class="flow-num">5</div><div class="flow-content"><div class="flow-title">Wing Tip Light + Tail Position Light (각 2개 Lamp)</div><div class="flow-desc">Right FWD Wing Tip / Right Tail Position / Left FWD Wing Tip / Left Tail Position</div></div></div>
   </div>
+
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/position_circuit.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">위치등 회로도</p>
+  </div>
 </div>
 
 <!-- ⑰ 충돌 방지등 -->
@@ -1759,6 +1781,11 @@ strong { color: var(--text); font-weight: 600; }
     </div>
   </div>
 
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/red_anti_collision_circuit.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">Red 충돌방지등 회로도</p>
+  </div>
+
   <h2>② White Anti-Collision Light (Strobe Light)</h2>
   <div class="card card-amber">
     <p>· <strong>= 백색 섬광등(white strobe light)</strong></p>
@@ -1776,6 +1803,11 @@ strong { color: var(--text); font-weight: 600; }
     <p style="padding-left:12px">— <strong>STROBE &amp; STEADY</strong>: Position + Strobe 둘 다 들어옴 (이때 Strobe는 White)</p>
     <p>· 스위치 → RIGHT/LEFT Wing Tip Anti-Collision Light Power Supply → FWD Wing Tip Light 점등</p>
     <p>· Tail Strobe Light 도 동일 스위치에서 공급</p>
+  </div>
+
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/white_anti_collision_circuit.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">White 충돌방지등 회로도</p>
   </div>
 
   <h2>Red vs White Anti-Collision 비교표</h2>
@@ -1863,7 +1895,7 @@ strong { color: var(--text); font-weight: 600; }
   <div class="callout callout-warn">
     <span class="callout-icon">⭐</span>
     <div class="callout-content">
-      <strong>이거 시험에 낼 거임 — relay, NLG lock S/W 기능 알아야 함</strong>
+      <strong>시험에 나옴 — relay, NLG lock S/W 기능 알아야 함</strong>
       <p>"AUTO"로 설정하면 → 28V DC PWR가 있어야 light를 켜줄 수 있음 (relay 작동 조건)</p>
     </div>
   </div>
@@ -1877,6 +1909,11 @@ strong { color: var(--text); font-weight: 600; }
     <p>— AUTO 위치: <strong>Nose Gear Down and Locked (E11 PSEU)</strong> 신호 ④를 받아야 relay ③ 작동</p>
     <p>— relay(R444 Taxi Light Cont Relay) → J4 Junction Box → Nose Gear Taxi Light 점등</p>
     <p style="margin-top:8px;color:var(--text3);font-size:12px">ℹ️ PSEU = Proximity Switch Electronic Unit — 랜딩기어 잠금 상태를 감지하는 장치</p>
+  </div>
+
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/taxi_circuit.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">유도등 회로도</p>
   </div>
 
   <h2>Runway Turnoff Lights (활주로 옆길 등)</h2>

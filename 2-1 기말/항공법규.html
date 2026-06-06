@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>항공법규 문제정리 — 항공안전법·항공보안법·항공사업법</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e1116;
+  --bg2:#151a22;
+  --card:#1b212b;
+  --card2:#212834;
+  --line:#2c3543;
+  --txt:#e4e8ee;
+  --txt-dim:#9aa6b5;
+  --accent:#4ea3ff;
+  --accent2:#ffb454;
+  --green:#5fd38a;
+  --red:#ff6b6b;
+  --purple:#b98cff;
+  --gold:#ffd95e;
+  --sidebar-w:228px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:'IBM Plex Sans KR',sans-serif;
+  line-height:1.7;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===================== SIDEBAR ===================== */
+.sidebar{
+  position:fixed;
+  left:0;top:0;
+  width:var(--sidebar-w);
+  height:100vh;
+  background:linear-gradient(180deg,#10151d 0%,#13181f 100%);
+  border-right:1px solid var(--line);
+  padding:26px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  z-index:50;
+  overflow-y:auto;
+}
+.sb-brand{
+  font-family:'Gowun Batang',serif;
+  font-weight:700;
+  font-size:1.15rem;
+  line-height:1.4;
+  margin-bottom:4px;
+}
+.sb-brand .light{color:var(--accent)}
+.sb-sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;
+  letter-spacing:.18em;
+  color:var(--accent2);
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+.sb-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.62rem;
+  letter-spacing:.16em;
+  color:var(--txt-dim);
+  text-transform:uppercase;
+  margin:14px 4px 6px;
+}
+.nav-btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  text-align:left;
+  font-family:'IBM Plex Sans KR',sans-serif;
+  background:transparent;
+  border:1px solid transparent;
+  color:var(--txt-dim);
+  padding:10px 13px;
+  border-radius:9px;
+  cursor:pointer;
+  font-size:.92rem;
+  font-weight:400;
+  transition:all .15s;
+  text-decoration:none;
+}
+.nav-btn:hover{background:#ffffff08;color:var(--txt)}
+.nav-btn.active{
+  background:linear-gradient(135deg,#1d3957,#16283c);
+  border-color:#2f5d8a;
+  color:var(--accent);
+  font-weight:500;
+}
+.nav-btn .ico{font-family:'Gowun Batang',serif;font-size:1.05rem;width:18px;text-align:center;flex-shrink:0}
+.nav-btn .cnt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--txt-dim);background:#ffffff0a;padding:2px 7px;border-radius:10px}
+.nav-btn.active .cnt{color:var(--accent)}
+.home-btn{
+  margin-top:auto;
+  border:1px solid var(--line);
+  background:var(--card2);
+  color:var(--txt-dim);
+}
+.home-btn:hover{border-color:var(--accent2);color:var(--accent2);background:#ffb45410}
+
+/* ===================== MAIN ===================== */
+.main{margin-left:var(--sidebar-w)}
+.wrap{max-width:920px;margin:0 auto;padding:0 26px 120px}
+
+/* Header */
+header{
+  background:linear-gradient(135deg,#10151d 0%,#1a2230 60%,#202b3d 100%);
+  border-bottom:1px solid var(--line);
+  padding:50px 26px 38px;
+  position:relative;
+  overflow:hidden;
+}
+header::before{
+  content:"§";
+  position:absolute;
+  right:-10px;top:-40px;
+  font-size:240px;
+  color:#ffffff06;
+  font-family:'Gowun Batang',serif;
+}
+.head-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.22em;
+  color:var(--accent2);
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+header h1{
+  font-family:'Gowun Batang',serif;
+  font-weight:700;
+  font-size:2.0rem;
+  line-height:1.3;
+  letter-spacing:-.01em;
+}
+header h1 .light{color:var(--accent)}
+header p.sub{color:var(--txt-dim);margin-top:14px;font-size:.95rem;max-width:640px}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  padding:5px 11px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  color:var(--txt-dim);
+  background:#ffffff05;
+}
+
+/* TOC */
+nav.toc{
+  background:var(--bg2);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:22px 24px;
+  margin:34px 0 10px;
+}
+nav.toc h2{
+  font-size:.78rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent2);
+  font-family:'JetBrains Mono',monospace;
+  font-weight:600;
+  margin-bottom:14px;
+}
+nav.toc ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+nav.toc li a{
+  color:var(--txt-dim);
+  text-decoration:none;
+  font-size:.9rem;
+  display:flex;
+  gap:10px;
+  padding:4px 0;
+  transition:color .15s;
+  border-bottom:1px dashed transparent;
+}
+nav.toc li a:hover{color:var(--accent)}
+nav.toc li a .n{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:.78rem;min-width:26px;font-weight:600}
+
+/* Section heads */
+.sec{margin-top:54px;scroll-margin-top:20px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px;border-bottom:2px solid var(--line);padding-bottom:12px}
+.sec-head .law{font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:600;font-size:.95rem}
+.sec-head h2{font-family:'Gowun Batang',serif;font-size:1.5rem;font-weight:700}
+.sec-note{color:var(--txt-dim);font-size:.86rem;margin-bottom:22px;margin-top:10px}
+
+/* Question card */
+.q{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:12px;
+  margin-bottom:18px;
+  overflow:hidden;
+  transition:border-color .2s;
+}
+.q:hover{border-color:#3a4658}
+.q-head{
+  display:flex;
+  gap:14px;
+  padding:18px 20px;
+  cursor:pointer;
+  align-items:flex-start;
+  user-select:none;
+}
+.q-num{
+  font-family:'JetBrains Mono',monospace;
+  background:linear-gradient(135deg,var(--accent),#2d7fd6);
+  color:#06101c;
+  font-weight:600;
+  font-size:.82rem;
+  padding:3px 9px;
+  border-radius:7px;
+  flex-shrink:0;
+  margin-top:2px;
+}
+.q-text{flex:1;font-weight:400;font-size:1rem}
+.q-text .neg{color:var(--accent2);font-weight:600}
+.q-toggle{color:var(--txt-dim);font-size:1.3rem;transition:transform .25s;flex-shrink:0;line-height:1}
+.q.open .q-toggle{transform:rotate(45deg)}
+.q-body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .35s ease;
+}
+.q.open .q-body{max-height:1600px}
+.q-body-inner{padding:0 20px 20px;border-top:1px solid var(--line);margin-top:0;padding-top:16px}
+
+.ans{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  background:#5fd38a14;
+  border-left:3px solid var(--green);
+  padding:10px 14px;
+  border-radius:7px;
+  margin-bottom:14px;
+}
+.ans .lab{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--green);font-weight:600;letter-spacing:.05em}
+.ans .val{font-weight:500;color:var(--txt)}
+
+.exp{color:var(--txt-dim);font-size:.92rem}
+.exp strong{color:var(--txt);font-weight:600}
+.exp .ko-en{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:.85rem}
+
+/* info card */
+.info{
+  background:#4ea3ff10;
+  border:1px solid #2f5d8a;
+  border-left:3px solid var(--accent);
+  border-radius:9px;
+  padding:14px 16px;
+  margin-bottom:18px;
+  font-size:.92rem;
+}
+.info .i-lab{color:var(--accent);font-weight:600;font-size:.8rem;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;display:block;margin-bottom:8px}
+.info ul{margin:0;padding-left:18px;color:var(--txt-dim)}
+.info li{margin:3px 0}
+.info li b{color:var(--txt);font-weight:600}
+
+/* star highlight box */
+.star{
+  background:linear-gradient(135deg,#2a2410,#241f0d);
+  border:1px solid #5a4a18;
+  border-radius:9px;
+  padding:13px 15px;
+  margin-top:14px;
+  font-size:.9rem;
+}
+.star .s-lab{color:var(--gold);font-weight:600;font-size:.8rem;display:flex;align-items:center;gap:7px;margin-bottom:7px;letter-spacing:.04em}
+.star ul{margin:0;padding-left:18px;color:var(--txt)}
+.star li{margin:3px 0;font-weight:300}
+.star li b{color:var(--gold);font-weight:600}
+
+/* comparison table */
+.tbl{width:100%;border-collapse:collapse;margin-top:14px;font-size:.86rem;border-radius:8px;overflow:hidden}
+.tbl th,.tbl td{padding:9px 12px;text-align:left;border:1px solid var(--line)}
+.tbl th{background:var(--card2);color:var(--accent2);font-weight:600;font-size:.8rem}
+.tbl td{color:var(--txt-dim)}
+.tbl td b{color:var(--txt);font-weight:500}
+
+.divider{height:1px;background:var(--line);margin:60px 0 0}
+footer{text-align:center;color:var(--txt-dim);font-size:.82rem;margin-top:30px;font-family:'JetBrains Mono',monospace}
+
+/* controls */
+.controls{display:flex;gap:10px;margin:26px 0 0;flex-wrap:wrap}
+.btn{
+  font-family:'IBM Plex Sans KR',sans-serif;
+  background:var(--card2);
+  border:1px solid var(--line);
+  color:var(--txt-dim);
+  padding:8px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:.85rem;
+  transition:all .15s;
+}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* page switching */
+.page{display:none}
+.page.active{display:block}
+
+/* mobile */
+.sb-toggle{display:none}
+@media(max-width:880px){
+  .sidebar{transform:translateX(-100%);transition:transform .25s;box-shadow:0 0 40px #0009}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .sb-toggle{
+    display:flex;align-items:center;justify-content:center;
+    position:fixed;top:14px;left:14px;z-index:60;
+    width:44px;height:44px;border-radius:11px;
+    background:var(--card2);border:1px solid var(--line);
+    color:var(--accent);font-size:1.3rem;cursor:pointer;
+  }
+  .sb-backdrop{display:none;position:fixed;inset:0;background:#0009;z-index:40}
+  .sb-backdrop.show{display:block}
+  header{padding-top:70px}
+}
+@media(max-width:640px){
+  nav.toc ol{grid-template-columns:1fr}
+  header h1{font-size:1.55rem}
+  .q-text{font-size:.94rem}
+}
+</style>
+</head>
+<body>
+
+<button class="sb-toggle" id="sbToggle" aria-label="메뉴 열기">☰</button>
+<div class="sb-backdrop" id="sbBackdrop"></div>
+
+<!-- ===================== SIDEBAR ===================== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-brand">항공법규 <span class="light">정리</span></div>
+  <div class="sb-sub">2026-2 · 항공정비</div>
+
+  <div class="sb-label">법규 선택</div>
+  <button class="nav-btn active" data-page="safety"><span class="ico">§</span>항공안전법<span class="cnt">31</span></button>
+  <button class="nav-btn" data-page="security"><span class="ico">⛨</span>항공보안법<span class="cnt">7</span></button>
+  <button class="nav-btn" data-page="accident"><span class="ico">⚠</span>사고조사법<span class="cnt">7</span></button>
+  <button class="nav-btn" data-page="business"><span class="ico">✈</span>항공사업법<span class="cnt">19</span></button>
+
+  <a class="nav-btn home-btn" href="https://johnyejin.github.io/maintenance"><span class="ico">⌂</span>홈으로</a>
+</aside>
+
+<div class="main">
+
+<!-- ===================================================================== -->
+<!-- ============================ PAGE 1: 항공안전법 ====================== -->
+<!-- ===================================================================== -->
+<div class="page active" id="page-safety">
+
+<header>
+  <div class="head-inner">
+    <div class="eyebrow">2026학년도 2학기 · 항공법규 문제정리</div>
+    <h1>항공<span class="light">안전법</span></h1>
+    <p class="sub">외국항공기·경량항공기·경미한 정비·항공안전활동·벌칙 + <strong>항공안전법(5) 공역·항공교통업무·운항증명/정비조직인증·과징금·NOTAM</strong></p>
+    <div class="meta-row">
+      <span class="tag">공역 4분류</span>
+      <span class="tag">법 제78~163조</span>
+      <span class="tag">★ 시험 빈출</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="controls">
+    <button class="btn openAll">전체 펼치기</button>
+    <button class="btn closeAll">전체 접기</button>
+  </div>
+
+  <nav class="toc">
+    <h2>목차 · 항공안전법</h2>
+    <ol>
+      <li><a href="#s0"><span class="n">·</span>공역 (空域)</a></li>
+      <li><a href="#s0b"><span class="n">·</span>항공교통업무</a></li>
+      <li><a href="#s0c"><span class="n">·</span>운항증명·정비조직인증</a></li>
+      <li><a href="#s0d"><span class="n">·</span>과징금·NOTAM</a></li>
+      <li><a href="#s1"><span class="n">01</span>외국항공기 (§100~104)</a></li>
+      <li><a href="#s2"><span class="n">02</span>경량항공기 안전성인증 (§108)</a></li>
+      <li><a href="#s3"><span class="n">03</span>경미한 정비의 범위 (별표41)</a></li>
+      <li><a href="#s4"><span class="n">04</span>항공안전 활동 (§132)</a></li>
+      <li><a href="#s5"><span class="n">05</span>항공안전 전문가 · 정기검사</a></li>
+      <li><a href="#s6"><span class="n">06</span>벌칙 (§138~163)</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============== 항공안전법(5) — 공역 ============== -->
+  <section class="sec" id="s0">
+    <div class="sec-head"><span class="law">공역</span><h2>공역의 구분 (空域)</h2></div>
+    <p class="sec-note">제공하는 항공교통업무에 따른 4분류와 사용목적에 따른 분류를 구분하는 것이 핵심. 헷갈리는 구역 배치 위주로 출제.</p>
+
+    <div class="info"><span class="i-lab">기본 — 제공업무에 따른 4분류</span>
+      <ul>
+        <li><b>관제공역</b>(管制空域) — 관제권, 관제구, 비행장교통구역</li>
+        <li><b>비관제공역</b>(非管制空域) — 조언구역, 정보구역</li>
+        <li><b>통제공역</b>(統制空域) — 비행을 금지·제한할 필요가 있는 공역</li>
+        <li><b>주의공역</b>(注意空域) — 조종사의 주의·경계·식별 등이 필요한 공역</li>
+      </ul>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q1</span><div class="q-text">비행을 금지하거나 제한할 필요가 있는 공역은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">통제공역(統制空域)</span></div>
+        <div class="exp">통제공역은 항공교통의 안전을 위해 항공기의 비행을 <strong>금지하거나 제한</strong>할 필요가 있는 공역이다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q2</span><div class="q-text">주의공역의 구분에 <span class="neg">해당하지 않는</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">비행제한구역 (→ 통제공역에 속함)</span></div>
+        <div class="exp">주의공역: <strong>훈련구역, 군작전구역, 위험구역, 경계구역.</strong> 비행제한구역은 <strong>통제공역</strong>이다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q3</span><div class="q-text">공역의 사용목적에 따른 구분 중 관제공역에 <span class="neg">포함되지 않는</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">정보구역 (→ 비관제공역)</span></div>
+        <div class="exp">관제공역: <strong>관제권, 관제구, 비행장교통구역</strong>(및 접근관제구역). 정보구역(비행정보구역)은 <strong>비관제공역</strong>이다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q4</span><div class="q-text">통제공역에 <span class="neg">포함되지 않는</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">군작전구역 (→ 주의공역)</span></div>
+        <div class="exp">통제공역: <strong>비행금지구역, 비행제한구역, 초경량비행장치 비행제한구역.</strong> 군작전구역은 <strong>주의공역</strong>이다.</div>
+        <div class="star"><div class="s-lab">★ 구역 배치 암기</div><ul>
+          <li><b>통제</b> = 금지 · 제한 · 초경량 비행제한</li>
+          <li><b>주의</b> = 훈련 · 군작전 · 위험 · 경계</li>
+        </ul></div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q5</span><div class="q-text">조종사가 비행 시 주의·경계·식별 등이 필요한 공역은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">주의공역(注意空域)</span></div>
+        <div class="exp">항공기의 비행 시 조종사의 <strong>주의·경계·식별</strong> 등이 필요한 공역이 주의공역이다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q6</span><div class="q-text">비행정보구역의 구분 및 공역지정 기준을 <span class="neg">잘못</span> 설명한 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">공항시설 운영 편의를 위하여</span></div>
+        <div class="exp">공역지정 기준(옳은 것): ① 국가안전보장과 항공안전을 고려, ② 항공교통에 관한 서비스 제공 여부 고려, ③ 공역이 <strong>효율적·경제적으로 활용</strong>될 수 있을 것. "공항시설 운영 편의"는 지정 기준이 아니다.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============== 항공안전법(5) — 항공교통업무 ============== -->
+  <section class="sec" id="s0b">
+    <div class="sec-head"><span class="law">항공교통업무</span><h2>항공교통업무 · 차량 준수사항</h2></div>
+    <p class="sec-note">업무의 목적(충돌방지·흐름질서·정보제공)과 기동지역 차량의 진로양보 순위가 핵심.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q7</span><div class="q-text">항공교통업무의 목적에 <span class="neg">해당하지 않는</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">수색·구조 계획의 수립 및 실행</span></div>
+        <div class="exp">항공교통업무의 목적: ① 항공기 간 <strong>충돌 방지</strong>, ② 기동지역 안에서 항공기와 장애물 간 충돌 방지, ③ 항공교통흐름의 질서유지·촉진, ④ 안전한 운항을 위한 <strong>조언·정보 제공</strong>, ⑤ 수색·구조가 필요한 항공기에 대한 <strong>관계기관 통보·협조.</strong> "계획 수립 및 실행"은 항공교통업무가 아니다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q8</span><div class="q-text">비행장 기동지역 내를 이동하는 차량의 준수사항에 <span class="neg">해당되지 않는</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">기동지역을 이동하는 사람이나 차에게 진로를 양보할 것</span></div>
+        <div class="exp">차량의 진로양보 의무: ① 지상이동·이륙·착륙 중인 <strong>항공기</strong>, ② 항공기를 <strong>견인하는 차량</strong>, ③ 관제지시에 따라 이동하는 <strong>다른 차량.</strong> 일반 사람·차에 대한 양보는 준수사항으로 규정되어 있지 않다.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============== 항공안전법(5) — 운항증명·정비조직인증 ============== -->
+  <section class="sec" id="s0c">
+    <div class="sec-head"><span class="law">운항증명·인증</span><h2>운항증명 · 정비조직인증 · 안전운항체계</h2></div>
+    <p class="sec-note">취소사유 vs 정지사유 구분이 핵심. "거짓·부정한 방법" + "효력정지기간 중 업무"는 항상 취소.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q9</span><div class="q-text">항공운송사업자의 운항증명 <span class="neg">취소사유가 아닌</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">감항성을 확인받지 않고 운항하거나 항공기등에 사용한 경우 (→ 정지사유)</span></div>
+        <div class="exp">취소사유: ① <strong>거짓이나 부정한 방법</strong>으로 운항증명을 받은 경우, ② <strong>정지처분</strong>에 따르지 않고 운항한 경우, ③ <strong>정지기간 중</strong> 운항한 경우. 감항성 미확인 운항·사용은 <strong>효력정지 사유</strong>이지 취소사유가 아니다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q10</span><div class="q-text">정비조직인증을 받은 자에게 6개월 이내의 기간을 정하여 <span class="neg">효력정지</span>를 할 수 있는 경우는?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">정당한 사유 없이 정비조직인증기준을 위반한 경우</span></div>
+        <div class="exp">정비조직인증기준 위반은 <strong>효력정지(6개월 이내)</strong> 사유. 반면 ⓐ 거짓·부정한 방법으로 인증받은 경우, ⓑ 효력정지기간 중 업무한 경우는 모두 <strong>취소사유</strong>이고, 중요사항을 적법하게 변경하는 것은 위반이 아니다.</div>
+        <div class="star"><div class="s-lab">★ 취소 vs 정지</div><ul>
+          <li><b>취소</b> — 거짓·부정 취득 / 정지처분 위반 / 정지기간 중 업무</li>
+          <li><b>정지</b> — 인증기준·감항성 등 일반 기준 위반</li>
+        </ul></div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q11</span><div class="q-text">안전운항체계 유지 여부를 검사하는 중 국토교통부장관이 <span class="neg">긴급한 조치</span>를 할 수 있는 경우에 해당하지 않는 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">감항성에 영향을 미칠 수 있는 사항이 사라진 경우</span></div>
+        <div class="exp">긴급조치 가능: ① 승무시간기준·비행규칙 등 <strong>법에서 정한 기준을 따르지 않는</strong> 경우, ② 항공기 운항에 <strong>위험을 줄 수 있는 사태</strong>인 경우. 교육훈련·운항자격 미충족은 정지 대상이며, <strong>위험요소가 사라진 경우</strong>는 긴급조치 사유가 될 수 없다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q12</span><div class="q-text">안전운항체계가 변경되어 검사를 받아야 하는 경우에 <span class="neg">해당하지 않는</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">운항 노선을 취소하는 경우</span></div>
+        <div class="exp">검사 대상: ① 새로운 항공기를 등록한 경우, ② 운항증명이 정지되었던 사업자가 운항을 <strong>재개</strong>하려는 경우, ③ 항공운송사업을 <strong>양도·양수</strong>한 경우. 노선 취소(축소)는 검사 대상이 아니다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q13</span><div class="q-text">정비조직인증을 받아야 하는 업무에 <span class="neg">해당하는</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">① 항공기등·부품등에 대한 정비를 수행하는 경우 ② 정비 수행을 위한 기술지원 업무를 수행하는 경우</span></div>
+        <div class="exp">위 두 업무는 모두 정비조직인증 대상이다.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============== 항공안전법(5) — 과징금·인가·NOTAM ============== -->
+  <section class="sec" id="s0d">
+    <div class="sec-head"><span class="law">과징금·NOTAM</span><h2>과징금 · 규정 인가 · NOTAM</h2></div>
+    <p class="sec-note">과징금 상한 금액, 신고 대신 인가가 필요한 경우, NOTAM 성격을 사실 위주로 정리.</p>
+
+    <div class="info"><span class="i-lab">과징금 상한 — 사업정지 갈음</span>
+      <ul>
+        <li>운영 취지: 사업정지로 인한 <strong>이용자 불편을 줄이기 위해</strong> 정지 대신 부과</li>
+        <li>항공기<b>운송</b>사업자 — <b>100억원</b> 이하</li>
+        <li>항공기<b>사용</b>사업자 — <b>3억원</b> 이하</li>
+        <li>정비조직인증을 받아 정비업을 수행하는 자 — <b>5억원</b> 이하</li>
+      </ul>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q14</span><div class="q-text">운항규정·정비규정을 변경할 때 <span class="neg">신고가 아니라 인가</span>를 받아야 하는 경우는?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">① 최소장비목록(MEL) 개조 ② 교육훈련 프로그램을 변경하는 경우</span></div>
+        <div class="exp">일반적 변경은 <strong>신고</strong>로 족하나, 안전에 중대한 영향을 주는 위 사항은 <strong>인가</strong>를 받아야 한다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q15</span><div class="q-text">NOTAM(항공고시보)에 대한 설명으로 옳은 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">긴급히 알려야 하는 사항을 고시하며, 통상 3개월 이내의 단기 정보를 다룬다</span></div>
+        <div class="exp">NOTAM(<span class="ko-en">Notice To Airmen</span>)은 항공시설·업무·절차 또는 위험요소의 신설·운영상태 변경 등 <strong>긴급히 알려야 할 사항</strong>을 통보하며, 일반적으로 <strong>3개월 이내</strong>의 단기 사항을 대상으로 한다.</div>
+      </div></div>
+    </div>
+  </section>
+
+
+  <!-- ====================== SECTION 1 ====================== -->
+  <section class="sec" id="s1">
+    <div class="sec-head"><span class="law">§100~104</span><h2>외국항공기의 항행</h2></div>
+    <p class="sec-note">외국 국적 항공기의 항행 허가, 국내사용 금지, 증명서 인정, 운항증명승인 관련 문제.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q16</span><div class="q-text">외국 국적을 가진 항공기가 국토교통부장관의 허가를 받아 항행할 수 있는 경우 <span class="neg">세 가지</span>에 해당하지 않는 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">국내 각 지역 간을 유상으로 운송하는 항행 (이는 금지 대상)</span></div>
+        <div class="exp">법 제100조제1항에 따른 허가 대상 항행 3가지: ① 영공 밖에서 이륙 → 대한민국 착륙, ② 대한민국에서 이륙 → 영공 밖 착륙, ③ 영공 밖에서 이륙 → 착륙 없이 영공 통과 → 영공 밖 착륙. <strong>국내 각 지역 간 유상 여객·화물 운송 항행은 금지</strong>(법 제101조, 항공사업법 제56조).</div>
+        <div class="star"><div class="s-lab">★ 시험 포인트</div><ul>
+          <li>외국항공기 국내사용(<span class="ko-en">cabotage</span>)은 원칙 <b>금지</b> — 국내 각 지역 간 운항 불가</li>
+          <li>군·세관·경찰 업무에 사용되는 외국 항공기는 <b>해당 국가가 사용하는 항공기</b>로 봄</li>
+        </ul></div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q17</span><div class="q-text">국토교통부장관의 허가를 받아 대한민국 내에서 외국인 국제항공운송사업을 할 수 있는 사람이 <span class="neg">아닌 것</span>은? (항공사업법 §54)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">주식·지분의 1/3 이상을 소유한 법인 (→ 옳은 기준은 1/2 이상)</span></div>
+        <div class="exp">허가 가능 대상: ① 대한민국 국민이 아닌 사람, ② 외국정부 또는 외국의 공공단체, ③ 외국의 법인 또는 단체, ④ 위 ①~③에 해당하는 자가 <strong>주식·지분의 2분의 1(1/2) 이상을 소유</strong>하거나 사실상 지배하는 법인. 강의에서 강조: 이들은 모두 <strong>항공기 등록이 제한되는 자</strong>(외국인 등 한국 등록 불가)이지만, 외국인 국제항공운송사업은 허가받아 할 수 있음.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q18</span><div class="q-text">국제민간항공협약 체결국 외국정부가 발행한 증명서 중 국토교통부장관이 발행한 것으로 인정되는 증명서에 <span class="neg">해당하지 않는 것</span>은? (시규 §278)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">형식증명서 (→ 인정 ✕, 별도로 형식증명승인을 받아야 함)</span></div>
+        <div class="exp"><strong>인정되는 증명서 6종:</strong> 항공기 등록증명서, 감항증명서, 항공종사자 자격증명서, 항공신체검사증명서, 계기비행증명서, 항공영어구술능력증명서. 형식증명서(<span class="ko-en">type certificate</span>)는 인정 대상이 아니며 별도 절차로 승인받아야 함.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q19</span><div class="q-text">외국인 국제항공운송사업 허가를 받으려는 자가, 그가 속한 국가에서 발급받은 운항증명과 운영기준에 대하여 국토교통부장관으로부터 받는 것은? (§103)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">운항증명승인</span></div>
+        <div class="exp">외국에서 운항증명(<span class="ko-en">AOC</span>)을 받은 자가 우리나라에서 국제항공운송사업을 하려면 <strong>운항증명승인</strong>을 받아야 한다(법 제103조). 노선 개설 등으로 변경 시 <strong>변경승인</strong> 필요.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ====================== SECTION 2 ====================== -->
+  <section class="sec" id="s2">
+    <div class="sec-head"><span class="law">§108</span><h2>경량항공기 안전성인증</h2></div>
+    <p class="sec-note">안전성인증 의무, 운용범위 준수, 정비 확인 의무를 다룬다. 항공기의 감항증명과 비교 주의.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q20</span><div class="q-text">경량항공기 안전성인증에 대한 설명으로 <span class="neg">옳은 것</span>은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">시험비행 등 국토부장관 허가를 받은 경우는 안전성인증 없이 비행 가능</span></div>
+        <div class="exp"><strong>"경량항공기소유자등은 시험비행을 하기 위해 안전성인증을 받아야 한다"는 틀린 설명.</strong> 시험비행 등 국토교통부령으로 정하는 경우로서 허가를 받으면 <strong>안전성인증 없이</strong> 비행할 수 있다(법 제108조제1항).</div>
+        <div class="star"><div class="s-lab">★ 비교 — 항공기 vs 경량항공기</div>
+        <table class="tbl">
+          <tr><th>구분</th><th>항공기</th><th>경량항공기</th></tr>
+          <tr><td><b>증명</b></td><td>감항증명 (표준/특별)</td><td>안전성인증 (1~4종)</td></tr>
+          <tr><td><b>시험비행 시</b></td><td>특별감항증명 필요</td><td>허가 시 인증 <b>불요</b></td></tr>
+        </table></div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q21</span><div class="q-text">경량항공기 안전성인증 등급(시규 §284)과 운용범위에 대한 설명으로 옳은 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">안전성인증 등급에 따른 운용범위를 준수하여 비행하여야 한다</span></div>
+        <div class="exp">국토교통부령으로 정하는 바에 따라 안전성인증 <strong>등급을 부여</strong>하고 그 등급에 따른 <strong>운용범위를 지정</strong>하며, 소유자등은 이를 준수해야 한다(법 제108조제3항).</div>
+        <table class="tbl">
+          <tr><th>등급</th><th>형태 / 운용범위</th></tr>
+          <tr><td><b>제1종</b></td><td>완제(完製) 제작 → 제한 없음</td></tr>
+          <tr><td><b>제2종</b></td><td>조립(組立) 제작 → 대여업·레저스포츠사업 사용 제한</td></tr>
+          <tr><td><b>제3종</b></td><td>완제이나 적합 입증서류 미발급 → 2명 탑승 시 반경 10km 초과 비행 제한 등</td></tr>
+          <tr><td><b>제4종</b></td><td>원형 변경/기타 → 1명 외 탑승·인구밀집지역 비행 등 제한</td></tr>
+        </table>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q22</span><div class="q-text">경량항공기의 정비 확인 방법(시규 §285)을 <span class="neg">잘못</span> 설명한 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">제작자가 정비교범·기술문서를 제공하지 않은 경우, 제공될 때까지 대기한다</span></div>
+        <div class="exp">제작자가 정비교범·기술문서를 제공하지 않은 경우에는 기다리는 것이 아니라, 소유자등이 <strong>안전성인증 검사를 받을 때 제출한 검사프로그램</strong>(국토부장관 인가)에 따라 정비 확인을 한다(시규 제285조제1항제2호). <br><br>옳은 설명: ① 항공정비사 자격증명 보유자로부터 안전 운용 확인을 받고 정비기록문서에 서명, ② 경미한 정비는 정비 확인 없이 사용 가능(법 §108④ 단서).</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ====================== SECTION 3 ====================== -->
+  <section class="sec" id="s3">
+    <div class="sec-head"><span class="law">별표41</span><h2>경량항공기 경미한 정비의 범위</h2></div>
+    <p class="sec-note">경미한 정비는 정비 확인 없이 사용 가능. "포함/제외" 단서와 헷갈리는 항목 위주로 출제.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q23</span><div class="q-text">경량항공기의 <span class="neg">경미한 정비에 해당하지 않는</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">분해가 포함된 덮개·카울링·페어링 등 비구조부 품목의 장탈 및 윤활</span></div>
+        <div class="exp">별표41 제6호는 "덮개·카울링·페어링과 같은 비구조부 품목의 장탈(<strong>분해하는 경우는 제외</strong>) 및 윤활"이다. 즉 <strong>분해가 포함되면 경미한 정비가 아니다.</strong> 전체적으로 "복잡한 조립 조작이 포함되어 있지 않아야 한다"는 단서가 붙는다.</div>
+        <div class="star"><div class="s-lab">★ 경미한 정비 O / X 함정</div><ul>
+          <li><b>O</b> 착륙장치 타이어 장탈·장착 / 베어링 세척·윤활유 주입</li>
+          <li><b>O</b> 점화플러그 교환·세척·간극 조정 (제20호)</li>
+          <li><b>O</b> 배터리 교환 및 충전 서비스 (제24호)</li>
+          <li><b>O</b> 유압유 저장탱크에 유압액 보충 (제8호)</li>
+          <li><b>X</b> 분해가 포함된 품목의 장탈 / 복잡한 조립 조작</li>
+        </ul></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ====================== SECTION 4 ====================== -->
+  <section class="sec" id="s4">
+    <div class="sec-head"><span class="law">§132</span><h2>항공안전 활동</h2></div>
+    <p class="sec-note">업무보고 요구, 소속 공무원의 검사, 정기안전성검사, 결과 통보 방법이 핵심.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q24</span><div class="q-text">국토교통부장관이 실시하는 항공안전 활동을 <span class="neg">바르게</span> 설명한 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">제작·정비 등을 하는 자에게 업무에 관한 보고를 하게 할 수 있다</span></div>
+        <div class="exp"><strong>옳은 설명:</strong> 제작·정비 등을 하는 자에게 업무보고·서류제출 요구 가능(§132①).<br>
+        <strong>틀린 설명들:</strong><br>
+        · "항공운송사업자의 <strong>직원</strong>에게 검사하게 한다" → ✕. 검사는 <strong>국토교통부 소속 공무원</strong>에게 시킨다(§132②).<br>
+        · "비정기적인 안전성검사를 하여야 한다" → ✕. 취항 공항에 대해 <strong>정기적인</strong> 안전성검사를 하여야 한다(§132③).<br>
+        · "결과를 피검사자에게 비밀로 할 수 있다" → ✕. 결과는 <strong>서면으로 통보</strong>하여야 한다(§132⑦).</div>
+        <div class="star"><div class="s-lab">★ 검사 사전통지</div><ul>
+          <li>검사·질문 <b>7일 전까지</b> 일시·사유·내용 계획을 통지(§132④)</li>
+          <li>단, 긴급하거나 증거인멸 우려가 있으면 예외</li>
+        </ul></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ====================== SECTION 5 ====================== -->
+  <section class="sec" id="s5">
+    <div class="sec-head"><span class="law">시규 §314·315</span><h2>항공안전 전문가 · 정기안전성검사</h2></div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q25</span><div class="q-text">항공안전에 관한 전문가로 위촉받을 수 있는 사람에 <span class="neg">해당하지 않는</span> 것은? (시규 §314)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">양성 전문교육기관에서 3년 이상 교육훈련업무에 종사한 사람 (→ 옳은 기준은 5년)</span></div>
+        <div class="exp">위촉 가능 요건: ① 항공종사자 자격증명 보유 + 해당 분야 <strong>10년</strong> 이상 실무경력, ② 양성 전문교육기관 해당 분야 <strong>5년</strong> 이상 교육훈련업무 종사, ③ <strong>5급 이상</strong> 공무원이었던 자 + 항공분야 <strong>5년</strong>(6급은 10년) 이상 실무경력, ④ 대학·전문대 전임강사 이상으로 <strong>5년</strong> 이상 재직.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q26</span><div class="q-text">취항 공항에 대하여 실시하는 정기 안전성검사 항목이 <span class="neg">아닌</span> 것은? (시규 §315)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">비행계획 및 주간 운항 편수 (→ 항공사 고유 권한, 검사 대상 아님)</span></div>
+        <div class="exp">검사 대상 업무: 항공기 운항·정비·지원 관련 업무·조직·교육훈련 / 부품·예비품 보관 및 급유시설 / 비상계획 및 항공보안사항 / 항공기 운항허가 및 비상지원절차 / 지상조업과 위험물 취급·처리 / 공항시설 등.<br><br>강의 강조: 국토부는 <strong>감항성 유지 확인</strong>이 목적이며, 인력운용·임금·업무계획·비행계획·주간 운항편수 같은 <strong>항공사 고유 권한은 침해하지 않는다.</strong></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ====================== SECTION 6 ====================== -->
+  <section class="sec" id="s6">
+    <div class="sec-head"><span class="law">§138~163</span><h2>벌칙</h2></div>
+    <p class="sec-note">형량 매칭 문제 빈출. 징역형/벌금형 상한을 표로 암기.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q27</span><div class="q-text">비행장·이착륙장·공항시설·항행안전시설을 훼손하여 항행 중인 항공기를 추락·전복·파괴한 사람에 대한 벌칙이 <span class="neg">아닌</span> 것은? (§138)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">10억원 이상의 벌금 (그런 벌금형은 없음)</span></div>
+        <div class="exp">해당 행위 벌칙: <strong>사형, 무기징역, 또는 5년 이상의 징역</strong>(법 제138조). 벌금형 규정은 없다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q28</span><div class="q-text">정비 등을 한 항공기 등·장비품·부품에 대하여 감항성을 확인받지 않고 운항·사용한 자에 대한 벌칙은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">3년 이하의 징역 또는 5천만원 이하의 벌금 (§142)</span></div>
+        <div class="exp">같은 조항(3년/5천만원): 감항·소음기준적합증명 미취득(또는 취소·정지) 항공기 운항, 기술표준품 형식승인 미취득 제작·사용, 부품등제작자증명 미취득 제작·사용, 수리·개조승인 미취득 운항·사용.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q29</span><div class="q-text">다른 사람에게 자격증명서를 빌려주거나 빌려서 사용한 사람에 대한 벌칙은? (§148)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">2년 이하의 징역 또는 2천만원 이하의 벌금</span></div>
+        <div class="exp">자격증명 미취득 항공업무 종사, 업무범위 외 종사, 자격증명서 대여·차용·알선, 효력정지명령 위반, 항공영어구술능력증명 미취득 종사 등이 동일 형량(2년/2천만원).</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q30</span><div class="q-text">항공안전 의무보고를 한 사람에 대하여 불이익조치를 한 자에 대한 벌칙은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">2천만원 이하의 벌금 (§148의2)</span></div>
+        <div class="exp">의무보고자에 대한 불이익조치는 금지된다. 강의에서는 "2천만원 이하"로 정리.</div>
+        <div class="star"><div class="s-lab">★ 벌칙 형량 요약표</div>
+        <table class="tbl">
+          <tr><th>행위</th><th>벌칙</th><th>근거</th></tr>
+          <tr><td>항행 중 항공기 추락·전복·파괴 (사람 사상)</td><td><b>사형/무기/5년↑ 징역</b></td><td>§138</td></tr>
+          <tr><td>공항시설 등 파손해 항공상 위험 발생</td><td>10년 이하 징역</td><td>§140</td></tr>
+          <tr><td>감항성 미확인 운항·사용</td><td>3년↓ / 5천만원↓</td><td>§142</td></tr>
+          <tr><td>운항증명 없이 운항 시작</td><td>3년↓ / 3천만원↓</td><td>§145</td></tr>
+          <tr><td>주류등 영향 항공업무 종사</td><td>3년↓ / 3천만원↓</td><td>§146</td></tr>
+          <tr><td>자격증명 대여·차용</td><td>2년↓ / 2천만원↓</td><td>§148</td></tr>
+          <tr><td>의무보고자 불이익조치</td><td>2천만원↓ 벌금</td><td>§148의2</td></tr>
+          <tr><td>운항 중 항공기 내 흡연</td><td>1천만원↓ 벌금</td><td>§153의2</td></tr>
+          <tr><td>의무보고 미보고·거짓보고</td><td>5백만원↓ 벌금</td><td>§158</td></tr>
+        </table></div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q31</span><div class="q-text">수리·개조승인을 받지 않은 항공기 등·장비품·부품을 운항·사용한 자에 대한 벌칙은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">3년 이하의 징역 또는 5천만원 이하의 벌금 (§142)</span></div>
+        <div class="exp">감항성 확인 미이행과 같은 조항·형량으로 묶인다.</div>
+      </div></div>
+    </div>
+  </section>
+
+
+  <div class="divider"></div>
+  <footer>항공안전법 · 2026-2 · johnyejin.github.io/maintenance</footer>
+</div><!-- /wrap -->
+</div><!-- /page-safety -->
+
+<!-- ===================================================================== -->
+<!-- ======================= PAGE 4: 항공·철도 사고조사법 ================= -->
+<!-- ===================================================================== -->
+<div class="page" id="page-accident">
+
+<header>
+  <div class="head-inner">
+    <div class="eyebrow">2026학년도 2학기 · 항공법규 문제정리</div>
+    <h1>항공·철도 <span class="light">사고조사법</span></h1>
+    <p class="sub">법의 목적, 적용범위(국가기관등 항공기·군용 특례), 사고 발생 통보, 조사방해·통보위반 벌칙을 다룹니다.</p>
+    <div class="meta-row">
+      <span class="tag">사고조사법 §1·3</span>
+      <span class="tag">§17·35·36</span>
+      <span class="tag">★ 적용범위 함정</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <button class="btn openAll">전체 펼치기</button>
+    <button class="btn closeAll">전체 접기</button>
+  </div>
+
+  <nav class="toc">
+    <h2>목차 · 사고조사법</h2>
+    <ol>
+      <li><a href="#sa1"><span class="n">·</span>목적·적용범위·통보·벌칙</a></li>
+    </ol>
+  </nav>
+
+  <!-- ====================== SECTION 10 : 사고조사법 ====================== -->
+  <section class="sec" id="sa1">
+    <div class="sec-head"><span class="law">사고조사법 §1·3·17·35</span><h2>항공·철도 사고조사에 관한 법률</h2></div>
+    <p class="sec-note">목적, 적용범위(국가기관등 항공기·군용 특례), 발생 통보, 벌칙.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q1</span><div class="q-text">「항공·철도 사고조사에 관한 법률」의 목적을 바르게 설명한 것은? (§1)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">항공사고 및 철도사고 등의 예방과 안전 확보에 이바지</span></div>
+        <div class="exp">위원회를 설치하여 독립적·공정한 조사를 통해 사고 원인을 정확히 규명함으로써 <strong>사고의 예방과 안전 확보</strong>에 이바지함을 목적으로 한다. ("안전 항행 방법을 정함"은 목적이 아님.)</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q2</span><div class="q-text">국가기관등 항공기에 사고조사법을 <span class="neg">적용하는</span> 경우에 해당하지 않는 것은? (§3②)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">정비 결함으로 비행금지 명령을 받은 경우</span></div>
+        <div class="exp">국가기관등 항공기는 원칙적으로 적용 제외이나, 다음은 <strong>예외로 적용</strong>: ① 사람이 사망 또는 행방불명, ② 수리·개조가 불가능하게 파손, ③ 위치 확인 불가 또는 접근 불가. "정비 결함으로 비행금지 명령"은 적용 사유가 아니다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q3</span><div class="q-text">사고조사법을 <span class="neg">적용할 수 없는</span> 경우는? (§3①)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">외국 국적 항공기가 대한민국 영역 밖에서 발생시킨 항공사고</span></div>
+        <div class="exp">적용 범위: ① 대한민국 영역 <strong>안</strong>에서 발생한 사고(국적 불문), ② 대한민국 영역 <strong>밖</strong>이라도 「국제민간항공조약」에 의해 대한민국을 관할권으로 하는 사고. 외국 국적 항공기가 영역 밖에서 일으킨 사고는 적용 대상이 아니다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q4</span><div class="q-text">사고조사법 적용 특례(적용 예외) 대상 항공기에 <span class="neg">해당하지 않는</span> 것은? (항공안전법 §3)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">소방용 항공기 (→ 적용 대상)</span></div>
+        <div class="exp">적용 특례(예외) 대상: <strong>군용항공기, 세관·경찰 항공기, 한미상호방위조약 제4조에 따라 미국이 사용하는 항공기.</strong> 소방·세관·경찰 등 국가기관등 항공기 중 군용 등 특례 대상이 아닌 항공기는 (예외 요건 충족 시) 적용된다. 강의 정리: <strong>국가(군용) 항공기 항공사고에는 사고조사법을 적용하지 않는다.</strong></div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q5</span><div class="q-text">항공사고 등의 발생 통보 시 반드시 포함될 사항이 <span class="neg">아닌</span> 것은? (시규 §3)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">발생 경위 (→ 통보자가 알고 있는 경우만 해당)</span></div>
+        <div class="exp">필수 포함: 사고 등의 유형, 발생 일시 및 장소, 통보자의 성명 및 연락처. <strong>"알고 있는 경우만 해당"</strong>: 기종, 발생 경위, 사상자 등 피해상황.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q6</span><div class="q-text">사고에 관해 보고를 하지 않거나 허위 보고한 자, 정당한 사유 없이 자료 제출을 거부·방해한 자에 대한 벌칙은? (§35)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">3년 이하의 징역 또는 3천만원 이하의 벌금</span></div>
+        <div class="exp">사고조사 방해의 죄(§35): 보고 미이행·허위보고, 자료제출 거부·방해, 사고현장 출입·검사 거부·방해, 관계 물건 보존·제출·유치 거부·방해, 관계 물건을 정당한 사유 없이 보존하지 않거나 이동·변경·훼손한 자 모두 <strong>3년/3천만원.</strong></div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q7</span><div class="q-text">사고가 발생한 것을 알고도 정당한 사유 없이 통보하지 않거나 거짓으로 통보한 항공·철도종사자 등에 대한 벌칙은? (§36의2)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">500만원 이하의 벌금</span></div>
+        <div class="exp">사고발생 통보 위반의 죄(§36의2). 한편 법인의 종업원 등이 §35·§36의2 위반 시 행위자 외에 법인·개인에게도 벌금형을 과하는 <strong>양벌규정(§37)</strong>이 있다(상당한 주의·감독 시 면책).</div>
+      </div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <footer>항공·철도 사고조사법 · 2026-2 · johnyejin.github.io/maintenance</footer>
+</div><!-- /wrap -->
+</div><!-- /page-accident -->
+
+<!-- ===================================================================== -->
+<!-- ============================ PAGE 2: 항공보안법 ====================== -->
+<!-- ===================================================================== -->
+<div class="page" id="page-security">
+
+<header>
+  <div class="head-inner">
+    <div class="eyebrow">2026학년도 2학기 · 항공법규 문제정리</div>
+    <h1>항공<span class="light">보안법</span></h1>
+    <p class="sub">승객·항공기 보안조치, 보안검색 주체 구분, 위해물품 휴대 금지·승객 협조 의무를 다룹니다.</p>
+    <div class="meta-row">
+      <span class="tag">보안법 §14·15</span>
+      <span class="tag">§21·23</span>
+      <span class="tag">★ 검색 주체 구분</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <button class="btn openAll">전체 펼치기</button>
+    <button class="btn closeAll">전체 접기</button>
+  </div>
+
+  <nav class="toc">
+    <h2>목차 · 항공보안법</h2>
+    <ol>
+      <li><a href="#s7"><span class="n">07</span>승객·항공기 보안 (§14)</a></li>
+      <li><a href="#s8"><span class="n">08</span>보안검색 (§15)</a></li>
+      <li><a href="#s9"><span class="n">09</span>위해물품·승객협조 (§21·23)</a></li>
+    </ol>
+  </nav>
+
+  <!-- ====================== SECTION 7 ====================== -->
+  <section class="sec" id="s7">
+    <div class="sec-head"><span class="law">보안법 §14</span><h2>승객의 안전 및 항공기의 보안</h2></div>
+    <p class="sec-note">항공운송사업자의 의무, 조종실 출입문 보안조치, 비행 전 보안점검 항목.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q1</span><div class="q-text">승객의 안전 및 항공기 보안을 위한 항공운송사업자의 의무사항을 <span class="neg">잘못</span> 설명한 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">항공기 보안을 위한 경비를 다른 사람에게 위탁할 수 없다 (→ 위탁 가능)</span></div>
+        <div class="exp">항공기 소유자·운송사업자는 「청원경찰법」 청원경찰, 「경비업법」 특수경비원으로 하여금 항공기 경비를 담당하게 할 수 있다(§14⑥). 즉 <strong>위탁 가능.</strong><br><br>옳은 의무: ② 승객 탑승 운항 시 <strong>항공기내보안요원 탑승</strong>, ③ 운항 중 무허가자 조종실 출입 통제, ④ <strong>매 비행 전 보안점검</strong> 실시.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q2</span><div class="q-text">조종실 출입문에 대한 보안조치(시규 §7①)를 <span class="neg">잘못</span> 설명한 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">국토교통부장관이 제정한 조종실 출입통제 절차를 준수할 것 (→ 절차는 항공운송사업자가 수립)</span></div>
+        <div class="exp">조종실 출입통제 <strong>절차를 마련(수립)</strong>하는 주체는 <strong>항공운송사업자</strong>이다. 나머지 옳은 조치: 임의로 열 수 없는 견고한 잠금장치 설치, 출입문 열쇠 보관방법 결정, 운항 중 조종실 출입문 잠금.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q3</span><div class="q-text">항공기 비행 전 보안점검 항목(시규 §7②)을 <span class="neg">잘못</span> 설명한 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">항공종사자 음주 측정 (→ 보안점검 항목 아님)</span></div>
+        <div class="exp">보안점검 항목: 항공기 외부 점검, 객실·좌석·화장실·조종실·승무원 휴게실 점검, 정비·서비스 업무 감독, 항공기 출입 통제, 위탁수하물·화물·물품 선적 감독, 유효 탑승권 확인 등. <strong>음주 측정은 보안점검과 무관.</strong></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ====================== SECTION 8 ====================== -->
+  <section class="sec" id="s8">
+    <div class="sec-head"><span class="law">보안법 §15</span><h2>승객 등의 검색 (보안검색)</h2></div>
+    <p class="sec-note">검색 주체(공항운영자 vs 항공운송사업자) 구분, 화물 검색방법이 핵심.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q4</span><div class="q-text">공항운영자가 보안검색을 하여야 하는 대상이 <span class="neg">아닌</span> 것은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">화물 (→ 화물은 항공운송사업자가 검색)</span></div>
+        <div class="exp">보안검색 주체 구분(§15②):</div>
+        <table class="tbl">
+          <tr><th>검색 대상</th><th>검색 주체</th></tr>
+          <tr><td>사람(신체), 휴대물품, 위탁수하물</td><td><b>공항운영자</b></td></tr>
+          <tr><td>화물</td><td><b>항공운송사업자</b></td></tr>
+        </table>
+        <div class="exp" style="margin-top:10px">공항운영자·항공운송사업자는 검색을 직접 하거나 국토부장관이 지정한 경비업체에 <strong>위탁</strong>할 수 있다(§15③).</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q5</span><div class="q-text">화물기에 탑재할 화물에 대한 보안검색 방법이 <span class="neg">아닌</span> 것은? (시행령 §12)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">척수(신체) 검사 (→ 사람에 대한 검색 방법)</span></div>
+        <div class="exp">화물 검색방법: ① 개봉검색, ② 엑스선 검색장비, ③ 폭발물 탐지·흔적탐지장비, ④ 폭발물 탐지견, ⑤ 압력실 검색. 척수(신체) 검사는 <strong>사람</strong>에 대한 검색이다.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ====================== SECTION 9 ====================== -->
+  <section class="sec" id="s9">
+    <div class="sec-head"><span class="law">보안법 §21·23</span><h2>위해물품 휴대 금지 · 승객 협조 의무</h2></div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q6</span><div class="q-text">위해물품 휴대 관련 내용으로 <span class="neg">잘못된</span> 것은? (§21)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">경호업무용 무기를 가지고 들어가려는 사람은 "탑승 후" 기장에게 보관 (→ 탑승 전)</span></div>
+        <div class="exp">제3항 특정 직무자(경호·범죄인 호송 등)는 국토부장관 허가를 받아 무기를 가지고 들어갈 수 있으나, <strong>탑승 전</strong>에 기장에게 보관하게 하고 목적지 도착 후 반환받아야 한다(§21④).<br><br>옳은 설명: 무기·독극물·폭발물 등 반입 금지(§21①), <strong>항공기내보안요원은 §21④ 단서에 따라 무기 보관 의무 예외</strong>(허가받고 탑승 가능).</div>
+        <div class="star"><div class="s-lab">★ 무기 반입 구분</div><ul>
+          <li>항공기내보안요원: 국토부 허가받아 무기 소지 탑승 가능, 기장 보관 <b>예외</b></li>
+          <li>경호·호송 직무자: 허가받되 <b>탑승 전 기장 보관 → 도착 후 반환</b></li>
+        </ul></div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q7</span><div class="q-text">승객이 항공기 운항 중 해서는 안 되는 행위가 <span class="neg">아닌</span> 것은? (§23)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">술을 마시거나 약물을 복용하는 행위 (그 자체로는 금지 아님)</span></div>
+        <div class="exp">금지행위: 폭언·고성방가 등 소란행위, 흡연, <strong>술·약물 복용 후 다른 사람에게 위해를 주는 행위</strong>, 성적 수치심 유발, 전자기기 사용(항공안전법 §73 위반), 기장 승낙 없는 조종실 출입 기도, 위계·위력으로 기장 업무 방해. 단순 음주 자체는 금지 대상이 아니며, <strong>"다른 사람에게 위해를 주는" 경우</strong>가 금지된다.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <footer>항공보안법 · 2026-2 · johnyejin.github.io/maintenance</footer>
+</div><!-- /wrap -->
+</div><!-- /page-security -->
+
+<!-- ===================================================================== -->
+<!-- ============================ PAGE 3: 항공사업법 ====================== -->
+<!-- ===================================================================== -->
+<div class="page" id="page-business">
+
+<header>
+  <div class="head-inner">
+    <div class="eyebrow">2026학년도 2학기 · 항공법규 문제정리</div>
+    <h1>항공<span class="light">사업법</span></h1>
+    <p class="sub">사업권 획득방법(면허·등록·허가·신고), 자본금 기준, 면허·등록 결격사유, 외국인 국제항공운송사업, 이용자 보호, 벌칙·보험을 정리했습니다.</p>
+    <div class="meta-row">
+      <span class="tag">면허 50억</span>
+      <span class="tag">사용 7억 / 정비 3억</span>
+      <span class="tag">이동지역 지연 3·4시간</span>
+      <span class="tag">★ 함정 보기</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <button class="btn openAll">전체 펼치기</button>
+    <button class="btn closeAll">전체 접기</button>
+  </div>
+
+  <nav class="toc">
+    <h2>목차 · 항공사업법</h2>
+    <ol>
+      <li><a href="#b0"><span class="n">·</span>핵심 참고표</a></li>
+      <li><a href="#b1"><span class="n">01</span>목적·용어·규모</a></li>
+      <li><a href="#b2"><span class="n">02</span>항공운송사업·면허</a></li>
+      <li><a href="#b3"><span class="n">03</span>외국인·외국항공기</a></li>
+      <li><a href="#b4"><span class="n">04</span>이용자 보호</a></li>
+      <li><a href="#b5"><span class="n">05</span>벌칙·보험</a></li>
+      <li><a href="#b6"><span class="n">06</span>등록·면허 절차</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============== 핵심 참고표 ============== -->
+  <section class="sec" id="b0">
+    <div class="sec-head"><span class="law">정리표</span><h2>핵심 참고표</h2></div>
+
+    <div class="star"><div class="s-lab">★ 사업권 획득 방법 (📖 p.7)</div>
+    <table class="tbl">
+      <tr><th>구분</th><th>해당 사업</th></tr>
+      <tr><td><b>면허</b></td><td>국내항공운송사업, 국제항공운송사업</td></tr>
+      <tr><td><b>등록</b></td><td>항공기사용사업, 소형항공운송사업, 항공기정비업, 항공기취급업, 항공기대여업, 초경량비행장치사용사업, 항공레저스포츠사업</td></tr>
+      <tr><td><b>허가</b></td><td>외국인 국제항공운송사업, 외국항공기의 유상운송</td></tr>
+      <tr><td><b>신고</b></td><td>상업서류 송달업</td></tr>
+    </table></div>
+
+    <div class="info"><span class="i-lab">사업별 자본금(자산평가액) 기준</span>
+    <table class="tbl" style="margin-top:4px">
+      <tr><th>사업</th><th>자본금</th><th>근거</th></tr>
+      <tr><td>항공운송사업(국내·국제)</td><td><b>50억원 이상</b></td><td>법 §8 (p.10)</td></tr>
+      <tr><td>항공기사용사업</td><td><b>7억원 이상</b></td><td>법 §30 (p.14)</td></tr>
+      <tr><td>항공기정비업</td><td><b>3억원 이상</b></td><td>법 §42 (p.17)</td></tr>
+      <tr><td>초경량비행장치사용사업</td><td><b>3천만원 이상</b></td><td>법 §48 (p.21)</td></tr>
+    </table></div>
+
+    <div class="star"><div class="s-lab">★ 이동지역 지연 금지 핵심 숫자 (📖 p.27, §61의2)</div>
+    <table class="tbl">
+      <tr><th>항목</th><th>기준</th></tr>
+      <tr><td>기내 대기 한계 — 국내</td><td><b>3시간</b></td></tr>
+      <tr><td>기내 대기 한계 — 국제</td><td><b>4시간</b></td></tr>
+      <tr><td>사유·진행상황 고지</td><td><b>30분마다 (→ 승객에게)</b></td></tr>
+      <tr><td>음식물 제공</td><td><b>2시간 초과 시</b></td></tr>
+    </table></div>
+  </section>
+
+  <!-- ============== 7.1~7.3 목적·용어·규모 ============== -->
+  <section class="sec" id="b1">
+    <div class="sec-head"><span class="law">§1·2</span><h2>목적 · 용어 · 규모</h2></div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q1</span><div class="q-text">항공사업법의 <span class="neg">목적이 아닌</span> 것은? (📖 p.2)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">④ 항공기·경량항공기·초경량비행장치의 안전하고 효율적인 항행 방법 규정</span></div>
+        <div class="exp">④는 <strong>「항공안전법」</strong>의 목적이다. 항공사업법의 목적: ① 항공사업의 체계적 성장·경쟁력 강화 기반 마련, ② 질서유지 및 건전한 발전 도모, ③ 국민경제 발전과 공공복리 증진 이바지.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q2</span><div class="q-text">국내항공운송사업용 항공기 <span class="neg">규모에 해당되지 않는</span> 것은? (📖 p.5, 시행규칙 §2)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">② 여객 운송 사업: 최대이륙중량 3만 5천kg 초과</span></div>
+        <div class="exp"><strong>여객</strong> 사업 기준은 "좌석 수 51석 이상", <strong>화물</strong> 사업 기준이 "최대이륙중량 2만 5천kg 초과"다. ②처럼 여객 사업에 최대이륙중량 기준을 붙이면 틀린 보기. (조종실과 객실 또는 화물칸이 분리된 구조일 것은 옳음)</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============== 7.4 항공운송사업·면허 ============== -->
+  <section class="sec" id="b2">
+    <div class="sec-head"><span class="law">§7~11</span><h2>항공운송사업 · 면허</h2></div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q3</span><div class="q-text">국토교통부장관의 <span class="neg">면허</span>를 받아야 하는 항공사업은? (📖 p.7)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">국내항공운송사업 / 국제항공운송사업</span></div>
+        <div class="exp">유일하게 <strong>면허</strong> 사항. 항공기사용사업·항공기정비업은 등록, 외국인 국제항공운송사업은 허가 사항이다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q4</span><div class="q-text">항공운송사업 면허 기준의 <span class="neg">자본금</span>은? (📖 p.10, 법 §8)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">50억원 이상</span></div>
+        <div class="exp">참고: 항공기사용사업 7억, 항공기정비업 3억, 초경량비행장치사용사업 3천만원.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q5</span><div class="q-text">국내·국제항공운송사업 면허의 <span class="neg">결격사유에 해당되지 않는</span> 것은? (📖 p.11, 법 §9)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">④ 항공운송사업자가 "피성년후견인이 되어" 면허 취소처분을 받은 후 2년이 지나지 아니한 사람</span></div>
+        <div class="exp">실제 결격사유는 "면허·등록 <strong>취소처분을 받은 후 2년</strong> 미경과자"일 뿐이다. ④는 "피성년후견인이 되어"라는 <strong>없는 조건</strong>을 끼워 넣은 함정. (옳은 결격사유: 등록 제한자, 피성년/피한정후견인·미복권 파산자, 금고 이상 실형 후 3년 미경과자)</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q6</span><div class="q-text">항공기정비업 <span class="neg">등록을 할 수 있는</span> 사람·단체는? (📖 p.18, 법 §42)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">대한민국 국민이 아닌 사람(외국인)</span></div>
+        <div class="exp">항공기정비업 등록 제한은 법 §9 2~6호를 준용하되 <strong>"법인 임원 중 외국인이 있는 경우는 제외"</strong>한다. 즉 정비업은 외국인·외국인 임원 법인도 등록 가능. (파산 미복권자·피성년/피한정후견인은 등록 불가)</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q7</span><div class="q-text">외국 법인이 국내발착 국제 유상운송을 하려면 필요한 조치는? (📖 p.23, 법 §54)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">외국인 국제항공운송사업으로 국토교통부장관의 허가를 받는다</span></div>
+        <div class="exp">외국인·외국법인 등은 면허 대상이 아니며, 허가를 받아 외국인 국제항공운송사업을 수행한다.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============== 7.6 외국인·외국항공기 ============== -->
+  <section class="sec" id="b3">
+    <div class="sec-head"><span class="law">§54·55</span><h2>외국인 국제항공운송사업 · 외국항공기</h2></div>
+    <p class="sec-note">§54(외국인 국제항공운송사업)와 §55(외국항공기 유상운송)의 허가기준을 서로 섞은 함정에 주의.</p>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q8</span><div class="q-text">외국인 국제항공운송사업 <span class="neg">허가기준을 잘못</span> 설명한 것은? (📖 p.24, 법 §54②)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">"운항 안전성이 표준에 부합하여 항공안전법에 따른 운항증명을 받았을 것"</span></div>
+        <div class="exp">정확히는 <strong>운항증명승인(運航證明承認)</strong>을 받아야 한다. 외국 항공사는 우리나라 취항을 위해 운항증명<strong>승인</strong>이 필요하며, "승인"을 빼면 틀린 보기. (옳은 기준: 항공협정에 따라 해당 국가로부터 사업자로 지정, 협정에 적합, 원활한 국제 운송 목적)</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q9</span><div class="q-text">외국항공기 <span class="neg">유상운송 허가기준을 잘못</span> 설명한 것은? (📖 p.25, 법 §55②)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">"해당 국가로부터 국제항공운송사업자로 지정받은 자일 것"</span></div>
+        <div class="exp">이건 <strong>외국인 국제항공운송사업(§54)</strong> 허가기준이지, <strong>외국항공기 유상운송(§55)</strong> 기준이 아니다. 두 조문 기준을 섞은 함정. (§55 옳은 기준: 항공협정에 따른 정기편 운항을 보완, 안전성 표준 부합, 원활한 국제 운송 목적)</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q10</span><div class="q-text">외국 국적 항공기가 허가받아 수행할 수 있는 <span class="neg">유상운송 항행에 해당되지 않는</span> 것은? (📖 p.25, 법 §55 / 항공안전법 §100①)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">④ 대한민국에 착륙하지 않고 영공만 통과하여 다시 외국에 착륙하는 항행</span></div>
+        <div class="exp">외국항공기 유상운송은 항공안전법 §100① <strong>1호·2호만</strong> 해당된다(외국→대한민국 착륙, 대한민국→외국 착륙, 그와 관련한 국내 각 지역 간 항행). ④(단순 영공 통과 = 3호)는 허가 대상 항행이 아니다.</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============== 7.7 이용자 보호 ============== -->
+  <section class="sec" id="b4">
+    <div class="sec-head"><span class="law">§61의2</span><h2>항공교통이용자 보호</h2></div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q11</span><div class="q-text">이동지역 지연 금지 사항을 <span class="neg">바르게</span> 설명한 것은? (📖 p.27, 법 §61의2)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">④ 대기시간이 2시간을 초과하면 항공교통이용자에게 적절한 음식물 제공</span></div>
+        <div class="exp">틀린 보기들: ① 국내선 4시간 → ✗ (국내는 <strong>3시간</strong>), ② 기장 의견으로 3시간 이상 대기 → ✗ (판단 주체는 <strong>관계 기관의 장</strong>), ③ 국토부장관에게 30분마다 보고 → ✗ (<strong>승객에게</strong> 30분마다 고지).</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============== 벌칙·보험 ============== -->
+  <section class="sec" id="b5">
+    <div class="sec-head"><span class="law">§70 등</span><h2>벌칙 · 보험</h2></div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q12</span><div class="q-text">보조금·융자자금을 거짓·부정한 방법으로 교부받은 경우 처벌은?</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">5년 이하의 징역 또는 5천만원 이하의 벌금</span></div>
+        <div class="exp">(강의 메모: 벌금 부분은 강의에서 별도로 다루지 않았고, 5년 징역은 이전 시간에 언급된 내용.)</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q13</span><div class="q-text">항공보험 <span class="neg">의무가입 대상자가 아닌</span> 것은? (📖 p.30, 법 §70)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">항공기정비업자</span></div>
+        <div class="exp">의무가입 대상: 항공운송사업자 / 항공기 소유자(또는 사용 비행자) / 경량항공기 소유자. <strong>항공기정비업자는 대상이 아니다.</strong></div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ============== 등록·면허 절차 ============== -->
+  <section class="sec" id="b6">
+    <div class="sec-head"><span class="law">§7·11·12</span><h2>등록·면허 절차 · 사업계획</h2></div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q14</span><div class="q-text">국토교통부장관에게 <span class="neg">등록이 필요한 사업이 아닌</span> 것은? (📖 p.7)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">외국인 국제항공운송사업 (→ 허가 사항)</span></div>
+        <div class="exp">항공기사용사업·항공기정비업·항공기취급업은 모두 등록 사항이나, 외국인 국제항공운송사업은 <strong>허가</strong> 사항이다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q15</span><div class="q-text">국내·국제항공운송사업 절차를 <span class="neg">잘못</span> 설명한 것은? (📖 p.8, 법 §7)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">② 면허받은 자가 정기편 운항을 하려면 국토부장관 허가를 "받은 것으로 본다"</span></div>
+        <div class="exp">정기편 운항은 <strong>노선별로</strong> 허가를 <strong>"받아야 한다."</strong> 옳은 설명: ① 국제 면허를 받으면 국내 면허를 받은 것으로 본다, ③ 부정기편 운항은 허가를 받아야 한다, ④ 신청서에 사업운영계획서 첨부 제출.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q16</span><div class="q-text">취항 중인 정기편 노선에 <span class="neg">부정기편을 추가 운항</span>하려는 절차는? (📖 p.8, 법 §7③)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">국토교통부장관에게 별도의 허가를 받아야 한다</span></div>
+        <div class="exp">기존 정기편 노선이라도 부정기편 운항은 별도 허가 대상이다.</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q17</span><div class="q-text">항공기사고 시 <span class="neg">지원계획서에 포함되지 않는</span> 것은? (📖 p.12, 법 §11②)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">② 피해자별 구호 및 피해상황별 보상금액</span></div>
+        <div class="exp">법문은 "피해자의 구호 및 <strong>보상절차</strong>에 관한 사항"이다. <strong>보상금액</strong>은 포함 항목이 아니다. (포함: 사고대책본부 설치·운영, 유해·유품의 식별·확인·관리·인도, 피해자 가족 통지·지원)</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q18</span><div class="q-text">사업계획대로 수행하지 않아도 되는 <span class="neg">예외사항으로 적합하지 않은</span> 것은? (📖 p.13, 법 §12①)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">② 안전운항을 위한 "예견된 정비"</span></div>
+        <div class="exp">법문은 "안전운항을 위한 정비로서 <strong>예견하지 못한 정비</strong>"다. "예견된 정비"는 예외사유가 아니다. (예외: 기상악화, 천재지변, 불가피한 항공기 접속관계 등)</div>
+      </div></div>
+    </div>
+
+    <div class="q">
+      <div class="q-head"><span class="q-num">Q19</span><div class="q-text">사업계획 변경인가를 <span class="neg">받은 것으로 간주되는 비사업 목적 운항에 해당되지 않는</span> 것은? (📖 p.13, 법 §12④)</div><span class="q-toggle">＋</span></div>
+      <div class="q-body"><div class="q-body-inner">
+        <div class="ans"><span class="lab">ANSWER</span><span class="val">④ 항공기 사고 수습 후 유상으로 사람·화물을 수송하기 위한 비행</span></div>
+        <div class="exp">법문 4호는 "구조대원·긴급구호물자 등 <strong>무상으로</strong> 수송하기 위한 비행"이다. <strong>유상</strong> 수송은 곧 사업 목적이므로 비사업 목적 운항이 아니다. (해당: 정비를 위한 공수비행, 정비 후 성능점검 시험비행, 교체공항 회항기의 목적공항 비행)</div>
+      </div></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <footer>항공사업법 · 2026-2 · johnyejin.github.io/maintenance</footer>
+</div><!-- /wrap -->
+</div><!-- /page-business -->
+
+</div><!-- /main -->
+
+<script>
+// 카드 펼치기/접기
+document.querySelectorAll('.q-head').forEach(h=>{
+  h.addEventListener('click',()=>h.parentElement.classList.toggle('open'));
+});
+// 현재 보이는 페이지 기준 전체 펼치기/접기
+document.querySelectorAll('.openAll').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelector('.page.active').querySelectorAll('.q').forEach(q=>q.classList.add('open'));
+  });
+});
+document.querySelectorAll('.closeAll').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelector('.page.active').querySelectorAll('.q').forEach(q=>q.classList.remove('open'));
+  });
+});
+
+// 페이지 전환
+const pages={safety:'page-safety',security:'page-security',business:'page-business',accident:'page-accident'};
+function showPage(key){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pages[key]).classList.add('active');
+  document.querySelectorAll('.nav-btn[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===key));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(history.replaceState) history.replaceState(null,'','#'+key);
+  closeSidebar();
+}
+document.querySelectorAll('.nav-btn[data-page]').forEach(b=>{
+  b.addEventListener('click',()=>showPage(b.dataset.page));
+});
+// 최초 진입 시 해시(#safety/#security/#business) 반영
+const initHash=location.hash.replace('#','');
+if(pages[initHash]) showPage(initHash);
+
+// 모바일 사이드바 토글
+const sidebar=document.getElementById('sidebar');
+const backdrop=document.getElementById('sbBackdrop');
+function openSidebar(){sidebar.classList.add('open');backdrop.classList.add('show');}
+function closeSidebar(){sidebar.classList.remove('open');backdrop.classList.remove('show');}
+document.getElementById('sbToggle').addEventListener('click',openSidebar);
+backdrop.addEventListener('click',closeSidebar);
+</script>
+</body>
+</html>
