@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>항공정비일반 · 안전 · 인적요인 · 항공기 검사</title>
+<style>
+  :root{
+    --bg:#0d1320;
+    --bg2:#121a2b;
+    --panel:#161f33;
+    --panel2:#1c283f;
+    --line:#2a3650;
+    --txt:#e7ecf5;
+    --muted:#9aa8c2;
+    --amber:#f5b301;
+    --amber-d:#caa000;
+    --red:#ef5350;
+    --red-bg:#3a1c1f;
+    --teal:#2dd4bf;
+    --teal-bg:#13302d;
+    --blue:#5aa0f2;
+    --blue-bg:#16243f;
+    --green:#4ade80;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Segoe UI",system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--txt);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== Sidebar ===== */
+  .sidebar{
+    position:fixed;top:0;left:0;width:288px;height:100vh;
+    background:linear-gradient(180deg,#101728,#0c1220);
+    border-right:1px solid var(--line);
+    display:flex;flex-direction:column;
+    z-index:50;overflow-y:auto;
+  }
+  .sb-brand{padding:22px 22px 16px;border-bottom:1px solid var(--line);}
+  .sb-brand .tag{font-size:.72rem;letter-spacing:.18em;color:var(--amber);font-weight:700;}
+  .sb-brand h1{margin:6px 0 0;font-size:1.18rem;font-weight:800;letter-spacing:-.01em;}
+  .sb-brand .en{font-size:.74rem;color:var(--muted);margin-top:2px;}
+
+  .home-btn{
+    display:flex;align-items:center;gap:9px;margin:16px 16px 6px;
+    padding:11px 14px;border-radius:10px;text-decoration:none;
+    background:var(--panel);border:1px solid var(--line);color:var(--txt);
+    font-size:.86rem;font-weight:600;transition:.18s;
+  }
+  .home-btn:hover{background:var(--panel2);border-color:var(--amber);color:var(--amber);}
+  .home-btn svg{flex:none;}
+
+  .nav{padding:8px 12px 30px;}
+  .nav-group-label{
+    font-size:.7rem;letter-spacing:.16em;color:var(--muted);
+    font-weight:700;padding:14px 12px 6px;text-transform:uppercase;
+  }
+  .nav a{
+    display:block;padding:10px 13px;margin:3px 0;border-radius:9px;
+    color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;
+    border:1px solid transparent;transition:.15s;
+  }
+  .nav a:hover{background:var(--panel);color:var(--txt);}
+  .nav a.active{background:var(--blue-bg);color:#fff;border-color:#2c4f86;font-weight:700;}
+  .nav a.sub{margin-left:14px;padding-left:24px;font-size:.86rem;position:relative;}
+  .nav a.sub::before{content:"";position:absolute;left:11px;top:50%;width:6px;height:6px;border-radius:50%;background:var(--line);transform:translateY(-50%);}
+  .nav a.sub.active::before{background:var(--teal);}
+
+  /* ===== Main ===== */
+  .main{margin-left:288px;padding:46px 56px 90px;max-width:1080px;}
+  .page{display:none;animation:fade .35s ease;}
+  .page.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+  .page-head{margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid var(--line);}
+  .page-head .kicker{font-size:.74rem;letter-spacing:.16em;font-weight:700;color:var(--amber);}
+  .page-head h2{margin:8px 0 4px;font-size:2rem;font-weight:850;letter-spacing:-.02em;}
+  .page-head .en{color:var(--muted);font-size:.92rem;}
+
+  h3{
+    font-size:1.32rem;font-weight:800;margin:42px 0 14px;
+    padding-left:13px;border-left:4px solid var(--amber);letter-spacing:-.01em;
+  }
+  h4{font-size:1.05rem;font-weight:750;margin:24px 0 10px;color:#fff;}
+  .sub-en{color:var(--muted);font-size:.85rem;font-weight:600;margin-left:8px;}
+
+  p{margin:10px 0;}
+  .lead{color:var(--muted);font-size:1.02rem;margin-bottom:8px;}
+  strong{color:#fff;}
+  .hl{color:var(--amber);font-weight:700;}
+  .hl-r{color:var(--red);font-weight:700;}
+  .hl-t{color:var(--teal);font-weight:700;}
+
+  ul.clean{list-style:none;padding:0;margin:12px 0;}
+  ul.clean li{position:relative;padding:7px 0 7px 26px;border-bottom:1px solid rgba(255,255,255,.04);}
+  ul.clean li::before{content:"";position:absolute;left:4px;top:15px;width:8px;height:8px;border-radius:2px;background:var(--amber);}
+  ul.clean li:last-child{border-bottom:none;}
+
+  /* cards */
+  .grid{display:grid;gap:16px;margin:18px 0;}
+  .g2{grid-template-columns:repeat(2,1fr);}
+  .g3{grid-template-columns:repeat(3,1fr);}
+  .g4{grid-template-columns:repeat(4,1fr);}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 18px 16px;
+  }
+  .card .ico{font-size:1.5rem;line-height:1;}
+  .card h5{margin:10px 0 6px;font-size:1.02rem;font-weight:750;}
+  .card p{margin:0;font-size:.9rem;color:var(--muted);}
+  .card.accent{border-top:3px solid var(--amber);}
+  .card.red{border-top:3px solid var(--red);}
+  .card.teal{border-top:3px solid var(--teal);}
+  .card.blue{border-top:3px solid var(--blue);}
+
+  /* callouts */
+  .callout{border-radius:12px;padding:14px 18px;margin:18px 0;border:1px solid;}
+  .callout .ct{font-weight:750;display:block;margin-bottom:3px;}
+  .callout.danger{background:var(--red-bg);border-color:#7a3034;}
+  .callout.danger .ct{color:#ff9b9b;}
+  .callout.info{background:var(--blue-bg);border-color:#2c4f86;}
+  .callout.info .ct{color:#9cc3ff;}
+  .callout.tip{background:var(--teal-bg);border-color:#2a6b62;}
+  .callout.tip .ct{color:#84e7da;}
+
+  /* exam box */
+  .exam{
+    background:linear-gradient(180deg,#241e08,#1c1805);
+    border:1px solid var(--amber-d);border-left:5px solid var(--amber);
+    border-radius:12px;padding:16px 18px;margin:20px 0;
+  }
+  .exam .et{color:var(--amber);font-weight:800;letter-spacing:.02em;display:flex;align-items:center;gap:7px;margin-bottom:6px;}
+  .exam ul{margin:4px 0 0;padding-left:20px;}
+  .exam ul li{margin:5px 0;}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.92rem;overflow:hidden;border-radius:12px;}
+  th,td{padding:12px 14px;text-align:left;border:1px solid var(--line);vertical-align:top;}
+  th{background:var(--panel2);color:#fff;font-weight:750;}
+  td{background:var(--panel);color:var(--txt);}
+  td.k{color:var(--amber);font-weight:700;white-space:nowrap;}
+
+  /* fire class chips */
+  .fire-row{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0;}
+  .fire{flex:1;min-width:150px;border-radius:12px;padding:14px;text-align:center;border:1px solid var(--line);}
+  .fire .lt{font-size:1.7rem;font-weight:900;}
+  .fA .lt{color:#4ade80;} .fB .lt{color:#ef5350;} .fC .lt{color:#5aa0f2;} .fD .lt{color:#caa46b;}
+  .fire .ds{font-size:.85rem;color:var(--muted);margin-top:4px;}
+
+  .stat{display:flex;align-items:baseline;gap:14px;margin:8px 0;}
+  .stat .big{font-size:3.4rem;font-weight:900;color:var(--amber);line-height:1;}
+  .stat .lbl{color:var(--muted);font-weight:600;}
+
+  .pass{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0;}
+  .pass .p{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;}
+  .pass .p .ltr{font-size:1.5rem;font-weight:900;color:var(--amber);}
+  .pass .p .nm{font-weight:750;margin:4px 0 2px;}
+  .pass .p .dc{font-size:.84rem;color:var(--muted);}
+
+  .dd-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--teal-bg);color:var(--teal);font-weight:800;font-size:.85rem;border:1px solid #2a6b62;margin-right:8px;}
+
+  .footer-note{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.8rem;}
+
+  /* mobile */
+  .menu-toggle{display:none;}
+  @media(max-width:920px){
+    .sidebar{transform:translateX(-100%);transition:.25s;}
+    .sidebar.open{transform:none;}
+    .main{margin-left:0;padding:70px 20px 80px;}
+    .menu-toggle{
+      display:flex;position:fixed;top:14px;left:14px;z-index:60;
+      width:44px;height:44px;border-radius:10px;background:var(--panel);
+      border:1px solid var(--line);color:var(--amber);align-items:center;justify-content:center;cursor:pointer;
+    }
+    .g2,.g3,.g4,.pass{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle" aria-label="메뉴">☰</button>
+
+<!-- ===================== SIDEBAR ===================== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sb-brand">
+    <div class="tag">AVIATION MAINTENANCE</div>
+    <h1>항공정비일반</h1>
+    <div class="en">안전 · 인적요인 · 항공기 검사</div>
+  </div>
+
+  <a class="home-btn" href="https://johnyejin.github.io/maintenance/">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5"/><path d="M5 9v11h14V9"/><path d="M9 20v-6h6v6"/></svg>
+    홈으로 돌아가기
+  </a>
+
+  <nav class="nav">
+    <div class="nav-group-label">1. 항공 안전 및 지상 조업</div>
+    <a href="#safety" data-page="safety">항공 안전 및 지상 조업 교육</a>
+
+    <div class="nav-group-label">2. 인적요인 (Human Factors)</div>
+    <a href="#hf-basics" data-page="hf-basics" class="sub">인적요인의 기초와 역사</a>
+    <a href="#hf-pear" data-page="hf-pear" class="sub">PEAR 모델과 인적요인 도구</a>
+    <a href="#hf-dd" data-page="hf-dd" class="sub">더티 도즌 (Dirty Dozen)</a>
+
+    <div class="nav-group-label">3. 항공기 검사</div>
+    <a href="#inspection-concept" data-page="inspection-concept" class="sub">항공기 검사 개념과 기법</a>
+    <a href="#ndi" data-page="ndi" class="sub">비파괴 검사 (NDI)</a>
+  </nav>
+</aside>
+
+<main class="main">
+
+<!-- ===================== PAGE 1 : SAFETY ===================== -->
+<section class="page" id="page-safety" data-page="safety">
+  <div class="page-head">
+    <div class="kicker">CHAPTER 1</div>
+    <h2>항공 안전 및 지상 조업 교육</h2>
+    <div class="en">Safety, Ground Operation &amp; Servicing</div>
+  </div>
+
+  <p class="lead">정비사는 작업 시간의 대부분을 <strong>지상</strong>에서 보냅니다. 즉 <span class="hl">지상 안전이 곧 전체 안전</span>입니다. 익숙한 작업이라도 항상 위험이 존재함을 인지하고, 사소한 안전 수칙이라도 철저히 숙지·준수하는 것이 정비사의 기본 의무입니다.</p>
+
+  <div class="exam">
+    <div class="et">★ 학습 목표</div>
+    <ul>
+      <li>항공기 주변의 다양한 <strong>위험 요소(Hazard)</strong>를 식별하고 이해한다.</li>
+      <li>안전한 항공기 정비를 위한 <strong>표준 절차(Standard Procedure)</strong>를 숙지한다.</li>
+      <li>지상 조업 시 발생할 수 있는 사고를 예방하는 <strong>안전 수칙</strong>을 습득한다.</li>
+    </ul>
+  </div>
+
+  <!-- ===== PART A : 작업장 안전 ===== -->
+  <h3>1) 작업장 안전 (Shop Safety)</h3>
+
+  <h4>정리정돈의 기본 수칙</h4>
+  <ul class="clean">
+    <li><strong>공구 관리</strong> : 퇴근 시 모든 공구는 분리하여 정해진 위치에 보관합니다.</li>
+    <li><strong>시설 정리</strong> : 사용한 호스와 전기 코드는 꼬임 없이 정리되었는지 확인합니다.</li>
+    <li><strong>청결 유지</strong> : 작업 공간의 <span class="hl">이물질(FOD, Foreign Object Damage) 제거</span>는 사고 예방의 핵심입니다.</li>
+  </ul>
+  <div class="callout tip"><span class="ct">깨끗한 작업장이 안전한 항공기를 만듭니다.</span></div>
+
+  <h4>안전 표시 및 설비</h4>
+  <div class="grid g3">
+    <div class="card accent"><div class="ico">⚠️</div><h5>위험 고지</h5><p>위험 장비 주변에는 눈에 띄는 경고 표지판을 게시합니다.</p></div>
+    <div class="card accent"><div class="ico">🧰</div><h5>구급함 위치</h5><p>비상시 즉각 사용 가능하도록 위치를 명확히 표시합니다.</p></div>
+    <div class="card accent"><div class="ico">🧯</div><h5>소방 설비</h5><p>소화기 등 소방 시설의 위치를 모든 작업자가 숙지해야 합니다.</p></div>
+  </div>
+
+  <h4>안전 통로 확보 <span class="sub-en">격납고 바닥의 시각적 가이드라인</span></h4>
+  <ul class="clean">
+    <li><strong>보행자 인도</strong> : 보행자 전용 통로를 <span class="hl">노란색 또는 흰색 페인트(작업장과는 다른 색)</span>로 표시합니다.</li>
+    <li><strong>소방 도로</strong> : 비상 차량 진입을 위해 항상 비워 두어야 하는 소방 도로를 명시합니다.</li>
+  </ul>
+
+  <h4>의사소통과 책임</h4>
+  <div class="grid g3">
+    <div class="card"><h5>공동의 책임</h5><p>안전은 관리자만이 아닌 작업장 내 모든 구성원의 공통된 책임입니다.</p></div>
+    <div class="card"><h5>적극적 소통</h5><p>동료의 불안전한 행동을 발견하면 사고 예방을 위해 즉시 조언하고 소통합니다.</p></div>
+    <div class="card"><h5>위험 보고</h5><p>잠재적인 위험 요소는 즉시 보고하여 개선될 수 있도록 조치합니다.</p></div>
+  </div>
+
+  <h3>2) 개인 보호 장구 (PPE, Personal Protective Equipment)</h3>
+  <table>
+    <thead><tr><th>장구</th><th>용도</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Hi-Vis Clothing<br>고시인성 의복/안전 조끼</td><td>형광색 바탕에 빛 반사 띠가 부착되어, 작업자의 위치를 쉽게 인지할 수 있도록 돕는 의류.</td></tr>
+      <tr><td class="k">Safety Footwear<br>안전화</td><td>무거운 공구·부품이 발에 떨어지거나 날카로운 물체에 찔리는 것을 방지. 발가락 부분에 철판이 들어있고 바닥이 튼튼하게 설계됨.</td></tr>
+      <tr><td class="k">Safety Harnesses<br>안전대/추락 방지 하네스</td><td>항공기 동체 위 등 고소(高所)에서 작업할 때 추락 사고 방지. 몸에 착용하고 튼튼한 구조물에 고리를 걸어 고정.</td></tr>
+      <tr><td class="k">Eye Protection<br>보안경</td><td>비산물(튀어 오르는 파편), 먼지, 유해 화학 물질로부터 눈을 보호.</td></tr>
+      <tr><td class="k">Gloves<br>안전장갑</td><td>날카로운 모서리나 뜨거운 부품을 만질 때 손 피부 보호 및 미끄러짐 방지.</td></tr>
+      <tr><td class="k">Safety Helmets<br>안전모</td><td>위에서 떨어지는 물체나 튀어나온 구조물로부터 머리 보호.</td></tr>
+      <tr><td class="k">Hearing Protection<br>청력 보호구/귀덮개</td><td>소음이 매우 심한 구역에서 소음성 난청으로부터 청력 보호.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3) 전기 안전 (Electrical Safety)</h3>
+  <h4>전류가 인체에 미치는 영향</h4>
+  <div class="grid g3">
+    <div class="card red"><div class="ico">🔥</div><h5>화상 위험</h5><p>전류가 흐르는 부위에 접촉 시 심각한 피부 및 내부 조직 화상.</p></div>
+    <div class="card red"><div class="ico">🧠</div><h5>신경계 손상</h5><p>전기신호가 신경계에 전달되면 마비 또는 영구적 손상 발생.</p></div>
+    <div class="card red"><div class="ico">💔</div><h5>심정지 및 사망</h5><p>강한 전류는 심장 박동을 멈추게 하여 단시간 내 사망에 이를 수 있음.</p></div>
+  </div>
+
+  <div class="exam">
+    <div class="et">★ 전기 사고의 주요 원인</div>
+    <div class="stat"><span class="big">90%</span><span class="lbl">전기 사고는 <strong>인적 요인</strong>에 의해 발생</span></div>
+    <ul>
+      <li><strong>자만심</strong> : "나는 괜찮겠지"라는 생각이 가장 위험.</li>
+      <li><strong>지식 부족</strong> : 전기 설비에 대한 이해 없이 무리하게 작업 수행.</li>
+      <li><strong>부주의</strong> : 기본적인 절연 절차를 무시하고 작업.</li>
+    </ul>
+  </div>
+
+  <h4>전기 화재 예방 수칙</h4>
+  <ul class="clean">
+    <li><strong>전선 꼬임(Kink) 확인</strong> : 전선이 꺾이거나 꼬이면 과열되어 화재 원인이 됨.</li>
+    <li><strong>가연성 물질 제거</strong> : 전기 스파크가 튈 수 있는 곳 주변에 불붙기 쉬운 물건을 두지 않음.</li>
+    <li><strong>정기 점검</strong> : 피복 손상이나 노후된 플러그는 발견 즉시 교체.</li>
+  </ul>
+
+  <h3>4) 고압가스 · 타이어 · 화학물질 취급</h3>
+  <h4>고압가스 취급 안전</h4>
+  <ul class="clean">
+    <li><strong>호스 마모 검사</strong> : 압축 공기 호스의 마모 상태를 주기적으로 체크.</li>
+    <li><strong>누설 방지</strong> : 미세한 누설이라도 고압 하에서는 큰 위험이 되므로 철저히 차단.</li>
+    <li><strong>사용 금지</strong> : 절대 먼지 제거용으로 신체에 분사하지 않음.</li>
+  </ul>
+  <div class="callout danger"><span class="ct">⚠ 절대 금지</span>압축 공기를 신체에 분사하면 <strong>혈관 내 공기 주입(공기 색전)</strong> 위험이 있습니다.</div>
+
+  <h4>항공기 타이어 취급</h4>
+  <ul class="clean">
+    <li><strong>Tire Cage 사용</strong> : 타이어 팽창 작업 시 반드시 안전망(Cage) 안에서 작업.</li>
+    <li><strong>과팽창 주의</strong> : 규정 압력을 초과하지 않도록 압력계를 수시로 확인.</li>
+    <li><strong>측면 대기</strong> : 타이어 정면보다 측면에서 작업하여 폭발 시 피해 최소화.</li>
+  </ul>
+
+  <h4>MSDS 및 경고 표지</h4>
+  <div class="callout info"><span class="ct">MSDS (Material Safety Data Sheet) · 물질안전보건자료</span>화학물질의 "설명서". 취급하는 화학물질의 위험성과 안전 정보를 담은 문서입니다.</div>
+  <ul class="clean">
+    <li><strong>용기 표기</strong> : 명칭, 그림 문자, 신호어를 반드시 부착.</li>
+    <li><strong>유해 문구</strong> : 위험성 및 응급처치 요령을 명시해야 함.</li>
+  </ul>
+
+  <h3>5) 공작기계 및 작업 안전</h3>
+  <h4>드릴 및 선반 작업 안전</h4>
+  <ul class="clean">
+    <li><strong>보안경 착용</strong> : 회전 시 튀는 칩(Chip)으로부터 눈을 보호.</li>
+    <li><strong>척(Chuck) 주의</strong> : 회전 중인 척을 절대 손으로 잡지 않음.</li>
+    <li><strong>복장 점검</strong> : 헐렁한 옷이나 장신구는 말려 들어갈 위험이 있으므로 금지.</li>
+  </ul>
+  <h4>밀링, 연삭 및 용접 안전</h4>
+  <ul class="clean">
+    <li><strong>결함 확인</strong> : 작업 전 밀링커터나 연삭숫돌의 균열 여부를 반드시 점검.</li>
+    <li><strong>화재 예방</strong> : 용접 작업 전 주변 가연성 물질을 제거하고 방화 천 사용.</li>
+    <li><strong>인가자 전용</strong> : 훈련받고 허가된 사람만 용접 및 공작기계를 조작.</li>
+  </ul>
+  <div class="callout tip">
+    <strong>밀링: </strong>평평한면 깎아내는 작업<br>
+    <strong>연삭: </strong>표면을 부드럽게 다지는 작업
+  </div>
+
+  <!-- ===== PART B : 운항정비/지상취급 ===== -->
+  <h3>6) 비행대기선(Flight Line) 안전 수칙</h3>
+
+  <h4>① 청력 보호 (귀마개 필수)</h4>
+  <ul class="clean">
+    <li>제트 엔진, <span class="hl">보조동력장치(APU)</span> 주변은 소음이 매우 큼.</li>
+    <li>고소음 지역에서는 반드시 귀마개나 귀 덮개를 착용.</li>
+    <li>한 번 잃은 청력은 다시 돌아오지 않습니다.</li>
+  </ul>
+
+  <h4>② FOD (이물질) 예방 <span class="sub-en">Foreign Object Damage</span></h4>
+  <ul class="clean">
+    <li>FOD는 외부 이물질 때문에 비행기가 망가지는 원인이 됨.</li>
+    <li>아주 작은 쓰레기나 나사못 하나가 <strong>제트 엔진을 완전히 파괴</strong>할 수 있음.</li>
+    <li>항상 주변을 깨끗하게 청소하고 도구를 잘 관리.</li>
+    <li>램프 및 활주로 지역의 나사못 등은 <strong>타이어 손상의 주 원인</strong> → 활주로 청소시간 운영.</li>
+  </ul>
+
+  <h4>③ 엔진과 프로펠러 주변 안전</h4>
+  <div class="callout danger"><span class="ct">⚠ 절대 접근 금지 구역</span>
+    작동 중인 엔진의 <strong>앞(흡입구, Intake)</strong>과 <strong>뒤(배기구, Jet Blast)</strong>.
+    앞에서는 <span class="hl-r">빨려 들어가고</span>, 뒤에서는 <span class="hl-r">날아갈 수 있습니다</span>. 프로펠러가 도는 반경 안으로는 절대 들어가지 마세요.
+  </div>
+
+  <h4>④ 헬리콥터에 다가갈 때</h4>
+  <ul class="clean">
+    <li>조종사가 나를 볼 수 있도록 <strong>앞이나 옆</strong>에서 다가감.</li>
+    <li><span class="hl-r">꼬리 날개(Tail Rotor)</span> 쪽은 안 보이고 너무 빨라 매우 위험 — 절대 피함.</li>
+    <li>바람을 피해 몸을 낮추고 이동.</li>
+  </ul>
+
+  <h3>7) 화재(Fire)와 소화기</h3>
+  <h4>불이 나는 이유 — 화재의 3요소</h4>
+  <div class="callout info"><span class="ct">화재의 3요소 : 열(Heat) · 연료(Fuel) · 산소(Oxygen)</span>
+    열은 가연물과 접촉하면 가연성 증기를 생성하고 발화 에너지를 제공, 연료는 산소와 결합하여 연소, 산소는 지속적 연소를 촉진합니다.
+    <strong>이 세 가지 중 단 하나만 없애도 불은 꺼집니다.</strong>
+  </div>
+
+  <h4>화재의 종류</h4>
+  <div class="fire-row">
+    <div class="fire fA"><div class="lt">A급</div><div class="ds">나무·종이 같은 <strong>일반</strong> 화재</div></div>
+    <div class="fire fB"><div class="lt">B급</div><div class="ds">기름·가솔린 같은 <strong>유류</strong> 화재</div></div>
+    <div class="fire fC"><div class="lt">C급</div><div class="ds">전기가 흐르는 <strong>전기</strong> 화재</div></div>
+    <div class="fire fD"><div class="lt">D급</div><div class="ds">타기 쉬운 <strong>금속</strong> 화재</div></div>
+  </div>
+
+  <h4>소화기 종류 — 불에 맞게 사용</h4>
+  <table>
+    <thead><tr><th>소화기</th><th>특징 및 적용</th></tr></thead>
+    <tbody>
+      <tr><td class="k">물 소화기</td><td>일반 화재(A급)에만 사용. <span class="hl-r">기름·전기에는 절대 금지!</span></td></tr>
+      <tr><td class="k">CO₂ 소화기</td><td>산소를 막아 불을 끔(질식 소화).</td></tr>
+      <tr><td class="k">할론 소화기</td><td>기름·전기 화재(B·C급)에 가장 좋음.</td></tr>
+      <tr><td class="k">분말 소화기</td><td>불은 잘 끄지만, 가루가 남아 비행기 전자장비가 망가질 수 있음.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="exam">
+    <div class="et">★ 소화기 사용법 — PASS</div>
+    <div class="pass">
+      <div class="p"><div class="ltr">P</div><div class="nm">Pull · 뽑기</div><div class="dc">안전핀을 뽑는다.</div></div>
+      <div class="p"><div class="ltr">A</div><div class="nm">Aim · 겨냥</div><div class="dc">불길의 맨 밑바닥을 겨냥.</div></div>
+      <div class="p"><div class="ltr">S</div><div class="nm">Squeeze · 누르기</div><div class="dc">손잡이를 꽉 쥔다.</div></div>
+      <div class="p"><div class="ltr">S</div><div class="nm">Sweep · 쓸기</div><div class="dc">빗자루로 쓸듯 좌우로 뿌림.</div></div>
+    </div>
+  </div>
+
+  <h3>8) 항공기 고정 · 견인 · 유도</h3>
+  <h4>비행기 묶어두기 (계류, Mooring/Tie-down)</h4>
+  <ul class="clean">
+    <li>바람에 날아가거나 부서지지 않게 비행기를 단단히 고정.</li>
+    <li>비행기의 <strong>기수가 바람이 불어오는 쪽</strong>을 향하게 세움.</li>
+    <li>흔들리는 날개 부분도 고정장치로 묶어줌.</li>
+  </ul>
+
+  <h4>시동과 항공기 견인 (Towing)</h4>
+  <ul class="clean">
+    <li>엔진 시동 전, 주변에 빨려 들어갈 이물질이 없는지 확인.</li>
+    <li>시동 시 만약을 대비해 <strong>소화기 배치</strong>.</li>
+    <li>항공기 견인(Towing) 시 <span class="hl">사람 걷는 속도보다 느리게</span>.</li>
+    <li>견인봉이 없는 <strong>Towbarless Towing</strong> 방식도 사용.</li>
+  </ul>
+
+  <h4>비행기 유도 (Marshalling)</h4>
+  <ul class="clean">
+    <li>조종사가 잘 볼 수 있게 비행기 <strong>왼쪽 날개 끝 앞쪽</strong>에 위치.</li>
+    <li><strong>직진</strong> : 양팔을 위로 굽혀 앞뒤로 흔들기.</li>
+    <li><strong>정지</strong> : 양팔을 머리 위로 교차(X자).</li>
+    <li><strong>비상정지</strong> : 머리 위로 팔을 빠르게 엇갈려 신호.</li>
+    <li><strong>VDGS</strong>(Visual Docking Guidance System, 시각주기유도시스템) 활용.</li>
+  </ul>
+  <div style="border-radius:10px;padding:16px;">
+    <img src="img/marshalling1.png" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+  </div>
+  <div style="border-radius:10px;padding:16px;margin-bottom:14px;">
+    <img src="img/marshalling2.png" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+  </div>
+
+  <h3>9) 전기지상동력장치 (Electric GPU, Ground Power Unit)</h3>
+  <table>
+    <thead><tr><th>종류</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td class="k">견인식<br>(Towed item)</td><td>동력 생산을 위해 발전기를 돌리는 엔진을 탑재. 비행대기선에서 사용.</td></tr>
+      <tr><td class="k">고정식<br>(Stationary item)</td><td>시설에 들어와 있는 전력을 받아 동력 생산. 격납고 내 정비 시 사용.</td></tr>
+      <tr><td class="k">자체추진식<br>(Self-propelled item)</td><td>발전기를 구비, 넓은 범위의 출력전압과 주파수(Frequency)를 공급.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10) 항공기 연료와 급유 (Fueling)</h3>
+  <ul class="clean">
+    <li>기름 종류(가솔린, 제트연료)가 다르면 색깔도 다름.</li>
+    <li>서로 다른 연료를 절대 섞지 않음 — 엔진 고장 발생.</li>
+    <li>오일이나 타이어 공기(질소)를 채울 때도 규격을 꼭 지킴.</li>
+  </ul>
+
+  <div class="exam">
+    <div class="et">★ 급유할 때 정전기 조심! — 접지(Grounding)</div>
+    <ul>
+      <li>기름이 호스를 지날 때 <strong>정전기</strong>가 엄청나게 발생.</li>
+      <li>스파크로 인한 화재를 막으려면 <span class="hl">'접지(Grounding)'가 필수</span>.</li>
+      <li>세 곳 — <strong>비행기 · 연료차 · 땅</strong> — 을 전선으로 연결해 전기를 땅으로 흘려보냄.</li>
+    </ul>
+  </div>
+
+  <h3>11) 마무리 — 안전은 기본에서 나옵니다</h3>
+  <div class="callout tip">
+    <span class="ct">핵심 정리</span>
+    경험이나 감을 믿지 마세요. 모든 안전은 <strong>절차를 지키는 것</strong>에서 시작됩니다. 항상 <span class="hl-t">매뉴얼을 가장 먼저 확인</span>하고 그대로 따르세요.
+  </div>
+
+  <div class="footer-note">출처 : 9-1 항공 안전 및 지상 조업 교육 / 9-2 운항정비, 지상취급과 서비스 작업</div>
+</section>
+
+
+<!-- ===================== PAGE 2-1 : HF BASICS ===================== -->
+<section class="page" id="page-hf-basics" data-page="hf-basics">
+  <div class="page-head">
+    <div class="kicker">CHAPTER 2 · 인적요인 (1)</div>
+    <h2>인적요인의 기초와 역사</h2>
+    <div class="en">Human Factors — Fundamentals &amp; History</div>
+  </div>
+
+  <h3>인적요인이란 무엇일까요?</h3>
+  <p class="lead"><strong>인적요인(Human Factors)</strong>이란 항공기 사고·준사고·사고방지와 관련된 <span class="hl">인간관계 및 인간능력을 총칭</span>하는 것입니다. 피로·자만심·스트레스 등 작업자의 신체적·정신적 상태(인간의 상태)를 의미합니다.</p>
+
+  <div class="exam">
+    <div class="et">★ 가장 중요한 통계</div>
+    <div class="stat"><span class="big">80%</span><span class="lbl">항공기 정비 사고가 <strong>기계 결함이 아닌</strong> '사람의 인적요인'에 의해 발생</span></div>
+    <p style="margin:6px 0 0;color:var(--muted);">인간의 특성을 이해해야만 치명적인 사고의 고리를 끊어낼 수 있습니다.</p>
+  </div>
+
+  <h4>정비 오류 사례</h4>
+  <ul class="clean">
+    <li>부품의 부적절한 장착, 부품 누락.</li>
+    <li>필요한 점검을 수행하지 않은 경우.</li>
+  </ul>
+
+  <h3>정비사가 인적요인을 배워야 하는 이유</h3>
+  <p class="lead">항공기 정비와 검사에서 <strong>인적능력(Human Performance)</strong>에 영향을 미치는 요소들을 확인하고 최적화시키기 위함입니다.</p>
+  <div class="grid g3">
+    <div class="card teal"><div class="ico">🛡️</div><h5>대형 사고 방지</h5><p>사소한 실수를 줄이면 인명 피해로 이어지는 대형 사고를 미리 막을 수 있음.</p></div>
+    <div class="card teal"><div class="ico">🩹</div><h5>작업자 부상 감소</h5><p>불안전한 행동을 교정하고 안전 의식을 높여 정비사 부상을 크게 줄임.</p></div>
+    <div class="card teal"><div class="ico">📈</div><h5>품질 및 효율 향상</h5><p>정비 품질 향상, 재작업 감소로 정비 시간 단축 등 이점.</p></div>
+  </div>
+
+  <h3>항공정비사의 특별한 작업 환경</h3>
+  <p class="lead">항공정비사는 일반적인 직장과는 매우 다르고 가혹한 환경에서 업무를 수행합니다. 이러한 환경은 <span class="hl">인간의 한계를 시험</span>하며, 평소보다 더 많은 피로와 스트레스가 쌓여 '실수'가 발생하기 쉽습니다.</p>
+  <ul class="clean">
+    <li>늦은 밤이나 새벽 등 <strong>불규칙한 교대 근무</strong>.</li>
+    <li>여름의 폭염이나 겨울의 혹한에 노출된 야외.</li>
+    <li>신체적 움직임이 극도로 제한된 좁고 폐쇄된 공간.</li>
+    <li>항공기 운항 스케줄에 대한 <strong>압박</strong>.</li>
+  </ul>
+
+  <h3>작업만큼 중요한 '기록(문서화)'</h3>
+  <ul class="clean">
+    <li><strong>문서화의 비중</strong> : 실제 부품을 교체·수리하는 시간보다, 작업을 준비하고 기록하는 과정에 더 많은 시간을 할애.</li>
+    <li><strong>안전의 기본</strong> : 모든 정비·점검 내용을 항공기 정비 일지에 꼼꼼하게 남기는 것이 안전을 보장하는 기본 원칙.</li>
+    <li><strong>정보의 전달</strong> : 정확한 기록은 다음 교대자·작업자에게 명확한 상태를 전달하여 오해와 실수를 방지.</li>
+  </ul>
+
+  <h3>종합 과학으로서의 인적요인</h3>
+  <p class="lead">인적요인학은 단순히 마음만 연구하는 것이 아니라 여러 분야가 합쳐진 <strong>종합 기술</strong>입니다. 가장 큰 목표는 <span class="hl">'사람'과 '작업 환경'을 최적화</span>하는 것입니다.</p>
+  <div class="grid g3">
+    <div class="card blue"><div class="ico">🧠</div><h5>심리학 (Psychology)</h5><p>사람이 어떻게 배우고, 기억하며, 스트레스를 처리하는지 연구.<br><span style="color:var(--muted);font-size:.82rem;">임상·실험·조직·교육 심리학</span></p></div>
+    <div class="card blue"><div class="ico">⚙️</div><h5>공학 (Engineering)</h5><p>작업자가 쓰기 쉽고 안전한 장비·도구·시스템을 설계.<br><span style="color:var(--muted);font-size:.82rem;">컴퓨터 과학·인지 과학·안전공학·산업공학</span></p></div>
+    <div class="card blue"><div class="ico">🩺</div><h5>의학 (Medicine)</h5><p>신체 구조를 이해하고 피로·질병으로부터 작업자 건강을 지킴.<br><span style="color:var(--muted);font-size:.82rem;">인체측정학·생리 역학</span></p></div>
+  </div>
+
+  <div class="callout info">
+    <span class="ct">국제 기준(ICAO)이 말하는 인적요인</span>
+    국제 민간항공기구(ICAO)는 인적요인을 <strong>항공기 사고 예방을 위해 조화롭게 기능하는 '인간의 제반 능력과 한계'</strong>로 정의합니다. 단순히 실수를 질책하는 것을 넘어, 오류가 발생할 수밖에 없는 시스템을 개선하여 안전한 비행과 효율적 정비 시스템을 만드는 것이 목표입니다.
+  </div>
+
+  <h4>인적요인을 구성하는 학문들</h4>
+  <table>
+    <thead><tr><th>학문</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td class="k">임상심리학<br>(Clinical Psychology)</td><td>작업 현장 안팎의 문제에 초점. 정비사가 개인 스트레스·동료 갈등·심리적 불안감을 극복하고 업무에 집중하도록 도움.</td></tr>
+      <tr><td class="k">실험심리학<br>(Experimental Psychology)</td><td>인간의 인지·행동 특성을 과학적으로 증명. 학습·기억·소통 방식을 연구해 작업 절차 개선과 효율 향상.</td></tr>
+      <tr><td class="k">인체측정학<br>(Anthropometry)</td><td>사람마다 다른 체형·치수(키·팔 길이·몸무게)를 통계적으로 측정·분석하여 도구와 작업 공간을 설계. <br>예) 체격이 큰 정비사라도 좁은 비행기 내부·연료 탱크 안에서 안전하게 일할 수 있게 설계.</td></tr>
+      <tr><td class="k">인지과학<br>(Cognitive Science)</td><td>외부 정보를 받아들이고(지각) → 뇌에서 처리해 판단하고(인지) → 손을 움직여 행동(운동)하는 일련의 과정을 연구.</td></tr>
+      <tr><td class="k">의학<br>(Medicine)</td><td>교대 근무·시차로 인한 생체 리듬 붕괴, 만성 피로 등을 관리하여 육체적 건강 유지.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>인적요인의 역사</h3>
+  <div class="grid g3">
+    <div class="card accent">
+      <h5>① 레오나르도 다빈치 (1487)</h5>
+      <p>'비트루비안 맨'은 <strong>인체 측정의 기초</strong>. 비행 장치 설계 시 인간의 신체적 한계를 고려 — 신체 크기·한계에 맞춰 비행기를 설계해야 한다는 생각의 출발점.<br><span style="color:var(--muted);font-size:.82rem;">원(정신·영원)과 사각형(물질·안정) — 인간은 하늘과 땅을 잇는 소우주.</span></p>
+    </div>
+    <div class="card accent">
+      <h5>② 길브레스 부부</h5>
+      <p>인간의 오류를 줄이기 위해 의학(수술실)에서 <strong>"메스"–"메스" 복명복창 소통법</strong>을 개발. 현재 조종사–관제사 사이의 필수 규정으로 이어짐.</p>
+    </div>
+    <div class="card accent">
+      <h5>③ 라이트 형제</h5>
+      <p>사람이 직접 비행기를 통제하도록 <strong>'3축 조종 시스템'</strong> 개발. 비행 기계 자체보다 기계를 조종하는 '사람'의 능력을 중요시한 결과.</p>
+    </div>
+  </div>
+
+  <div class="exam">
+    <div class="et">★ 현대 항공정비 인적요인의 등장</div>
+    <ul>
+      <li>과거엔 조종사에게만 초점 → 지금은 <strong>항공정비사의 인적요인</strong>이 훨씬 강조됨.</li>
+      <li>Boeing이 항공정비 오류 판별법 <strong>MEDA (Maintenance Error Decision Aid)</strong>를 개발(1988).</li>
+      <li>실제 여러 항공사고의 약 <strong>18~29%</strong>가 정비사의 실수와 연관.</li>
+      <li>영국항공청(CAA, 2003) 분류 — ① 정비사의 건강·시력·청력·피로·스트레스 등 인적 요인, ② 날씨·온도·습도·소음 등 환경적 요인, ③ 의사소통·작업교대·정비절차 등 절차·조직적 요인.</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">출처 : 11-1 인적요인의 기초와 역사</div>
+</section>
+
+
+<!-- ===================== PAGE 2-2 : PEAR ===================== -->
+<section class="page" id="page-hf-pear" data-page="hf-pear">
+  <div class="page-head">
+    <div class="kicker">CHAPTER 2 · 인적요인 (2)</div>
+    <h2>PEAR 모델과 인적요인 도구</h2>
+    <div class="en">PEAR Model &amp; Human Factors Tools</div>
+  </div>
+
+  <h3>정비 인적요인의 핵심 'PEAR 모델'</h3>
+  <div class="grid g4">
+    <div class="card teal"><div class="ico">👥</div><h5>People</h5><p>작업자</p></div>
+    <div class="card teal"><div class="ico">🌦️</div><h5>Environment</h5><p>환경</p></div>
+    <div class="card teal"><div class="ico">⚙️</div><h5>Actions</h5><p>행동</p></div>
+    <div class="card teal"><div class="ico">🧰</div><h5>Resources</h5><p>자원</p></div>
+  </div>
+
+  <h3>① People (작업자)</h3>
+  <p class="lead">작업자의 나이·시력·체력 등 <span class="hl">개인의 한계</span>를 이해해야 합니다. 피로가 쌓이지 않게 정기적으로 충분히 쉬는 것이 매우 중요합니다.</p>
+  <table>
+    <thead><tr><th>요인</th><th>세부 항목</th></tr></thead>
+    <tbody>
+      <tr><td class="k">물리적 요인<br>(Physical)</td><td>신체 크기 · 성별 · 연령 · 힘의 크기 · 감각기관의 한계</td></tr>
+      <tr><td class="k">생리학적 요인<br>(Physiological)</td><td>작업량 · 경험 · 지식 · 교육훈련 · 태도 · 정신 또는 감정상태</td></tr>
+      <tr><td class="k">심리적 요인<br>(Psychological)</td><td>영양상태 · 건강 · 생활양식 · 피로 · 약물 의존도</td></tr>
+      <tr><td class="k">사회심리적 요인<br>(Psychosocial)</td><td>대인관계의 갈등</td></tr>
+    </tbody>
+  </table>
+  <h4>People의 관리</h4>
+  <ul class="clean">
+    <li>청력과 시력을 정기적으로 검사.</li>
+    <li>건강한 몸 상태를 지속적으로 유지.</li>
+    <li>서로 소통하고 돕는 <strong>'팀워크'</strong> 구축.</li>
+  </ul>
+
+  <h3>② Environment (환경)</h3>
+  <div class="grid g2">
+    <div class="card blue"><h5>물리적 환경</h5><p>온도·습도·소음·조명 관리.<br><span style="color:var(--muted);font-size:.82rem;">기후 · 작업위치(내/외부) · 작업공간 · 교대근무 · 조명 · 온랑 · 안전</span></p></div>
+    <div class="card blue"><h5>조직적 환경</h5><p>기업 문화·지원 및 존중.<br><span style="color:var(--muted);font-size:.82rem;">개인 · 감시 · 근로 관계 · 압박 · 승무원 구성 · 회사 규모 · 수익성 · 사기 · 기업문화</span></p></div>
+  </div>
+  <div class="callout tip"><span class="ct">핵심</span>회사가 작업자를 지원하고 존중하는 <strong>기업 문화</strong>는 안전의 기초입니다.</div>
+
+  <h3>③ Actions (행동)</h3>
+  <p class="lead">정비사가 수행하는 모든 <strong>작업 순서와 행동</strong>을 분석합니다. 작업 지침서와 <span class="hl">점검표(Checklist)</span>를 순서대로 정확히 따르고 있는지 확인합니다.</p>
+  <ul class="clean">
+    <li>과제 수행 단계 · 활동 순서 · 참여인원 수 · 정보처리 요건.</li>
+    <li>지식요건 · 기량요건 · 태도요건 · 자격요건 · 검사요건.</li>
+  </ul>
+
+  <h3>④ Resources (자원)</h3>
+  <p class="lead">작업에 필요한 물건뿐만 아니라 <span class="hl">넉넉한 시간과 동료</span> 역시 중요한 자원입니다.</p>
+  <div class="grid g4">
+    <div class="card"><div class="ico">📘</div><h5>매뉴얼</h5><p>작업절차·정비매뉴얼</p></div>
+    <div class="card"><div class="ico">🔧</div><h5>공구/장비</h5><p>타인·시험장비·공구·고정장치</p></div>
+    <div class="card"><div class="ico">⏱️</div><h5>시간</h5><p>넉넉한 작업 시간</p></div>
+    <div class="card"><div class="ico">🤝</div><h5>동료</h5><p>교육훈련·품질시스템</p></div>
+  </div>
+  <div class="callout info"><span class="ct">PEAR 모델의 목표</span>오류를 일으킬 수 있는 나쁜 요소들을 <strong>미리 차단</strong>하는 것. 단순히 실수만 탓할 게 아니라 <span class="hl">사람과 시스템이 조화롭게 돌아가게</span> 해야 합니다.</div>
+
+  <!-- 인적요인 도구 -->
+  <h3>인적요인의 도구 (1) — MEDA</h3>
+  <div class="callout info"><span class="ct">MEDA (Maintenance Error Decision Aid)</span>사고 조사의 목적은 실수를 유발한 정비사를 비난하기 위한 것이 아니라, <strong>오류의 근본원인을 밝혀 사고를 예방</strong>하는 것입니다.</div>
+  <h4>MEDA 개념의 3원칙</h4>
+  <ul class="clean">
+    <li>① <strong>직원에 대한 신뢰</strong> — 정비사는 항상 최선을 다하며 고의로 실수하지 않는다.</li>
+    <li>② <strong>다양한 요인의 기여</strong> — 오류를 유발하는 요인은 한 가지가 아니다.</li>
+    <li>③ <strong>결함 제어가능성</strong> — 오류 유발요인은 관리될 수 있다.</li>
+  </ul>
+  <h4>MEDA 프로세스 5단계</h4>
+  <table>
+    <thead><tr><th>단계</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td class="k">① 사건 (Event)</td><td>정비조직이 조사를 실시할 이벤트를 선택.</td></tr>
+      <tr><td class="k">② 판단 (Decision)</td><td>정비결함과 관련된 사건인가? '예'이면 MEDA 조사 진행.</td></tr>
+      <tr><td class="k">③ 조사 (Investigation)</td><td>상태·경위·원인, 가능하면 예방정책도 기록.</td></tr>
+      <tr><td class="k">④ 예방 전략 (Preventive Strategies)</td><td>유사 결함 재발방지를 위한 예방 전략 수립.</td></tr>
+      <tr><td class="k">⑤ 개선사항 반영 (Feedback)</td><td>변화된 정비시스템을 모든 정비사에게 전파.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>인적요인의 도구 (2) — SHEL</h3>
+  <div class="callout tip"><span class="ct">SHEL 모델</span>Edward — SHEL / Hawkins — SHELL. 중심에 작업자(Worker)를 두고 4가지 요소와의 관계를 본다.</div>
+  <table>
+    <thead><tr><th>요소</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td class="k">S (Software)</td><td>항공기 정비 관련 법·규정·절차, 각종 매뉴얼, 작업 카드(Job Card), 점검표(Check List) 및 교육훈련.</td></tr>
+      <tr><td class="k">H (Hardware)</td><td>항공기 정비를 위한 격납고·시설·장비·공구 등의 설계 적절성 및 인체 적합성.</td></tr>
+      <tr><td class="k">E (Environment)</td><td>날씨·기온·조명·습도·온도·소음 등 정비작업 관련 물리적 환경.</td></tr>
+      <tr><td class="k">L (Liveware)</td><td>동료 정비사·조종사·지상 조업자 등 관련된 사람들과의 성격·의사소통·리더십·팀워크 및 대인관계.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>인적요인의 도구 (3) — Swiss Cheese Model</h3>
+  <div class="callout info"><span class="ct">스위스 치즈 모델 · James Reason</span>사고는 <strong>모든 방어벽(치즈)의 구멍이 뚫려 일직선으로 정렬되었을 때</strong> 발생합니다. 사고는 단순히 하나의 요인으로 발생하는 경우가 드물고, 대부분 다양한 요인이 복합되어 발생합니다.</div>
+  <ul class="clean">
+    <li><strong>잠재적 실패 (Latent Failures)</strong> — 인간의 행동·결정의 결과처럼 오랜 세월이 경과되어 드러나는 실패.</li>
+    <li><strong>행동적 실패 (Active Failures)</strong> — 결과가 즉각적으로 나타나는 실패.</li>
+    <li>오류관리에서 가장 중요한 것은 <span class="hl">수정·관리 가능한 직접적 원인에 초점</span>을 두는 것.</li>
+    <li>오류 회피를 위한 훈련·위험평가·안전점검 등은 복합적으로 실시.</li>
+  </ul>
+
+  <h3>인적 오류(Human Error)란?</h3>
+  <p class="lead">규정이나 기대치에서 벗어나 잘못된 결정을 내리거나 행동하는 것. <strong>오류 하나만으론 사고가 나지 않지만, 여러 요인이 겹치면 큰 재앙</strong>이 됩니다.</p>
+
+  <div class="exam">
+    <div class="et">★ 오류의 분류 — 시험 빈출</div>
+    <ul>
+      <li><strong>의도하지 않은 오류 (Mistake)</strong> — 잘하려고 노력했음에도 순간적으로 수치를 잘못 읽거나 상황을 잘못 판단하여 발생. 고의가 아닌 정확성으로부터의 일탈.
+        <br><span class="hl">예시 : 규정 토크 값 '69'를 '96'으로 잘못 보고 과도하게 조이는 경우.</span></li>
+      <li><strong>의도적인 오류 (위반, Intentional Error)</strong> — 알면서도 규정을 무시하는 행동. 절차를 지키지 않는 행동은 위험을 초래.</li>
+      <li><strong>활동적 오류 (Active Error)</strong> — 발생하면 눈에 띄는 명백한 사건으로 나타나는 특정 개인의 활동.</li>
+      <li><strong>잠재적 오류 (Latent Error)</strong> — 당장 안 보이고 숨어 있다가 특정 상황과 결합해 나중에 사고를 일으킴. <span class="hl-r">가장 경계해야 할 무서운 오류</span>.</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">출처 : 11-2 PEAR 모델과 인적요인 도구</div>
+</section>
+
+
+<!-- ===================== PAGE 2-3 : DIRTY DOZEN ===================== -->
+<section class="page" id="page-hf-dd" data-page="hf-dd">
+  <div class="page-head">
+    <div class="kicker">CHAPTER 2 · 인적요인 (3)</div>
+    <h2>더티 도즌 (The Dirty Dozen)</h2>
+    <div class="en">마의 12가지 요소 — Twelve Human Factors for Aircraft Maintenance Proficiency</div>
+  </div>
+
+  <p class="lead">대다수 사고의 원인이 된 정비오류를 일으키는 <strong>12가지 나쁜 요인</strong>입니다. 이 12가지를 미리 알고 <span class="hl">예방하는 방법을 터득하는 것</span>이 가장 중요합니다.</p>
+
+  <div class="grid g3">
+    <div class="card teal"><h5>1. 의사소통의 결여</h5><p>Lack of Communication</p></div>
+    <div class="card teal"><h5>2. 자만심</h5><p>Complacency</p></div>
+    <div class="card teal"><h5>3. 지식의 결여</h5><p>Lack of Knowledge</p></div>
+    <div class="card teal"><h5>4. 주의산만</h5><p>Distraction</p></div>
+    <div class="card teal"><h5>5. 팀워크의 결여</h5><p>Lack of Teamwork</p></div>
+    <div class="card teal"><h5>6. 피로</h5><p>Fatigue</p></div>
+    <div class="card teal"><h5>7. 자원 부족</h5><p>Lack of Resources</p></div>
+    <div class="card teal"><h5>8. 압박감</h5><p>Pressure</p></div>
+    <div class="card teal"><h5>9. 자기주장의 결여</h5><p>Lack of Assertiveness</p></div>
+    <div class="card teal"><h5>10. 스트레스</h5><p>Stress</p></div>
+    <div class="card teal"><h5>11. 인식의 결여</h5><p>Lack of Awareness</p></div>
+    <div class="card teal"><h5>12. 관행</h5><p>Norms</p></div>
+  </div>
+
+  <h3><span class="dd-num">1</span>의사소통의 결여 <span class="sub-en">Lack of Communication</span></h3>
+  <ul class="clean">
+    <li>어떤 단계도 생략하지 않고 모든 작업을 마칠 수 있도록 <strong>정확하고 완벽한 정보교환</strong>이 중요.</li>
+    <li>정비절차의 각 단계는 마치 한 명이 작업한 것처럼 공인된 지침에 따라 실행되어야 함.</li>
+    <li>특히 <span class="hl">교대 근무 시 '무엇을 하다 말았는지'</span> 명확히 전달하지 않으면 몹시 위험.</li>
+    <li>한 단계 작업 후 서명하고, 확인검사 완료 후 다음 단계 수행. 인수인계는 <strong>문서</strong>로.</li>
+  </ul>
+  <div class="callout tip">
+    <span class="ct">의사소통 결여를 막는 법</span>
+    <strong>문서화의 생활화</strong> : 말에만 의존하지 말고 인수인계는 반드시 문서(작업 일지)로 명확히 작성. ·
+    <strong>인수자 재확인</strong> : 인수받은 사람은 이전 작업자가 어디까지 마무리했는지 다시 점검하는 습관.
+  </div>
+
+  <h3><span class="dd-num">2</span>자만심 <span class="sub-en">Complacency</span></h3>
+  <div class="callout danger"><span class="ct">"내가 이 일만 십 년째인데, 안 봐도 뻔해"</span>잘못된 자신감이 부르는 위험.</div>
+  <ul class="clean">
+    <li>반복적인 검사 항목을 눈대중으로 넘어가다가 비행 안전을 위협하는 큰 결함을 놓침.</li>
+    <li>작업문서 없이 자의적으로 작업하거나, 작업하지도 않고 작업문서에 서명하는 것은 자만심의 신호.</li>
+    <li><strong>예방</strong> : 처음 검사 항목에서 결함을 찾겠다는 각오 · 의심스러우면 서명 안 하기 · <span class="hl">이중 확인 습관</span>.</li>
+  </ul>
+
+  <h3><span class="dd-num">3</span>지식의 결여 <span class="sub-en">Lack of Knowledge</span></h3>
+  <div class="grid g2">
+    <div class="card red"><h5>기종별 차이 무지</h5><p>기종마다 고치는 방법·절차가 다름. 예전 방식대로 엉뚱하게 수리하면 사고. 불확실하면 해당 기종 경험자나 제작사 기술고문에게 문의.</p></div>
+    <div class="card teal"><h5>매뉴얼 필수 확인</h5><p>최신자료를 사용하고 절차에 명시된 대로 각 단계를 따라야 함. 정비작업은 반드시 해당 기종의 정비 매뉴얼을 확인하여 수행.</p></div>
+  </div>
+
+  <h3><span class="dd-num">4</span>주의산만 <span class="sub-en">Distraction</span></h3>
+  <div class="exam">
+    <div class="et">★ 집중력이 끊겼을 때의 원칙 — "3단계 전으로 돌아가라"</div>
+    <ul>
+      <li>방해를 받았다가 다시 작업할 때는 누락 방지를 위해 반드시 원래 지점보다 <strong>'세 단계 전'</strong>으로 돌아가 재점검 시작.</li>
+      <li>단계별로 작성된 절차를 사용하고, 단계별 작업 완료 시마다 서명.</li>
+    </ul>
+  </div>
+  <p style="color:var(--muted);"><strong>주의산만을 부르는 상황</strong> : 작업 중 누가 말을 걸거나 휴대폰 통화 · 개인의 괴로운 가정환경·재정 문제 · 다른 작업으로 주의 전환.</p>
+
+  <h3><span class="dd-num">5</span>팀워크의 결여 <span class="sub-en">Lack of Teamwork</span></h3>
+  <div class="callout tip"><span class="ct">협력이 곧 안전입니다</span>비행기 정비는 결코 혼자서 완벽하게 해낼 수 없습니다. 지식을 나누고 협력하지 않으면 반드시 빈틈이 생기고 사고가 납니다. 비행 안전이라는 공동의 목표를 위해 동료와 끊임없이 의견을 조율하고 소통해야 합니다.</div>
+
+  <h3><span class="dd-num">6</span>피로 <span class="sub-en">Fatigue</span></h3>
+  <ul class="clean">
+    <li>몸과 마음이 지치면 판단력이 극도로 흐려짐.</li>
+    <li>깜빡하거나 순서를 헷갈리는 실수가 평소보다 엄청나게 증가.</li>
+    <li>생체 리듬(<strong>서커디안 리듬, Circadian Rhythm</strong>)이 가장 떨어지는 <span class="hl">야간 근무</span> 때 특별한 주의와 교차 점검 필요.</li>
+  </ul>
+
+  <h3><span class="dd-num">7</span>자원 부족 <span class="sub-en">Lack of Resources</span></h3>
+  <div class="grid g2">
+    <div class="card red"><h5>대충 때우기 금지</h5><p>올바른 규격의 부품이나 전용 공구가 없어 비슷한 모양의 공구로 임의로 때우려 하면 심각한 기체 손상·오류 발생.</p></div>
+    <div class="card teal"><h5>작업을 멈출 수 있는 용기</h5><p>부품이 없거나 도구가 고장 났다면 즉각 교체·수리. 불완전한 상태라면 작업을 일단 멈출 줄 아는 것이 진정한 프로의 자세.</p></div>
+  </div>
+
+  <h3><span class="dd-num">8</span>압박감 <span class="sub-en">Pressure</span></h3>
+  <div class="callout danger"><span class="ct">"빨리 비행기를 출발시켜야 해!"</span>시간의 쫓김이 낳는 실수. 절대 안전을 희생할 만큼 서두르지 마십시오. 정비 시간이 부족하면 <strong>당당히 동료나 상급자에게 도움을 요청</strong>해야 합니다.</div>
+
+  <h3><span class="dd-num">9</span>자기주장의 결여 <span class="sub-en">Lack of Assertiveness</span></h3>
+  <div class="grid g2">
+    <div class="card red"><h5>위험한 침묵</h5><p>상사의 눈치가 보여 명백히 틀린 것을 보고도 "안전하지 않다"고 말하지 못하는 수동적 태도.</p></div>
+    <div class="card teal"><h5>단호한 의견 제시</h5><p>문제를 발견하면 단호하게 의견을 말하고 올바른 해결책을 상의해야만 돌이킬 수 없는 대형 사고를 막을 수 있음.</p></div>
+  </div>
+
+  <h3><span class="dd-num">10</span>스트레스 <span class="sub-en">Stress</span></h3>
+  <div class="grid g2">
+    <div class="card red"><h5>악영향의 연속</h5><p>직장 내 갈등뿐 아니라 개인 재정 문제·집안일 등 외부 스트레스 요인이 작업 집중력을 흩트리고 악영향을 줌.</p></div>
+    <div class="card teal"><h5>건강한 몸과 마음</h5><p>규칙적인 식사·운동·충분한 휴식을 통해 건강한 몸과 마음을 유지하는 것이 정비 품질 유지에 매우 중요.</p></div>
+  </div>
+
+  <h3><span class="dd-num">11</span>인식의 결여 <span class="sub-en">Lack of Awareness</span></h3>
+  <ul class="clean">
+    <li>항상 똑같은 일을 반복하다 보니 <strong>무감각</strong>해지는 현상.</li>
+    <li>주변의 위험 상황이나 자신이 무엇을 잘못하고 있는지조차 인지하지 못하는 매우 위험한 상태.</li>
+    <li>매번 새로 작업하는 신중한 자세로 <span class="hl">"처음처럼"</span>을 유지.</li>
+  </ul>
+
+  <h3><span class="dd-num">12</span>관행 <span class="sub-en">Norms</span></h3>
+  <div class="callout danger"><span class="ct">"원래 우리 회사는 그냥 대충 해"</span>편법을 묵인하는 나쁜 버릇. 남들이 다 편법을 쓰더라도 흔들리지 마십시오. <strong>나부터 표준 규정을 철저히 지키는</strong> 올바른 안전 문화를 세워나가야 합니다.</div>
+
+  <h3>작업 카드(Job Card)의 힘</h3>
+  <div class="callout info">
+    <span class="ct">사소함이 생명을 결정합니다</span>
+    부품을 거꾸로 끼우거나, 공구를 비행기 안에 두고 오거나, 뚜껑을 안 닫는 실수는 현장에서 매우 흔합니다. 이 모든 어처구니없는 오류는 <strong>작업 카드(Job Card)를 하나하나 체크</strong>하면서 작업하면 완벽히 피할 수 있습니다.
+  </div>
+  <div class="exam">
+    <div class="et">★ 기억하세요</div>
+    <p style="margin:4px 0 0;">여러분의 꼼꼼한 손끝 하나가 <span class="hl">수백 명의 소중한 생명</span>을 지킨다는 사실을 꼭 기억하세요!</p>
+  </div>
+
+  <div class="footer-note">출처 : 11-3 더티 도즌</div>
+</section>
+
+<!-- ===================== PAGE: INSPECTION CONCEPT ===================== -->
+<section class="page" id="page-inspection-concept" data-page="inspection-concept">
+  <div class="page-head">
+    <div class="kicker">CHAPTER 3 — 10-1</div>
+    <h2>항공기 검사 개념과 기법</h2>
+    <div class="en">Aircraft Inspection — Concepts &amp; Techniques</div>
+  </div>
+
+  <p class="lead">정비사의 눈과 손이 수백 명의 생명을 지킵니다. 항공기 검사(Inspection)는 <strong>감항성(Airworthiness)</strong>을 유지하기 위한 가장 핵심적인 작업이며, 모든 정비 행위의 출발점입니다.</p>
+
+  <div class="exam">
+    <div class="et">★ 학습 목표</div>
+    <ul>
+      <li>검사(Inspection)의 정의와 목적을 명확히 이해한다.</li>
+      <li>육안 검사부터 정기 점검, 특별 검사까지 다양한 검사 방식의 특징을 파악한다.</li>
+      <li>현장에서 사용되는 정비 매뉴얼 및 항공기 일지의 종류와 역할을 파악한다.</li>
+    </ul>
+  </div>
+
+  <!-- ===== PART 1 : 검사 개념 ===== -->
+  <h3>1) 검사(Inspection)란 무엇인가?</h3>
+
+  <div class="grid g2">
+    <div class="card accent">
+      <h5>📋 정비학적 정의</h5>
+      <p>비행기의 기체 구조물이나 각종 장착 부품의 상태가 <strong>항공 안전 기준에 부합하는지 꼼꼼하게 확인하고 검증</strong>하는 핵심 작업입니다.</p>
+    </div>
+    <div class="card teal">
+      <h5>🩺 건강검진 비유</h5>
+      <p>사람이 병원에서 정기 건강검진을 받으며 질병을 예방하듯, 비행기도 정기적으로 <strong>아픈 곳이나 숨은 결함이 없는지 진찰</strong>하는 것과 완벽히 같습니다.</p>
+    </div>
+  </div>
+
+  <h4>검사를 왜 해야 하는가?</h4>
+  <div class="grid g3">
+    <div class="card red">
+      <div class="ico">⚠️</div>
+      <h5>결함 조기 발견 — 실패 방지</h5>
+      <p>일정한 규칙이나 절차 없이 대충 검사하게 되면 치명적인 고장이나 결함을 놓치게 됩니다.</p>
+    </div>
+    <div class="card red">
+      <div class="ico">🛡️</div>
+      <h5>대형 사고의 미연 방지</h5>
+      <p>아주 작은 결함이라도 초기에 발견해서 고치면, 비행 중에 일어날 수 있는 대형 사고를 완벽히 막을 수 있습니다.</p>
+    </div>
+    <div class="card accent">
+      <div class="ico">✈️</div>
+      <h5>최상의 감항성 유지</h5>
+      <p>항공기가 언제나 가장 안전하게 비행할 수 있도록 최적의 상태 <strong>(Airworthiness)</strong>를 지속적으로 유지하는 것이 궁극적인 목표입니다.</p>
+    </div>
+  </div>
+
+  <!-- ===== 육안 검사 ===== -->
+  <h3>2) 가장 기본이 되는 육안 검사 (Visual Inspection)</h3>
+
+  <div class="grid g2">
+    <div class="card blue">
+      <h5>👁️ 일반 육안 검사 (General Visual Inspection)</h5>
+      <p>비행기 겉면을 넓은 시야로 훑어보며 <strong>스크래치, 찍힘, 누유</strong> 등 눈에 띄는 뚜렷한 외부 이상이 없는지 전반적으로 확인합니다.</p>
+    </div>
+    <div class="card accent">
+      <h5>🔍 상세 육안 검사 (Detailed Visual Inspection)</h5>
+      <p>특정 부분을 정해놓고 가까이 다가가 집중적으로 살펴봅니다. <strong>전등, 거울, 돋보기</strong> 등을 적극 활용하여 육안으로 찾기 힘든 숨은 결함을 꼼꼼히 찾아냅니다.</p>
+    </div>
+  </div>
+
+  <!-- ===== 검사 주기 ===== -->
+  <h3>3) 언제 검사를 하나요? — 검사 주기</h3>
+
+  <p>비행기 기종마다, 엔진마다 제조사가 정해놓은 엄격한 수명과 점검 주기가 존재합니다. <span class="hl">시간이 다 된 부품은 고장 나기 전에 미리 새것으로 교체</span>해야 합니다.</p>
+
+  <div class="grid g3">
+    <div class="card accent">
+      <div class="ico">⏳</div>
+      <h5>비행 시간 <span class="sub-en">Flight Hours</span></h5>
+      <p>항공기가 실제로 하늘에 떠서 운항한 총 <strong>'시간'</strong>을 누적 계산하여 엔진 및 주요 부품의 검사 일정을 수립합니다.</p>
+    </div>
+    <div class="card teal">
+      <div class="ico">🛬</div>
+      <h5>비행 횟수 <span class="sub-en">Flight Cycles</span></h5>
+      <p>항공기가 이륙하고 착륙한 <strong>'횟수(사이클)'</strong>를 계산합니다. 이착륙 시 동체나 엔진에 가해지는 압력과 피로도를 점검하기 위함입니다.</p>
+    </div>
+    <div class="card blue">
+      <div class="ico">📅</div>
+      <h5>작동 날짜 <span class="sub-en">Calendar Days</span></h5>
+      <p>비행 여부나 횟수와 관계없이, 고무 부품이나 윤활유처럼 시간이 지남에 따라 자연적으로 <strong>노후화되는 부품</strong>의 '날짜'를 확인합니다.</p>
+    </div>
+  </div>
+
+  <!-- ===== 검사 전 준비 ===== -->
+  <h3>4) 검사 전 준비사항</h3>
+
+  <h4>① 작업장 세팅</h4>
+  <ul class="clean">
+    <li><strong>카울링·점검창 개방</strong> : 비행기의 덮개(카울링)나 점검창을 매뉴얼에 따라 안전하게 열어 내부 구조와 부품이 육안으로 잘 보이게 세팅합니다.</li>
+    <li><strong>청소</strong> : 점검 부위 주변의 오염 물질을 깨끗하게 청소하여 미세한 균열이나 결함을 쉽게 식별할 수 있도록 합니다.</li>
+    <li><strong>누유·이물질 사전 확인</strong> : 본격적인 검사 직전, 혹시 새어 나온 기름(엔진 오일, 유압유 등), 알 수 없는 이물질이 주변에 묻어있지 않은지 먼저 살핍니다.</li>
+  </ul>
+
+  <h4>② 서류 세팅</h4>
+  <ul class="clean">
+    <li><strong>항공일지(Logbook) 사전 열람</strong> : 비행기의 과거 정비 이력, 교체 부품 목록, 비행 중 발생했던 결함 현상 등이 상세히 적힌 항공일지를 사전에 꼼꼼히 읽어봅니다.</li>
+    <li><strong>체크리스트(점검표) 준비</strong> : 정비사의 기억력에만 의존하지 않도록, 검사 시 단 하나의 항목도 빼먹지 않기 위해 반드시 체크리스트를 준비합니다.</li>
+    <li><strong>순서대로 체크</strong> : 체크리스트를 손에 들고 명시된 순서에 따라 하나씩 직접 확인(Check)하며 규정된 절차대로 작업을 수행해야 합니다.</li>
+  </ul>
+
+  <div class="callout tip">
+    <span class="ct">체크리스트(점검항목표) 활용법</span>
+    인간의 기억력에는 한계가 있습니다. 아무리 뛰어난 <strong>베테랑 정비사라도 반드시 체크리스트를 보며 작업</strong>합니다. 각 부위별로 놓치지 말아야 할 핵심 점검 사항이 꼼꼼히 적혀 있습니다.
+  </div>
+
+  <!-- ===== 항공기 일지 ===== -->
+  <h3>5) 항공기 일지 (Logbook)</h3>
+
+  <p>비행기의 모든 역사를 담은 <span class="hl">'건강 기록부'</span>입니다. 항공사는 이 일지를 작성하고 <strong>영구적으로 보관</strong>할 법적 의무가 있습니다.</p>
+
+  <h4>로그북 기록의 3대 원칙</h4>
+  <p>로그북은 <strong>법적 증거 자료</strong>가 되므로 작성 시 엄격한 기준을 따릅니다.</p>
+
+  <div class="grid g3">
+    <div class="card accent">
+      <h5>① 실시간성</h5>
+      <p>정비나 비행이 <strong>완료된 즉시</strong> 기록해야 합니다.</p>
+    </div>
+    <div class="card accent">
+      <h5>② 정확성</h5>
+      <p>허위 사실을 기재해서는 안 되며, 정비사의 경우 <strong>자신의 자격 번호와 서명</strong>을 남겨 책임 소재를 명확히 합니다.</p>
+    </div>
+    <div class="card accent">
+      <h5>③ 영구성</h5>
+      <p>지워지지 않는 필기구로 작성하며, 수정 시에는 <strong>수정액을 사용하지 않고</strong> 한 줄을 긋고 수정한 사람의 확인 도장 또는 서명을 합니다.</p>
+    </div>
+  </div>
+
+  <h4>로그북 기록 내용</h4>
+  <ul class="clean">
+    <li><strong>① 비행 기록</strong> : 비행 일자, 출발/도착지, 비행 시간, 착륙 횟수</li>
+    <li><strong>② 결함 및 조치</strong> : 비행 중 발생한 결함, 그에 대해 정비사가 수행한 정비 조치 내용, 수행 일자, 수행한 정비사 이름 및 도장/서면</li>
+    <li><strong>③ 검사 기록</strong> : 정기 점검(A, B, C, D Check) 수행 여부</li>
+    <li><strong>④ 정비이월 기록 및 조치사항</strong></li>
+  </ul>
+
+  <h4>탑재용 vs 지상비치용 일지</h4>
+  <table>
+    <thead>
+      <tr><th>구분</th><th>탑재용 항공일지 ✈️</th><th>지상비치용 항공일지 🏢</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="k">보관 위치</td>
+        <td>비행할 때 항상 기내에 싣는 일지</td>
+        <td>사무실에 안전하게 보관하는 일지</td>
+      </tr>
+      <tr>
+        <td class="k">기록 대상</td>
+        <td>비행기 기체 기록<br>① 비행 기록 ② 결함 및 조치 ③ 검사 기록 ④ 정비이월 기록</td>
+        <td>엔진, 프로펠러</td>
+      </tr>
+      <tr>
+        <td class="k">세부 일지</td>
+        <td>—</td>
+        <td><strong>엔진 일지(Engine Log)</strong> : 각 엔진별 가동시간(TSN), 분해정비(Overhaul) 및 주요 부품 교체 이력<br><strong>프로펠러 일지(Propeller Log)</strong> : 프로펠러 사용시간, 수리 및 검사 이력</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ===== 주요 점검 부위 ===== -->
+  <h3>6) 주요 점검 부위</h3>
+
+  <h4>① 동체, 날개와 꼬리 (Fuselage / Wing / Tail)</h4>
+  <div class="grid g3">
+    <div class="card blue">
+      <h5>🦴 뼈대 (구조물)</h5>
+      <p>동체와 날개 뼈대에 금이 가거나 휘어진 곳 확인</p>
+    </div>
+    <div class="card blue">
+      <h5>✈️ 외피 (겉면)</h5>
+      <p>표면 손상이나 페인트가 심하게 벗겨진 곳, <strong>퇴화(Deterioration)</strong>, <strong>뒤틀림(Distortion)</strong> 점검</p>
+    </div>
+    <div class="card blue">
+      <h5>⚙️ 장비품</h5>
+      <p>각종 계통의 장착 상태와 정상적인 작동 여부 확인</p>
+    </div>
+  </div>
+
+  <h4>② 기내 — 조종석 / 객실</h4>
+  <ul class="clean">
+    <li><strong>좌석 및 안전벨트</strong> : 튼튼하게 잘 고정되어 있는지 상태와 안전성(Security) 확인</li>
+    <li><strong>창문</strong> : 깨지거나 금 간 곳(균열)이 없는지 점검</li>
+    <li><strong>조종석</strong> : 계기판, 조종 장치, 배터리 상태 등 꼼꼼히 체크</li>
+    <li><strong>계기류</strong> : 장착 상태, 표기 상태, 그리고 가능할 경우 작동상태</li>
+    <li><strong>비행조종장치와 엔진제어장치</strong> : 장착상태, 작동 상태</li>
+  </ul>
+
+  <h4>③ 엔진 — 가장 중요한 심장</h4>
+  <ul class="clean">
+    <li><strong>배관 및 호스</strong> : 오일이나 연료가 새는 곳은 없는지 확인</li>
+    <li><strong>볼트와 너트</strong> : 규정된 힘(토크)으로 꽉 조여져 있는지 점검</li>
+    <li><strong>엔진 마운트</strong> : 엔진을 지탱하는 부위에 금이 가거나, 엔진과 장착대 사이 헐거운지 확인</li>
+    <li><strong>엔진 내부</strong> : 실린더 압축비, 실린더 내부 상태와 공차 점검, 배기가스온도, 압축기와 터빈 내부 상태, 스크린과 <strong>드레인 플러그(Drain Plug)</strong>에서 금속입자 등 이물질 존재 여부</li>
+    <li><strong>방진구(Flexible vibration dampener)</strong> : 장착 상태 및 퇴화 여부 확인</li>
+    <li><strong>엔진제어(Engine control)</strong> : 결함, 작동상태, 안전장치 확인</li>
+  </ul>
+
+  <h4>④ 착륙장치 — 랜딩기어 (Landing Gear)</h4>
+  <p>비행기의 무거운 하중을 버티는 튼튼한 다리입니다.</p>
+  <ul class="clean">
+    <li><strong>완충장치</strong> : 충격을 흡수하는 작동유가 적당량 들어있는지 확인</li>
+    <li><strong>타이어 &amp; 브레이크</strong> : 찢어지거나 너무 많이 닳지 않았는지</li>
+    <li><strong>Wheel</strong> : 균열, 결함, 베어링 상태 점검</li>
+    <li><strong>버팀대(Truss), 구성부재(Members)</strong> : 마모 상태, 피로, 뒤틀림</li>
+    <li><strong>잠금 기계장치(Retracting &amp; Locking Mechanism)</strong> : 작동 상태</li>
+    <li><strong>유압유 배관 및 호스</strong> : 누설 여부</li>
+    <li><strong>전기계통</strong> : 전선의 접촉손상(Chafing)과 스위치의 작동 상태</li>
+  </ul>
+
+  <!-- ===== PART 2 : 정비 매뉴얼 ===== -->
+  <h3>7) 항공 간행물 — 정비사의 등불</h3>
+
+  <div class="callout info">
+    <span class="ct">항공 간행물(Aviation Publications)이란?</span>
+    항공기와 관련 장비품의 작동과 정비에 있어서 항공정비사를 안내하는 정보의 원천입니다. 항공 정비사는 개인의 경험이나 판단만으로 임의로 비행기를 고쳐서는 안 되며, <strong>항공기 제작사 및 장비품 제작 회사에서 발행한 공식 매뉴얼을 반드시 따라야</strong> 하는 것이 정비사의 가장 기본적인 의무입니다.
+  </div>
+
+  <h4>간행물의 종류</h4>
+  <ul class="clean">
+    <li>① 항공관계법령이나 규칙</li>
+    <li>② 감항성 개선 지시(AD, Airworthiness Directives)</li>
+    <li>③ 항공기 설계명세서 (TSDS, Type Certificate Data Sheets)</li>
+    <li>④ 엔진과 장비품 그리고 프로펠러 설계명세서</li>
+    <li>⑤ 제작회사의 정비회보(SB, Service Bulletin), 매뉴얼 등</li>
+  </ul>
+
+  <!-- ===== 매뉴얼 종류 ===== -->
+  <h3>8) 주요 정비 매뉴얼 종류</h3>
+
+  <h4>① 정비 매뉴얼 (Maintenance Manual, MM)</h4>
+  <p>라인 정비나 기본 점검을 수행할 때 항공기에 장착된 계통, 장비품의 정비를 위해 <strong>장탈/착, 점검 등을 수록한 가장 기본적인 정비지침서</strong>입니다.</p>
+  <table>
+    <thead><tr><th>MM 포함 내용</th></tr></thead>
+    <tbody>
+      <tr><td>① 전기, 유압, 연료, 조종계통의 개요</td></tr>
+      <tr><td>② 윤활 작업 주기, 윤활제 등 사용 유체</td></tr>
+      <tr><td>③ 제 계통에 적용할 수 있는 압력, 전기 부하</td></tr>
+      <tr><td>④ 제 계통의 기능에 필요한 공차 및 조절 방법</td></tr>
+      <tr><td>⑤ 평형(Leveling), 수직부양(Jack-Up), 견인 방법</td></tr>
+      <tr><td>⑥ 조종익면의 균형(Balancing) 방법</td></tr>
+      <tr><td>⑦ 1차 구조재와 2차 구조재의 식별</td></tr>
+      <tr><td>⑧ 비행기의 운영에 필요한 검사 빈도, 한계</td></tr>
+      <tr><td>⑨ 적용되는 수리방법</td></tr>
+      <tr><td>⑩ X-ray, 초음파탐상검사, 자분탐상검사 검사 기법</td></tr>
+      <tr><td>⑪ 특수공구 목록</td></tr>
+    </tbody>
+  </table>
+
+  <h4>② 오버홀 매뉴얼 (Overhaul Manual, OHM)</h4>
+  <div class="grid g2">
+    <div class="card teal">
+      <h5>장탈 및 완전 분해</h5>
+      <p>부품을 비행기에서 아예 떼어내는 <strong>'장탈(Removal)'</strong> 작업부터 시작하여, 부품 내부의 가장 작은 단위까지 완전히 분해하는 절차를 명시합니다.</p>
+    </div>
+    <div class="card teal">
+      <h5>정밀 수리 및 조립</h5>
+      <p>완전히 분해된 상태에서 부품의 마모 상태를 점검하고, 정밀하게 수리한 뒤, <strong>새것과 같은 상태로</strong> 다시 조립하는 매우 상세하고 복잡한 방법이 적혀 있습니다.</p>
+    </div>
+  </div>
+
+  <h4>③ 구조 수리 매뉴얼 (Structural Repair Manual, SRM)</h4>
+  <div class="grid g3">
+    <div class="card blue">
+      <h5>기체 손상 복구</h5>
+      <p>비행기의 뼈대(프레임)나 껍질(외피, Skin)이 충격으로 인해 찌그러지거나 구멍이 났을 때 활용하는 특수 지침서.</p>
+    </div>
+    <div class="card blue">
+      <h5>강도 복원 지침</h5>
+      <p>단순히 모양만 메우는 것이 아니라, 수리 후에도 해당 부위가 원래 가지고 있던 <strong>구조적 강도를 완전히 회복</strong>할 수 있도록 공학적 방법을 알려줍니다.</p>
+    </div>
+    <div class="card blue">
+      <h5>판금 및 복합재 정비</h5>
+      <p><strong>리벳 작업, 판금 절단 규격, 복합재료 패치 부착</strong> 등 동체 수리의 핵심 정보가 담겨 있습니다.</p>
+    </div>
+  </div>
+
+  <h4>④ 부품 도해 목록 (Illustrated Parts Catalog, IPC)</h4>
+  <p>항공기를 구성하는 모든 부품을 시각적인 도해(Illustration)와 함께 목록화한 기술 문서 — <span class="hl">"부품 백과사전"</span></p>
+  <div class="grid g2">
+    <div class="card">
+      <h5>주요 기능</h5>
+      <ul class="clean" style="margin:0;">
+        <li><strong>부품 식별</strong> : 복잡한 항공기 구조 속에서 특정 부품의 형상과 파트 번호 확인</li>
+        <li><strong>부품 주문</strong> : 교체가 필요한 부품을 제작사에 주문하기 위한 근거 자료</li>
+        <li><strong>조립 및 분해 참조</strong> : 부품들이 어떤 순서와 구조로 결합되어 있는지 시각적으로 파악</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h5>IPC 구성 요소</h5>
+      <ul class="clean" style="margin:0;">
+        <li><strong>도해(Illustration)</strong> : 분해 조립도(Exploded View), Index Number로 위치 표시</li>
+        <li><strong>Part Number</strong> : 부품의 고유 식별 번호</li>
+        <li><strong>Nomenclature</strong> : 부품의 공식 명칭</li>
+        <li><strong>Units Per Assy</strong> : 해당 조립체에 들어가는 부품의 개수</li>
+        <li><strong>Effectivity</strong> : 해당 부품이 적용되는 특정 기체 번호(Serial Number)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4>⑤ 배선 매뉴얼 (Wiring Diagram Manual, WDM)</h4>
+  <p>항공기에 장착된 모든 전기 시스템의 배선도(Wiring Diagrams)를 수록한 기술 문서입니다.</p>
+  <table>
+    <thead><tr><th>포함 내용</th><th>현장 활용</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>와이어 번호(Wire Numbering)<br>커넥터 및 단자 정보(핀 번호)<br>접지점(Ground Points)<br>회로 보호 장치(CB·퓨즈 위치)</td>
+        <td><strong>결함 탐구(Troubleshooting)</strong> : 단선·단락 의심 구간 논리적 추적<br><strong>부품 교체 및 수리</strong> : 규격에 맞는 자재 사용 근거<br><strong>계통 이해</strong> : 신규 장비 장착 시 기존 계통과의 간섭 여부 확인</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>⑥ 구성품 정비 매뉴얼 (Component Maintenance Manual, CMM)</h4>
+  <p>항공기 기체 전체가 아닌 <strong>분리된 상태</strong>에서 구성품(발전기, 랜딩 기어 브레이크 어셈블리, 항법 장비 등)의 상세 정비를 위해 제작사가 제공하는 지침서입니다. 주로 <span class="hl">공장 정비(Shop Maintenance)</span> 단계에서 활용됩니다.</p>
+
+  <h5 style="font-size:.95rem;font-weight:750;color:#fff;margin:14px 0 8px;">CMM 주요 구성 요소</h5>
+  <ul class="clean">
+    <li><strong>Description and Operation</strong> : 구성품의 기능과 작동 원리 설명</li>
+    <li><strong>Testing and Fault Isolation</strong> : 구성품의 성능 시험 방법 및 결함 원인 탐색</li>
+    <li><strong>Disassembly</strong> : 부품의 분해 순서와 주의 사항</li>
+    <li><strong>Cleaning / Inspection / Repair</strong> : 세척 방법, 마모 한계치 검사, 허용된 수리 범위 지침</li>
+    <li><strong>Assembly</strong> : 부품의 조립 순서 및 절차와 토크 값</li>
+    <li><strong>Exploded View (IPC)</strong> : 구성품 내부의 아주 작은 볼트나 와셔까지 식별</li>
+  </ul>
+
+  <h4>CMM vs AMM 비교</h4>
+  <table>
+    <thead>
+      <tr><th>구분</th><th>AMM (Aircraft Maintenance Manual)</th><th>CMM (Component Maintenance Manual)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="k">작업 위치</td><td>On-Wing (항공기에 장착된 상태)</td><td>Off-Wing (항공기에서 분리된 상태)</td></tr>
+      <tr><td class="k">작업 내용</td><td>구성품의 장탈착, 기능 점검, 육안 검사</td><td>구성품의 완전 분해, 내부 부품 수리 및 교체</td></tr>
+      <tr><td class="k">비유</td><td>항공기에서 배터리를 장탈하고 장착하는 방법?</td><td>장탈한 배터리 내부의 전해액을 어떻게 교체하는가?</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ===== AD & TSDS ===== -->
+  <h3>9) 감항성 개선 지시서 (Airworthiness Directives, AD)</h3>
+
+  <div class="callout danger">
+    <span class="ct">감항당국이 내리는 가장 강력한 법적 명령</span>
+    특정 비행기에 중대한 결함이나 안전 문제가 발견되었으니, 규정된 기한 내에 당장 수리하거나 점검하라는 매우 긴급하고 중요한 지시입니다. <strong>이를 이행하지 않으면 해당 항공기는 비행을 할 수 없습니다.</strong>
+  </div>
+
+  <h4>AD 분류</h4>
+  <div class="grid g2">
+    <div class="card red">
+      <h5>긴급도에 따른 분류</h5>
+      <p>① 접수 즉시 곧바로 긴급 수행을 요구하는 위급한 것 — <strong>AOG</strong><br>② 일정 기간 내에 수행을 요하는 긴급한 것</p>
+    </div>
+    <div class="card red">
+      <h5>반복성에 따른 분류</h5>
+      <p>① 일회 수행으로 종료되는 것<br>② 일정 주기(시간, 사이클, 기간)로 <strong>반복적으로</strong> 검사를 수행하는 것</p>
+    </div>
+  </div>
+
+  <h4>AD 내용 구성</h4>
+  <ul class="clean">
+    <li>① 해당 항공기, 엔진, 프로펠러, 기기의 <strong>형식과 일련번호</strong></li>
+    <li>② 수행 시기, 기간, 개요, <strong>수행절차, 수행방법</strong></li>
+  </ul>
+
+  <h3>10) 정비회보 (Service Bulletin, SB)</h3>
+
+  <p>항공기, 엔진 또는 부품 제작사(OEM)가 발행하는 <strong>권고적인 기술지시</strong>로, 해당 제품의 안전성 향상, 신뢰성 개선, 성능 증대 또는 수명 연장을 위해 특정 점검, 수정, 부품 교체 등의 내용을 포함합니다.</p>
+
+  <h4>이행 의무에 따른 SB 종류</h4>
+  <table>
+    <thead><tr><th>종류</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Optional (선택적)</td><td>운영자가 판단하여 이행 여부를 결정할 수 있는 개선사항</td></tr>
+      <tr><td class="k">Recommended (권고)</td><td>가급적 빠른 시일 내에 수행할 것을 권장하는 사항</td></tr>
+      <tr><td class="k" style="color:var(--red);">Alert SB (긴급)</td><td>안전에 직결된 결함이 발견되어 <strong>단기간 내에 이행</strong>해야 하는 긴급 회보</td></tr>
+      <tr><td class="k" style="color:var(--red);">Mandatory (강제)</td><td>감항당국이 <strong>감항성 개선지시(AD)를 발행</strong>하여 법적 강제성을 부여한 경우</td></tr>
+    </tbody>
+  </table>
+
+  <h4>SB 포함 내용</h4>
+  <ul class="clean">
+    <li>① 발행 목적</li>
+    <li>② 대상 기체, 엔진, 장비품</li>
+    <li>③ 서비스, 조정, 개조 또는 검사, 필요한 부품의 공급원</li>
+    <li>④ 작업 소요 인시수(Manhour) 등</li>
+  </ul>
+
+  <h3>11) 형식증명자료집 (Type Certificate Data Sheets, TSDS)</h3>
+
+  <h4>형식증명자료집에서 얻을 수 있는 정보</h4>
+  <div class="grid g2">
+    <div class="card">
+      <ul class="clean" style="margin:0;">
+        <li>① 형식증명 항공기에 사용된 모든 엔진의 모델</li>
+        <li>② 최소 연료 등급</li>
+        <li>③ 매니폴드압력, 회전수, 마력 등 엔진 최대연속 정격, 이륙정격</li>
+        <li>④ 프로펠러 제작사, 모델, 사용한계, 프로펠러·엔진의 운용한계 및 제한 사항</li>
+        <li>⑤ 대기속도(Airspeed)</li>
+        <li>⑥ 최대탑재하중 상태에서 무게중심과 그 위치범위 — 감항유별이 수송(T)인 항공기는 날개의 평균공력시위(MAC)의 백분율(%)로 표기</li>
+        <li>⑦ 자중무게중심(Empty weight center of gravity) 범위</li>
+        <li>⑧ 기준점의 위치</li>
+      </ul>
+    </div>
+    <div class="card">
+      <ul class="clean" style="margin:0;">
+        <li>⑨ 평형정보(Leveling means)</li>
+        <li>⑩ 최대중량(Maximum weight)</li>
+        <li>⑪ 좌석 수와 모멘트, 거리(Arm)</li>
+        <li>⑫ 오일과 연료탑재량</li>
+        <li>⑬ 조종날개면의 움직임</li>
+        <li>⑭ 검사에 필요한 장비</li>
+        <li>⑮ 형식증명을 위한 필요한 추가적 특별한 장비</li>
+        <li>⑯ 필요한 플래카드 자료</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== ATA 체계 ===== -->
+  <h3>12) ATA 체계 — 항공기 계통 분류</h3>
+
+  <div class="grid g3">
+    <div class="card accent">
+      <div class="ico">🌐</div>
+      <h5>글로벌 공통 체계</h5>
+      <p>전 세계 모든 항공사와 제작사가 똑같은 번호 체계를 사용하여 방대한 매뉴얼을 통일성 있게 정리하는 <strong>표준 분류법</strong>입니다.</p>
+    </div>
+    <div class="card accent">
+      <div class="ico">✈️</div>
+      <h5>일관된 챕터 (예시)</h5>
+      <p>보잉, 에어버스 등 어느 회사 비행기든 매뉴얼의 <span class="hl">'24장(ATA 24)'</span>을 펼치면 항상 <strong>'전기 계통'</strong> 내용이 나오도록 약속되어 있습니다.</p>
+    </div>
+    <div class="card accent">
+      <div class="ico">📊</div>
+      <h5>효율적인 정보 탐색</h5>
+      <p>이러한 전 세계적인 약속 덕분에 정비사들은 기종이 바뀌더라도 필요한 문서를 <strong>빠르고 정확하게</strong> 찾아 정비할 수 있습니다.</p>
+    </div>
+  </div>
+
+  <h4>JASC/ATA 100 Code Listings (주요 항목)</h4>
+  <table>
+    <thead><tr><th>번호</th><th>계통명</th><th>번호</th><th>계통명</th><th>번호</th><th>계통명</th></tr></thead>
+    <tbody>
+      <tr><td class="k">21</td><td>Air Conditioning</td><td class="k">32</td><td>Landing Gear</td><td class="k">72</td><td>Turbine/Turboprop Engine</td></tr>
+      <tr><td class="k">22</td><td>Auto Flight</td><td class="k">33</td><td>Lights</td><td class="k">73</td><td>Engine Fuel and Control</td></tr>
+      <tr><td class="k">23</td><td>Communications</td><td class="k">34</td><td>Navigation</td><td class="k">74</td><td>Ignition</td></tr>
+      <tr><td class="k" style="color:var(--teal);">24</td><td style="color:var(--teal);font-weight:700;">Electrical Power</td><td class="k">36</td><td>Pneumatic</td><td class="k">76</td><td>Engine Controls</td></tr>
+      <tr><td class="k">26</td><td>Fire Protection</td><td class="k">51</td><td>Standard Practices/Structures</td><td class="k">77</td><td>Engine Indicating</td></tr>
+      <tr><td class="k">27</td><td>Flight Controls</td><td class="k">52</td><td>Doors</td><td class="k">78</td><td>Engine Exhaust</td></tr>
+      <tr><td class="k">28</td><td>Fuel</td><td class="k">53</td><td>Fuselage</td><td class="k">79</td><td>Engine Oil</td></tr>
+      <tr><td class="k">29</td><td>Hydraulic Power</td><td class="k">55</td><td>Stabilizers</td><td class="k">80</td><td>Starting</td></tr>
+      <tr><td class="k">30</td><td>Ice and Rain Protection</td><td class="k">57</td><td>Wings</td><td class="k">85</td><td>Reciprocating Engine</td></tr>
+      <tr><td class="k">31</td><td>Instruments</td><td class="k">71</td><td>PowerPlant</td><td class="k">28</td><td>Fuel</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ===== PART 4 : 검사 종류 ===== -->
+  <h3>13) 검사의 종류</h3>
+
+  <h4>① 매일 하는 검사 — 비행 전/후 점검</h4>
+  <div class="grid g2">
+    <div class="card teal">
+      <h5>✈️ 조종사의 역할</h5>
+      <p><strong>Walk-around (외부 육안 점검)</strong> : 비행기 주변을 한 바퀴 빙 돌면서 타이어, 엔진, 조종면 등에 겉보기에 이상이나 손상이 없는지 직접 눈으로 확인합니다. 감항성 관련 증명서 확인과, 항공일지의 정비기록도 검토합니다.</p>
+    </div>
+    <div class="card blue">
+      <h5>🔧 정비사의 역할</h5>
+      <p><strong>수리 및 보급 (Maintenance &amp; Servicing)</strong> : 조종사가 적어둔 고장 내용을 신속하게 고치고, 다음 비행을 위해 연료나 오일을 규정치에 맞게 채워 넣으며 완벽하게 준비합니다.</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <span class="ct">검사 주기 결정 기준</span>
+    항공안전법에 의거해 감항 당국의 승인을 받은 항공사의 <strong>"정비규정"</strong>과 운항기술기준의 <strong>"항공기 정비"</strong>에 명시된 정비방식에 따라 검사주기, 검사범위, 검사요목이 결정됩니다.
+  </div>
+
+  <h4>② 정기 검사 — 연간 검사 / 100시간 주기검사</h4>
+  <table>
+    <thead><tr><th>구분</th><th>연간검사</th><th>100시간 주기검사</th></tr></thead>
+    <tbody>
+      <tr><td class="k">공통점</td><td colspan="2" style="text-align:center;"><span class="hl">연간검사와 100시간 주기검사의 범위와 요목은 동일하다</span></td></tr>
+      <tr><td class="k">차이점</td><td><strong>검사 권한을 위임받은 유자격 항공정비사</strong>가 수행</td><td><strong>항공정비사 면허를 가진 정비사</strong>가 수행</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout tip">
+    <span class="ct">10% 여유 규정</span>
+    점검주기는 정비기지로의 비행을 위해 <strong>10% 정도의 여유</strong>를 준다. 즉, 정비목적의 비행을 위해 10시간 이내의 여유로 <strong>110시간 이내</strong>에 검사를 수행할 수 있다.
+  </div>
+
+  <h4>③ 정기 검사 — 단계적 검사 (Progressive Inspection)</h4>
+  <div class="grid g2">
+    <div class="card">
+      <h5>효율적인 스케줄링</h5>
+      <p>비행기를 오랫동안 세워두고 한 번에 다 검사하면 항공사의 경제적 손해가 큽니다. 이를 방지하기 위해 전체 점검 항목을 여러 개로 쪼개어 스케줄에 맞춰 돌아가며 검사합니다.</p>
+    </div>
+    <div class="card teal">
+      <h5>장점 &amp; 방법</h5>
+      <p><strong>장점</strong> : 검사를 비행이 없는 야간에 완성하고 주간에 비행을 하여 수입을 늘릴 수 있습니다.<br><strong>방법</strong> : 항공기를 등록한 감항 당국에 신청하여 정비프로그램으로 승인을 받습니다.</p>
+    </div>
+  </div>
+
+  <h4>④ 연속적 검사 (Continuous Inspection) — 정시점검 "Letter Check"</h4>
+  <p>일상적 검사와 상세검사 모두를 포함하는 정비프로그램을 <span class="hl">정시점검 또는 Letter Check</span>라고 부르며 <strong>A, B, C, D</strong>로 구성됩니다.</p>
+
+  <div class="pass">
+    <div class="p">
+      <div class="ltr">A</div>
+      <div class="nm">A-Check</div>
+      <div class="dc">비교적 가벼운 점검. 포괄적이고 수행 빈도가 많음 (며칠 간격)</div>
+    </div>
+    <div class="p">
+      <div class="ltr">B</div>
+      <div class="nm">B-Check</div>
+      <div class="dc">비교적 가벼운 점검. 포괄적이고 수행 빈도가 많음 (몇 주 간격)</div>
+    </div>
+    <div class="p" style="border-top:3px solid var(--red);">
+      <div class="ltr" style="color:var(--red);">C</div>
+      <div class="nm">C-Check</div>
+      <div class="dc">격납고에서 수행. 주요장비품 분해·장탈·오버홀 포함 종합 점검</div>
+    </div>
+    <div class="p" style="border-top:3px solid var(--red);">
+      <div class="ltr" style="color:var(--red);">D</div>
+      <div class="nm">D-Check</div>
+      <div class="dc">최대 규모 중정비. 항공기 수명 동안 <strong>3~6회</strong> 수행</div>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <span class="ct">항공기 정비 프로그램 승인</span>
+    항공기에 대한 정비 프로그램은 승인된 <strong>AOC의 Operation specifications</strong>에 자세히 기술되어 있습니다.
+  </div>
+
+  <h4>⑤ 고도계, 송수신기 검사 (Altimeter and Transponder Inspections)</h4>
+  <ul class="clean">
+    <li>계기비행으로 운항하는 항공기는 기능시험완료일을 포함하여 <span class="hl">24개월을 초과하지 않은 고도계와 정압계통</span>을 각각 갖추어야 합니다.</li>
+    <li>항공교통관제와 통신용 <strong>송수신기</strong>를 장착한 항공기 역시 이전의 <span class="hl">24개월 주기검사</span>를 필한 송수신기를 갖추어야 합니다.</li>
+    <li>이 점검 모두는 <strong>유자격자</strong>에 의해 수행되어야 합니다.</li>
+  </ul>
+
+  <!-- ===== 특별 검사 ===== -->
+  <h3>14) 특별 검사 (Special Inspection)</h3>
+
+  <div class="callout danger">
+    <span class="ct">비정상적인 상황 발생 시</span>
+    비행기가 평소 운항 중에는 겪지 못하는 엄청난 물리적 충격이나 가혹한 환경에 노출되었을 때 실시하는 <strong>비정기적 검사</strong>입니다. 겉으로는 멀쩡해 보일지라도, 항공기 내부나 뼈대에 남아 있을지 모르는 <span class="hl-r">'숨은 상처(Hidden Damage)'</span>를 찾아내기 위해 매우 세밀하게 진행됩니다.
+  </div>
+
+  <h4>특별 검사 발생 상황 목록</h4>
+  <div class="grid g3">
+    <div class="card red"><h5>Hard Landing</h5><p>경(硬)착륙 — 규정치 이상의 강한 충격으로 착지한 경우</p></div>
+    <div class="card red"><h5>Overweight Landing</h5><p>최대착륙중량을 초과한 상태로 착륙한 경우</p></div>
+    <div class="card red"><h5>Turbulence Air Flight</h5><p>심각한 난기류(Severe Turbulence)를 통과한 경우</p></div>
+    <div class="card red"><h5>Over G</h5><p>허용 한계를 초과하는 G 하중이 가해진 경우</p></div>
+    <div class="card red"><h5>Lightning Strike</h5><p>벼락(낙뢰)을 맞은 경우</p></div>
+    <div class="card red"><h5>Volcanic Ash Exposure</h5><p>화산재에 노출된 경우</p></div>
+    <div class="card red"><h5>Bird Strike</h5><p>조류 충돌이 발생한 경우</p></div>
+    <div class="card red"><h5>Hail Strike</h5><p>우박(Hail)에 맞은 경우</p></div>
+    <div class="card red"><h5>Fire Damage</h5><p>화재가 발생한 경우</p></div>
+    <div class="card red"><h5>Flood Damage</h5><p>침수·수몰된 경우</p></div>
+  </div>
+
+  <h4>경(硬)착륙 (Hard Landing) 발생 시</h4>
+  <ul class="clean">
+    <li>짐을 너무 많이 싣고 내리거나, 악천후 등으로 땅에 너무 세게 부딪히면 충격으로 인해 <strong>착륙 기어와 연결된 비행기의 뼈대가 휠 수 있습니다.</strong></li>
+    <li>비행기 표면(외피)이 충격을 받아 쭈글쭈글하게 우는지(주름) 확인합니다.</li>
+    <li>충격으로 날개 밑이나 동체에서 <strong>연료가 새지 않는지</strong> 꼼꼼히 검사해야 합니다.</li>
+  </ul>
+
+  <h4>난기류를 심하게 만났을 때 (Severe Turbulence)</h4>
+  <div class="grid g3">
+    <div class="card">
+      <h5>구조적 피로 누적</h5>
+      <p>강력하고 심한 돌풍에 비행기가 상하좌우로 심하게 흔들리면 <strong>날개와 꼬리 부분의 뼈대</strong>에 엄청난 스트레스와 피로가 쌓이게 됩니다.</p>
+    </div>
+    <div class="card">
+      <h5>보이지 않는 손상</h5>
+      <p>외관상으로는 날개가 부러지거나 부서지지 않아 완전히 멀쩡해 보일 수 있으나, <strong>내부는 다를 수 있습니다.</strong></p>
+    </div>
+    <div class="card">
+      <h5>체결부 정밀 점검</h5>
+      <p>보이지 않는 곳의 철판을 이어주는 <strong>리벳(Rivet)이나 볼트</strong>가 헐거워지거나 충격에 떨어져 나갔는지 반드시 점검해야 합니다.</p>
+    </div>
+  </div>
+
+  <h4>벼락을 맞았을 때 (Lightning Strike)</h4>
+  <div class="grid g3">
+    <div class="card teal">
+      <h5>금속 표면의 특성</h5>
+      <p>비행기 동체 대부분을 차지하는 금속 표면은 전기가 잘 흘러나가(방전) 비교적 덜 위험하며, 번개가 빠져나간 <strong>작은 그을음 자국</strong>만 남는 경우가 많습니다.</p>
+    </div>
+    <div class="card red">
+      <h5>비금속 부품의 취약성</h5>
+      <p>기수 부분의 <strong>레이돔(Radome)</strong>이나 안테나 커버 등 유리나 플라스틱, 복합소재로 된 부분은 전기가 흐르지 못합니다.</p>
+    </div>
+    <div class="card red">
+      <h5>손상 확인</h5>
+      <p>비금속 부위들은 벼락의 엄청난 열 에너지에 의해 <strong>시커멓게 타거나 구멍이 나고 녹아내릴 수 있으므로</strong> 매우 주의 깊게 살펴봐야 합니다.</p>
+    </div>
+  </div>
+
+  <h4>조류 충돌 (Bird Strike) 및 화재 발생 시</h4>
+  <div class="grid g2">
+    <div class="card">
+      <h5>🦅 Bird Strike</h5>
+      <p>주로 이착륙 중에 발생하며, 새와 부딪힌 <strong>레이돔, 날개 앞전, 또는 엔진 주변</strong>이 찌그러지지 않았는지 확인합니다. 특히 내부로 충격이 전해져 <strong>안쪽 배관이나 전선이 터지지 않았는지</strong> 깊숙이 들여다봐야 합니다.</p>
+    </div>
+    <div class="card red">
+      <h5>🔥 화재 발생 시</h5>
+      <p>불이 났던 곳의 금속 구조물은 불은 꺼졌어도 뜨거운 열 때문에 <strong>금속 고유의 성질이 변해 원래의 단단함을 잃어버렸을 수 있습니다.</strong> 반드시 <span class="hl-r">경도 시험기(Hardness Tester)</span> 같은 특수 장비로 강도를 다시 측정해야 합니다.</p>
+    </div>
+  </div>
+
+  <h4>침수 / 해상 비행기 (Flood Damage / Seaplane)</h4>
+  <div class="callout danger">
+    <span class="ct">물과 소금(염분)은 비행기를 녹슬게(부식) 하는 최악의 적입니다.</span>
+    활주로 이탈로 물에 빠지거나, 항상 바다에서 뜨고 내리는 해상비행기(Seaplane)는 특별한 관리가 필요합니다. 물에 젖은 부품이나 랜딩기어는 완전히 분해해서 깨끗한 물로 씻어내어 <strong>소금기를 제거</strong>하고, 완벽히 말린 다음 <strong>부식 방지 약품(방청유)</strong>을 바르는 처리를 철저히 해야 합니다.
+  </div>
+
+  <div class="exam">
+    <div class="et">★ 핵심 정리</div>
+    <ul>
+      <li>검사(Inspection) : 항공 안전 기준 부합 여부를 <strong>꼼꼼하게 확인·검증</strong>하는 핵심 작업. 궁극적 목표는 <strong>감항성(Airworthiness) 유지</strong></li>
+      <li>검사 주기 3가지 : <strong>비행 시간(Flight Hours)</strong> / <strong>비행 횟수(Flight Cycles)</strong> / <strong>작동 날짜(Calendar Days)</strong></li>
+      <li>로그북 3대 원칙 : <strong>실시간성 · 정확성 · 영구성</strong></li>
+      <li>탑재용 일지(기체) vs 지상비치용 일지(엔진·프로펠러)</li>
+      <li>AMM(On-Wing) vs CMM(Off-Wing)</li>
+      <li>AD = 감항당국이 내리는 <strong>법적 강제 명령</strong>. 미이행 시 비행 불가</li>
+      <li>Letter Check : A(며칠) → B(몇 주) → C/D(격납고 중정비, D는 수명 중 3~6회)</li>
+      <li>고도계 &amp; 송수신기 주기 검사 : <strong>24개월</strong> 이내</li>
+      <li>특별 검사 : Hard Landing, Over G, Lightning Strike, Bird Strike 등 비정상 상황 발생 시 숨은 손상(Hidden Damage) 탐색</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">출처 : 10-1 항공기 검사 개념과 기법</div>
+</section>
+
+<!-- ===================== PAGE : NDI ===================== -->
+<section class="page" id="page-ndi" data-page="ndi">
+  <div class="page-head">
+    <div class="kicker">CHAPTER 3-2 · 항공기 검사</div>
+    <h2>비파괴 검사 <span style="font-size:1.3rem;font-weight:700;color:var(--muted);">(NDI, Non-Destructive Inspection)</span></h2>
+    <div class="en">Non-Destructive Inspection / Testing</div>
+  </div>
+
+  <p class="lead">재료나 제품의 <strong>원형과 기능을 전혀 변화시키지 않고도</strong> 성질, 상태, 내부구조 등을 알아내는 모든 검사. 비행기를 부수지 않고 속을 들여다보는 기술입니다.</p>
+
+  <!-- ===== 1. NDI 개요 ===== -->
+  <h3>1) 비파괴 검사(NDI)란?</h3>
+
+  <p>빛, 열, 방사선, 음파, 전기, 자기 에너지 등 <span class="hl">재료의 물리적 성질</span>을 검사체에 적용하여 에너지의 변화를 측정함으로써 조직 이상이나 결함의 존재를 확인합니다.</p>
+
+  <h4>비파괴검사로 측정·평가할 수 있는 특성</h4>
+  <div class="grid g3">
+    <div class="card accent"><div class="ico">🔍</div><h5>결함 검사</h5><p>검사체 내부의 결함(균열·기공·이물질) 검출</p></div>
+    <div class="card accent"><div class="ico">🏗️</div><h5>구조 · 크기</h5><p>검사체의 내부 구조, 크기 및 도량 파악</p></div>
+    <div class="card accent"><div class="ico">⚗️</div><h5>재료 특성</h5><p>물리적·기계적 특성, 화학적 분석 및 조성, 응력·외력에 따른 반응</p></div>
+  </div>
+
+  <div class="callout info">
+    <span class="ct">공인된 전문가의 영역</span>
+    NDI는 일반 정비사가 수행할 수 없는 분야가 대부분입니다. 특별한 검사 장비 사용과 결과 판독에 많은 경험이 필요하기 때문입니다. 고도의 전문 훈련을 이수하고 국가 기관·전문 인증기관에서 <strong>자격증(인증)을 취득한 전문가만이</strong> 검사를 수행하고 결과를 판정할 수 있습니다.
+  </div>
+
+  <!-- ===== 2. 검사 종류 요약 ===== -->
+  <h3>2) 비파괴 검사의 종류</h3>
+
+  <table>
+    <thead><tr><th>검사 방법</th><th>원리 요약</th><th>주요 특징</th></tr></thead>
+    <tbody>
+      <tr><td class="k">육안 검사 (Visual)</td><td>육안·확대경·보어스코프 등 광학 장비로 표면 직접 확인</td><td>저비용, 즉각 결과, 표면 결함만 탐지</td></tr>
+      <tr><td class="k">내시경 (Borescope)</td><td>좁은 틈새로 카메라를 삽입하여 내부 육안 확인</td><td>엔진 내부 비분해 점검 가능</td></tr>
+      <tr><td class="k">침투탐상 (Penetrant Dye)</td><td>침투액 → 세척 → 현상액으로 표면 균열 시각화</td><td>작은 균열도 탐지, 표면 결함만</td></tr>
+      <tr><td class="k">와전류 (Eddy Current)</td><td>교류 코일로 와전류 유도, 임피던스 변화 측정</td><td>전도성 금속 전용, 숨은 결함 탐지</td></tr>
+      <tr><td class="k">초음파 (Ultrasonic)</td><td>초음파 송출 후 에코(Echo) 신호 분석</td><td>깊은 결함·두께 측정 가능, 인체 무해</td></tr>
+      <tr><td class="k">방사선 (X-Ray / Isotope RT)</td><td>X선·감마선 투과 후 필름/센서에 밀도 차이 촬영</td><td>내부 전체 영구 기록, 방사선 안전 필수</td></tr>
+      <tr><td class="k">자분탐상 (Magnetic Particle)</td><td>자화 후 자분(철가루) 도포, 누설 자속에 자분 집중</td><td>강자성체 전용, 빠르고 신뢰성 높음</td></tr>
+      <tr><td class="k">음향방출 (Acoustic Emission)</td><td>균열 성장 시 발생하는 응력파를 수동 감지</td><td>대형 구조물 실시간 모니터링</td></tr>
+      <tr><td class="k">형광자분 (Magnaglo)</td><td>형광 코팅 자분 + 자외선(블랙라이트)으로 결함 확인</td><td>미세 균열 시인성 극대화</td></tr>
+      <tr><td class="k">탭 시험 (Tap Testing)</td><td>동전·망치로 두드려 타격음(Dead Sound) 차이 청취</td><td>복합재 적층 분리 탐지, 간편·신속</td></tr>
+      <tr><td class="k">전기 전도율</td><td>와전류 원리 응용, 금속 고유 전도율 측정</td><td>합금 식별, 열처리 상태 확인</td></tr>
+      <tr><td class="k">열상 검사 (Thermography)</td><td>적외선(IR) 카메라로 온도 분포 시각화</td><td>수분 침투·층 분리 탐지, 넓은 면적 적합</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ===== 3. 장단점 비교표 ===== -->
+  <h3>3) 주요 방법별 장단점 비교</h3>
+
+  <table>
+    <thead><tr><th>방법</th><th>장점</th><th>단점</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="k">Visual (BSI 포함)</td>
+        <td>·저비용 <br>· 휴대 간편 <br>· 즉각적 결과 <br>· 최소 훈련 <br>· 최소 용품</td>
+        <td>· 표면 결함(Discontinuities)만 탐지 <br>· 일반적으로 큰 결함만 탐지 <br>· 긁힘(Scratches)을 결함으로 오판</td>
+      </tr>
+      <tr>
+        <td class="k">Penetrant Dye (침투탐상)</td>
+        <td>· 휴대 가능 <br>· 저비용 <br>· 매우 작은 결함도 검출 → visual과의 유일한 차이점 <br>· 30분 이내 검사 완료</td>
+        <td>· 표면 결함만 탐지 <br>· 거칠거나 다공성 표면 곤란 <br>· 마감재·실란트 제거 준비 필요 <br>· 높은 청결도 필요</td>
+      </tr>
+      <tr>
+        <td class="k">Magnetic Particle (자분탐상)</td>
+        <td>· 휴대 가능 <br>· 저비용 <br>· 작은 결함도 검출 <br>· 즉각적 결과 <br>· 표면 결함만 탐지 <br>· 중간 정도의 검사 기능 → visual, dye로 못보는 안쪽까지 확인 가능 <br>· 상대적으로 빠름</td>
+        <td>· 거친 표면 불리 <br>· 부품 준비 필요(마감재·실란트 제거) <br>· 강자성 부품에만 적용 <br>· 시험 후 부품 탈자 작업 필요</td>
+      </tr>
+      <tr>
+        <td class="k">Eddy Current (와전류)</td>
+        <td>· 휴대 가능 <br>· 표면·표면 결함 동시 검사 <br>· 즉각적 결과 <br>· 작은 결함도 탐지 <br>· 굵기에도 민감</td>
+        <td>· Probe가 검사 표면에 접근 가능해야 함 <br>· 거친 표면 불리 <br>· 전기 전도성 검사체에만 적용 <br>· 넓은 구역 검사 시간 소요</td>
+      </tr>
+      <tr>
+        <td class="k">Ultrasonic (초음파)</td>
+        <td>· 휴대 가능 <br>· 저비용 <br>· 작은 결함도 검출 <br>· 즉각적 결과 <br>· 검사체 준비 거의 불필요 <br>· 두께 측정 광범위</td>
+        <td>· Probe가 검사 표면에 접근 가능해야 함 <br>· 거친 표면 불리 <br>· 고도의 결함 검출·해석 능력 필요 <br>· 결함의 깊이는 나타나지 않음</td>
+      </tr>
+      <tr>
+        <td class="k">X-Ray Radiography</td>
+        <td>· 표면 및 내부 결함 감지 <br>· 숨겨진 곳도 검사 <br>· 영구적 기록 획득 <br>· 검사체 준비 최소</td>
+        <td>· 방사선 안전 위험 <br>· 고비용 <br>· 느린 프로세스 <br>· 결함의 깊이는 나타나지 않음</td>
+      </tr>
+      <tr>
+        <td class="k">Isotope Radiography (동위원소 방사선, 감마선)</td>
+        <td>· 휴대 가능 <br>· X-ray보다 낮은 비용 <br>· 표면 및 내부 결함 감지 <br>· 영구적 기록 획득</td>
+        <td>· 동위원소 안전 위험 <br>· 방사선 동위원소 취급 관련 법 준수 필요 <br>· 결함의 깊이는 나타나지 않음</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ===== 4. 내시경 검사 ===== -->
+  <h3>4) 내시경 검사 <span class="sub-en">Borescope Inspection</span></h3>
+
+  <p>근본적으로 육안검사이며, 의료용 위내시경처럼 끝에 초소형 렌즈와 밝은 조명이 달린 <strong>길고 유연한 관</strong>을 사용합니다. 스파크 플러그 구멍 같은 아주 좁은 틈새로 카메라를 밀어 넣어 외부 모니터로 엔진 내부를 선명하게 확인합니다.</p>
+
+  <div class="grid g3">
+    <div class="card teal"><div class="ico">🔭</div><h5>리지드 (Rigid)</h5><p>딱딱한 직선 형태. 직선 경로가 확보된 좁은 공간에 사용.</p></div>
+    <div class="card teal"><div class="ico">🌀</div><h5>플렉시블 (Flexible)</h5><p>구부러지는 유연한 형태. 곡선 경로나 복잡한 내부 구조 검사.</p></div>
+    <div class="card teal"><div class="ico">📹</div><h5>비디오 (Video)</h5><p>끝에 CCD 카메라 장착. 고화질 영상으로 기록·저장 가능.</p></div>
+  </div>
+
+  <div class="callout tip">
+    <span class="ct">주요 활용</span>
+    엔진 내부 터빈 블레이드의 열 손상·균열 확인, 엔진을 분해하지 않고 현장에서 즉시 점검 가능
+  </div>
+
+  <!-- ===== 5. 침투탐상 ===== -->
+  <h3>5) 액체 침투 검사 <span class="sub-en">Penetrant Dye Inspection</span></h3>
+
+  <p>표면에 <strong>눈에 보이지 않는 미세한 균열</strong>이 있을 때 주로 사용합니다.</p>
+
+  <h4>검사 절차 (6단계)</h4>
+  <div class="grid g3">
+    <div class="card"><div class="ico">🧹</div><h5>① 전처리 (세척)</h5><p>표면의 오염물·도료 등을 완전히 제거하여 침투액이 결함 속으로 들어갈 수 있도록 준비.</p></div>
+    <div class="card"><div class="ico">🔴</div><h5>② 침투 처리</h5><p>특수한 빨간색 침투액을 표면에 바르고 일정 시간 대기하여 결함 속으로 스며들게 함.</p></div>
+    <div class="card"><div class="ico">🫧</div><h5>③ 세척 처리</h5><p>겉면의 침투액을 깨끗하게 닦아내고 결함 내부에 침투액만 남김.</p></div>
+    <div class="card"><div class="ico">🤍</div><h5>④ 현상 처리</h5><p>흰색 현상액(Developer)을 뿌리면 결함 속 침투액이 스펀지처럼 배어 올라옴.</p></div>
+    <div class="card"><div class="ico">👁️</div><h5>⑤ 관찰 (판독)</h5><p>결함 부위에 빨간 침투액이 배어 나와 균열 형태가 선명하게 시각화됨.</p></div>
+    <div class="card"><div class="ico">🚿</div><h5>⑥ 후처리 (세척)</h5><p>검사 완료 후 잔류 현상액·침투액을 제거하여 부품 표면을 복원.</p></div>
+  </div>
+
+  <h4>침투탐상의 특징</h4>
+  <div class="grid g3">
+    <div class="card blue"><div class="ico">♻️</div><h5>다양한 재질 적용</h5><p>알루미늄 같은 금속뿐만 아니라 플라스틱, 유리, 세라믹 등 재질에 거의 상관없이 적용 가능.</p></div>
+    <div class="card blue"><div class="ico">🧳</div><h5>뛰어난 휴대성</h5><p>스프레이 캔 형태로 현장 라인 정비에서도 빠르고 간편하게 검사 가능.</p></div>
+    <div class="card red"><div class="ico">⚠️</div><h5>검사의 한계</h5><p>반드시 표면이 깨끗해야 하며, <strong>표면으로 입구가 열린 균열만</strong> 찾을 수 있음. 표면 아래 깊숙이 숨은 결함은 탐지 불가.</p></div>
+  </div>
+
+  <!-- ===== 6. 와전류 ===== -->
+  <h3>6) 와전류 검사 <span class="sub-en">Eddy Current Inspection</span></h3>
+
+  <p>코일을 이용하여 도체에 시간적으로 변화하는 자계(교류)를 걸면 도체에 발생한 <span class="hl">와전류(소용돌이 전기)</span>가 결함에 의해 변화하는 것을 측정하여 결함을 검출합니다.</p>
+
+  <h4>작동 원리 (3단계)</h4>
+  <div class="grid g3">
+    <div class="card"><div class="ico">🔌</div><h5>A. 1차 자기장 발생</h5><p>선택된 주파수에서 코일을 통해 흐르는 교류 전류는 코일 주위에 자기장(1차 자기장)을 발생시킨다.</p></div>
+    <div class="card"><div class="ico">⚡</div><h5>B. 와전류 유도</h5><p>코일이 전기 전도성 물질에 근접하면 와전류가 물질에 포함된다.</p></div>
+    <div class="card"><div class="ico">📊</div><h5>C. 임피던스 변화 측정</h5><p>전도성 물질의 결함이 와전류 흐름에 영향을 주면, 프로브 코일 임피던스가 변화되어 결함 신호를 읽을 수 있다.</p></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px;">
+    <div class="card teal"><div class="ico">🔬</div><h5>전도성 금속에 적용</h5><p>알루미늄이나 동체 표면처럼 <strong>전기가 통하는 금속에만</strong> 사용 가능한 검사 방법.</p></div>
+    <div class="card teal"><div class="ico">🎯</div><h5>숨은 결함 탐지</h5><p>금속 안에 상처가 있으면 전기 흐름이 변형되며, 겉면뿐만 아니라 <strong>바로 아래 숨은 상처까지</strong> 탐지 가능.</p></div>
+  </div>
+
+  <!-- ===== 7. 초음파 ===== -->
+  <h3>7) 초음파 검사 <span class="sub-en">Ultrasonic Inspection</span></h3>
+
+  <p>초음파탐상기는 검사할 항공기 부품의 한쪽 면에서 사람의 귀에 들리지 않는 높은 주파수의 초음파를 쏘아 보냅니다. 재료 내부로 들어간 초음파가 결함(균열·불연속면)에 부딪혀 <strong>반사되어 돌아오는 에코(Echo) 신호의 크기와 시간</strong>을 분석하여 결함의 크기와 위치를 찾아냅니다. 병원 초음파 기기와 기본 원리가 완전히 동일합니다.</p>
+
+  <h4>X-선 vs 초음파 비교</h4>
+  <table>
+    <thead><tr><th>구분</th><th>X선 (X-Ray)</th><th>초음파 (Ultrasonic)</th></tr></thead>
+    <tbody>
+      <tr><td class="k">에너지 형태</td><td>전자기파 (방사선 에너지)</td><td>기계적 파동 (음향 에너지)</td></tr>
+      <tr><td class="k">전달 매질</td><td>진공에서도 전파됨</td><td>공기·액체·고체 등 매질 필요</td></tr>
+      <tr><td class="k">투과 원리</td><td>밀도가 높을수록 흡수·차단</td><td>밀도가 다른 경계면에서 반사·굴절</td></tr>
+      <tr><td class="k">영상화</td><td>내부 밀도 차이를 평면적 '그림자'로 표현</td><td>에코로 깊이(심도)와 위치 파악. A·B·C-Scan</td></tr>
+      <tr><td class="k">안전성</td><td><span class="hl-r">전리 방사선, 인체 유해</span></td><td><span class="hl-t">인체 무해, 차폐 시설 불필요</span></td></tr>
+      <tr><td class="k">장점 분야</td><td>복잡한 내부 구조, 조립 상태 확인</td><td>두께 측정, 미세 균열·박리 탐지</td></tr>
+    </tbody>
+  </table>
+
+  <h4>초음파 검사 화면의 종류</h4>
+  <div class="grid g3">
+    <div class="card accent"><h5>"A" 스캔</h5><p>초음파 신호의 <strong>크기(진폭)와 반사 시간(거리)</strong>을 1차원 그래프 선 형태로 보여주는 가장 기본적인 화면 패턴.</p></div>
+    <div class="card accent"><h5>"B" 스캔</h5><p>탐촉자가 이동하면서 얻은 데이터를 바탕으로 검사 대상의 내부 <strong>단면(Cross-section)을 2차원 이미지</strong>로 보여줌.</p></div>
+    <div class="card accent"><h5>"C" 스캔</h5><p>검사 표면을 위에서 내려다본 <strong>평면도(Top-view)</strong> 형태로, 결함의 면적·분포도를 색상 지도로 제공.</p></div>
+  </div>
+
+  <h4>초음파 검사의 3가지 주요 기법</h4>
+  <div class="grid g3">
+    <div class="card teal">
+      <div class="ico">↔️</div>
+      <h5>펄스반사법 (Pulse Echo)</h5>
+      <p>한 개의 탐침이 송·수신을 번갈아 수행. 부품 한쪽 면만 접근 가능해도 검사 가능 → <strong>항공기 정비 현장에서 가장 널리 쓰이는 방식</strong>.</p>
+    </div>
+    <div class="card teal">
+      <div class="ico">➡️</div>
+      <h5>투과법 (Through Transmission)</h5>
+      <p>부품 양쪽에 송·수신 탐침을 각각 배치. 내부 결함이 있으면 통과 에너지가 감소. <strong>부품 양쪽 면 모두 접근 필요</strong>. 미세 결함 탐지에는 다소 덜 민감.</p>
+    </div>
+    <div class="card teal">
+      <div class="ico">↕️</div>
+      <h5>공진법 (Resonance)</h5>
+      <p>주파수를 연속 변화시켜 재료에 공진이 일어나는 주파수를 포착, <strong>두께를 정밀하게 측정</strong>. 뒷면 접근이 불가능한 경우에 유용.</p>
+    </div>
+  </div>
+
+  <h4>탐침(Probe)과 압전효과 <span class="sub-en">Piezoelectric Effect</span></h4>
+  <p><strong>변환기</strong> 탐침(Probe)은 전기적 에너지를 기계적 에너지인 초음파로, 반사된 초음파를 다시 전기 신호로 바꾸어 주는 핵심 역할을 합니다.</p>
+  <p><strong>압전효과</strong> 탐침 내부의 특수 결정체(수정·세라믹 등)에 전압을 걸어주면 결정이 <strong>팽창과 수축을 반복</strong>하며 초음파 진동을 만들고, 반사파가 돌아오면 다시 전기 신호로 변환됩니다.</p>
+
+  <h4>접촉 매질 (Couplants)의 필요성</h4>
+  <div class="callout info">
+    <span class="ct">왜 겔(Gel)을 바르나요?</span>
+    주파수가 매우 높은 초음파는 공기를 통과하지 못하고 표면에서 거의 100% 반사됩니다. 탐침과 부품 사이의 미세한 <strong>공기층을 완벽히 제거하기 위해</strong> 검사 전 반드시 <strong>물, 글리세린, 오일, 그리스</strong> 같은 액체나 겔(Gel) 상태의 접촉 매질을 발라주어야 합니다.
+  </div>
+
+  <!-- ===== 8. 방사선 ===== -->
+  <h3>8) 방사선 투과 검사 <span class="sub-en">Radiographic Testing, RT</span></h3>
+
+  <p>강력한 방사선(X선 또는 감마선)을 부품에 투과시켜, 반대편 필름이나 센서에 <strong>밀도 차이에 따른 음영</strong>을 남기는 대표적인 내부(체적) 결함 검사 방법입니다. 병원 X-ray 촬영과 완전히 동일한 원리입니다.</p>
+
+  <h4>기본 원리 : 투과와 흡수</h4>
+  <div class="grid g2">
+    <div class="card blue"><div class="ico">⬛</div><h5>투과 → 검게 나타남</h5><p>밀도가 낮은 부분(공기, 결함, 얇은 플라스틱 등)은 X선이 잘 통과하여 필름에 <strong>어두운 암영</strong>으로 나타남.</p></div>
+    <div class="card blue"><div class="ico">⬜</div><h5>흡수 → 밝게 나타남</h5><p>밀도가 높은 부분(금속, 뼈 등)은 X선을 흡수·차단하여 필름에 <strong>밝은 양영</strong>으로 나타남.</p></div>
+  </div>
+
+  <h4>방사선 검사의 장점</h4>
+  <div class="grid g2">
+    <div class="card teal"><div class="ico">🏗️</div><h5>비파괴의 극대화</h5><p>부품 분해 불필요. 페인트 제거 등 특수 표면 처리 없이 그대로 검사 가능.</p></div>
+    <div class="card teal"><div class="ico">📁</div><h5>영구적인 기록</h5><p>결과가 필름이라는 실물 사진으로 남아 언제든 재평가 가능.</p></div>
+  </div>
+
+  <h4>결함 형태별 위험성 비교</h4>
+  <div class="grid g2">
+    <div class="card"><div class="ico">⭕</div><h5>기공 (Porosity) — 둥근 결함</h5><p>가스가 빠져나가지 못해 내부에 동그랗게 생긴 빈 공간. 힘이 <strong>전체로 분산</strong>되어 파괴 속도가 비교적 느림.</p></div>
+    <div class="card red"><div class="ico">⚡</div><h5>균열 (Crack) — 뾰족한 결함</h5><p>날카롭게 찢어진 균열. 끝이 뾰족하여 <strong>응력이 한 곳에 극도로 집중</strong> → 순간적으로 파괴. 훨씬 더 위험.</p></div>
+  </div>
+
+  <h4>방사선 필름 현상 절차</h4>
+  <div class="grid g3">
+    <div class="card"><div class="ico">🧪</div><h5>① 현상 (Development)</h5><p>방사선에 노출된 잠상(潛像)을 현상액에 담가 검은색 은 입자로 변화.</p></div>
+    <div class="card"><div class="ico">🛁</div><h5>② 정착 (Fixing)</h5><p>빛을 받지 않은 부분을 씻어내고 정착액에 넣어 이미지를 고정.</p></div>
+    <div class="card"><div class="ico">💧</div><h5>③ 수세 및 건조</h5><p>잔류 화학약품을 물로 완전히 씻어내고 건조 → 흑백 방사선 사진 완성.</p></div>
+  </div>
+
+  <h4>촬영 조건 설정</h4>
+  <div class="grid g2">
+    <div class="card"><h5>재료의 물리적 특성 파악</h5><p>검사 재료의 <strong>두께, 재질의 밀도(단단함), 부품의 형상</strong>을 먼저 파악해야 적절한 촬영 조건 설정 가능.</p></div>
+    <div class="card"><h5>노출 시간 및 에너지 조절</h5><p>재료 특성과 찾고자 하는 결함 종류(기공 vs 균열)에 따라 <strong>방사선 강도(에너지)와 노출 시간</strong>을 완벽히 계산·세팅해야 선명한 필름 획득.</p></div>
+  </div>
+
+  <div class="callout danger">
+    <span class="ct">⚠️ 방사선 위험과 안전 수칙</span>
+    방사선은 눈에 보이지도 냄새가 나지도 않지만 파괴력은 엄청납니다. 인체 세포를 직접 파괴하며, 과도·누적 노출 시 <strong>백혈병, 암 발생, 유전자 변형, 심각한 피부 괴사</strong> 등 돌이킬 수 없는 피해가 발생합니다.<br><br>
+    • 검사 시 방사선 위험 경고 표지판 설치 및 인원 출입 통제 필수<br>
+    • 촬영 전 방사선 빔 방향 바깥쪽 또는 <strong>납 차폐 공간으로 완전히 대피</strong>
+  </div>
+
+  <!-- ===== 9. 자분탐상 ===== -->
+  <h3>9) 자분탐상검사 <span class="sub-en">Magnetic Particle Inspection, MPI</span></h3>
+
+  <p>자석에 붙는 재질(강자성체)에 자장을 걸어준 상태에서 아주 미세한 쇳가루(자분)를 뿌려 숨어있는 결함을 찾습니다. 결함 부위에서 <strong>누설 자속(Leakage flux)</strong>이 발생하고, 뿌려진 쇳가루가 이 자기력에 이끌려 결함 윤곽을 눈에 띄게 표시합니다.</p>
+
+  <h4>자분탐상의 특징 및 한계</h4>
+  <div class="grid g3">
+    <div class="card red"><div class="ico">🚫</div><h5>검사 대상 제한</h5><p>알루미늄·티타늄처럼 자석에 붙지 않는 <strong>비자성체 부품에는 절대 사용 불가</strong>.</p></div>
+    <div class="card teal"><div class="ico">⚙️</div><h5>강자성체 특화</h5><p>철, 니켈, 코발트 같은 강자성체 금속 검사에 매우 탁월한 성능.</p></div>
+    <div class="card teal"><div class="ico">⚡</div><h5>빠르고 높은 신뢰성</h5><p>기어, 랜딩기어 부품 등 철강 부품의 표면·바로 아래 숨은 결함을 신뢰성 있게 탐지.</p></div>
+  </div>
+
+  <h4>자속 방향의 원리 — 90도의 법칙</h4>
+  <div class="callout tip">
+    <span class="ct">핵심 원리</span>
+    결함을 가장 뚜렷하게 찾으려면 재료 내부에 흐르는 <strong>자력선(자기장 흐름)과 결함의 방향이 서로 수직(90도)</strong>으로 만나야 합니다. 자력선과 결함이 평행하면 자력선이 결함을 타고 넘어가 버려 쇳가루가 모이지 않아 탐지 불가.
+  </div>
+
+  <h4>자화 방법 : 원형 자화 vs 선형 자화</h4>
+  <table>
+    <thead><tr><th>방법</th><th>원형 자화 (Circular)</th><th>선형 자화 (Longitudinal)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="k">방법</td>
+        <td>부품 양끝에 직접 전기를 흘려 자화</td>
+        <td>코일(솔레노이드) 안에 부품을 넣고 전기를 흘려 자화</td>
+      </tr>
+      <tr>
+        <td class="k">자기장 형태</td>
+        <td>전류 방향 축으로 <strong>동심원 모양의 둥근 자기장</strong> 생성</td>
+        <td>부품 <strong>길이 방향을 따라 직선 형태의 자기장</strong> 생성</td>
+      </tr>
+      <tr>
+        <td class="k">탐지 결함</td>
+        <td>부품의 <strong>길이 방향으로 난 결함</strong> 탐지</td>
+        <td>부품의 <strong>폭 방향으로 난 결함</strong> 탐지</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>자화 방법 : 연속법 vs 잔류법</h4>
+  <div class="grid g2">
+    <div class="card blue">
+      <h5>연속법 (Continuous Method)</h5>
+      <p>전기를 켠 상태(자속 밀도 최대)에서 자분을 뿌려 검사. 자력이 가장 강할 때 검사하므로 <strong>표면 아래 깊숙이 숨은 결함</strong>을 찾는 데 효과적.</p>
+    </div>
+    <div class="card blue">
+      <h5>잔류법 (Residual Method)</h5>
+      <p>전기를 먼저 끊고, 부품에 남아있는 <strong>잔류 자기(Residual Magnetism)</strong>만을 이용하여 자분을 뿌려 검사.</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <span class="ct">자속 밀도 조절의 중요성</span>
+    자력을 너무 세게 하면 금속의 결정 입자 모양이나 가공 흔적까지 결함처럼 자분이 뭉쳐 <strong>배경 노이즈</strong>가 발생합니다. 진짜 결함 판독이 어려워지므로 적절한 전류값 조절이 필수입니다.
+  </div>
+
+  <h4>자화 장비</h4>
+  <div class="grid g2">
+    <div class="card">
+      <h5>고정식 (Stationary)</h5>
+      <p>작업장에 고정된 대형 장비. 안정적인 DC/AC 전원 사용. 두 헤드 사이에 부품을 고정하고 원형·선형 자화를 모두 수행 가능. 연속법·잔류법 모두 유연하게 적용.</p>
+    </div>
+    <div class="card">
+      <h5>이동식 (Portable, Yoke)</h5>
+      <p>항공기에서 부품을 떼어내지 않고 <strong>격납고 현장에서 직접 검사</strong>할 때 사용. 랜딩기어 스트러트, 엔진 마운트 핀 등 균열 점검에 유용. 분해·조립 시간 절감.</p>
+    </div>
+  </div>
+
+  <h4>형광자분검사 <span class="sub-en">Magnaglo</span></h4>
+  <p>일반 쇳가루 대신 <strong>형광 물질이 코팅된 자분</strong>을 사용하고 자외선(블랙라이트)을 비추어 결함을 찾는 기법입니다. 미세한 틈새에 형광 액체가 잘 스며들어, 육안으로는 구별하기 힘든 미세 균열도 <span class="hl">선명한 초록색/노란색 빛</span>으로 확연히 드러납니다. 복잡한 기어(Gear) 구조나 엔진 부품 검사에 최적.</p>
+
+  <h4>탈자 (Demagnetizing)의 중요성</h4>
+  <div class="callout danger">
+    <span class="ct">검사 후 반드시 탈자!</span>
+    검사 완료 후 부품에 남아있는 <strong>잔류 자기(Residual Magnetism)</strong>를 완벽히 제거해야 합니다. 자력이 남아 있으면 운항 중 주변의 미세한 쇳가루·금속 칩을 끌어당겨, 엔진 베어링 등 정밀 부품을 갉아먹는 <span class="hl-r">치명적인 2차 결함</span>을 유발합니다.
+  </div>
+
+  <h4>올바른 탈자 방법</h4>
+  <div class="grid g3">
+    <div class="card"><div class="ico">🔄</div><h5>① 교류 코일 통과</h5><p>자기장 방향이 1초에 수십 번씩 바뀌는 <strong>교류(AC)가 흐르는 코일(솔레노이드)</strong> 안으로 자화된 부품을 통과시킴.</p></div>
+    <div class="card"><div class="ico">↔️</div><h5>② 서서히 멀어지기</h5><p>코일 안에 가만히 두는 것이 아니라, 코일 중심에서부터 <strong>일정한 속도로 천천히 멀어지게</strong> 이동.</p></div>
+    <div class="card"><div class="ico">🔲</div><h5>③ 자력 소멸 (Zero)</h5><p>거리가 멀어짐에 따라 자기장이 계속 방향을 바꾸며 힘이 점차 줄어들어 결국 <strong>자력 = 0</strong>이 됨.</p></div>
+  </div>
+
+  <!-- ===== 10. 접합구조물 ===== -->
+  <h3>10) 접합구조물 (Bonded Structure) 검사</h3>
+
+  <p>현대 항공기에는 무게를 줄이고 강도를 높이기 위해 <strong>허니콤(Honeycomb)이나 탄소섬유 복합재 등 여러 재료를 층층이 접착한 접합구조물</strong>이 사용됩니다.</p>
+
+  <h4>접합구조물의 주요 결함</h4>
+  <div class="grid g2">
+    <div class="card red">
+      <div class="ico">💔</div>
+      <h5>분리 및 공동 (Delamination &amp; Voids)</h5>
+      <p>충격·노후화로 외피와 내부 접착제 사이가 떨어져 틈이 벌어지는 <strong>분리(Delamination)</strong>. 제조 시 기포가 들어가거나 접착제가 불완전하게 채워지는 <strong>공동(Voids)</strong>.</p>
+    </div>
+    <div class="card red">
+      <div class="ico">💧</div>
+      <h5>수분 침투 (Moisture Ingress)</h5>
+      <p>비행 중 극심한 온도 변화와 기압 차이로 외피 균열을 통해 내부 허니콤 구조 속으로 수분 침투. 고고도에서 얼어붙으며 부피가 팽창하여 내부 구조를 파괴.</p>
+    </div>
+  </div>
+
+  <h4>검사의 어려움</h4>
+  <ul class="clean">
+    <li>상면(Top Skin) 원자재와 두께가 다양</li>
+    <li>접착제의 종류와 두께가 다름</li>
+    <li>코어의 재료·셀 크기·두께·접착제 등 내부 구조 변수가 많음</li>
+    <li>접합 구조의 상면과 하면에만 접근 가능 — 초음파 신호가 일정하게 투과하지 않아 탐지 어려움</li>
+  </ul>
+
+  <!-- ===== 11. 복합재료 검사 ===== -->
+  <h3>11) 복합재료 (Composite) 검사</h3>
+
+  <p>탄소 섬유·유리 섬유 등 두 가지 이상의 재료를 층층이 겹쳐 만든 복합재료는 금속보다 가볍고 단단하여 최신 항공기 기체에 널리 쓰입니다. 금속의 균열(Crack)과는 달리 <strong>적층 분리(Delamination)와 접착 이완</strong>이 주요 결함입니다.</p>
+
+  <h4>탭 시험 (Tap Testing / 동전 시험)</h4>
+  <div class="grid g2">
+    <div class="card teal">
+      <div class="ico">🪙</div>
+      <h5>정상 부위</h5>
+      <p>내부가 단단히 붙어있는 멀쩡한 곳은 <strong>맑고 경쾌한 금속성 소리</strong>가 납니다.</p>
+    </div>
+    <div class="card red">
+      <div class="ico">🔇</div>
+      <h5>결함 부위</h5>
+      <p>적층 분리나 결함이 있는 곳은 소리가 흡수되어 <strong>둔탁하고 먹먹한 무음(Dead Sound)</strong>이 납니다.</p>
+    </div>
+  </div>
+  <p>동전이나 2온스의 가벼운 특수 망치(Tap Hammer)로 겉면을 톡톡 두드려 소리를 청취. 매우 고전적이지만 여전히 현장에서 가장 빠르고 효과적인 방법입니다.</p>
+
+  <h4>전기적 전도율 검사</h4>
+  <p>탄소/유리 섬유 복합재료 자체는 전기가 통하지 않는 <strong>부도체</strong>입니다. 낙뢰 시 안전을 위해 표면이나 층 사이에 알루미늄·동(구리) 메쉬 망을 덮어씌웁니다. 복합재료를 수리(Patch)한 후에는 이 전도 물질이 기체 전체와 잘 연결되어 있는지 <span class="hl">저항측정기(Bonding Meter)</span>로 꼼꼼히 점검해야 합니다.</p>
+
+  <h4>열상 검사 (Thermography)</h4>
+  <p>가열 등(Heat Lamp)이나 전기 담요로 부품 표면에 일정한 열을 가한 뒤, <strong>적외선(IR) 카메라</strong>로 표면의 미세한 온도 변화를 촬영합니다. 결함이 없는 정상 부위는 열이 고르게 전달되지만, 수분이 침투하거나 층이 분리된 결함 부위는 <span class="hl">열전도율이 달라져 뚜렷한 온도 차이(색상 차이)로 나타납니다.</span></p>
+
+  <!-- ===== 12. 용접 검사 ===== -->
+  <h3>12) 용접 검사의 기초</h3>
+
+  <p>고열로 금속을 녹여 붙이는 용접 부위의 품질을 외관 표면을 직접 살펴 1차적으로 판단합니다. 잘 용접된 부위는 두 철판이 완벽히 하나가 되어 원래 금속(모재)보다도 훨씬 튼튼해집니다. 이때 <span class="hl">쇳물이 철판 안쪽으로 얼마나 깊게 녹아 들어갔는지(용입, Penetration)</span>가 튼튼함의 핵심입니다.</p>
+
+  <h4>치명적인 용접 결함들</h4>
+  <div class="grid g2">
+    <div class="card red">
+      <div class="ico">⚡</div>
+      <h5>균열 (Crack)</h5>
+      <p>급격한 온도 변화·수축으로 용접 부위 자체나 열영향부(HAZ)가 날카롭게 갈라지는 현상. 용접 부위의 강도를 <strong>가장 치명적으로 떨어뜨리는, 절대 허용 불가 결함</strong>.</p>
+    </div>
+    <div class="card red">
+      <div class="ico">〰️</div>
+      <h5>언더컷 (Under Cut)</h5>
+      <p>용접 전류가 너무 세거나 속도가 부적절할 때 모재 부위가 열에 지나치게 녹아 <strong>오목하게 도랑처럼 패이는 결함</strong>. 두께가 얇아진 것과 같아 그 부분에 응력이 집중.</p>
+    </div>
+  </div>
+
+  <!-- ===== 핵심 정리 ===== -->
+  <div class="exam">
+    <div class="et">★ 핵심 정리 — 시험 출제 포인트</div>
+    <ul>
+      <li><strong>NDI 정의</strong> : 원형·기능 변화 없이 결함을 찾는 모든 검사. 에너지(빛·열·방사선·음파·전기·자기) 적용 후 변화량 측정</li>
+      <li><strong>자격 요건</strong> : NDI는 전문 자격증(인증) 취득자만 수행·판정 가능</li>
+      <li><strong>침투탐상</strong> : 표면 결함만 탐지 / 전처리(세척) → 침투 → 세척 → 현상 → 관찰 → 후처리 6단계 / 비자성체·복합재에도 적용 가능</li>
+      <li><strong>와전류</strong> : 전도성 금속 전용 / 표면 아래 숨은 결함 탐지 / 임피던스 변화 측정</li>
+      <li><strong>초음파 3기법</strong> : 펄스반사법(한쪽 면만 접근, 현장 최다 사용) / 투과법(양쪽 접근 필요) / 공진법(두께 측정)</li>
+      <li><strong>방사선</strong> : 밀도 낮음 → 검게(암영) / 밀도 높음 → 밝게(양영) / 영구 기록 가능 / 기공보다 균열이 더 위험</li>
+      <li><strong>자분탐상(MPI)</strong> : 강자성체 전용(Al·Ti 불가) / 90도 법칙(자력선 ⊥ 결함) / 원형자화(길이방향 결함) vs 선형자화(폭방향 결함) / 검사 후 반드시 탈자</li>
+      <li><strong>탈자 방법</strong> : AC 코일 통과 후 서서히 멀어지기 → 자력 = 0</li>
+      <li><strong>탭 시험</strong> : 복합재 적층 분리 탐지 / 정상 = 경쾌한 소리, 결함 = Dead Sound</li>
+      <li><strong>열상 검사</strong> : IR 카메라로 온도 분포 시각화 → 수분 침투·층 분리 탐지</li>
+    </ul>
+  </div>
+
+  <div class="footer-note">출처 : 10-2 비파괴 검사 (NDI) 강의자료</div>
+</section>
+
+</main>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const navLinks = document.querySelectorAll('.nav a[data-page]');
+  const defaultPage = 'safety';
+
+  function showPage(id){
+    let found = false;
+    pages.forEach(p=>{
+      // support both id-based and data-page-based matching
+      const match = p.dataset.page === id || p.id === 'page-'+id;
+      p.classList.toggle('active', match);
+      if(match) found = true;
+    });
+    if(!found){ // fallback
+      document.getElementById('page-'+defaultPage).classList.add('active');
+      id = defaultPage;
+    }
+    navLinks.forEach(a=>a.classList.toggle('active', a.dataset.page===id));
+    window.scrollTo({top:0,behavior:'instant' in window ? 'instant':'auto'});
+    // close mobile sidebar
+    document.getElementById('sidebar').classList.remove('open');
+  }
+
+  function routeFromHash(){
+    const id = (location.hash || '#'+defaultPage).replace('#','');
+    showPage(id);
+  }
+
+  window.addEventListener('hashchange', routeFromHash);
+  window.addEventListener('DOMContentLoaded', routeFromHash);
+  routeFromHash();
+
+  // mobile menu toggle
+  document.getElementById('menuToggle').addEventListener('click', ()=>{
+    document.getElementById('sidebar').classList.toggle('open');
+  });
+</script>
+</body>
+</html>
