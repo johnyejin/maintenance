@@ -215,6 +215,8 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         <li><div class="nav-item" onclick="show('sec6')"><span class="nav-num">06</span>충격하중</div></li>
         <li><div class="nav-item" onclick="show('sec7')"><span class="nav-num">07</span>단면 모멘트 & 도심</div></li>
         <li><div class="nav-item" onclick="show('sec8')"><span class="nav-num">08</span>단면 2차 모멘트 & 비틀림</div></li>
+        <li><div class="nav-item" onclick="show('sec9')"><span class="nav-num">09</span>보 (Beam)</div></li>
+        <li><div class="nav-item" onclick="show('sec10')"><span class="nav-num">10</span>기둥 (Column)</div></li>
         <div class="nav-divider"></div>
         <li><div class="nav-item" onclick="show('checklist')"><span class="nav-num" style="color:var(--warn);border-color:rgba(227,179,65,.4);">★</span>최종 체크리스트</div></li>
       </ul>
@@ -275,6 +277,16 @@ svg text{font-family:'Noto Sans KR',sans-serif}
               <div class="index-card-num" style="color:var(--accent3);">08</div>
               <div class="index-card-title">단면 2차 모멘트 & 비틀림</div>
               <div class="index-card-sub">I, 평행축 정리, 극관성모멘트, 코일 스프링</div>
+            </div>
+            <div class="index-card" style="border-left-color:var(--accent4);" onclick="show('sec9')">
+              <div class="index-card-num" style="color:var(--accent4);">09</div>
+              <div class="index-card-title">보 (Beam)</div>
+              <div class="index-card-sub">보의 종류, 반력, 부호규약, SFD & BMD</div>
+            </div>
+            <div class="index-card" style="border-left-color:#f85149;" onclick="show('sec10')">
+              <div class="index-card-num" style="color:#f85149;">10</div>
+              <div class="index-card-title">기둥 (Column)</div>
+              <div class="index-card-sub">세장비, 좌굴, 오일러 좌굴하중</div>
             </div>
             <div class="index-card" style="border-left-color:var(--warn);background:rgba(227,179,65,.04);" onclick="show('checklist')">
               <div class="index-card-num" style="color:var(--warn);">★</div>
@@ -980,7 +992,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         <p>도형별 I 공식, 평행축 정리, 극관성모멘트, 비틀림 응력, 코일 스프링</p>
         <div class="hero-nav">
           <button class="prev" onclick="show('sec7')">단면 모멘트 &amp; 도심</button>
-          <button class="next" onclick="show('checklist')">최종 체크리스트</button>
+          <button class="next" onclick="show('sec9')">보 (Beam)</button>
         </div>
       </div>
       <div class="container">
@@ -1233,15 +1245,406 @@ svg text{font-family:'Noto Sans KR',sans-serif}
     </div><!-- /sec8 -->
 
     <!-- ════════════════════════════════════════════════════
-         CHECKLIST
+         SEC9: 보 (Beam)
     ════════════════════════════════════════════════════ -->
+    <div class="section" id="sec-sec9">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span><span class="hero-num">09 / 10</span></div>
+        <h1>보 (Beam)</h1>
+        <p>보의 종류, 지지점, 반력, 부호규약, 전단력/굽힘모멘트 선도 (SFD &amp; BMD)</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec8')">단면 2차 모멘트 &amp; 비틀림</button>
+          <button class="next" onclick="show('sec10')">기둥 (Column)</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <!-- ① 보란? -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">①</span><h2>보(Beam)란?</h2></div>
+          <div class="card">
+            <p><span class="hl">보(beam)</span>: 수평으로 지지되어 수직하중을 받는 기계요소. 단면에 비해 길이가 월등히 길고, <span class="hl-blue">축 방향에 수직한 하중</span>을 받아 굽힘(bending)이 발생한다.</p>
+            <div class="compare-grid">
+              <div class="compare-item">
+                <h4 style="color:#58a6ff;">보에서 중요한 것 3가지</h4>
+                <p><strong>전단력 (Shear Force)</strong> — 보를 잘라내려는 힘</p>
+                <p><strong>굽힘모멘트 (Bending Moment)</strong> — 보를 굽히는 힘</p>
+                <p><strong>반력 (Reaction)</strong> — 지지점에서 발생하는 힘</p>
+              </div>
+              <div class="compare-item">
+                <h4 style="color:#3fb950;">보의 특징</h4>
+                <p>축 방향(x축) 힘 = 0 (수직 하중만 받음)</p>
+                <p>하중은 길이 방향에 수직하게 작용</p>
+                <p>매 지점마다 내부 전단력과 굽힘모멘트 발생</p>
+                <p>단면 2차 모멘트 I가 클수록 굽힘 저항 큼</p>
+              </div>
+            </div>
+            <div class="note info"><span class="note-icon">ℹ</span><span><strong>곡률반경이 크다 = 길이가 길다 = 처짐이 크다.</strong> 보 설계의 목표: 전단력·굽힘모멘트를 먼저 구하고, 이로부터 보 단면의 형상·치수를 결정.</span></div>
+          </div>
+        </div>
+
+        <!-- ② 보의 종류 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">②</span><h2>보의 종류 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <h3>정정보 (Statically Determinate Beam)</h3>
+            <p>평형방정식만으로 반력을 구할 수 있는 보. 미지수의 수 = 평형방정식의 수(3개).</p>
+            <table>
+              <tr><th>종류</th><th>지지 조건</th><th>미지수</th><th>특징</th></tr>
+              <tr><td><strong>단순보</strong><br>(Simply supported beam)</td><td>핀 서포트 + 롤러 서포트</td><td>3개</td><td>가장 기본적인 형태. 양 끝 지지.</td></tr>
+              <tr><td><strong>외팔보</strong><br>(Cantilevered beam)</td><td>한쪽 고정, 다른쪽 자유단</td><td>3개 (x, y, 모멘트)</td><td>용접·볼팅으로 완전 고정. 고정단에서 힘·모멘트 반력 모두 존재.</td></tr>
+              <tr><td><strong>돌출보</strong><br>(Overhanging beam)</td><td>핀 + 롤러, 한쪽 이상 돌출</td><td>3개</td><td>단순보에서 서포트 밖으로 돌출. 내다지보라고도 함.</td></tr>
+            </table>
+            <div class="note tip"><span class="note-icon">✓</span><span>정정보: 반력 수 = 평형방정식 수 (3개). 평형조건 ① ΣFx=0, ② ΣFy=0, ③ ΣM=0만으로 풀 수 있다.</span></div>
+          </div>
+          <div class="card">
+            <h3>부정정보 (Statically Indeterminate Beam)</h3>
+            <p>평형방정식만으로 반력을 구할 수 없는 보 — 추가 조건(변형 적합 조건) 필요. 미지수가 4개 이상.</p>
+            <table>
+              <tr><th>종류</th><th>지지 조건</th><th>미지수</th></tr>
+              <tr><td><strong>양단 고정보</strong> (Fixed beam)</td><td>양 끝 모두 고정</td><td>6개 (각 고정단에서 3개씩)</td></tr>
+              <tr><td><strong>일단 고정 타단 지지보</strong></td><td>한 단 고정, 다른 단 핀/롤러</td><td>4개</td></tr>
+              <tr><td><strong>연속보</strong> (Continuous beam)</td><td>3개 이상 지점 (2개 이상 스팬)</td><td>5개 이상</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- ③ 지지점(반력) 종류 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">③</span><h2>지지점 종류와 반력 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <table>
+              <tr><th>지점 종류</th><th>작용하는 반력 성분</th><th>억제하는 것</th><th>허용하는 것</th></tr>
+              <tr><td><strong>힌지(핀) 지점</strong><br>Hinge / Pin</td><td>수평 반력 Rx, 수직 반력 Ry</td><td>수평·수직 이동</td><td>회전(모멘트 발생 X)</td></tr>
+              <tr><td><strong>롤러(이동) 지점</strong><br>Roller</td><td>수직 반력 Ry만</td><td>수직 이동만</td><td>수평 이동 + 회전 (x축 힘 없음)</td></tr>
+              <tr><td><strong>고정 지점</strong><br>Fixed</td><td>수평 반력, 수직 반력, 모멘트 반력</td><td>수평·수직 이동 + 회전</td><td>없음 (완전 구속)</td></tr>
+            </table>
+            <div class="note info"><span class="note-icon">ℹ</span><span><strong>자유물체도(FBD, Free Body Diagram)</strong>: 보의 반력을 구하는 핵심 도구. 보를 단순화시켜 작용하는 모든 힘을 표시한 후 평형방정식을 세운다.</span></div>
+          </div>
+        </div>
+
+        <!-- ④ 하중의 종류 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">④</span><h2>하중의 종류</h2></div>
+          <div class="card">
+            <table>
+              <tr><th>종류</th><th>설명</th><th>SFD 모양</th><th>BMD 모양</th></tr>
+              <tr><td><strong>집중하중 P</strong></td><td>한 점에 집중 작용. 보의 자중 무시 시 사용.</td><td>상수 (수평선)</td><td>1차 함수 (기울기 있는 직선)</td></tr>
+              <tr><td><strong>균일분포하중 w</strong></td><td>단위 길이당 w[N/m]. 보의 자중과 관련. 전체 합력 = wL (도심 작용).</td><td>1차 함수 (기울기 직선)</td><td>2차 함수 (포물선)</td></tr>
+              <tr><td><strong>불균일분포하중</strong></td><td>w가 위치에 따라 변함. 예: 삼각 분포.</td><td>2차 함수</td><td>3차 함수</td></tr>
+              <tr><td><strong>우력(커플)모멘트 M₀</strong></td><td>같은 힘으로 반대 방향에 작용하는 한 쌍의 힘.</td><td>변화 없음 (V=0)</td><td>불연속 점프 발생</td></tr>
+            </table>
+            <div class="note tip"><span class="note-icon">✓</span><span>분포하중 → 적분하면 전단력 / 전단력 → 적분하면 굽힘모멘트. 하중의 차수가 1씩 올라간다.</span></div>
+          </div>
+        </div>
+
+        <!-- ⑤ 부호 규약 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">⑤</span><h2>부호 규약 (Sign Convention) <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <h3>외력 부호 규약</h3>
+            <p>위로 향하는 방향이 <span class="hl-blue">양(+)</span>. 분포하중 부호를 정하면 나머지 부호는 자동으로 정해진다.</p>
+          </div>
+          <div class="card">
+            <h3>전단력 V 부호 규약</h3>
+            <p><span class="hl-green">양(+)의 전단</span>: 시계방향(CW) 회전 효과 — 왼쪽 면에서 위로↑, 오른쪽 면에서 아래↓</p>
+            <p><span class="hl-red">음(-)의 전단</span>: 반시계방향(CCW) — 왼쪽 면에서 아래↓, 오른쪽 면에서 위↑</p>
+            <div class="note tip"><span class="note-icon">✓</span><span>외부 전단력은 실제 전단 발생 방향과 같다. 내부 전단력은 외부와 방향이 반대 (작용-반작용).</span></div>
+          </div>
+          <div class="card">
+            <h3>굽힘모멘트 M 부호 규약</h3>
+            <p><span class="hl-green">양(+)의 굽힘</span>: 보가 <strong>아래로 오목 (U자형, "smile")</strong> — 아래쪽 인장, 위쪽 압축</p>
+            <p><span class="hl-red">음(-)의 굽힘</span>: 보가 <strong>위로 오목 (∩자형, "cry")</strong> — 위쪽 인장, 아래쪽 압축</p>
+            <div class="note warn"><span class="note-icon">⚠</span><span>굽힘모멘트는 ⓧ값(음수)을 가지지 않는다는 의미가 아님 — 음의 M도 존재한다. 부호는 방향을 나타낼 뿐이다.</span></div>
+          </div>
+        </div>
+
+        <!-- ⑥ 반력 계산 - 단순보 예제 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">⑥</span><h2>단순보 반력 계산 (FBD 활용) <span class="badge badge-exam">시험 출제</span></h2></div>
+          <div class="card">
+            <h3>풀이 순서</h3>
+            <ol class="step-list">
+              <li>FBD(자유물체도) 그리기 — 모든 외력과 반력을 표시</li>
+              <li>평형방정식 3개 세우기: ΣFx=0, ΣFy=0, ΣM=0</li>
+              <li>한 지점을 기준으로 모멘트 방정식 → 반력 하나 먼저 결정 (A점 기준이면 A점 모멘트 반력 = 0)</li>
+              <li>나머지 반력 계산</li>
+            </ol>
+            <div class="card" style="background:var(--surface2);border-color:var(--accent);margin-top:12px;">
+              <h3 style="color:#d2a8ff;">예제 — 집중하중 P가 거리 a에 작용하는 단순보</h3>
+              <p>전체 길이 l인 단순보에 하중 P가 A점에서 거리 a인 C점에 작용.</p>
+              <div class="formula-block key">
+                <div class="label">평형조건 적용</div>
+                \[ \Sigma F = 0 : \quad R_A + R_B - P = 0 \quad \cdots (1) \]
+                \[ \Sigma M_A = 0 : \quad R_B \cdot l - P \cdot a = 0 \quad \cdots (2) \]
+              </div>
+              <div class="formula-block">
+                <div class="label">반력 계산</div>
+                \[ R_B = \frac{Pa}{l}, \qquad R_A = \frac{Pb}{l} \quad (b = l - a) \]
+              </div>
+              <div class="note info"><span class="note-icon">ℹ</span><span>A점을 기준으로 모멘트를 취하면 A점 반력의 모멘트 팔이 0이 되어 방정식이 간단해진다 → 기준점은 항상 미지수가 있는 지점으로 잡는다.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⑦ w, V, M 관계식 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">⑦</span><h2>하중 w · 전단력 V · 굽힘모멘트 M 관계식 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <h3>핵심 미분 관계</h3>
+            <p>미소 구간 dx에 대한 FBD 분석으로 유도:</p>
+            <div class="formula-block important">
+              <div class="label">전단력과 분포하중의 관계</div>
+              \[ \frac{dV}{dx} = -w \]
+            </div>
+            <div class="formula-block important">
+              <div class="label">굽힘모멘트와 전단력의 관계</div>
+              \[ \frac{dM}{dx} = V \]
+            </div>
+            <table>
+              <tr><th>관계</th><th>의미</th></tr>
+              <tr><td>w → 적분 → V</td><td>분포하중을 적분하면 전단력 (부호 반전)</td></tr>
+              <tr><td>V → 적분 → M</td><td>전단력을 적분하면 굽힘모멘트</td></tr>
+              <tr><td>V를 미분 → −w</td><td>전단력 기울기 = −분포하중</td></tr>
+              <tr><td>M을 미분 → V</td><td>굽힘모멘트 기울기 = 전단력</td></tr>
+            </table>
+            <div class="note warn"><span class="note-icon">⚠</span><span><strong>3가지 경우의 의미를 알면 됨:</strong><br>
+              ① 분포하중 구간: dV/dx = −w → V는 1차, M은 2차<br>
+              ② 집중하중 작용점: V가 불연속으로 점프 (크기 = 집중하중), M은 연속이지만 기울기 변화<br>
+              ③ 집중모멘트 M₀ 작용점: V 변화 없음, M이 불연속으로 점프
+            </span></div>
+          </div>
+          <div class="card">
+            <h3>적분 공식</h3>
+            <div class="formula-block">
+              <div class="label">전단력 — 시작점 V₀에서 x까지</div>
+              \[ V = V_0 - \int_{x_0}^{x} w\,dx \]
+            </div>
+            <div class="formula-block">
+              <div class="label">굽힘모멘트 — 시작점 M₀에서 x까지</div>
+              \[ M = M_0 + \int_{x_0}^{x} V\,dx \]
+            </div>
+            <p>V₀, M₀는 시작점(반력이 있는 점)에서의 값. 외팔보의 고정단처럼 M₀ ≠ 0인 경우 주의.</p>
+          </div>
+        </div>
+
+        <!-- ⑧ SFD & BMD 그리기 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">⑧</span><h2>전단력 선도(SFD)와 굽힘모멘트 선도(BMD) <span class="badge badge-exam">시험 출제</span></h2></div>
+          <div class="card">
+            <h3>SFD & BMD란?</h3>
+            <p>보의 각 단면에서 발생하는 전단력 V(x)와 굽힘모멘트 M(x)의 변화를 그래프로 나타낸 것.</p>
+            <table>
+              <tr><th>선도</th><th>영문 약자</th><th>하중 종류별 형상</th></tr>
+              <tr><td><strong>전단력 선도</strong></td><td>SFD (Shear Force Diagram)</td><td>집중하중→수평선 / 균일분포→기울기 직선 / 삼각형분포→2차 곡선</td></tr>
+              <tr><td><strong>굽힘모멘트 선도</strong></td><td>BMD (Bending Moment Diagram)</td><td>집중하중→직선 / 균일분포→포물선(2차) / 삼각형분포→3차 곡선</td></tr>
+            </table>
+            <div class="note tip"><span class="note-icon">✓</span><span><strong>핵심 규칙:</strong><br>
+              · SFD에서 전단력(+) 구간 → BMD 기울기(+기울기, 상승)<br>
+              · SFD에서 전단력(−) 구간 → BMD 기울기(−기울기, 하강)<br>
+              · <strong>V = 0인 점에서 M이 최대 (또는 최솟값)</strong> ← 시험에서 Mmax 구하는 핵심
+            </span></div>
+            <div class="note info"><span class="note-icon">ℹ</span><span><strong>최대 굽힘모멘트</strong>는 전단력이 부호가 바뀌는 위치 (V = 0인 지점)에서 발생한다. SFD 먼저 그리고, V = 0 위치를 찾아 M값을 계산.</span></div>
+          </div>
+
+          <div class="card">
+            <h3>예제① — 집중하중, 단순보 (SFD & BMD)</h3>
+            <p>단순보(길이 l)에 집중하중 P가 A에서 a, B에서 b 위치에 작용:</p>
+            <div class="formula-block">
+              \[ R_A = \frac{Pb}{l}, \quad R_B = \frac{Pa}{l} \]
+            </div>
+            <p>구간별 V, M:</p>
+            <div class="formula-block">
+              <div class="label">① 0 ≤ x ≤ a 구간</div>
+              \[ V = R_A = \frac{Pb}{l}, \qquad M = R_A x = \frac{Pb}{l}x \]
+            </div>
+            <div class="formula-block">
+              <div class="label">② a &lt; x ≤ l 구간</div>
+              \[ V = R_A - P = -\frac{Pa}{l}, \qquad M = \frac{Pa}{l}(l - x) \]
+            </div>
+            <div class="note tip"><span class="note-icon">✓</span><span>SFD: 상수(수평선) → BMD: 1차 직선. 집중하중 작용점에서 V가 불연속으로 점프. 최대 M은 하중 작용점 C에서 발생 (V=0인 지점).</span></div>
+          </div>
+
+          <div class="card">
+            <h3>예제② — 균일분포하중, 단순보 (SFD & BMD)</h3>
+            <p>단순보(길이 l)에 균일분포하중 w[N/m] 작용:</p>
+            <div class="formula-block">
+              \[ R_A = R_B = \frac{wl}{2} \]
+            </div>
+            <div class="formula-block">
+              <div class="label">전단력 V (1차 함수)</div>
+              \[ V = \frac{wl}{2} - wx = w\!\left(\frac{l}{2} - x\right) \]
+            </div>
+            <div class="formula-block">
+              <div class="label">굽힘모멘트 M (2차 함수, 포물선)</div>
+              \[ M = \frac{w}{2}(lx - x^2) \]
+            </div>
+            <div class="formula-block key">
+              <div class="label">최대 굽힘모멘트 — 중앙(V=0인 점, x=l/2)에서</div>
+              \[ M_{max} = \frac{wl^2}{8} \]
+            </div>
+            <div class="note tip"><span class="note-icon">✓</span><span>SFD: 1차 기울기 직선 (중앙에서 V=0). BMD: 2차 포물선 (중앙에서 최대). 도심에서 전단력 = 0.</span></div>
+          </div>
+        </div>
+
+        <!-- ⑨ 보의 처짐 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">⑨</span><h2>보의 처짐 & 굽힘 변형에너지 (참고)</h2></div>
+          <div class="card">
+            <h3>보의 처짐 미분방정식</h3>
+            <p>보의 탄성곡선(처짐 곡선)을 수식으로 표현하면:</p>
+            <div class="formula-block">
+              <div class="label">보의 탄성곡선 미분방정식</div>
+              \[ EI y'' = -M \]
+            </div>
+            <p>이를 미분하면 전단력·하중과의 관계:</p>
+            <div class="formula-block">
+              \[ EIy''' = -V, \qquad EIy'''' = w \]
+            </div>
+            <div class="note info"><span class="note-icon">ℹ</span><span>y: 처짐량 / y': 처짐각(기울기) / y'': 곡률 ≈ M/(EI) / EI: 굽힘강성. 처짐은 굽힘각과 곡률반경을 이용해 계산.</span></div>
+          </div>
+          <div class="card">
+            <h3>굽힘 변형에너지 U</h3>
+            <p>보가 순수굽힘모멘트(전단력=0)를 받을 때:</p>
+            <div class="formula-block">
+              \[ U = \frac{M\theta}{2} = \frac{M^2 l}{2EI} = \frac{\theta^2 EI}{2l} \]
+            </div>
+            <p>M이 보의 길이에 따라 변하는 일반 경우:</p>
+            <div class="formula-block">
+              \[ U = \int_0^l \frac{M^2}{2EI}\,dx \]
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sec9 -->
+
+    <!-- ════════════════════════════════════════════════════
+         SEC10: 기둥 (Column)
+    ════════════════════════════════════════════════════ -->
+    <div class="section" id="sec-sec10">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="hero-tag">재료역학</span><span class="hero-num">10 / 10</span></div>
+        <h1>기둥 (Column)</h1>
+        <p>세장비, 좌굴(buckling) 현상, 오일러 좌굴하중 — 이 3가지만 알면 된다</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec9')">보 (Beam)</button>
+          <button class="next" onclick="show('checklist')">최종 체크리스트</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <!-- ① 기둥이란? -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">①</span><h2>기둥(Column)이란?</h2></div>
+          <div class="card">
+            <p><span class="hl">기둥(column)</span>: 단면 대비 길이가 긴 봉이 <span class="hl-red">축방향 압축력</span>을 받는 기계요소. 압축되기보다 <span class="hl-red">좌굴(buckling)이 먼저 발생</span>하는 것이 특징.</p>
+            <div class="compare-grid">
+              <div class="compare-item">
+                <h4 style="color:#58a6ff;">보 vs 기둥 차이</h4>
+                <p><strong>보:</strong> 수직 하중 → 굽힘·전단 발생</p>
+                <p><strong>기둥:</strong> 축방향 압축 → 좌굴 발생</p>
+              </div>
+              <div class="compare-item">
+                <h4 style="color:#f78166;">기둥의 파괴 종류</h4>
+                <p><strong>단주(단柱):</strong> 압축 파괴 (항복·극한강도 도달)</p>
+                <p><strong>장주(長柱):</strong> 좌굴 파괴 (탄성 범위에서 횡방향 변위)</p>
+              </div>
+            </div>
+            <div class="note info"><span class="note-icon">ℹ</span><span>예시: 알루미늄 맥주캔에 압축하중을 가하면 → 찌그러지기 전에 옆면이 먼저 <strong>좌굴(휨)</strong>이 발생한다.</span></div>
+          </div>
+        </div>
+
+        <!-- ② 세장비 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">②</span><h2>세장비 (Slenderness Ratio) <span class="badge badge-exam">시험 핵심 ①</span></h2></div>
+          <div class="card">
+            <h3>세장비란?</h3>
+            <p>기둥의 <span class="hl-blue">길이 L</span>과 <span class="hl-blue">최소 단면 2차 반경 r</span>의 비. 기둥이 얼마나 가늘고 긴지를 나타내는 무차원 지표.</p>
+            <div class="formula-block important">
+              <div class="label">세장비 (Slenderness Ratio)</div>
+              \[ \lambda = \frac{L}{r}, \qquad r = \sqrt{\frac{I_{min}}{A}} = k \text{ (관성반경)} \]
+            </div>
+            <table>
+              <tr><th>기둥 종류</th><th>세장비 범위</th><th>파괴 형태</th></tr>
+              <tr><td><strong>단주 (Short column)</strong></td><td>\(0 < \dfrac{L}{r} < 50\)</td><td>압축 파괴 (재료 강도 지배)</td></tr>
+              <tr><td><strong>중간주</strong></td><td>\(50 \leq \dfrac{L}{r} < 100\)</td><td>중간 영역</td></tr>
+              <tr><td><strong>장주 (Long column)</strong></td><td>\(\dfrac{L}{r} \geq 100\)</td><td>좌굴 파괴 (기하학적 불안정)</td></tr>
+            </table>
+            <div class="note warn"><span class="note-icon">⚠</span><span><strong>세장비가 클수록 좌굴에 저항하는 능력이 작아진다.</strong> 같은 재료라도 세장하면 훨씬 낮은 하중에서 파괴됨. I, r이 클수록(단면을 축에서 멀리) 세장비 감소 → 좌굴 저항 증가.</span></div>
+          </div>
+        </div>
+
+        <!-- ③ 좌굴 현상 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">③</span><h2>좌굴 현상 (Buckling) <span class="badge badge-exam">시험 핵심 ②</span></h2></div>
+          <div class="card">
+            <h3>좌굴이란?</h3>
+            <p>탄성 재료로 된 장주에 축방향 압축력 P를 가할 때, <span class="hl">임계하중(P_cr)에 도달하면 갑자기 큰 횡방향 변위 v가 발생</span>하며 불안정해지는 현상.</p>
+            <div class="note danger"><span class="note-icon">💥</span><span>좌굴은 재료 강도와 관계없이 <strong>기하학적 불안정성</strong>으로 발생한다. 항복응력에 도달하기 전에 일어날 수 있다.</span></div>
+            <div class="compare-grid">
+              <div class="compare-item">
+                <h4 style="color:#3fb950;">P &lt; P_cr (안정 상태)</h4>
+                <p>작은 섭동(흔들림)이 가해져도 스프링이 복원 → <strong>원위치로 돌아옴</strong></p>
+                \[ \Sigma M_A < 0 \rightarrow \text{복원모멘트} > \text{전도모멘트} \]
+              </div>
+              <div class="compare-item">
+                <h4 style="color:#f78166;">P &gt; P_cr (불안정, 좌굴)</h4>
+                <p>섭동이 가해지면 더 큰 변위로 발산 → <strong>좌굴 발생</strong></p>
+                \[ \Sigma M_A > 0 \rightarrow \text{전도모멘트} > \text{복원모멘트} \]
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>임계하중 유도 — 스프링 모델로 이해하기</h3>
+            <p>'기둥 AB + 수직방향 스프링' 모델에서 기둥이 θ만큼 회전했을 때 복원 여부를 판단:</p>
+            <div class="formula-block">
+              \[ \Sigma M_A = P(l\theta) - F \cdot l = P(l\theta) - \beta(l\theta)l = l\theta(P - \beta l) \]
+            </div>
+            <table>
+              <tr><th>조건</th><th>ΣM_A 부호</th><th>현상</th></tr>
+              <tr><td>\(P > \beta l\)</td><td>\(\Sigma M_A > 0\)</td><td><span class="hl-red">불안정(좌굴) — 전도모멘트가 복원모멘트를 초과</span></td></tr>
+              <tr><td>\(P < \beta l\)</td><td>\(\Sigma M_A < 0\)</td><td><span class="hl-green">안정(복원) — 복원모멘트가 전도모멘트를 초과</span></td></tr>
+              <tr><td>\(P = \beta l\)</td><td>\(\Sigma M_A = 0\)</td><td><span class="hl">임계하중 P_cr — 중립 안정</span></td></tr>
+            </table>
+            <div class="formula-block key">
+              <div class="label">임계하중</div>
+              \[ P_{cr} = \beta l \]
+            </div>
+            <div class="note tip"><span class="note-icon">✓</span><span>핵심 원리: β는 스프링의 복원력(단위 변위당 힘). P_cr을 초과하는 하중이 가해지면 스프링(구조 복원력)이 이를 버티지 못하고 좌굴 발생.</span></div>
+          </div>
+        </div>
+
+        <!-- ④ 오일러 좌굴하중 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num">④</span><h2>오일러 좌굴하중 (Euler Buckling Load) <span class="badge badge-exam">참고</span></h2></div>
+          <div class="card">
+            <p>오일러(Euler)가 1757년 좌굴 미분방정식으로부터 유도한 탄성좌굴하중:</p>
+            <div class="formula-block important">
+              <div class="label">오일러 좌굴하중 (양단 핀 지지 기준)</div>
+              \[ P_{cr} = \frac{\pi^2 EI}{l^2} \]
+            </div>
+            <div class="formula-block">
+              <div class="label">임계 좌굴응력</div>
+              \[ \sigma_{cr} = \frac{P_{cr}}{A} = \frac{\pi^2 E}{(L/r)^2} \]
+            </div>
+            <div class="note info"><span class="note-icon">ℹ</span><span>
+              P_cr ∝ E (탄성계수) · I (단면 2차 모멘트) / l² (길이²)<br>
+              → 길이가 2배 늘면 좌굴하중은 <strong>1/4로</strong> 감소. 단면 2차 모멘트를 키우거나, 길이를 줄이거나, 지지 조건을 바꾸면 좌굴 저항 증가.
+            </span></div>
+            <div class="note warn"><span class="note-icon">⚠</span><span>시험 포인트 정리: ① 세장비가 뭔지 (L/r의 정의) ② 기둥에서 일어나는 현상 (좌굴 = 압축보다 휨이 먼저 발생) ③ P &gt; P_cr → 불안정(좌굴), P &lt; P_cr → 안정(복원)</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /sec10 -->
        <div class="section" id="sec-checklist">
       <div class="hero">
         <div class="hero-eyebrow"><span class="hero-tag" style="background:rgba(227,179,65,.12);border-color:rgba(227,179,65,.3);color:#e3b341;">&#9733; 최종</span></div>
         <h1>시험 전 최종 체크리스트</h1>
         <p>핵심 원리 요약 + 자주 하는 실수 정리</p>
         <div class="hero-nav">
-          <button class="prev" onclick="show('sec8')">단면 2차 모멘트&#183;비틀림</button>
+          <button class="prev" onclick="show('sec10')">기둥 (Column)</button>
           <button class="next" onclick="show('index')">목차로 돌아가기</button>
         </div>
       </div>
@@ -1263,7 +1666,9 @@ svg text{font-family:'Noto Sans KR',sans-serif}
               <li><strong>도심 x&#772; = &#8721;A_i&#183;x&#772;_i / &#8721;A_i</strong> — 복합 도형은 분할 후 가중평균. 구멍은 음수 면적. 도심축에서 Q=0.</li>
               <li><strong>평행축 정리 I = &#0298;I + Ad²</strong> — 축 이동 시 Ad²만큼 추가. I형강은 가장 먼 부분에 면적을 배치해 I 값 극대화.</li>
               <li><strong>비틀림 τ = Tr/I_p, φ = Tl/(GI_p)</strong> — τ는 반지름에 비례, 바깥쪽 최대. 극관성모멘트 클수록 응력 감소.</li>
-              <li><strong>코일 스프링 δ = 64PR³n/(Gd⁴)</strong> — 비틀림+직접전단 동시 작용. 안쪽(m면)에서 최대 응력 발생.</li>
+              <li><strong>보 SFD/BMD: dV/dx = −w, dM/dx = V</strong> — V=0인 점에서 M이 최대. 집중하중→SFD 수평선·BMD 직선, 균일분포→SFD 직선·BMD 포물선.</li>
+              <li><strong>기둥 세장비 λ = L/r</strong> — 세장비 클수록 좌굴 저항 작아짐. r = √(I/A). 단주(L/r&lt;50)→압축 파괴, 장주(≥100)→좌굴 파괴.</li>
+              <li><strong>기둥 좌굴: P &gt; P_cr → 불안정, P &lt; P_cr → 복원</strong> — 좌굴은 재료 강도 이전에 기하학적 불안정으로 발생. 오일러 P_cr = π²EI/l².</li>
             </ol>
           </div>
         </div>
@@ -1284,8 +1689,12 @@ svg text{font-family:'Noto Sans KR',sans-serif}
               <li>코일 스프링에서 최대 응력이 바깥쪽이라고 착각 → 안쪽(m면)에서 최대</li>
               <li>충격하중에서 h=0이면 충격계수=1로 착각 → h=0이어도 계수=2</li>
               <li>구심가속도 방향을 바깥쪽으로 착각 → 항상 중심(안) 방향</li>
-              <li>탄성에너지 U와 단위체적당 u 혼동 → u = U/V = &#963;²/(2E)</li>
+              <li>탄성에너지 U와 단위체적당 u 혼동 → u = U/V = σ²/(2E)</li>
               <li>경사단면 최대 전단응력 각도를 90°로 착각 → 45°에서 최대</li>
+              <li>BMD에서 최대 굽힘모멘트 위치를 임의로 잡는 경우 → <strong>V=0인 지점</strong>에서 M 최대</li>
+              <li>보 반력 계산 시 모멘트 기준점을 임의로 잡는 경우 → <strong>미지수가 있는 지점</strong>을 기준으로 잡아야 방정식이 간단</li>
+              <li>세장비를 r/L로 뒤집어 계산하는 경우 → <strong>L/r</strong>이 세장비 (길수록 위험)</li>
+              <li>P_cr 초과 = 안전하다고 착각 → P &gt; P_cr이면 불안정(좌굴), P &lt; P_cr이어야 안전</li>
             </ul>
           </div>
         </div>
@@ -1307,6 +1716,9 @@ svg text{font-family:'Noto Sans KR',sans-serif}
               <tr><td>단면 2차 모멘트</td><td>직사각형 \(I_0 = bh^3/12\)<br>평행축 \(I = \bar{I} + Ad^2\)</td><td>도심축에서 최솟값</td></tr>
               <tr><td>비틀림</td><td>\(\tau = Tr/I_p\)<br>\(\phi = Tl/(GI_p)\)</td><td>τ ∝ r (바깥 최대)</td></tr>
               <tr><td>도심</td><td>x&#772; = &#8721;A_i&#183;x&#772;_i / &#8721;A_i</td><td>대칭축 → Q=0</td></tr>
+              <tr><td>보 — SFD/BMD</td><td>\(\frac{dV}{dx} = -w,\quad \frac{dM}{dx} = V\)</td><td>V=0 → M 최대</td></tr>
+              <tr><td>기둥 — 세장비</td><td>\(\lambda = L/r, \quad r=\sqrt{I/A}\)</td><td>클수록 좌굴 위험</td></tr>
+              <tr><td>오일러 좌굴하중</td><td>\(P_{cr} = \pi^2 EI / l^2\)</td><td>P &gt; P_cr → 좌굴</td></tr>
             </table>
           </div>
         </div>
@@ -1354,6 +1766,8 @@ function show(id) {
     sec6:      '06. 충격하중',
     sec7:      '07. 단면 모멘트 & 도심',
     sec8:      '08. 단면 2차 모멘트 & 비틀림',
+    sec9:      '09. 보 (Beam)',
+    sec10:     '10. 기둥 (Column)',
     checklist: '★ 최종 체크리스트',
   };
   const titleEl = document.getElementById('topbarTitle');
@@ -1386,14 +1800,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar
 // ── 초기 로드: hash 처리 ─────────────────────────────────────────
 window.addEventListener('load', () => {
   const hash = window.location.hash.slice(1);
-  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','checklist'];
+  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','checklist'];
   show(validIds.includes(hash) ? hash : 'index');
 });
 
 // ── 브라우저 뒤로/앞으로 버튼 대응 ─────────────────────────────
 window.addEventListener('popstate', () => {
   const hash = window.location.hash.slice(1);
-  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','checklist'];
+  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','checklist'];
   activateTab(validIds.includes(hash) ? hash : 'index');
 });
 </script>
