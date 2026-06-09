@@ -389,6 +389,70 @@ strong { color: var(--text); font-weight: 600; }
 /* ── divider ── */
 .divider { height: 1px; background: var(--border); margin: 28px 0; }
 
+/* ── Switch Box ── */
+.sw-box {
+  background: #12161f;
+  border: 1.5px solid rgba(124,111,247,0.4);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 14px 0;
+}
+.sw-box-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sw-box-title::before {
+  content: '⏻';
+  font-size: 13px;
+}
+.sw-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.sw-row:last-child { margin-bottom: 0; }
+.sw-label {
+  color: var(--text3);
+  min-width: 80px;
+  flex-shrink: 0;
+  font-size: 12px;
+  padding-top: 1px;
+}
+.sw-loc {
+  color: var(--teal-light);
+  font-weight: 600;
+}
+.sw-pos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  flex: 1;
+}
+.pos-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+}
+.pos-on  { background: rgba(93,216,122,0.15); color: #5dd87a; border: 1px solid rgba(93,216,122,0.35); }
+.pos-off { background: rgba(255,255,255,0.05); color: var(--text3); border: 1px solid var(--border2); }
+.pos-arm { background: rgba(245,166,35,0.15); color: var(--amber); border: 1px solid rgba(245,166,35,0.35); }
+.pos-dim { background: rgba(91,163,245,0.12); color: var(--blue); border: 1px solid rgba(91,163,245,0.3); }
+.pos-brt { background: rgba(52,216,181,0.12); color: var(--teal-light); border: 1px solid rgba(52,216,181,0.3); }
+.pos-auto{ background: rgba(124,111,247,0.15); color: var(--purple-light); border: 1px solid rgba(124,111,247,0.35); }
+.pos-nor { background: rgba(255,255,255,0.07); color: var(--text2); border: 1px solid var(--border2); }
+
 /* ── Hamburger button ── */
 .hamburger {
   display: none;
@@ -481,6 +545,23 @@ strong { color: var(--text); font-weight: 600; }
   </a>
 
   <div class="nav-group">
+    <div class="nav-group-title">⭐ 조명계통 (12·14주차 시험)</div>
+    <div class="nav-item" onclick="show('lighting-overview')"><span class="nav-dot"></span>2.6 조명계통 개요</div>
+    <div class="nav-item" onclick="show('exterior-lights')"><span class="nav-dot"></span>2.6.1 외부등</div>
+    <div class="nav-item" onclick="show('position-lights')"><span class="nav-dot"></span>2.6.1.1 위치등</div>
+    <div class="nav-item" onclick="show('anticollision-lights')"><span class="nav-dot"></span>2.6.1.2 충돌 방지등</div>
+    <div class="nav-item" onclick="show('landing-taxi')"><span class="nav-dot"></span>2.6.1.3 착륙등·유도등</div>
+    <div class="nav-item" onclick="show('wing-logo')"><span class="nav-dot"></span>2.6.1.4~5 날개검사등·로고등</div>
+    <div class="nav-item" onclick="show('mel-lighting')"><span class="nav-dot"></span>MEL / 운항 제한</div>
+    <div class="nav-item" onclick="show('interior-lights')"><span class="nav-dot"></span>2.6.2 내부등 개요</div>
+    <div class="nav-item" onclick="show('flight-compartment')"><span class="nav-dot"></span>조종석 조명</div>
+    <div class="nav-item" onclick="show('passenger-cabin')"><span class="nav-dot"></span>객실 조명</div>
+    <div class="nav-item" onclick="show('call-lights')"><span class="nav-dot"></span>Call Lights 회로</div>
+    <div class="nav-item" onclick="show('service-lights')"><span class="nav-dot"></span>Service Lights</div>
+    <div class="nav-item" onclick="show('emergency-lighting')"><span class="nav-dot"></span>비상 조명 (EMG)</div>
+  </div>
+
+  <div class="nav-group">
     <div class="nav-group-title">대형기 전기계통</div>
     <div class="nav-item active" onclick="show('overview')"><span class="nav-dot"></span>전기계통 개요</div>
     <div class="nav-item" onclick="show('power')"><span class="nav-dot"></span>전원 종류</div>
@@ -507,17 +588,6 @@ strong { color: var(--text); font-weight: 600; }
     <div class="nav-group-title">배전 시스템</div>
     <div class="nav-item" onclick="show('split')"><span class="nav-dot"></span>배전 버스 시스템</div>
     <div class="nav-item" onclick="show('gcu')"><span class="nav-dot"></span>GCU / BPCU / CT</div>
-  </div>
-
-  <div class="nav-group">
-    <div class="nav-group-title">조명계통</div>
-    <div class="nav-item" onclick="show('lighting-overview')"><span class="nav-dot"></span>조명계통 개요</div>
-    <div class="nav-item" onclick="show('exterior-lights')"><span class="nav-dot"></span>외부등</div>
-    <div class="nav-item" onclick="show('position-lights')"><span class="nav-dot"></span>위치등</div>
-    <div class="nav-item" onclick="show('anticollision-lights')"><span class="nav-dot"></span>충돌 방지등</div>
-    <div class="nav-item" onclick="show('landing-taxi')"><span class="nav-dot"></span>착륙등·유도등</div>
-    <div class="nav-item" onclick="show('wing-logo')"><span class="nav-dot"></span>날개검사등·로고등</div>
-    <div class="nav-item" onclick="show('mel-lighting')"><span class="nav-dot"></span>MEL / 운항 제한</div>
   </div>
 </nav>
 
@@ -1126,19 +1196,11 @@ strong { color: var(--text); font-weight: 600; }
       Main Bus 문제 → 대부분의 장비 작동 불가</p>
     </div>
   </div>
-  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-    <img src="img/alternator_circuit.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
-    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">교류기 컨트롤 회로</p>
-  </div>
 
   <h2>외부 전원 회로 (2.3.1.4 External Power Circuit)</h2>
   <div class="card card-green">
     <p>· 외부 전원은 엔진 작동 없이 항공기에서 정비 및 점검을 위해 필요한 전기 공급을 위해 사용</p>
     <p>· <strong>다이오드</strong>는 외부전원연결이 부정확한 극성을 가질 경우, 예를 들어 양과 음의 배선이 반대로 되는 경우, 우발적인 연결을 방지하기 위해 사용 (역전류흐름방지 다이오드)</p>
-  </div>
-  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-    <img src="img/external_circuit.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
-    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">외부 전원 연결 회로</p>
   </div>
 
   <h2>시동기 회로 (2.3.1.5 Starter Circuit)</h2>
@@ -1185,10 +1247,6 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 교류 발전기 출력을 균등화하는 이 과정을 <strong>병렬 운전(paralleling)</strong>이라 한다</p>
     <p>· 대부분 쌍발 항공기 경우 교류발전기가 작동하는 상태에서 전압은 <strong>26.5~28[VDC]</strong> 사이</p>
     <p>· 다발기는 병렬로 동작 → 단발 빼고 병렬 운전</p>
-  </div>
-  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-    <img src="img/parallel_alternator.png" style="width:100%; max-width:100%; height:auto; display:block; border-radius: 8px;" />
-    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">병렬운전 교류발전기 진동 지점 시스템</p>
   </div>
 </div>
 
@@ -1556,7 +1614,7 @@ strong { color: var(--text); font-weight: 600; }
   <div class="table-wrap">
     <table>
       <tr><th>등 이름</th><th>한국어</th><th>색상</th><th>용도 / 특징</th></tr>
-      <tr><td><strong>Navigation Lights</strong><br><span style="font-size:11px;color:var(--text3)">(Position Lights)</span></td><td>위치등 / 항법등</td><td>좌: 적색, 우: 녹색, 후: 백색</td><td>비행 중 <span class="hl-r">반드시 ON</span> (빨/초/흰2 - 4개 장착, 비행 중 무조건 켜야 함)</td></tr>
+      <tr><td><strong>Navigation Lights</strong><br><span style="font-size:11px;color:var(--text3)">(Position Lights)</span></td><td>위치등 / 항법등</td><td>좌: 적색, 우: 녹색, 후: 백색</td><td>비행 중 <span class="hl-r">반드시 ON</span> (4개 장착, 비행 중 무조건 켜야 함)</td></tr>
       <tr><td><strong>Strobe Lights</strong><br><span style="font-size:11px;color:var(--text3)">(White Anti-collision)</span></td><td>백색 충돌 방지등</td><td>백색(White)</td><td>Wing tip + 미부 말단 설치 / 고전압 방전으로 섬광 발생</td></tr>
       <tr><td><strong>Beacon Lights</strong><br><span style="font-size:11px;color:var(--text3)">(Red Anti-collision)</span></td><td>적색 충돌 방지등</td><td>적색(Red)</td><td>토잉·엔진 작동 중 ON / 동체 상하에 장착 / 회전하며 깜빡</td></tr>
       <tr><td><strong>Landing Lights</strong></td><td>착륙등</td><td>백색(White)</td><td>야간 착륙 시 활주로 조명 / 가장 강한 빔 / 지상에서 작동 지양</td></tr>
@@ -1565,11 +1623,6 @@ strong { color: var(--text); font-weight: 600; }
       <tr><td><strong>Wing Illumination Lights</strong><br><span style="font-size:11px;color:var(--text3)">(Wing Scan Light)</span></td><td>날개 검사등</td><td>백색(White)</td><td>야간 날개 결빙·FOD 확인 목적 / Wing &amp; Engine scan light</td></tr>
       <tr><td><strong>Logo Lights</strong></td><td>로고등</td><td>백색(White)</td><td>수평 안정판(Horizontal Stabilizer)에 장착 → 수직 안정판의 항공사 로고 조명</td></tr>
     </table>
-  </div>
-
-  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-    <img src="img/exterior_light.png" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
-    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">B737 외부 조명</p>
   </div>
 </div>
 
@@ -1595,6 +1648,12 @@ strong { color: var(--text); font-weight: 600; }
     <p>· <strong>= Wing Scan Light = Wing &amp; Engine Scan Light</strong> 으로도 불림</p>
     <p>· 날개 Leading Edge 결빙이나 엔진 결빙 상태를 확인하기 위한 조명</p>
     <p>· Wing &amp; Engine scan light라고도 하며, 날개 검사등으로도 불린다</p>
+    <div class="sw-box">
+      <div class="sw-box-title">스위치 정보</div>
+      <div class="sw-row"><span class="sw-label">위치</span><span class="sw-loc">P5 Overhead Panel (외부조명 S/W 패널)</span></div>
+      <div class="sw-row"><span class="sw-label">스위치명</span><span class="sw-loc">WING 스위치</span></div>
+      <div class="sw-pos" style="padding-left:90px"><span class="pos-off">OFF</span><span class="pos-on">ON</span></div>
+    </div>
   </div>
 
   <div class="card card-red">
@@ -1603,6 +1662,12 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 지상에서는 작동을 <strong>지양</strong>한다 (지상 과열 우려)</p>
     <p>· 파라볼릭 반사경(parabolic reflector)으로 빔의 최대 도달 거리 극대화</p>
     <p>· Retractable형(대형기, 평소엔 들어가 있고 필요 시 튀어나옴) vs Fixed형(동체에 고정)</p>
+    <div class="sw-box">
+      <div class="sw-box-title">스위치 정보</div>
+      <div class="sw-row"><span class="sw-label">위치</span><span class="sw-loc">P5 Overhead Panel — LANDING 섹션</span></div>
+      <div class="sw-row"><span class="sw-label">RETRACTABLE</span><div class="sw-pos"><span class="pos-off">RETRACT</span><span class="pos-off">OFF</span><span class="pos-on">L ON R</span></div></div>
+      <div class="sw-row"><span class="sw-label">FIXED</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-on">L ON R</span></div></div>
+    </div>
   </div>
 
   <div class="card card-amber">
@@ -1611,6 +1676,11 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 동체 또는 미익위(tail/wing)에 설치, 회전하면서 깜빡거림 (Rotating Beacon)</p>
     <p>· 동체 <strong>상하</strong>에 장착 (대형 항공기의 경우)</p>
     <p>· 앞뒤에 1개씩 — 회전 빔 방식</p>
+    <div class="sw-box">
+      <div class="sw-box-title">스위치 정보</div>
+      <div class="sw-row"><span class="sw-label">위치</span><span class="sw-loc">P5 Overhead Panel — ANTI COLLISION</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-on">ON</span></div></div>
+    </div>
   </div>
 
   <div class="card card-teal">
@@ -1618,6 +1688,12 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 날개끝(Wing Tip) + 미부 말단에 설치 / <strong>3개</strong> 있음</p>
     <p>· 고전압 커패시터의 <strong>방전(high-voltage discharge)</strong>으로 섬광 생성</p>
     <p>· 분당 <strong class="hl-r">40~100 [cycle]</strong> 섬광률(flash rate)로 깜빡임</p>
+    <div class="sw-box">
+      <div class="sw-box-title">스위치 정보</div>
+      <div class="sw-row"><span class="sw-label">위치</span><span class="sw-loc">P5 Overhead Panel — POSITION 스위치 (White Strobe 겸용)</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-dim">STEADY</span><span class="pos-off">OFF</span><span class="pos-on">STROBE &amp; STEADY</span></div></div>
+      <div class="sw-row"><span class="sw-label">비고</span><span style="color:var(--text2);font-size:12px">STEADY → Position Light만 점등 / STROBE &amp; STEADY → Position + White Strobe 둘 다 점등</span></div>
+    </div>
   </div>
 
   <div class="card card-blue">
@@ -1625,6 +1701,12 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 좌: <span class="hl-r">적색(Red)</span>, 우: <span class="hl-t">녹색(Green)</span>, 후: 백색(White) — 비행 중 <strong>반드시 ON</strong></p>
     <p>· 하나의 S/W 한 개로 좌우 모두 담당 → S/W 망가지면 둘 다 안 켜짐</p>
     <p>· 각 위치에 <strong>Lamp 2개</strong> 들어있음 (한 개 고장 시 백업)</p>
+    <div class="sw-box">
+      <div class="sw-box-title">스위치 정보</div>
+      <div class="sw-row"><span class="sw-label">위치</span><span class="sw-loc">P5 Overhead Panel — POSITION STROBE &amp; STEADY 스위치</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-dim">STEADY</span><span class="pos-off">OFF</span><span class="pos-on">STROBE &amp; STEADY</span></div></div>
+      <div class="sw-row"><span class="sw-label">비고</span><span style="color:var(--text2);font-size:12px">S/W 1개로 좌·우 Position Light 모두 담당 — 고장 시 둘 다 꺼짐</span></div>
+    </div>
   </div>
 
   <div class="card card-green">
@@ -1632,6 +1714,12 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 항공기 택시 중 ON 하는 등</p>
     <p>· 대형기: Nose Landing Gear에 하나 붙어있음</p>
     <p>· 소형기: 동체에 붙어있음</p>
+    <div class="sw-box">
+      <div class="sw-box-title">스위치 정보</div>
+      <div class="sw-row"><span class="sw-label">위치</span><span class="sw-loc">P5 Overhead Panel — TAXI 스위치 (NOSE GEAR TAXI LIGHT SW)</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-auto">AUTO</span></div></div>
+      <div class="sw-row"><span class="sw-label">AUTO 조건</span><span style="color:var(--text2);font-size:12px">28V DC PWR 있고 + NLG Down &amp; Locked(E11 PSEU) 신호 수신 시 자동 점등</span></div>
+    </div>
   </div>
 
   <div class="card card-purple">
@@ -1639,6 +1727,11 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 수평 안정판(Horizontal Stabilizer) 상단에 장착</p>
     <p>· 수직 안정판(Vertical Stabilizer)에 있는 항공사 로고를 비추는 등</p>
     <p>· 특히 <strong>야간</strong>에 항공사 로고나 상징(emblem)이 잘 보이도록</p>
+    <div class="sw-box">
+      <div class="sw-box-title">스위치 정보</div>
+      <div class="sw-row"><span class="sw-label">위치</span><span class="sw-loc">P5 Overhead Panel — LOGO 스위치</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-on">ON</span></div></div>
+    </div>
   </div>
 
   <h2>B737 외부등 위치 요약</h2>
@@ -1701,6 +1794,16 @@ strong { color: var(--text); font-weight: 600; }
     </div>
   </div>
 
+  <div class="sw-box">
+    <div class="sw-box-title">스위치 위치 &amp; 포지션</div>
+    <div class="sw-row"><span class="sw-label">패널 위치</span><span class="sw-loc">P5 Overhead Panel — POSITION · STROBE &amp; STEADY 스위치</span></div>
+    <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-dim">STEADY</span><span class="pos-off">OFF</span><span class="pos-on">STROBE &amp; STEADY</span></div></div>
+    <div class="sw-row"><span class="sw-label">STEADY</span><span style="color:var(--text2);font-size:12px">Position Light만 점등 (Strobe 없음)</span></div>
+    <div class="sw-row"><span class="sw-label">STROBE &amp; STEADY</span><span style="color:var(--text2);font-size:12px">Position Light + White Strobe 동시 점등</span></div>
+    <div class="sw-row"><span class="sw-label">CB 패널</span><span class="sw-loc">P18 CB Panel — EXTERIOR LT POSITION RIGHT / LEFT</span></div>
+    <div class="sw-row"><span class="sw-label">주의</span><span style="color:var(--red);font-size:12px">S/W 1개로 좌·우 동시 담당 → S/W 고장 시 좌·우 모두 꺼짐</span></div>
+  </div>
+
   <h2>위치등 전기 회로도 해설</h2>
   <div class="card card-purple">
     <h3>전원 계통</h3>
@@ -1731,11 +1834,6 @@ strong { color: var(--text); font-weight: 600; }
     <div class="flow-item"><div class="flow-num">4</div><div class="flow-content"><div class="flow-title">RIGHT / LEFT POSITION LTS XFMR</div><div class="flow-desc">Transformer로 밝기(전압 범위) 조절</div></div></div>
     <div class="flow-item"><div class="flow-num">5</div><div class="flow-content"><div class="flow-title">Wing Tip Light + Tail Position Light (각 2개 Lamp)</div><div class="flow-desc">Right FWD Wing Tip / Right Tail Position / Left FWD Wing Tip / Left Tail Position</div></div></div>
   </div>
-
-  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-    <img src="img/position_circuit.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
-    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">위치등 회로도</p>
-  </div>
 </div>
 
 <!-- ⑰ 충돌 방지등 -->
@@ -1762,6 +1860,15 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 반사경이 원호(arc)로 회전하며 결과 섬광률(flash rate): <strong class="hl-r">분당 40~100 [cycle]</strong></p>
   </div>
 
+  <div class="sw-box">
+    <div class="sw-box-title">스위치 위치 &amp; 포지션 — Red vs White 구분</div>
+    <div class="sw-row"><span class="sw-label">🔴 Red (Beacon)</span><span class="sw-loc">P5 Overhead Panel — ANTI COLLISION 스위치</span></div>
+    <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-on">ON</span></div></div>
+    <div class="sw-row" style="margin-top:8px"><span class="sw-label">⚪ White (Strobe)</span><span class="sw-loc">P5 Overhead Panel — POSITION 스위치 (공용)</span></div>
+    <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-dim">STEADY</span><span class="pos-off">OFF</span><span class="pos-on">STROBE &amp; STEADY</span></div></div>
+    <div class="sw-row"><span class="sw-label">비고</span><span style="color:var(--text2);font-size:12px">Red Anti-Collision(Beacon)과 White Strobe는 <strong>서로 다른 스위치</strong>로 별개 제어</span></div>
+  </div>
+
   <h2>① Red Anti-Collision Light (Beacon Light)</h2>
   <div class="card card-red">
     <p>· <strong>= 비컨 라이트(Beacon Light)</strong> 라고도 함</p>
@@ -1781,11 +1888,6 @@ strong { color: var(--text); font-weight: 600; }
     </div>
   </div>
 
-  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-    <img src="img/red_anti_collision_circuit.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
-    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">Red 충돌방지등 회로도</p>
-  </div>
-
   <h2>② White Anti-Collision Light (Strobe Light)</h2>
   <div class="card card-amber">
     <p>· <strong>= 백색 섬광등(white strobe light)</strong></p>
@@ -1803,11 +1905,6 @@ strong { color: var(--text); font-weight: 600; }
     <p style="padding-left:12px">— <strong>STROBE &amp; STEADY</strong>: Position + Strobe 둘 다 들어옴 (이때 Strobe는 White)</p>
     <p>· 스위치 → RIGHT/LEFT Wing Tip Anti-Collision Light Power Supply → FWD Wing Tip Light 점등</p>
     <p>· Tail Strobe Light 도 동일 스위치에서 공급</p>
-  </div>
-
-  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-    <img src="img/white_anti_collision_circuit.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
-    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">White 충돌방지등 회로도</p>
   </div>
 
   <h2>Red vs White Anti-Collision 비교표</h2>
@@ -1841,6 +1938,15 @@ strong { color: var(--text); font-weight: 600; }
       <strong>야간 착륙 시에 활주로를 비추기 위하여 항공기에 장착</strong>
       <p>외부등 중 <strong>빔이 가장 강함</strong> — 파라볼릭 반사장치(parabolic reflector)로 최대 도달 거리 극대화</p>
     </div>
+  </div>
+
+  <div class="sw-box">
+    <div class="sw-box-title">착륙등 스위치 위치 &amp; 포지션</div>
+    <div class="sw-row"><span class="sw-label">패널 위치</span><span class="sw-loc">P5 Overhead Panel — LANDING 섹션</span></div>
+    <div class="sw-row"><span class="sw-label">RETRACTABLE</span><div class="sw-pos"><span class="pos-off">RETRACT</span><span class="pos-off">OFF</span><span class="pos-on">L ON</span><span class="pos-on">R ON</span></div></div>
+    <div class="sw-row"><span class="sw-label">RETRACT 의미</span><span style="color:var(--text2);font-size:12px">OFF + 등 수납 (동체 안으로 들어감)</span></div>
+    <div class="sw-row"><span class="sw-label">FIXED</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-on">L ON</span><span class="pos-on">R ON</span></div></div>
+    <div class="sw-row" style="margin-top:8px"><span class="sw-label">RUNWAY TURNOFF</span><div class="sw-pos"><span class="pos-off">L OFF</span><span class="pos-off">R OFF</span><span class="pos-on">ON</span></div></div>
   </div>
 
   <div class="grid2">
@@ -1877,6 +1983,14 @@ strong { color: var(--text); font-weight: 600; }
     </div>
   </div>
 
+  <div class="sw-box">
+    <div class="sw-box-title">유도등 스위치 위치 &amp; 포지션</div>
+    <div class="sw-row"><span class="sw-label">패널 위치</span><span class="sw-loc">P5 Overhead Panel — TAXI 스위치 (NOSE GEAR TAXI LIGHT SW)</span></div>
+    <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-auto">AUTO</span></div></div>
+    <div class="sw-row"><span class="sw-label">AUTO 동작</span><span style="color:var(--text2);font-size:12px">28V DC PWR 공급 + NLG Down &amp; Locked(PSEU E11 신호) 수신 시 → 자동 점등</span></div>
+    <div class="sw-row"><span class="sw-label">핵심</span><span style="color:var(--amber);font-size:12px">relay + NLG lock S/W 기능 이해 필수 (시험 출제 예정)</span></div>
+  </div>
+
   <div class="grid2">
     <div class="card card-purple">
       <h3>대형기 유도등</h3>
@@ -1895,7 +2009,7 @@ strong { color: var(--text); font-weight: 600; }
   <div class="callout callout-warn">
     <span class="callout-icon">⭐</span>
     <div class="callout-content">
-      <strong>시험에 나옴 — relay, NLG lock S/W 기능 알아야 함</strong>
+      <strong>이거 시험에 낼 거임 — relay, NLG lock S/W 기능 알아야 함</strong>
       <p>"AUTO"로 설정하면 → 28V DC PWR가 있어야 light를 켜줄 수 있음 (relay 작동 조건)</p>
     </div>
   </div>
@@ -1909,11 +2023,6 @@ strong { color: var(--text); font-weight: 600; }
     <p>— AUTO 위치: <strong>Nose Gear Down and Locked (E11 PSEU)</strong> 신호 ④를 받아야 relay ③ 작동</p>
     <p>— relay(R444 Taxi Light Cont Relay) → J4 Junction Box → Nose Gear Taxi Light 점등</p>
     <p style="margin-top:8px;color:var(--text3);font-size:12px">ℹ️ PSEU = Proximity Switch Electronic Unit — 랜딩기어 잠금 상태를 감지하는 장치</p>
-  </div>
-
-  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
-    <img src="img/taxi_circuit.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
-    <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">유도등 회로도</p>
   </div>
 
   <h2>Runway Turnoff Lights (활주로 옆길 등)</h2>
@@ -1949,6 +2058,12 @@ strong { color: var(--text); font-weight: 600; }
     <p>· 목적: 날개 Leading Edge 결빙 or 엔진 결빙 확인</p>
   </div>
 
+  <div class="sw-box">
+    <div class="sw-box-title">날개 검사등 스위치 위치 &amp; 포지션</div>
+    <div class="sw-row"><span class="sw-label">패널 위치</span><span class="sw-loc">P5 Overhead Panel — WING 스위치</span></div>
+    <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-on">ON</span></div></div>
+  </div>
+
   <h2>2.6.1.5 활주로 옆길 등 (Runway Turnoff Light) &amp; 로고등 (Logo Light)</h2>
 
   <div class="grid2">
@@ -1957,12 +2072,22 @@ strong { color: var(--text); font-weight: 600; }
       <p>· <strong>야간에</strong> 착륙 후 활주로(runway)를 벗어나 유도로(taxiway)로 회전할 때</p>
       <p>· 유도로 상태를 먼저 볼 수 있도록 비추어주는 라이트</p>
       <p>· 넓게 비추는 형태 (착륙등보다 좁은 빔 강도, 더 넓은 조사 범위)</p>
+      <div class="sw-box" style="margin-top:10px">
+        <div class="sw-box-title">스위치 정보</div>
+        <div class="sw-row"><span class="sw-label">위치</span><span class="sw-loc">P5 Overhead Panel — RUNWAY TURNOFF</span></div>
+        <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">L OFF</span><span class="pos-off">R OFF</span><span class="pos-on">ON</span></div></div>
+      </div>
     </div>
     <div class="card card-amber">
       <h3>Logo Light (로고등)</h3>
       <p>· 특히 <strong>야간에</strong> 항공사의 로고나 상징(emblem)이 잘 보이도록 비추는 라이트</p>
       <p>· <strong>수직 안정판(vertical stabilizer)</strong>에 있는 로고를 비추도록</p>
       <p>· <strong>수평 안정판(horizontal stabilizer)</strong>에 장착 → <strong>상단(上端)</strong>에 위치</p>
+      <div class="sw-box" style="margin-top:10px">
+        <div class="sw-box-title">스위치 정보</div>
+        <div class="sw-row"><span class="sw-label">위치</span><span class="sw-loc">P5 Overhead Panel — LOGO 스위치</span></div>
+        <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-on">ON</span></div></div>
+      </div>
     </div>
   </div>
 
@@ -2047,6 +2172,734 @@ strong { color: var(--text); font-weight: 600; }
       <tr><td>Runway Turnoff Light</td><td>착륙 후 활주로 이탈 시 유도로 조명</td></tr>
       <tr><td>Emergency Light</td><td>내·외부 모두 / 전원 = 배터리 (별도 비상 전원)</td></tr>
       <tr><td>MEL 33-11</td><td>Position Light 0개도 가능 / DAY만 / 야간 이륙 불가</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- 내부등 개요 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="sec-interior-lights" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 21 · 14주차</div>
+    <h1>2.6.2 내부등 (Interior Lights)</h1>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>14주차 시험 — 조명계통만 출제</strong>
+      <p>내부등은 크게 3가지 조명 계통으로 구성: ① 주 객실 조명 ② 독립 조명 계통(Independent Lighting System) ③ 비상 조명 계통(Emergency Lighting System)</p>
+    </div>
+  </div>
+
+  <h2>내부등 구성 개요</h2>
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>주 객실 조명</h3>
+      <p>· 종종 흰색등과 적색등 설치가 제공</p>
+      <p>· 항공기는 객실을 조명하기 위해 내부등을 갖추고 있다</p>
+    </div>
+    <div class="card card-teal">
+      <h3>독립 조명 계통 (Independent Lighting System)</h3>
+      <p>· 전체 승객의 객실등을 어둡게 조절했을 때 개인적으로 독서등을 할 수 있도록 하는 계통</p>
+      <p>· PSU(Passenger Service Unit)의 독서등이 대표적</p>
+    </div>
+    <div class="card card-red">
+      <h3>비상 조명 계통 (Emergency Lighting System)</h3>
+      <p>· 비상사태 시 항공기 승객의 탈출을 돕기 위해 항공기 바닥등에 설치</p>
+      <p>· 비행기에서 밖으로 빠져나가는 통로와 비상 출구(EXIT) 위치를 비추어 줌</p>
+      <p>· 항공기 정상 전원에 문제가 있어도 <strong>자체 배터리</strong>에 의해서 <strong class="hl-r">15분</strong> 정도 계속 작동</p>
+      <p>· BAT 사용 — 자체 객실 내부 BAT Pack(각 자리)을 갖고 있음</p>
+      <p>· minimum BAT Pack running time: <strong class="hl-r">10분</strong></p>
+    </div>
+  </div>
+
+  <h2>내부등 조명 계통 분류</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>구분</th><th>영역</th><th>설명</th></tr>
+      <tr><td><strong>Flight Compartment Lights</strong></td><td>조종석</td><td>Dome Light, Map Light, Panel Light, AFDS Flood Light, Spare Bulb Pack</td></tr>
+      <tr><td><strong>Passenger Compartment Lights</strong></td><td>객실</td><td>Window, Ceiling, Reading, Passenger Signs, Attendant Work, Galley, Lavatory, Passenger &amp; Lavatory Call, Entry Lights</td></tr>
+      <tr><td><strong>Service Compartment Lights</strong></td><td>정비 구역</td><td>Wheel Well, E&amp;E Bay, Cargo, APU, Tailcone, Air Conditioning 등</td></tr>
+      <tr><td><strong>Emergency Lighting</strong></td><td>비상 탈출</td><td>Exit Signs, Aisle Lights, Floor Proximity Lights, Slide Lights, Power Supplies</td></tr>
+    </table>
+  </div>
+
+  <h2>내부등 전원 공급 (Electrical Power)</h2>
+  <div class="card card-blue">
+    <p>· 대부분의 조명은 일반적으로 <strong>115V AC XFR BUS 1 또는 BUS 2</strong>에서 전원을 공급받는다</p>
+    <p>· 정상적인 전원이 끊기면 릴레이를 통해 <strong>28V AC STBY BUS</strong>를 필요한 스탠바이에 연결</p>
+    <p>· Standby instrument lighting(스탠바이 계기 조명): <strong>중요한 일부만 켜줌</strong> — 그렇지 않으면 BAT 부하 걸림</p>
+    <p>· Instrument lighting (계기 조명): AC XFR BUS 1에서 직접 공급</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- 조종석 조명 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="sec-flight-compartment" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 22</div>
+    <h1>조종석 조명 (Flight Compartment Lights)</h1>
+  </div>
+
+  <h2>조종석 조명 구성 요소</h2>
+  <div class="card card-blue">
+    <p>조종석 조명의 주요 구성:</p>
+    <p>· Flight Crew Light (TYP) — 승무원용 조명</p>
+    <p>· Miscellaneous Light (TYP) — 기타 부위 조명</p>
+    <p>· Instrument and Panel Lights (TYP) — 계기 및 패널 조명</p>
+    <p>· Standby Compass Light — 대기 나침반 조명</p>
+    <p>· Master Dim and Test Switch — 전체 밝기 조절 및 테스트</p>
+    <p>· Glareshield — 글레어쉴드(햇빛 가리개) 조명</p>
+    <p>· Spare Lamps — 조종석 내 예비 전구 보관함</p>
+  </div>
+
+  <h2>Dome Lights (돔 조명)</h2>
+  <div class="card card-purple">
+    <p>· <strong>2개의 돔 조명</strong>이 있으며 <strong>각 파일럿 뒤에 하나씩 장착</strong></p>
+    <p>· 돔 라이트의 전원은 <strong>28V DC 배터리 버스</strong>에서 공급 → DC가 죽으면 light 나감</p>
+    <p>· 3 position 스위치: <strong>DIM / OFF / BRT</strong></p>
+    <div class="sw-box" style="margin-top:10px">
+      <div class="sw-box-title">스위치 위치 &amp; 포지션</div>
+      <div class="sw-row"><span class="sw-label">패널 위치</span><span class="sw-loc">조종석 오버헤드 패널 — DOME WHITE 스위치 (각 파일럿 뒤쪽 상단)</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-dim">DIM</span><span class="pos-off">OFF</span><span class="pos-brt">BRT</span></div></div>
+    </div>
+  </div>
+
+  <h2>Flight Kit Light (플라이트 킷 라이트)</h2>
+  <div class="card card-teal">
+    <p>· 보통 <strong>"원더 라이트(Wander Light)"</strong>라고도 한다</p>
+    <p>· <strong>각 파일럿이 비행 가방을 보관하는 아래에 위치</strong></p>
+    <p>· 전면 베젤을 돌리면 라이트가 <strong>흰색에서 빨간색으로 바뀌어</strong> 야간 시야를 확보할 수 있다</p>
+    <p>· 스위치: <strong>별도 위치 없고, 자체 위치 스위치</strong> — 이걸 돌리면 빨간불 다 됨</p>
+    <p>· 늘어날 수 있음 (코드가 있어서 잡아당길 수 있음)</p>
+    <div class="sw-box" style="margin-top:10px">
+      <div class="sw-box-title">스위치 위치 &amp; 포지션</div>
+      <div class="sw-row"><span class="sw-label">스위치 위치</span><span class="sw-loc">라이트 본체에 자체 내장 (별도 패널 없음)</span></div>
+      <div class="sw-row"><span class="sw-label">조작 방식</span><span style="color:var(--text2);font-size:12px">전면 베젤(Bezel)을 돌리면 ON/OFF 및 색상 전환 — 흰색 → 빨간색</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-nor">White(흰색)</span><span class="pos-arm">Red(야간)</span></div></div>
+    </div>
+  </div>
+
+  <h2>Map (Chart) Light (맵 라이트)</h2>
+  <div class="card card-amber">
+    <p>· 조명이 필요한 곳(체크리스트, 비행계획서, 테블릿(EFB) 등) 비추기 위함</p>
+    <p>· 위치: <strong>Sliding Window 위</strong> — 별도의 스위치가 있음 (why? light가 멀어서)</p>
+    <p>· 스위치가 light 옆에 있지 않고 별도 위치에 있음</p>
+    <div class="sw-box" style="margin-top:10px">
+      <div class="sw-box-title">스위치 위치 &amp; 포지션</div>
+      <div class="sw-row"><span class="sw-label">라이트 위치</span><span class="sw-loc">Sliding Window(미끄럼 창문) 위</span></div>
+      <div class="sw-row"><span class="sw-label">스위치 위치</span><span class="sw-loc">조종석 내 별도 위치 (light와 분리) — 스위치가 여기 있음</span></div>
+      <div class="sw-row"><span class="sw-label">조작 방식</span><span style="color:var(--text2);font-size:12px">Map light처럼 <strong>돌리는 방식 (Rotary 노브)</strong> — 토글 스위치 아님</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-dim">DIM</span><span class="pos-brt">BRT</span></div></div>
+    </div>
+  </div>
+
+  <h2>Panel Lights (패널 라이트)</h2>
+  <div class="card card-green">
+    <p>· <strong>계기를 비춰주는 light</strong></p>
+    <p>· Panel light knob — map light처럼 <strong>돌리는 것 (토글 스위치 아님)</strong></p>
+    <p>· 스위치가 패널 내 별도 위치에 있음</p>
+    <div class="sw-box" style="margin-top:10px">
+      <div class="sw-box-title">스위치 위치 &amp; 포지션</div>
+      <div class="sw-row"><span class="sw-label">스위치 위치</span><span class="sw-loc">조종석 패널 내 별도 위치 (Panel Light Knob)</span></div>
+      <div class="sw-row"><span class="sw-label">조작 방식</span><span style="color:var(--text2);font-size:12px">Rotary 노브 (돌리는 방식) — 토글 아님</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF (최소)</span><span class="pos-dim">→ 연속 가변</span><span class="pos-brt">BRT (최대)</span></div></div>
+    </div>
+  </div>
+
+  <h2>AFDS Flood Lights</h2>
+  <div class="card card-red">
+    <p>· <strong>AFDS = Autopilot Flight Director System (자동 조종 비행 지시 계통)</strong></p>
+    <p>· <strong>MCP(Mode Control Panel)를 비춰줌</strong> — 자동 조종 패널의 밝기를 확보</p>
+    <p>· knob adjustable — 밝기 조절 가능 (노브를 돌려서 조절)</p>
+    <p>· 위치: 비행기마다 차이 있음</p>
+    <div class="sw-box" style="margin-top:10px">
+      <div class="sw-box-title">스위치 위치 &amp; 포지션</div>
+      <div class="sw-row"><span class="sw-label">스위치 위치</span><span class="sw-loc">Glareshield 패널 — AFDS FLOOD 노브 (비행기마다 위치 상이)</span></div>
+      <div class="sw-row"><span class="sw-label">조작 방식</span><span style="color:var(--text2);font-size:12px">Rotary 노브 — adjustable (연속 가변 밝기 조절)</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF (최소)</span><span class="pos-dim">→ 연속 가변</span><span class="pos-brt">BRT (최대)</span></div></div>
+    </div>
+  </div>
+
+  <h2>Spare Bulb Pack (예비 전구 팩)</h2>
+  <div class="card card-blue">
+    <p>· <strong>조종실 내에 비치된 예비 전구(Lamp) 모음</strong></p>
+    <p>· 비행 중 조종석 내 전구가 고장났을 때 즉시 교체할 수 있도록 다양한 규격의 예비 전구를 한 곳에 모아둔 팩</p>
+    <p>· 국토부 표준교재에 따르면 항공기는 각 조명 유형별로 규정된 수량의 예비 전구를 항상 비치해야 하며, 이를 통해 비행 중 조명 고장 시 즉각적인 정비가 가능하도록 함</p>
+    <p>· 위치: <strong>비행기마다 차이 있음</strong></p>
+    <p>· MAX 표시가 있는 케이스에 여러 크기·규격의 전구가 분류되어 보관됨</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- 객실 조명 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="sec-passenger-cabin" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 23</div>
+    <h1>객실 조명 (Passenger Compartment Lighting)</h1>
+  </div>
+
+  <h2>객실 조명 전체 구조</h2>
+  <div class="card card-blue">
+    <p style="font-weight:700;color:var(--blue)">PASSENGER COMPARTMENT LIGHTING 트리</p>
+    <p>① Window Lights &nbsp;② Ceiling Lights &nbsp;③ Reading Lights &nbsp;④ Passenger Signs</p>
+    <p>⑤ Attendant Work Lights &nbsp;⑥ Galley Lights &nbsp;⑦ Lavatory Lights and Signs &nbsp;⑧ Passenger and Lavatory Call Lights</p>
+    <p>⑨ Entry Lights</p>
+  </div>
+
+  <h2>광원 종류별 적용 위치</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th style="color:var(--amber)">Incandescent (백열)</th><th style="color:var(--teal-light)">Fluorescent (형광)</th><th style="color:var(--blue)">LED</th></tr>
+      <tr>
+        <td>· Attendant work areas<br>· Monument-mounted information signs<br>· Lavatory threshold/entry areas<br>· Lavatory mirrors</td>
+        <td>· Forward galley<br>· Inside the lavatories</td>
+        <td>· PSU reading lights (white)<br>· Entry area direct lighting (adjustable white)<br>· Entry area dim lighting (white)<br>· Ceiling cove &amp; wash lighting (colour)<br>· Ceiling wash lighting (colour)<br>· Cross bin lighting (adjustable white)<br>· Sidewall lighting (colour)<br>· Overwing exit (colour) and hatch handle lights (white)</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>객실 조명 조작 패널 — Forward Attendant Panel</h2>
+  <div class="card card-purple">
+    <p>· <strong>Entry</strong>: OFF / DIM / BRT 3단계</p>
+    <p>· <strong>Ceiling</strong>: DIM / OFF / BRT (Medium / Night 포지션 존재)</p>
+    <p>· <strong>Window</strong>: OFF / DIM / BRT</p>
+    <p>· toggle이면 비슷한 형태 → 얘네 다 <strong>Detent light</strong> (달그락 걸리는 노치 있음)</p>
+    <p>· adjustable은 이 외 (연속 조절 가능)</p>
+    <div class="sw-box" style="margin-top:10px">
+      <div class="sw-box-title">Forward Attendant Panel 스위치 전체 정리</div>
+      <div class="sw-row"><span class="sw-label">패널 위치</span><span class="sw-loc">Forward Attendant Panel (객실 앞쪽 승무원 패널)</span></div>
+      <div class="sw-row"><span class="sw-label">Entry 조명</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-dim">DIM</span><span class="pos-brt">BRT</span></div></div>
+      <div class="sw-row"><span class="sw-label">Ceiling 조명</span><div class="sw-pos"><span class="pos-dim">DIM</span><span class="pos-off">OFF</span><span class="pos-brt">BRT</span><span class="pos-nor">Medium</span><span class="pos-auto">Night</span></div></div>
+      <div class="sw-row"><span class="sw-label">Window 조명</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-dim">DIM</span><span class="pos-brt">BRT</span></div></div>
+      <div class="sw-row"><span class="sw-label">조작 방식</span><span style="color:var(--text2);font-size:12px">Detent 노브 (달그락 걸리는 방식) — toggle과 유사</span></div>
+    </div>
+  </div>
+
+  <h2>Window Lights (창문 조명)</h2>
+  <div class="card card-teal">
+    <p>· <strong>위 → 밑으로 창문을 비춰줌</strong> (방향: 위에서 아래로)</p>
+    <p>· 광원: <strong>형광등(fluorescent lamps) + 안정기(ballast assembly)</strong></p>
+    <p>· 형광등이 있으면 반드시 <strong>안정기(ballast assembly)가 있음</strong></p>
+    <p>· Window light position: <strong>① DIM ② BRT ③ OFF</strong></p>
+    <p>· 얘로 DIM, BRT 조정 가능</p>
+  </div>
+
+  <h2>Ceiling Lights (천장 조명)</h2>
+  <div class="card card-amber">
+    <p>· <strong>밑 → 위로 비춰줌</strong> (방향: 아래에서 위로 — 간접 조명 방식)</p>
+    <p>· 광원: <strong>백열전구(incandescent lamp) + 형광 램프(fluorescent lamp)</strong></p>
+    <p>· Medium, Light position 존재</p>
+  </div>
+
+  <h2>Reading Lights (독서등)</h2>
+  <div class="card card-green">
+    <p>· <strong>스위치는 어디?</strong> → light 옆에 있음 (PSU 안에)</p>
+    <p>· <strong>PSU(Passenger Service Unit)</strong> 안에 장착</p>
+    <p>· Bezel을 조절하면 light beam의 방향을 조절 가능 → 돌려서 밝기 조절</p>
+    <p>· 구조: Reading Light Switch → Lock/Unlock Lever → Lamp → Slot → Tab → Bezel/Lens Retainer → Lens</p>
+    <div class="sw-box" style="margin-top:10px">
+      <div class="sw-box-title">스위치 위치 &amp; 포지션</div>
+      <div class="sw-row"><span class="sw-label">스위치 위치</span><span class="sw-loc">PSU(Passenger Service Unit) 내 — 독서등 바로 옆</span></div>
+      <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-on">ON</span></div></div>
+      <div class="sw-row"><span class="sw-label">빔 방향</span><span style="color:var(--text2);font-size:12px">Bezel 회전으로 조사 방향 조절 가능 (독립 조작)</span></div>
+    </div>
+  </div>
+
+  <h2>Passenger Signs (승객 사인)</h2>
+  <div class="card card-red">
+    <p>· <strong>3가지 사인: ① No Smoking ② Fasten Seat Belt ③ Return to Seat</strong></p>
+    <p>· ①②는 PSU에 들어옴 (승객 머리 위)</p>
+    <p>· ③은 화장실(Lavatory)에 들어옴</p>
+    <p>· 승무원 사인은 별도로 있음 — 스위치는 어디? light 옆에 있음</p>
+    <div class="sw-box" style="margin-top:10px">
+      <div class="sw-box-title">스위치 위치 &amp; 포지션</div>
+      <div class="sw-row"><span class="sw-label">스위치 위치</span><span class="sw-loc">P5 Overhead Panel (조종석) — 사인 종류별 개별 스위치</span></div>
+      <div class="sw-row"><span class="sw-label">No Smoking</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-auto">AUTO</span><span class="pos-on">ON</span></div></div>
+      <div class="sw-row"><span class="sw-label">Fasten Seat Belt</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-auto">AUTO</span><span class="pos-on">ON</span></div></div>
+    </div>
+  </div>
+
+  <h2>Lavatory Lights (화장실 조명)</h2>
+  <div class="card card-purple">
+    <p>· <strong>door locked → bright / door unlocked → dim</strong></p>
+    <p>· 문을 열고 닫고 <strong>잠갔을 때 bright로 변경</strong></p>
+    <p>· door open/close가 아닌 <strong>lock에 의해 전환됨</strong></p>
+    <p>· 스위치 없음 → Dim/Bright가 AUTO로 작동됨 (= 꺼지지 않음)</p>
+    <p>· 광원: Incandescent Lamp + Fluorescent Lamps (화장실 내부)</p>
+    <div class="sw-box" style="margin-top:10px">
+      <div class="sw-box-title">스위치 위치 &amp; 포지션</div>
+      <div class="sw-row"><span class="sw-label">스위치 위치</span><span class="sw-loc">별도 스위치 없음 — Door Lock 연동 자동 제어</span></div>
+      <div class="sw-row"><span class="sw-label">Door Unlocked</span><div class="sw-pos"><span class="pos-dim">DIM (자동)</span></div></div>
+      <div class="sw-row"><span class="sw-label">Door Locked</span><div class="sw-pos"><span class="pos-brt">BRIGHT (자동)</span></div></div>
+      <div class="sw-row"><span class="sw-label">원리</span><span style="color:var(--text2);font-size:12px">Door Lock 기구에 연동 → 잠금 시 bright, 잠금 해제 시 dim으로 자동 전환 (꺼지지 않음)</span></div>
+    </div>
+  </div>
+
+  <h2>Entry Lights (출입구 조명)</h2>
+  <div class="card card-teal">
+    <p>· 위치: <strong>FA(Flight Attendant) 스테이션 근처</strong></p>
+    <p>· Forward Entry Light + Aft Entry Light 구분</p>
+    <p>· Threshold Light (문턱 조명)도 포함</p>
+  </div>
+
+  <h2>Galley Lights (갤리 조명)</h2>
+  <div class="card card-blue">
+    <p>· Work Light: BRT / DIM / OFF 3단계 조절 가능</p>
+    <p>· 갤리 패널에서 직접 조작</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- Call Lights 회로 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="sec-call-lights" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 24</div>
+    <h1>Call Lights 회로 — Passenger &amp; Lavatory Call Light</h1>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>Signs Lights — 색으로 구분, 차임(Chime) 동반</strong>
+      <p>· <span class="hl-p">분홍색(Pink/Crew)</span> — 비행 갑판 또는 다른 승무원 스테이션에서 호출 중 → 헤드셋을 듦: 다른 승무원이나 정장사가 나를 호출한 것</p>
+      <p>· <span style="color:var(--blue);font-weight:700">파란색(Blue/PAX)</span> — 승객 좌석 호출 → 누가 부른지 어떻게 알아? PSU에 불 들어와 있음. 승무원이 가서 PSU 불 끄면 blue light 꺼짐</p>
+      <p>· <span class="hl-a">주황색(Amber/LAV)</span> — 승객이 화장실에서 승무원 부를 때 → 어느 화장실? 화장실 문 옆쪽에 불 들어와 있음. 누르면 꺼짐</p>
+    </div>
+  </div>
+
+  <h2>Cabin Call Lights 색상 요약</h2>
+  <div class="grid3">
+    <div class="stat-card">
+      <div class="stat-label">Pink (분홍색)</div>
+      <div class="stat-value" style="color:#f87fb8;font-size:16px">CREW 호출</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:6px">비행 갑판/타 승무원 스테이션 → 나를 호출</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Blue (파란색)</div>
+      <div class="stat-value" style="color:var(--blue);font-size:16px">PAX 호출</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:6px">승객이 승무원을 부름 → PSU에 불 들어옴</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Amber (주황색)</div>
+      <div class="stat-value" style="color:var(--amber);font-size:16px">LAV 호출</div>
+      <div style="font-size:12px;color:var(--text3);margin-top:6px">승객이 화장실에서 호출 → 화장실 문 옆에 불 들어옴</div>
+    </div>
+  </div>
+
+  <h2>Passenger Lavatory Call Light 회로도</h2>
+  <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px">
+    <svg viewBox="0 0 780 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:780px;display:block;margin:0 auto">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#34d8b5"/>
+        </marker>
+        <marker id="arr-r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#f06060"/>
+        </marker>
+        <marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L8,3 z" fill="#5dd87a"/>
+        </marker>
+      </defs>
+      <!-- background -->
+      <rect width="780" height="460" fill="#1e2535" rx="8"/>
+
+      <!-- 전원 블록 -->
+      <rect x="10" y="30" width="110" height="60" rx="5" fill="#252d40" stroke="#7c6ff7" stroke-width="1.5"/>
+      <text x="65" y="52" font-size="10" fill="#a89cf8" text-anchor="middle" font-family="monospace">28V DC</text>
+      <text x="65" y="65" font-size="10" fill="#a89cf8" text-anchor="middle" font-family="monospace">BUS 1</text>
+      <text x="65" y="80" font-size="9" fill="#636b80" text-anchor="middle">P18 CB PANEL</text>
+
+      <!-- 메인 수평 전선 (28V → 분기) -->
+      <line x1="120" y1="60" x2="240" y2="60" stroke="#34d8b5" stroke-width="2" marker-end="url(#arr)"/>
+      <!-- 분기점 -->
+      <circle cx="240" cy="60" r="4" fill="#34d8b5"/>
+
+      <!-- 위쪽 분기: PSU로 -->
+      <line x1="240" y1="60" x2="240" y2="120" stroke="#34d8b5" stroke-width="1.5"/>
+      <line x1="240" y1="120" x2="370" y2="120" stroke="#34d8b5" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- PSU 블록 -->
+      <rect x="370" y="95" width="150" height="55" rx="5" fill="#252d40" stroke="#5ba3f5" stroke-width="1.5"/>
+      <text x="445" y="115" font-size="10" fill="#acd4ff" text-anchor="middle" font-family="monospace">PASSENGER</text>
+      <text x="445" y="128" font-size="10" fill="#acd4ff" text-anchor="middle" font-family="monospace">SERVICE UNIT</text>
+      <text x="445" y="141" font-size="9" fill="#636b80" text-anchor="middle">(Typical)</text>
+
+      <!-- PSU → Call Light/Reset -->
+      <line x1="520" y1="122" x2="590" y2="122" stroke="#34d8b5" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="590" y="108" width="120" height="30" rx="4" fill="#252d40" stroke="#5ba3f5" stroke-width="1"/>
+      <text x="650" y="124" font-size="9" fill="#acd4ff" text-anchor="middle" font-family="monospace">CALL LIGHT/RESET</text>
+      <!-- PSU → blue indicator -->
+      <line x1="650" y1="138" x2="650" y2="165" stroke="#34d8b5" stroke-width="1.5" marker-end="url(#arr)"/>
+      <circle cx="650" cy="170" r="10" fill="#5ba3f5" opacity="0.85"/>
+      <text x="650" y="174" font-size="8" fill="white" text-anchor="middle" font-weight="bold">P</text>
+      <text x="650" y="193" font-size="9" fill="#5ba3f5" text-anchor="middle">Blue (PAX)</text>
+
+      <!-- 아래쪽 분기: Lavatory로 -->
+      <line x1="240" y1="60" x2="240" y2="250" stroke="#34d8b5" stroke-width="1.5"/>
+      <line x1="240" y1="250" x2="310" y2="250" stroke="#34d8b5" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- Forward Lavatory 블록 -->
+      <rect x="310" y="220" width="180" height="70" rx="5" fill="#252d40" stroke="#f5a623" stroke-width="1.5"/>
+      <text x="400" y="243" font-size="10" fill="#f5a623" text-anchor="middle" font-family="monospace">FORWARD LAVATORY</text>
+      <text x="400" y="257" font-size="9" fill="#636b80" text-anchor="middle">(Typical)</text>
+
+      <!-- Call Button (Normal Open) -->
+      <rect x="320" y="262" width="80" height="22" rx="3" fill="#1e2535" stroke="#5ba3f5" stroke-width="1"/>
+      <text x="360" y="277" font-size="8" fill="#acd4ff" text-anchor="middle">CALL BUTTON</text>
+      <text x="360" y="289" font-size="7" fill="#636b80" text-anchor="middle">Normal Open</text>
+
+      <!-- Call Light/Reset (Normal Close) -->
+      <rect x="415" y="262" width="65" height="22" rx="3" fill="#1e2535" stroke="#f06060" stroke-width="1"/>
+      <text x="447" y="274" font-size="8" fill="#f06060" text-anchor="middle">CALL LIGHT</text>
+      <text x="447" y="285" font-size="7" fill="#636b80" text-anchor="middle">/RESET (N.C.)</text>
+
+      <!-- 화살표 설명: Normal Close → 누르면 다 꺼짐 -->
+      <line x1="480" y1="273" x2="550" y2="273" stroke="#f06060" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-r)"/>
+      <text x="555" y="270" font-size="8" fill="#f06060">N.C.→눌러서</text>
+      <text x="555" y="281" font-size="8" fill="#f06060">리셋하면 꺼짐</text>
+
+      <!-- R1 Call Relay -->
+      <rect x="310" y="310" width="100" height="30" rx="4" fill="#252d40" stroke="#34d8b5" stroke-width="1"/>
+      <text x="360" y="330" font-size="9" fill="#6de8cc" text-anchor="middle" font-family="monospace">R1 CALL RELAY</text>
+
+      <!-- Call Button → R1 Relay -->
+      <line x1="360" y1="284" x2="360" y2="310" stroke="#34d8b5" stroke-width="1.5" marker-end="url(#arr)"/>
+
+      <!-- PA AMP / HI CHIME -->
+      <rect x="90" y="200" width="110" height="45" rx="5" fill="#252d40" stroke="#f5a623" stroke-width="1.5"/>
+      <text x="145" y="218" font-size="10" fill="#f5a623" text-anchor="middle" font-family="monospace">HI CHIME</text>
+      <text x="145" y="232" font-size="9" fill="#636b80" text-anchor="middle">PA AMP</text>
+      <!-- PA 연결선 -->
+      <line x1="240" y1="200" x2="200" y2="200" stroke="#34d8b5" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- vert connect 240 60→200 -->
+      <circle cx="240" cy="200" r="3" fill="#34d8b5"/>
+      <line x1="240" y1="60" x2="240" y2="200" stroke="#34d8b5" stroke-width="0" />
+
+      <!-- FWD EXIT LOCATOR -->
+      <rect x="10" y="290" width="120" height="55" rx="5" fill="#252d40" stroke="#5dd87a" stroke-width="1.5"/>
+      <text x="70" y="310" font-size="9" fill="#5dd87a" text-anchor="middle" font-family="monospace">FWD EXIT</text>
+      <text x="70" y="323" font-size="9" fill="#5dd87a" text-anchor="middle" font-family="monospace">LOCATOR</text>
+      <circle cx="48" cy="338" r="7" fill="#5ba3f5" opacity="0.85"/>
+      <text x="48" y="342" font-size="7" fill="white" text-anchor="middle">B</text>
+      <circle cx="70" cy="338" r="7" fill="#f5a623" opacity="0.85"/>
+      <text x="70" y="342" font-size="7" fill="white" text-anchor="middle">A</text>
+
+      <!-- AFT EXIT LOCATOR -->
+      <rect x="10" y="370" width="120" height="55" rx="5" fill="#252d40" stroke="#5dd87a" stroke-width="1.5"/>
+      <text x="70" y="390" font-size="9" fill="#5dd87a" text-anchor="middle" font-family="monospace">AFT EXIT</text>
+      <text x="70" y="403" font-size="9" fill="#5dd87a" text-anchor="middle" font-family="monospace">LOCATOR</text>
+      <circle cx="48" cy="418" r="7" fill="#5ba3f5" opacity="0.85"/>
+      <text x="48" y="422" font-size="7" fill="white" text-anchor="middle">B</text>
+      <circle cx="70" cy="418" r="7" fill="#f5a623" opacity="0.85"/>
+      <text x="70" y="422" font-size="7" fill="white" text-anchor="middle">A</text>
+
+      <!-- R1 Relay → FWD/AFT Exit Locator (Amber) -->
+      <line x1="310" y1="325" x2="200" y2="325" stroke="#f5a623" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="145" y1="325" x2="145" y2="345" stroke="#f5a623" stroke-width="1.5"/>
+      <line x1="145" y1="345" x2="70" y2="345" stroke="#f5a623" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="70" y1="345" x2="70" y2="370" stroke="#f5a623" stroke-width="1.5" marker-end="url(#arr)"/>
+      <text x="195" y="320" font-size="8" fill="#f5a623" text-anchor="end">Amber 신호</text>
+
+      <!-- Aft Lavatory 연결선 -->
+      <line x1="310" y1="255" x2="280" y2="255" stroke="#34d8b5" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="280" y1="255" x2="280" y2="408" stroke="#34d8b5" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="280" y1="408" x2="130" y2="408" stroke="#34d8b5" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+      <text x="283" y="380" font-size="8" fill="#636b80">FROM AFT</text>
+      <text x="283" y="390" font-size="8" fill="#636b80">LAVATORY</text>
+
+      <!-- 제목 라벨 -->
+      <text x="390" y="20" font-size="11" fill="#a89cf8" text-anchor="middle" font-weight="bold" font-family="monospace">Passenger Lavatory Call Light 회로</text>
+
+      <!-- 범례 -->
+      <rect x="560" y="310" width="200" height="130" rx="5" fill="#161b27" stroke="#252d40" stroke-width="1"/>
+      <text x="660" y="328" font-size="9" fill="#9aa3b8" text-anchor="middle" font-weight="bold">범례</text>
+      <line x1="572" y1="343" x2="600" y2="343" stroke="#34d8b5" stroke-width="1.5"/>
+      <text x="607" y="347" font-size="9" fill="#9aa3b8">전원선 / 신호선</text>
+      <line x1="572" y1="358" x2="600" y2="358" stroke="#f5a623" stroke-width="1.5"/>
+      <text x="607" y="362" font-size="9" fill="#9aa3b8">Amber (LAV 호출)</text>
+      <circle cx="580" cy="375" r="6" fill="#5ba3f5" opacity="0.85"/>
+      <text x="607" y="379" font-size="9" fill="#9aa3b8">Blue (PAX 호출)</text>
+      <circle cx="580" cy="393" r="6" fill="#f5a623" opacity="0.85"/>
+      <text x="607" y="397" font-size="9" fill="#9aa3b8">Amber indicator</text>
+      <circle cx="580" cy="411" r="6" fill="#5dd87a" opacity="0.85"/>
+      <text x="607" y="415" font-size="9" fill="#9aa3b8">Exit Locator Light</text>
+      <line x1="572" y1="428" x2="600" y2="428" stroke="#34d8b5" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="607" y="432" font-size="9" fill="#9aa3b8">AFT Lavatory 연결</text>
+    </svg>
+    <p style="text-align:center;margin-top:8px;font-size:11px;color:var(--text3)">Passenger Lavatory Call Light 전기 회로도 (B737 기준)</p>
+  </div>
+
+  <h2>Passenger Lavatory Call Light 동작 원리 상세 해설</h2>
+  <div class="flow">
+    <div class="flow-item">
+      <div class="flow-num">1</div>
+      <div class="flow-content">
+        <div class="flow-title">전원 공급: 28V DC BUS 1 → P18 CB Panel</div>
+        <div class="flow-desc">· PASSENGER CABIN PASS CALL CB(Circuit Breaker)를 통해 전원 공급<br>· 전원이 분기되어 PSU(승객 서비스 유닛)와 Forward Lavatory 양쪽으로 공급됨</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">2</div>
+      <div class="flow-content">
+        <div class="flow-title">승객이 CALL BUTTON 누름 (Normal Open → 닫힘)</div>
+        <div class="flow-desc">· Call Button은 평소 열려있음(Normal Open) — 누르면 회로 연결<br>· 동시에 PA AMP를 통해 <strong>HI CHIME 차임(소리)</strong>이 울림<br>· R1 CALL RELAY 작동 → 회로 유지됨</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">3</div>
+      <div class="flow-content">
+        <div class="flow-title">PSU Blue Light ON + Exit Locator Amber Light ON</div>
+        <div class="flow-desc">· PSU에서 승객이 누른 좌석의 <strong>Blue Light가 켜짐</strong> — 어느 좌석이 호출했는지 알 수 있음<br>· R1 Relay → <strong>FWD/AFT Exit Locator Amber Light</strong>도 동시에 켜짐 (화장실 문 옆)<br>· Call Light/Reset 스위치도 활성화 상태</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">4</div>
+      <div class="flow-content">
+        <div class="flow-title">승무원이 PSU로 가서 Reset 버튼 누름 (Normal Close → 열림)</div>
+        <div class="flow-desc">· <strong>Call Light/Reset 스위치는 Normal Close</strong> — 누르면 회로가 열려서 <strong>연결된 모든 Light가 꺼짐</strong><br>· PSU Blue Light 꺼짐 + Exit Locator Amber Light 꺼짐<br>· R1 Relay도 리셋됨</div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-num">5</div>
+      <div class="flow-content">
+        <div class="flow-title">화장실(LAV) 호출의 경우 — Amber Light</div>
+        <div class="flow-desc">· AFT Lavatory에서 호출하면 동일 회로로 연결됨 (FROM AFT LAVATORY 선)<br>· 화장실 문 옆에 <strong>Amber Light 켜짐</strong> — 어느 화장실인지 표시<br>· 화장실 문 바깥쪽에서 누르면 꺼짐</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-info">
+    <span class="callout-icon">📌</span>
+    <div class="callout-content">
+      <strong>Call Sign Light = Answer Light 라고도 부름</strong>
+      <p>승객이 PSU를 누르면 → PSU Blue Light ON + 차임 → 승무원 응답 후 PSU 불 끄면 꺼짐<br>
+      · 화장실에서 누르면 → 화장실 Amber Light + 차임 → 화장실 Door 옆 Amber Light 누르면 꺼짐</p>
+    </div>
+  </div>
+
+  <h2>Signs Lights 색상 정리 (암기)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>색상</th><th>의미</th><th>동작 조건</th><th>끄는 방법</th></tr>
+      <tr><td style="color:#f87fb8;font-weight:700">Pink (분홍)</td><td>Crew 호출 (타 승무원/조종석 → 나)</td><td>비행 갑판 또는 타 승무원 스테이션에서 호출</td><td>헤드셋을 들면 확인 가능</td></tr>
+      <tr><td style="color:var(--blue);font-weight:700">Blue (파랑)</td><td>PAX 호출 (승객 → 승무원)</td><td>승객이 PSU CALL 버튼 누름</td><td>승무원이 PSU 앞에서 Reset 누름</td></tr>
+      <tr><td style="color:var(--amber);font-weight:700">Amber (주황)</td><td>LAV 호출 (화장실 → 승무원)</td><td>승객이 화장실에서 Call 버튼 누름</td><td>화장실 Door 옆 Amber Light 누름</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- Service Lights -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="sec-service-lights" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 25</div>
+    <h1>Service Compartment Lights (서비스 구획 조명)</h1>
+  </div>
+
+  <div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div class="callout-content">
+      <strong>Service Light는 조종실에 있는 게 아니라 각 요소들에 있음 — 다 정비를 위한 것</strong>
+      <p>각종 linkage(연결부)가 다 있어서 정비사가 해당 구획에서 직접 조작함</p>
+    </div>
+  </div>
+
+  <h2>서비스 구획 조명 목록 (B737 기준)</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>구획명</th><th>비고</th></tr>
+      <tr><td><strong>FWD Cargo Compartment Lights</strong></td><td>전방 화물칸 조명</td></tr>
+      <tr><td><strong>AFT Cargo Compartment Lights</strong></td><td>후방 화물칸 조명</td></tr>
+      <tr><td><strong>Electronic Equipment Compartment Lights</strong></td><td>E&amp;E Bay 조명 — Main Equipment (4개 랙)</td></tr>
+      <tr><td><strong>"Nose Wheel" Well Lights</strong></td><td>전방 랜딩기어 휠 웰 조명</td></tr>
+      <tr><td><strong>"Main Wheel" Well Lights</strong></td><td>주 랜딩기어 휠 웰 조명</td></tr>
+      <tr><td><strong>Air Conditioning Compartment Lights</strong></td><td>에어컨 구획 조명</td></tr>
+      <tr><td><strong>"Forward Equipment" Compartment Lights</strong></td><td>전방 장비 구획 조명</td></tr>
+      <tr><td><strong>AFT Accessory Compartment Light</strong></td><td>후방 액세서리 구획 조명</td></tr>
+      <tr><td><strong>APU Compartment Service Lights</strong></td><td>APU 구획 서비스 조명</td></tr>
+      <tr><td><strong>Tailcone Service Lights</strong></td><td>테일콘 서비스 조명 — 각종 linkage 연결부 있음</td></tr>
+    </table>
+  </div>
+
+  <h2>Cargo &amp; Service Compartment Lights</h2>
+  <div class="card card-teal">
+    <p>· Cargo 조명: 화물 적재 시 내부 조명 제공</p>
+    <p>· 모든 서비스 조명은 정비 목적 — 지상 정비 작업 시 사용</p>
+  </div>
+
+  <h2>Wheel Well Lights (휠 웰 조명)</h2>
+  <div class="card card-purple">
+    <p>· 별도의 S/W가 있음</p>
+    <p>· Nose Wheel Well Light: 전방 랜딩기어 수납 공간 조명</p>
+    <p>· Main Wheel Well Light: 주 랜딩기어 수납 공간 조명 — 각종 복잡한 linkage 있음</p>
+  </div>
+
+  <h2>Electronic Equipment Compartment Lights (E&amp;E Bay)</h2>
+  <div class="card card-amber">
+    <p>· <strong>Main Equipment</strong> 랙이 있는 E&amp;E Bay 조명</p>
+    <p>· FWD EE Compartment Light Switch (E11) — 전방 스위치</p>
+    <p>· EE Compartment Light Switch (Service Panel) — 서비스 패널 스위치</p>
+    <p>· 스위치가 2개이므로 현장에서 조작 가능</p>
+    <p>· ∴ Service light는 조종실에 있는 게 아니라 각 요소들에 있음 — 다 정비를 위한 것</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════ -->
+<!-- 비상 조명 -->
+<!-- ══════════════════════════════════════════════ -->
+<div id="sec-emergency-lighting" class="section">
+  <div class="section-header">
+    <div class="section-tag">Chapter 26</div>
+    <h1>비상 조명 (Emergency Lighting)</h1>
+  </div>
+
+  <div class="callout callout-warn">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>비상 조명 계통은 정비 안 하면 출발 못함</strong>
+      <p>비상 조명은 항공기 안전에 직결 — 정비를 안 하면 출발 불가</p>
+    </div>
+  </div>
+
+  <h2>Emergency Lighting 트리 구조</h2>
+  <div class="card card-blue">
+    <p style="font-weight:700;color:var(--blue)">EMERGENCY LIGHTING 5개 분류:</p>
+    <p>① <strong>Exit Signs</strong> — 출구 표시등</p>
+    <p>② <strong>Aisle Lights</strong> — 통로등</p>
+    <p>③ <strong>Floor Proximity Lights</strong> — 바닥 근접 조명</p>
+    <p>④ <strong>Slide Lights</strong> — 슬라이드 조명</p>
+    <p>⑤ <strong>Power Supplies</strong> — BAT Pack 전원 공급</p>
+  </div>
+
+  <h2>비상 조명 전원 (Electrical Power)</h2>
+  <div class="card card-red">
+    <p>· 각 비상 조명 배터리 팩 충전기는 <strong>28V DC BUS 1</strong>에서 전원을 공급받는다</p>
+    <p>· 배터리 팩을 충전하는 데는 약 <strong class="hl-r">90분</strong>이 소요 (Full Charge 필요)</p>
+    <p>· 충전 완료 시 팩은 <strong class="hl-r">최소 10분</strong> 분간 비상 조명을 제공</p>
+    <p>· 각 비상 조명이 켜지는 곳은 각 BAT Pack이 담당하는 부분이 다름</p>
+  </div>
+
+  <h2>Emergency Exit Lights Switch (비상 출구 스위치)</h2>
+  <div class="callout callout-key">
+    <span class="callout-icon">⭐</span>
+    <div class="callout-content">
+      <strong>이것도 중요해서 가드(Guard) 씌워져 있음 — ARMED가 Normal Position</strong>
+      <p>AUTO 개념과 유사 — 어떤 조건이 발생되면 비상 light 켜짐</p>
+    </div>
+  </div>
+
+  <div class="sw-box">
+    <div class="sw-box-title">비상 조명 스위치 전체 정리</div>
+    <div class="sw-row"><span class="sw-label">① 조종실 스위치</span><span class="sw-loc">P5 Overhead Panel — EMER EXIT LIGHTS 스위치 (가드 씌워져 있음)</span></div>
+    <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-arm">ARMED ← 정상위치</span><span class="pos-on">ON</span></div></div>
+    <div class="sw-row"><span class="sw-label">ARMED</span><span style="color:var(--text2);font-size:12px">정상 비행 위치 — 전원 이상 발생 시 자동 점등 (AUTO 개념)</span></div>
+    <div class="sw-row"><span class="sw-label">ON</span><span style="color:var(--amber);font-size:12px">강제 점등 → BAT 직접 소모(방전)됨</span></div>
+    <div class="sw-row"><span class="sw-label">OFF</span><span style="color:var(--red);font-size:12px">비상등 강제 소등 — 비상 시 절대 OFF 금지</span></div>
+    <div class="sw-row" style="margin-top:8px"><span class="sw-label">② AFT 패널 스위치</span><span class="sw-loc">AFT Attendant Panel (객실 후방 승무원 패널) — EMERGENCY EXIT LIGHTS</span></div>
+    <div class="sw-row"><span class="sw-label">포지션</span><div class="sw-pos"><span class="pos-off">OFF</span><span class="pos-on">ON</span></div></div>
+    <div class="sw-row"><span class="sw-label">비고</span><span style="color:var(--text2);font-size:12px">조종실 스위치와 독립적으로 작동 — 승무원이 직접 ON/OFF 가능</span></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>① EMER EXIT LIGHT SW (P5 조종실)</h3>
+      <p>· 스위치 3단계: <strong>OFF / ARMED / ON</strong></p>
+      <p>· <strong>ARMED = Normal Position (정상 위치)</strong> — AUTO 개념과 유사</p>
+      <p>· <strong>ON</strong>: BAT 방전됨 (배터리를 직접 소모)</p>
+      <p>· <strong>OFF</strong>: 비상등 꺼짐</p>
+      <p>· ARMED 상태에서 어떤 조건(전원 상실 등) 발생 시 → 비상 light 자동 켜짐</p>
+    </div>
+    <div class="card card-teal">
+      <h3>② EMERGENCY EXIT LIGHT SW (AFT Attendant Panel)</h3>
+      <p>· AFP(AFT Panel)에 스위치 하나 더 있음</p>
+      <p>· <strong>이건 ON/OFF만</strong> — P5 조종실 스위치와 별개</p>
+      <p>· ON 하면 다 켜짐</p>
+      <p>· 조종실에 있는 거랑 별개 (승무원이 독립적으로 조작 가능)</p>
+    </div>
+  </div>
+
+  <h2>비상 출구 조명 작동 로직 표</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>EMG Exit Lights</th><th>28V DC BUS</th><th>Light SW (ATT Panel)</th><th>Light SW (P5)</th><th>Master Caution &amp; Not Armed Lights</th><th>Battery Packs</th></tr>
+      <tr><td style="color:var(--red)">ON</td><td>&lt;12V</td><td>NORMAL</td><td>ARMED</td><td>OFF</td><td style="color:var(--amber)">DISCHARGE</td></tr>
+      <tr><td style="color:var(--red)">ON</td><td>&lt;12V</td><td>NORMAL</td><td>ON</td><td>ON</td><td style="color:var(--amber)">DISCHARGE</td></tr>
+      <tr><td>OFF</td><td>&lt;12V</td><td>NORMAL</td><td>OFF</td><td>ON</td><td style="color:var(--teal-light)">CHARGE</td></tr>
+      <tr><td style="color:var(--red)">ON</td><td>&lt;12V</td><td>ON</td><td>OFF</td><td>ON</td><td style="color:var(--amber)">DISCHARGE</td></tr>
+      <tr><td>OFF</td><td>&gt;12V</td><td>NORMAL</td><td>ARMED</td><td>OFF</td><td style="color:var(--teal-light)">CHARGE</td></tr>
+      <tr><td style="color:var(--red)">ON</td><td>&gt;12V</td><td>NORMAL</td><td>ON</td><td>ON</td><td style="color:var(--amber)">DISCHARGE</td></tr>
+      <tr><td>OFF</td><td>&gt;12V</td><td>NORMAL</td><td>OFF</td><td>ON</td><td style="color:var(--teal-light)">CHARGE</td></tr>
+      <tr><td style="color:var(--red)">ON</td><td>&gt;12V</td><td>ON</td><td>ARMED</td><td>OFF</td><td style="color:var(--amber)">DISCHARGE</td></tr>
+      <tr><td style="color:var(--red)">ON</td><td>&gt;12V</td><td>ON</td><td>ON/OFF</td><td>ON</td><td style="color:var(--amber)">DISCHARGE</td></tr>
+    </table>
+  </div>
+  <div class="callout callout-tip">
+    <span class="callout-icon">💡</span>
+    <div class="callout-content">
+      <strong>핵심 암기 — 외우자마</strong>
+      <p>ON하면 다 켜짐 / <strong>12V 이상이어도 관계없이 정상</strong><br>
+      · 28V DC BUS &lt;12V = 전원 결함 상태 → ARMED면 자동 DISCHARGE(비상등 ON)<br>
+      · 충전은 OFF 상태(정상 전원 &gt;12V, 스위치 NORMAL/OFF)일 때만 CHARGE</p>
+    </div>
+  </div>
+
+  <h2>Exit Signs (출구 표시등)</h2>
+  <div class="grid2">
+    <div class="card card-purple">
+      <h3>Door Exit Signs</h3>
+      <p>· Door 옆에 위치 — 어두울 때 엄청 밝음</p>
+      <p>· exit sign: 왼쪽, 오른쪽 어디 있는지 위치를 알려줌</p>
+    </div>
+    <div class="card card-teal">
+      <h3>Overwing Door Exit Signs</h3>
+      <p>· <strong>날개 위로 탈출할 수 있게</strong> — Flap으로 쭉 내려감</p>
+      <p>· B737인 경우: 날개쪽 작은 문 있음 → 날개 뒤에도 light 있어야 함</p>
+    </div>
+  </div>
+
+  <h2>Cabin Emergency Lights (객실 비상 조명)</h2>
+  <div class="card card-red">
+    <p>· <strong>바닥을 비춤</strong> (Floor Proximity Lighting)</p>
+    <p>· 바닥 근접 조명(좌석 장착형, 바닥 장착형)</p>
+    <p>· 바닥에 조명을 설치하여 PAX와 승무원에게 <strong>모든 출구의 방향을 안내</strong></p>
+    <p>· Interior Emergency Light 항목:</p>
+    <p style="padding-left:12px">— Aisle area light</p>
+    <p style="padding-left:12px">— Ceiling area light</p>
+    <p style="padding-left:12px">— Floor proximity light</p>
+    <p style="padding-left:12px">— Exit sign</p>
+  </div>
+
+  <h2>Slide Lights (슬라이드 조명)</h2>
+  <div class="card card-amber">
+    <p>· <strong>항공기 주변 출구 부근에 조명을 공급</strong></p>
+    <p>· 조종실에서 켜는 게 아니라 <strong>exterior light임</strong> (바깥쪽을 비추는 조명)</p>
+    <p>· 승객 안전 탈출하라고 땅을 비춤 — Door 앞 땅을 비춰줌</p>
+    <p>· Escape Slide 펼쳐지는 순간에도 light 비춤</p>
+    <p>· 날개위로 걸어가 Flap으로 쭉 내려감 → 날개 뒤에도 light 있어야 함</p>
+    <p>· 구조: Integral Slide Lighting + Escape Slide Lighting 포함</p>
+  </div>
+
+  <h2>비상 조명 전체 핵심 암기</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>항목</th><th>핵심 내용</th></tr>
+      <tr><td>비상 조명 전원</td><td>BAT Pack (자체 배터리) / 28V DC BUS 1에서 충전</td></tr>
+      <tr><td>충전 시간</td><td><span class="hl-r">약 90분</span> (Full Charge)</td></tr>
+      <tr><td>작동 가능 시간</td><td><span class="hl-r">최소 10분</span> (승객 탈출 시간 확보)</td></tr>
+      <tr><td>작동 전압 기준</td><td>28V DC BUS &lt;12V → ARMED 상태면 자동 ON</td></tr>
+      <tr><td>정상 스위치 위치</td><td><strong>ARMED</strong> (조종실 P5 패널)</td></tr>
+      <tr><td>AFT 패널 스위치</td><td>ON/OFF만 — 조종실과 별개로 독립 작동</td></tr>
+      <tr><td>Exit Signs</td><td>Door 옆 + Overwing / 방향(좌우) 표시</td></tr>
+      <tr><td>Floor Proximity</td><td>바닥 조명 — 출구 방향 안내</td></tr>
+      <tr><td>Slide Lights</td><td>Exterior light / 탈출 슬라이드 + 탈출 경로 조명</td></tr>
+      <tr><td>정비 미실시 시</td><td>출발 불가 (비상 조명은 필수 장비)</td></tr>
     </table>
   </div>
 </div>
