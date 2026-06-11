@@ -545,9 +545,9 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         <div class="sub-section">
           <div class="sub-header"><span class="sub-num">②</span><h2>각도·호·속도 관계식</h2></div>
           <div class="card">
-            <div class="formula-block"><div class="label">호의 길이 (반드시 라디안) ⭐️⭐️⭐️</div>\[ l = r\theta \]</div>
-            <div class="formula-block"><div class="label">선속도 = 반지름 × 각속도 ⭐️⭐️⭐️</div>\[ v = r\omega \]</div>
-            <div class="formula-block"><div class="label">각속도 = 회전각 / 시간, 주기, 진동수</div>\[ \omega = \frac{2\pi}{T} = 2\pi f \]</div>
+            <div class="formula-block"><div class="label">호의 길이 (반드시 라디안)</div>\[ l = r\theta \]</div>
+            <div class="formula-block"><div class="label">선속도 = 반지름 × 각속도</div>\[ v = r\omega \]</div>
+            <div class="formula-block"><div class="label">각속도, 주기, 진동수</div>\[ \omega = \frac{2\pi}{T} = 2\pi f \]</div>
             <div class="formula-block"><div class="label">RPM → 각속도 (N: 분당 회전수)</div>\[ \omega = \frac{2\pi N}{60} \text{ [rad/sec]}, \quad v = \frac{\pi d N}{60} \text{ [m/sec]} \]</div>
           </div>
         </div>
@@ -580,9 +580,9 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           <div class="sub-header"><span class="sub-num">⑤</span><h2>원운동 핵심 성질 &amp; 인공위성</h2></div>
           <div class="card">
             <ul style="padding-left:18px;color:#cdd5df;font-size:14px;line-height:2.1;">
-              <li>물체에 작용하는 구심력은 속력을 <span class="hl-red">증가시키지 못한다</span> (운동 방향에 수직 → 일 = 0)</li>
-              <li>일정한 크기의 구심력을 받는 물체는 등속 원운동을 한다.</li>
-              <li>원운동하는 물체의 속력을 바꾸려면 접선방향 힘(토크)이 필요: F_θ = mrα</li>
+              <li>구심력은 속력을 <span class="hl-red">증가시키지 못한다</span> (운동 방향에 수직 → 일 = 0)</li>
+              <li>일정 구심력 → 등속 원운동</li>
+              <li>속력을 바꾸려면 접선방향 힘(토크)이 필요: F_θ = mrα</li>
               <li>인공위성: 중력(구심력)과 원심 효과 균형 → 토크 = 0 → 각운동량 보존 → 계속 회전</li>
             </ul>
           </div>
@@ -1315,6 +1315,43 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           </div>
         </div>
 
+        <!-- ②-A 단면 형상별 적용 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num" style="background:rgba(210,168,255,.1);color:var(--accent4);border-color:rgba(210,168,255,.3);">적용</span><h2>보의 적용 예 — 단면 형상별 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <p>하중이 <span class="hl-blue">어느 방향</span>으로 작용하느냐에 따라 적합한 보의 단면 형상이 달라진다. 단면 2차 모멘트 I가 큰 방향이 하중 방향과 일치하도록 형상을 고른다.</p>
+            <table>
+              <tr><th>단면 형상</th><th>적용 조건</th><th>이유</th></tr>
+              <tr><td><strong>사각 단면 보</strong><br>(Rectangular)</td><td><span class="hl">수직력 · 수평력 모두</span> 가해질 때</td><td>두 방향 모두 어느 정도 저항. 가장 기본적인 형태.</td></tr>
+              <tr><td><strong>사각 튜브형 보</strong><br>(Box / Tube)</td><td><span class="hl">모든 방향</span>에서 힘이 가해질 때</td><td>속이 비어 있어 모든 방향 굽힘·비틀림에 균형 있게 저항. 경량 대비 강성 우수.</td></tr>
+              <tr><td><strong>I 보</strong><br>(I-beam)</td><td><span class="hl-blue">수직력만</span> 가해질 때</td><td>플랜지가 위·아래에 있어 수직 굽힘(상하 방향 I)에 강함. 수평 방향엔 약함.</td></tr>
+              <tr><td><strong>H 보</strong><br>(H-beam)</td><td><span class="hl-green">수평력만</span> 가해질 때</td><td>플랜지가 좌·우에 배치되어 수평 방향 굽힘에 강함.</td></tr>
+            </table>
+            <div class="note tip"><span class="note-icon">✓</span><span><strong>핵심 원리</strong> — 굽힘에 저항하려면 단면적을 <strong>하중 방향으로 멀리</strong> 배치해 단면 2차 모멘트 I를 키워야 한다. I보·H보는 재료를 중립축에서 먼 플랜지에 몰아넣어 적은 무게로 큰 I를 얻는다. (▶ 8장 평행축 정리 \(I=\bar I + Ad^2\) 참고)</span></div>
+            <div class="note info"><span class="note-icon">ℹ</span><span>I보를 90° 눕히면 H보가 된다 — 둘은 같은 형상이지만 <strong>하중을 받는 방향</strong>으로 어느 플랜지가 정렬되느냐가 다르다.</span></div>
+          </div>
+        </div>
+
+        <!-- ②-B 보의 해석·설계 절차 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num" style="background:rgba(63,185,80,.1);color:var(--accent3);border-color:rgba(63,185,80,.3);">절차</span><h2>보의 해석 · 설계 절차 <span class="badge badge-exam">시험 핵심</span></h2></div>
+          <div class="card">
+            <h3>전체 흐름</h3>
+            <div class="formula-block key" style="font-family:'Noto Sans KR',sans-serif;">
+              <span class="hl">하중</span> → <span class="hl-blue">전단력 · 굽힘모멘트</span> → <span class="hl-purple">응력 · 변형률 · 처짐</span> → 여러 하중 조건 하에서 <strong>해석 및 설계</strong>
+            </div>
+            <ol class="step-list">
+              <li><strong>하중 파악</strong> — 보에 작용하는 외력(집중·분포하중)과 지지점 반력을 FBD로 정리.</li>
+              <li><strong>전단력 · 굽힘모멘트 계산</strong> — 우선, 보 설계를 위해 <span class="hl-blue">축 길이에 따라 보 내부에 작용하는 전단력(V)과 굽힘모멘트(M)</span>를 구한다.</li>
+              <li><strong>응력 · 변형률 · 처짐 산출</strong> — V·M으로부터 <span class="hl-purple">굽힘응력 \(\sigma = My/I\)</span>, 전단응력, 그리고 <span class="hl">굽힘각·곡률·변형</span>을 이용해 처짐(δ)을 계산.</li>
+              <li><strong>단면 형상·치수 결정</strong> — 이로부터 <span class="hl-green">보 단면의 형상과 치수가 결정됨</span>(허용응력·허용처짐을 만족하도록).</li>
+              <li><strong>다중 하중 조건 검토</strong> — 여러 하중 조합(최악 조건)에서 안전한지 반복 검증.</li>
+            </ol>
+            <div class="note warn"><span class="note-icon">★</span><span><strong>가장 중요 —</strong> 보 설계의 출발점은 <strong>내부 전단력(V)과 굽힘모멘트(M)를 먼저 아는 것</strong>이다. V와 M을 알아야 응력·처짐을 구할 수 있고, 그래야 비로소 <strong>단면의 형상·치수(결과)</strong>를 정할 수 있다.</span></div>
+            <div class="note tip"><span class="note-icon">✓</span><span>굽힘각·곡률·변형을 이용해 처짐(에너지)을 계산한다 — 처짐 해석은 곡률 \(1/\rho = M/EI\)에서 출발한다.</span></div>
+          </div>
+        </div>
+
         <!-- ③ 지지점(반력) 종류 -->
         <div class="sub-section">
           <div class="sub-header"><span class="sub-num">③</span><h2>지지점 종류와 반력 <span class="badge badge-exam">시험 핵심</span></h2></div>
@@ -1673,7 +1710,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
             <p style="font-size:13px;color:var(--text-muted);margin-top:6px;">(부탄가스 용기를 떠올릴 것 — 압력용기 두께 설계식의 구성요소를 묻는 문제)</p>
 
             <div class="formula-block important">
-              <div class="label">압력용기 두께 설계식</div>
+              <div class="label">압력용기 두께 설계식 (교수님 필기)</div>
               \[ t = \frac{P \cdot D \cdot S}{2\,\sigma_u \cdot \eta} + C \]
               <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">
                 P: 내압 &nbsp;·&nbsp; D: 지름 &nbsp;·&nbsp; S: <span style="color:var(--accent2);">안전계수(Safety factor)</span> — <strong>분자</strong><br>
@@ -1801,7 +1838,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
 
           <!-- 서술1 -->
           <div class="card">
-            <p><strong class="hl-purple">1.</strong> 물체가 원운동할 때 <strong>구심력이 발생하는 과정</strong>에 대해 설명하라.<span style="font-size:12px;color:var(--text-muted);">— 키워드: 합력, 벡터, 힘이 발생하는 원리</span></p>
+            <p><strong class="hl-purple">1.</strong> 물체가 원운동할 때 <strong>구심력</strong>에 대해 설명하라. (발생되는 과정을 설명) <span style="font-size:12px;color:var(--text-muted);">— 키워드: 합력, 벡터, 힘이 발생하는 원리</span></p>
             <div class="note info"><span class="note-icon">✎</span><div><strong>모범답안 —</strong>
               <ul style="padding-left:18px;margin-top:6px;line-height:1.9;">
                 <li><span class="hl-blue">속도는 벡터량</span>이다. 등속원운동은 <strong>속력(크기)은 일정</strong>하지만 매 순간 <strong>방향이 변한다.</strong></li>
@@ -1811,9 +1848,6 @@ svg text{font-family:'Noto Sans KR',sans-serif}
                 <li>크기: \( F = ma = \dfrac{mv^2}{r} = mr\omega^2 \). 방향: 항상 원의 <strong>중심(안쪽)</strong>.</li>
               </ul>
               <p style="margin-top:6px;">정리: <em>방향이 바뀌는 운동 → 속도 변화(벡터) → 가속도 발생 → 그 합력이 중심을 향함 → 이것이 구심력.</em></p>
-              <div style="border-top: 1px solid rgba(210,168,255,.3); margin: 10px 0;"></div>
-              <p>✅ 원운동하는 물체는 속력은 일정해도 속도 벡터의 방향이 계속 변한다. 짧은 시간 동안의 두 속도 벡터 차이를 구하면 그 합력(가속도)의 방향은 항상 원의 중심을 향하게 된다. 따라서 중심 방향의 구심가속도가 발생하며, 뉴턴의 제2법칙 F=ma에 의해 중심 방향의 구심력이 발생한다.</p>
-              <p>✅ 원운동 시 속도 벡터의 방향이 계속 변하므로 중심 방향의 구심가속도가 생긴다. 이 가속도를 발생시키기 위해 중심 방향의 구심력이 작용한다.</p>
             </div></div>
           </div>
 
