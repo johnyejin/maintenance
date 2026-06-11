@@ -377,6 +377,42 @@
     font-size: 0.85rem;
   }
   .exam-point::before { content: '⭐ 시험 포인트: '; color: var(--yellow); font-weight: 700; }
+  /* ─── EXAM Q&A PAGE ─── */
+  .fill-box {
+    background: rgba(91,212,176,0.05);
+    border: 1px dashed var(--accent2);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    margin: 0.6rem 0;
+    font-size: 0.85rem;
+    color: var(--text3);
+    min-height: 2.6rem;
+    line-height: 1.6;
+  }
+  .fill-box::before { content: '✏️ 교재에서 찾아 정리: '; color: var(--accent2); font-weight: 700; }
+  .q-card .card-title { color: var(--accent1); align-items: flex-start; }
+  .q-badge {
+    background: var(--accent1); color: #fff;
+    font-size: 0.72rem; font-weight: 700;
+    padding: 2px 9px; border-radius: 20px;
+    margin-right: 4px; flex-shrink: 0; white-space: nowrap;
+  }
+  .ref-link {
+    display: inline-block; font-size: 0.72rem;
+    color: var(--text3); margin-top: 8px;
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 2px 10px; cursor: pointer; background: transparent;
+    font-family: inherit; transition: all 0.18s;
+  }
+  .ref-link:hover { color: var(--accent1); border-color: var(--accent1); }
+  .cat-divider {
+    font-size: 1.05rem; font-weight: 700; color: var(--accent3);
+    margin: 2rem 0 0.75rem; padding-bottom: 7px;
+    border-bottom: 2px solid rgba(244,169,70,0.5);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cat-divider:first-of-type { margin-top: 0.5rem; }
+  .cat-divider .cat-count { font-size: 0.78rem; color: var(--text3); font-weight: 600; }
   .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
   svg text { font-family: 'Noto Sans KR', sans-serif; }
   .mini-card {
@@ -418,6 +454,9 @@
     <p>핵심 개념 완전 정리</p>
   </div>
   <nav class="sidebar-nav">
+    <button class="nav-btn" data-section="exam" onclick="showSection('exam')">
+      <span class="ch-num">★</span>📝 시험문제 22선
+    </button>
     <button class="nav-btn" data-section="combustor" onclick="showSection('combustor')">
       <span class="ch-num">Ch.4</span>🔥 연소기
     </button>
@@ -463,6 +502,541 @@
   </div>
 
   <div class="content" id="main-content">
+
+<!-- ==============================
+     시험문제 22선 (교수님 출제 예고)
+     ============================== -->
+<div class="section active" id="exam">
+
+  <div class="sec-header">
+    <div class="sec-num">★</div>
+    <h2>시험문제 22선</h2>
+  </div>
+
+  <!-- ───────── 연소기 ───────── -->
+  <div class="cat-divider">🔥 연소기 <span class="cat-count">(3문항)</span></div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">연소 1</span>static pressure가 가장 높은 곳</div>
+    <ul class="point-list">
+      <li>정답: <span class="hl-blue">디퓨저(Diffuser)</span> — 가스터빈 엔진에서 <span class="hl">정압(static pressure)이 가장 높은 지점</span></li>
+      <li>디퓨저는 압축기와 연소기 사이에 위치하며, 속도 에너지를 압력 에너지로 변환 (Velocity → Pressure)</li>
+      <li>디퓨저 입구 M ≈ 0.5 → 출구 M ≈ 0.35 (속도↓ → 압력↑)</li>
+    </ul>
+    <button class="ref-link" onclick="showSection('combustor')">→ Ch.4 연소기 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">연소 2</span>스월러(Swirler)의 기능이 <span style="color:var(--accent4);">아닌 것</span></div>
+    <p style="font-size:0.85rem;color:var(--accent2);font-weight:700;margin-bottom:6px;">✅ 스월러의 기능 (맞는 것)</p>
+    <ul class="point-list">
+      <li>연료와 공기의 <span class="hl">혼합 촉진</span></li>
+      <li><span class="hl">화염 길이를 짧게</span> 유지 → 연소실 길이 축소, 무게 절감</li>
+      <li>연료 노즐 하류에 <span class="hl">재순환 영역(recirculation)</span> 생성 → 화염을 연소기 내부에 안정적으로 유지</li>
+      <li>공기의 축 방향 속도를 5~6 fps 수준으로 낮춤</li>
+    </ul>
+    <button class="ref-link" onclick="showSection('combustor')">→ Ch.4 연소기 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">연소 3</span>애뉼러(Annular) 타입의 장점</div>
+    <ul class="point-list">
+      <li>길이가 <span class="hl">짧음</span> (적정 연소통 길이의 약 75%) → 비용 절감</li>
+      <li>무게가 <span class="hl">가벼움</span></li>
+      <li>출구 유동이 균일해 <span class="hl">진동이 적음</span></li>
+      <li><span class="hl">냉각 효율 우수</span></li>
+      <li>화염 전파가 필요 없음</span></li>
+    </ul>
+    <div class="warn-box">
+      단점
+      <ul class="point-list">
+        <li>많은 연료 노즐 사용하더라도 균일한 연료·공기 비율을 얻기 어려움</li>
+        <li>구조적으로 약함. 특히 대형 엔진의 경우 고온 화염관 벽의 좌굴 방지가 어려움</li>
+        <li><span class="hl">수리가 어려움</span></li>
+        <li>대형 시험 설비 필요</li>
+      </ul>
+    </div>
+    <button class="ref-link" onclick="showSection('combustor')">→ Ch.4 연소기 본문 보기</button>
+  </div>
+
+  <!-- ───────── 터빈 ───────── -->
+  <div class="cat-divider">⚙️ 터빈 <span class="cat-count">(8문항)</span></div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">터빈 1</span>TPR (터빈 압력비)</div>
+    <ul class="point-list">
+      <li>TPR = <span class="hl">터빈 출구 압력 / 터빈 입구 압력</span> (p₀₄ / p₀₃)</li>
+      <li>터빈을 지나며 압력·온도가 감소하므로 → <span class="hl-red">값은 항상 1.0보다 작음</span></li>
+    </ul>
+    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">터빈 2</span>Shrouded Blade의 목적 (장점 vs 부작용)</div>
+    <div class="grid2">
+      <div>
+        <p style="font-size:0.85rem;color:var(--accent2);font-weight:700;margin-bottom:6px;">✅ 좋은 목적 (장점)</p>
+        <ul class="point-list">
+          <li>블레이드 끝에 연속 링 형성 → <span class="hl">진동 특성 향상 + 날개 변형 및 뒤틀림 방지</span></li>
+          <li><span class="hl">Sealing effect</span> (누설 방지 → 효율 증가)</li>
+          <li>Tip 부위 <span class="hl">공력 특성 향상</span>, 와류 제거</li>
+          <li>더 길고 얇은 날개(경량 구조) 가능</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:0.85rem;color:var(--accent4);font-weight:700;margin-bottom:6px;">⚠️ 부작용</p>
+        <ul class="point-list">
+          <li>덮개(shroud) 때문에 <span class="hl-red">무게 증가</span></li>
+          <li>→ 원심력 ↑ → <span class="hl-red">크리프(creep) 현상에 더 취약</span> (크리프 저항성이 떨어짐)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exam-point">Shrouded Blade는 효율·진동에는 유리하지만, 무게 증가로 크리프 저항이 나빠진다는 양면성을 꼭 구분할 것</div>
+    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">터빈 3</span>충동/반동 블레이드 — 루트(Root)와 팁(Tip) 구성</div>
+    <ul class="point-list" style="margin-bottom: 12px;">
+      <li>실제 터빈 버킷은 한 블레이드에 충동형·반동형이 혼재된 <span class="hl">충동-반동 블레이드(Impulse-Reaction Blade)</span></li>
+      <li>root → tip 반동도 증가</li>
+      <li>충동(Impulse, ξ=0%): 압력·속도 변화 없이 방향만 변화, 압력 강하는 스테이터에서 전부 발생</li>
+      <li>반동(Reaction, ξ=50%): 통과 시 속도↑ 압력↓, 스테이터·로터에서 절반씩 압력 강하</li>
+      <li>원래 tip이 회전반경이 커서 속도가 빨라야하는데, twist 시켜서 속도 감소시킴</li>
+    </ul>
+    <div class="card-title">Radial Variation of Flow Parameters</div>
+    <ul class="point-list">
+      <li>stage 입구~출구에서 반경방향을 따라 속도, 압력 분포 균일</li>
+      <li>노즐~버킷 사이 → 반경 방향을 따라 속도↓ 압력↑</li>
+    </ul>
+    <div class="fill-box">루트(뿌리)와 팁(끝)에서 충동/반동 비율을 어떻게 구성하는지(예: 루트는 충동에 가깝게, 팁은 반동에 가깝게 — 반경 방향 속도 차이 때문) 교재에서 확인해 정리</div>
+    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">터빈 4</span>반동도(Degree of Reaction) 계산</div>
+    <div class="formula">ξ = (로터(버킷)에서의 엔탈피 변화 / 스테이지 전체 엔탈피 변화) × 100 (%)</div>
+    <ul class="point-list">
+      <li>ξ = 0% → 충동 터빈 / ξ = 50% → 반동 터빈</li>
+      <li>계산 방식은 압축기 블레이드나 터빈 블레이드나 동일하게 적용</li>
+    </ul>
+    <div class="fill-box">예제 수치를 넣은 실제 계산 과정(속도 삼각형/엔탈피 값 대입)이 필요하면 교재 예제로 정리</div>
+    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">터빈 5</span>터빈 블레이드 냉각 방식 종류 (전체 정리)</div>
+    <ul class="point-list">
+      <li><span class="hl-blue">① 대류 냉각(Convection)</span>: 냉각 공기가 블레이드 내부를 흐르며 벽을 통해 열 흡수. 현대 가스터빈에서 가장 널리 사용.</li>
+      <div class="warn-box">
+        열 대류 방정식
+        <ul class="point-list">
+          <li>q = hA(Tᵥ - T∞)</li>
+          <li>열량 = 열계수 * 단면적 * 온도차</li>
+          <li><span class="hl">표면과 유체 사이 온도차, 열계수가 클수록 열전달이 잘 됨</span></li>
+        </ul>
+      </div>
+      <li><span class="hl-blue">② 막 냉각(Film Cooling)</span>: 표면의 작은 구멍으로 냉각 공기를 주입 → 뜨거운 가스와 표면 사이에 단열 공기막 형성</li>
+      <li><span class="hl-blue">③ 충돌 냉각(Impingement)</span>: 고속 공기를 내부 표면에 분사 → 앞전(Leading Edge)에 특히 효과적. 에어포일 원하는 부분에만 적용해 전체 표면에 걸쳐 균일 온도 유지</li>
+      <li><span class="hl-blue">④ 발한 냉각(Transpiration)</span>: 다공성 벽을 통해 냉각수가 배어 나옴 → 블레이드 전체를 냉각수 흐름으로 덮기 때문에 → 매우 높은 온도에서도 효과적</li>
+    </ul>
+    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">터빈 6</span>핵심 냉각 방식 — 구멍에서 나오는 것</div>
+    <ul class="point-list">
+      <li>"구멍에서 나오는 것" = <span class="hl">막 냉각(Film Cooling)</span></li>
+      <li>블레이드 표면의 작은 구멍들로 냉각 공기가 분사되어, 뜨거운 가스 흐름과 블레이드 표면 사이에 <span class="hl">얇은 공기 단열층(막)</span>을 형성 → 표면을 직접 보호</li>
+      <li>구멍의 위치·각도에 따라 막이 표면을 따라 흐르며 덮어주는 원리를 이해할 것</li>
+    </ul>
+    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">터빈 7</span>TBC (Thermal Barrier Coating, 열차폐 코팅)</div>
+    <ul class="point-list">
+      <li>소재: ZrO₂-Y₂O₃ 기반 <span class="hl">세라믹</span> → 얇은 절연층 역할</li>
+      <li>두께 15~25 mil (≈ 100~300 μm), 1 mil당 약 8~16°F 온도 감소</li>
+      <li>낮은 열전도율로 금속 표면 온도를 <span class="hl">약 100~150℃ 낮춰줌</span></li>
+      <li><span class="hl">높은 표면 강도와 내식성 제공</span></li>
+      <li>플라즈마 스프레이 공법으로 도포</li>
+      <li>고온 가스 환경에서 발생하는 스케일형 부식·침식에 최상의 보호 효과 제공</li>
+      <li>스케일링 → 공기 중 나트륨 + 연료의 황이 모재와 화학 반응을 일으켜 발생</li>
+    </ul>
+    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">터빈 8</span>ACCS (능동 간극 제어)의 기능</div>
+    <ul class="point-list">
+      <li>문제 상황: 이륙/상승 시 블레이드 팽창 → 케이스와 간극 좁아짐 / 순항 시 냉각 → (터빈 케이스 열팽창에 비해 블레이드 열팽창이 부족해) 간극 벌어짐 → 효율 저하</li>
+      <li>기능: <span class="hl">FADEC 제어</span> + 외부 터빈 케이스에 <span class="hl">팬 압축 공기를 분사</span> → 케이스를 능동적으로 수축/팽창시켜 <span class="hl">팁 간극(tip clearance)을 최적으로 유지</span> → 모든 출력 설정에서 팁 누설 최소화 → 효율 향상</li>
+    </ul>
+    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+  </div>
+
+  <!-- ───────── 배기 ───────── -->
+  <div class="cat-divider">💨 배기계통 <span class="cat-count">(3문항)</span></div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">배기 1</span>Exhaust Cone(배기콘)의 기능 / 모양 이유</div>
+    <ul class="point-list">
+      <li>테일콘 내부에 <span class="hl">디퓨저 형상</span>을 형성 → 터빈 하류에서 <span class="hl">압력 회복(압력 상승) & 속도 감소</span> → 난류 강도 약화</li>
+      <li>지지대(Struts)와 함께 배기가스 흐름을 축 방향으로 정렬</li>
+    </ul>
+    <div class="warn-box">
+      Tail Cone 존재 이유
+      <ul class="point-list">
+        <li>난류 방지</li>
+        <li>압력 증가</li>
+        <li>배기가스 속도를 의도적으로 낮춰줌</li>
+        ✅ 결론적으로 더 효율적으로 가속시키기 위한 것
+      </ul>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+      <img src="img/exhaust_duct.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+      <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">확산형 배기 덕트</p>
+    </div>
+    <div class="fill-box">콘(cone)이 왜 그런 형상(뒤로 갈수록 좁아지는 원추형)인지 — 유로 단면적 변화와 디퓨저 작용으로 배기가스 흐름을 방해하지 않으면서 압력을 회복시키는 원리를 교재에서 확인해 정리</div>
+    <button class="ref-link" onclick="showSection('exhaust')">→ Ch.6 배기계통 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">배기 2</span>Tail Pipe — 초음속/아음속 시 유로 면적 구분</div>
+    <ul class="point-list">
+      <li><span class="hl-blue">아음속(Subsonic)</span>: <span class="hl">수축형(Convergent) 테일파이프</span> 사용 → 배기가스를 최대 마하 1까지 가속, M=1 도달 시 질식 유동(Choked flow)</li>
+      <li><span class="hl-red">초음속(Supersonic)</span>: <span class="hl">수축-확산 노즐(Convergent-Divergent, C-D)</span> 사용 → 목(Throat)에서 M=1, 확산부에서 M&gt;1 달성</li>
+      <li>핵심: <span class="hl-red">수축 노즐에서 가스가 도달할 수 있는 최대 속도는 출구에서의 음속 (Mach 1)</span></li>
+      <div class="exam-point">
+        Choked Flow(질식유동) 상태의 특징
+        <ul class="point-list">
+          <li>터빈 downstream 압력이 대기압의 <span class="hl-red">1.89배</span>가 되는 동시에 배기노즐 출구에 마하수 1인 유동이 형성되면서 최대 배기가스 속도가 형성됨</li>
+          <li>터빈 downstream에 대기압의 1.89배 초과하는 압력이 형성되더라도 배기가스 속도는 더 이상 증가하지 않음</li>
+          <li>이는 <span class="hl-red">배기노즐 출구에 초킹이라는 유동 직식이 발생해 배기가스 속도가 더 이상 증가하지 않기 때문</span></li>
+        </ul>
+      </div>
+    </ul>
+    <button class="ref-link" onclick="showSection('exhaust')">→ Ch.6 배기계통 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">배기 3</span>터보팬 엔진 역추력장치(Thrust Reverser) 종류</div>
+    <ul class="point-list">
+      <li><span class="hl-blue">① 캐스케이드형(Cascade)</span>: 팬을 통과한 찬 공기(Cold stream)를 역방향 전환. 차단문(Blocker doors) + 캐스케이드 베인 사용 — 역방향으로 25~30% 추력 생성</li>
+      <li><span class="hl-green">② 조개껍데기형(Clam Shell Door)</span>: <span class="hl-red">공기로 작동.</span> 역추력 선택 시 덕트는 덮개를 벗기기 위해 문이 회전해 정상적인 가스흐름 출구를 닫음. casscade vane이 뜨거운 배기가스를 역방향으로 전환해 역방향 추력 발생</span></li>
+      <li><span class="hl">③ 버킷타겟형(Bucket Target)</span>: <span class="hl-red">유압으로 작동</span>, 양동이 형태 문으로 뜨거운 배기가스를 역방향 유도 (전진추력 모드 시 역추력장치 문은 닫혀서 엔진에 <span class="hl-red">C-D 노즐</span> 형성), 역추력 door는 전통적인 푸시로드 이용해 작동</li>
+    </ul>
+    <button class="ref-link" onclick="showSection('exhaust')">→ Ch.6 배기계통 본문 보기</button>
+  </div>
+
+  <!-- ───────── 연료계통 ───────── -->
+  <div class="cat-divider">⛽ 연료계통 <span class="cat-count">(3문항)</span></div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">연료 1</span>연료 흐름 순서 ⭐️</div>
+    <div class="flow" style="flex-wrap:wrap;">
+      <span class="flow-box cool">① 연료탱크</span><span class="arrow">→</span>
+      <span class="flow-box cool">② 부스터 펌프</span><span class="arrow">→</span>
+      <span class="flow-box neutral">③ LP 여과기</span><span class="arrow">→</span>
+      <span class="flow-box neutral">④ 연료가열기</span><span class="arrow">→</span>
+      <span class="flow-box">⑤ 주연료 펌프(EDP)</span><span class="arrow">→</span>
+      <span class="flow-box">⑥ HP 여과기</span><span class="arrow">→</span>
+      <span class="flow-box hot">⑦ FCU</span><span class="arrow">→</span>
+      <span class="flow-box hot">⑧ P&amp;D Valve</span><span class="arrow">→</span>
+      <span class="flow-box">⑨ 연료 매니폴드</span><span class="arrow">→</span>
+      <span class="flow-box">⑩ 연료노즐</span><span class="arrow">→</span>
+      <span class="flow-box hot">⑪ 연소실</span>
+    </div>
+    <div class="note-box">처음: <span class="hl">연료탱크</span> / 끝: <span class="hl">연료노즐 → 연소실</span>. 저압부(탱크→가열기) → 고압부(EDP→FCU) → 분배부(P&amp;D→매니폴드→노즐) 순서로 묶어서 암기. FCU 초과 연료는 차압조절밸브로 펌프 입구에 바이패스됨.</div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;">
+      <img src="img/fuel_diagram.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+      <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">연료계통</p>
+    </div>
+    <button class="ref-link" onclick="showSection('fuel')">→ Ch.7 연료계통 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">연료 2</span>P&amp;D Valve — 출력에 따른 밸브 동작 (그림)</div>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:8px;">P&amp;D Valve 안에는 1차·2차 연료를 나누는 밸브가 있고, 운전 단계에 따라 어느 것이 열리고 닫히는지가 핵심:</p>
+    <div class="grid3">
+      <div class="mini-card">
+        <div class="label">시동 및 저출력</div>
+        <div style="color:var(--accent2);font-weight:700;font-size:0.85rem;">1차 연료만 흐름</div>
+        <p style="font-size:0.78rem;color:var(--text2);margin-top:4px;">압력이 낮아 2차 여압밸브는 스프링 힘으로 <span class="hl-red">닫혀 있음</span> (연료량 ≈ 최대 출력의 1/10)</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">출력 증가 (추력 변화)</div>
+        <div style="color:var(--accent3);font-weight:700;font-size:0.85rem;">2차 연료도 열림</div>
+        <p style="font-size:0.78rem;color:var(--text2);margin-top:4px;">연료량↑ → 압력이 일정값 도달 → 여압밸브가 <span class="hl">열려서</span> 2차 연료까지 흐름</p>
+      </div>
+      <div class="mini-card">
+        <div class="label">엔진 정지 시</div>
+        <div style="color:var(--accent4);font-weight:700;font-size:0.85rem;">덤프(Dump)</div>
+        <p style="font-size:0.78rem;color:var(--text2);margin-top:4px;">매니폴드 내 잔여 연료를 모두 배출(이륙 중 대기중으로 방출) → 연소 신속 차단, 매니폴드 내 탄화물 발생 방지</p>
+      </div>
+    </div>
+    <hr class="divider">
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin-bottom:6px;">운전 단계별 밸브 개폐 상태 정리</p>
+    <div style="overflow-x:auto;">
+      <table class="compare-table" style="min-width:520px;">
+        <thead>
+          <tr>
+            <th>운전 단계</th>
+            <th>Pilot Fuel<br><span style="font-weight:400;font-size:0.78rem;">(1차 / Primary)</span></th>
+            <th>Main Fuel<br><span style="font-weight:400;font-size:0.78rem;">(2차 / Secondary)</span></th>
+            <th>Return to Fuel Supply<br><span style="font-weight:400;font-size:0.78rem;">(펌프 입구 복귀)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="hl">시동 및 저출력</span></td>
+            <td><span class="hl-green">OPEN</span> (열림)</td>
+            <td><span class="hl-red">CLOSE</span> (닫힘)</td>
+            <td><span class="hl-red">CLOSE</span> (닫힘)</td>
+          </tr>
+          <tr>
+            <td><span class="hl">고출력</span></td>
+            <td><span class="hl-green">OPEN</span> (열림)</td>
+            <td><span class="hl-green">OPEN</span> (열림)</td>
+            <td><span class="hl-red">CLOSE</span> (닫힘)</td>
+          </tr>
+          <tr>
+            <td><span class="hl">엔진 정지</span></td>
+            <td><span class="hl-green">OPEN</span> (열림)</td>
+            <td><span class="hl-red">CLOSE</span> (닫힘)</td>
+            <td><span class="hl-green">OPEN</span> (열림)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-box" style="margin-top:8px;">💡 Pilot(1차) 연료는 전 단계에서 항상 <span class="hl-green">열림</span>. <span class="hl">Main(2차)</span>는 고출력에서만 열리고, <span class="hl">Return to fuel supply</span>(연료를 펌프 입구로 되돌리는 경로)는 엔진 정지 시에만 열려 매니폴드 잔여 연료를 덤프함.</div>
+    <div class="exam-point">시동/저출력 = 1차만 열림(2차 닫힘) / 출력 증가 = 1차+2차 모두 열림 / 정지 = 덤프. 그림에서 두 밸브의 개폐 상태를 구분할 것</div>
+    <button class="ref-link" onclick="showSection('fuel')">→ Ch.7 연료계통 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">연료 3</span>FCU 기능 / 주요 컴포넌트의 역할</div>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:6px;">FCU 핵심 역할: 파워레버 위치에 맞춰 <span class="hl">Main Metering Valve의 개구 면적을 조절</span>하여 연소실로 가는 연료량(Metered Fuel)을 결정.</p>
+    <div class="note-box" style="margin-top:8px;">
+      💡 연료 흐름량 조절을 통해 가감속 성능 향상
+      <ul class="point-list">
+        <li>가속: 급격히 파워레버 작동 시 → 연료량 즉시 증가. 관성력에 의해 기관 회전은 급격히 증가되지 않음. 이때 혼합기가 농후해져 화염소실, 과도한 TIT 상승, 압축기 실속 초래</li>
+        <li>감속: 연료 공급 급격히 줄어들면 → 혼합기 엷어져 화염소실 발생(불꺼짐)</li>
+      </ul>
+    </div>
+    <div class="note-box" style="margin-top:8px;">
+      <ul class="point-list">
+        💡 핵심 요약
+        <li>입력값: 파워레버 위치, N1/N2 회전수, 압축기 입구 상태(Pt2, Tt2), 연소실 압력(Ps4)</li>
+        <li>연산: 벨로즈와 레버, 캠들이 서로 밀고 당기며 복합적 위치 변화를 만듦</li>
+        <li>출력: Main Metering Valve의 개구 면적 조절 → 연소실로 가는 Metered Fuel 양 조절</li>
+        <li>Governor Flyweights: 엔진 과속 방지를 위해 회전수에 따른 원심력으로 연료량 제한하는 피드백 루프 담당</li>
+      </ul>
+    </div>
+    <ul class="point-list">
+      <li><span class="hl-blue">센싱부(Sensing)</span>: PLA(파워레버), N1/N2(플라이웨이트 거버너), Pt2(입구압·벨로즈), Ps4(출구압), Pb(연소실압), Tt2(입구온도·모세관) 입력 감지</li>
+      <li><span class="hl-blue">컴퓨팅부(Computing)</span>: 벨로즈(압력·온도 → 기계 변위), 레버(힘 전달·증폭), 캠(복합 위치 변화) 으로 연산</li>
+      <li><span class="hl-blue">미터링부(Metering)</span>: Main Metering Valve가 최종 연료량 조절 / 거버너 플라이웨이트가 과속 방지 피드백</li>
+    </ul>
+    <div class="note-box" style="margin-top:8px;">
+      💡 미터링부가 전산처리해 종합적으로 조절
+      <ul class="point-list">
+        <li>엔진의 연료유량</li>
+        <li>압축기 가변스테이터 각도</li>
+        <li>실속방지용 압축기 블리브 밸브</li>
+        <li>ACCS</li>
+      </ul>
+    </div>
+    <hr class="divider">
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin-bottom:4px;">컴퓨팅부 — 거버너(Governor) 플라이웨이트 피드백</p>
+    <p style="font-size:0.8rem;color:var(--text2);margin-bottom:8px;">엔진 회전수가 정속(설정값)에서 벗어나면 플라이웨이트의 원심력과 스피더 스프링 장력의 균형이 깨지면서 연료량을 자동 보정 → 다시 정속으로 복귀</p>
+    <div class="grid2">
+      <div class="mini-card" style="border-top:3px solid var(--accent4);">
+        <div class="label" style="color:var(--accent4);font-weight:700;">① 과속 상태 (Over-speed)</div>
+        <ul class="point-list" style="margin-top:6px;">
+          <li>엔진 <span class="hl">부하 감소</span> → 엔진이 <span class="hl-red">가속</span>됨</li>
+          <li>원심력↑ → 플라이웨이트가 <span class="hl">밖으로 벌어짐</span> → 연료 공급이 일부 <span class="hl-red">막힘(감소)</span></li>
+          <li>엔진이 <span class="hl">정속 상태로 복귀</span> → 플라이웨이트가 똑바로 서며, 원심력 = 스피더 스프링 힘 <span class="hl">평형</span></li>
+        </ul>
+      </div>
+      <div class="mini-card" style="border-top:3px solid var(--accent1);">
+        <div class="label" style="color:var(--accent1);font-weight:700;">② 저속 상태 (Under-speed)</div>
+        <ul class="point-list" style="margin-top:6px;">
+          <li>엔진 <span class="hl">부하 증가</span> → 엔진이 <span class="hl-blue">감속</span>됨</li>
+          <li>원심력↓ → 플라이웨이트가 <span class="hl">안쪽으로 움직임</span> → 연료 공급 <span class="hl-green">증가</span></li>
+          <li>엔진이 <span class="hl">정속 상태로 복귀</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="exam-point">과속 → 플라이웨이트 밖으로 → 연료 차단(감소) / 저속 → 플라이웨이트 안으로 → 연료 증가. 두 경우 모두 최종적으로 정속(평형)으로 돌아옴</div>
+    <button class="ref-link" onclick="showSection('fuel')">→ Ch.7 연료계통 본문 보기</button>
+  </div>
+
+  <!-- ───────── 윤활계통 ───────── -->
+  <div class="cat-divider">🛢️ 윤활계통 <span class="cat-count">(3문항)</span></div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">윤활 1</span>오일탱크 — 가득 채우지 않고 여유 공간 확보</div>
+    <ul class="point-list">
+      <li>오일탱크는 <span class="hl">약 10%의 팽창 공간(expansion space)</span>을 반드시 남겨둠</li>
+      <li>이유: <span class="hl">"air lock 효과"</span>로 부주의한 과충전 방지 / 운전 중 오일 팽창·공기-오일 분리 공간 확보</li>
+      <li>과충전(Overfill) 시 위험: 탱크 내 공기 공간 감소 → 압력 급상승 → De-aeration 기능 마비 → 오일 미스트가 브리더로 분출(화재 위험), 베어링 시일 손상 → 엔진 내부로 오일 누설</li>
+      <li>역할: 압력이 가해져 있어 오일이 펌프 입구로 잘 흘러들어가게 해줌 + 탱크 내부 기포 발생 억제 → 펌프에서 Cavitation 발생 방지</li>
+      <li>탱크 벤트 릴리프 밸브: 탱크와 대기 사이 차압이 3~6psi일때 여분의 공기 외부로 배출</li>
+      <li>Bleed Orifice: 엔진 정지 후 탱크 내부압력 제거</li>
+    </ul>
+    <button class="ref-link" onclick="showSection('lube')">→ Ch.9 윤활계통 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">윤활 2</span>메인 베어링 종류 — 생김새에 따른 역할 차이</div>
+    <div style="overflow-x:auto;">
+      <table class="compare-table" style="min-width:560px;">
+        <thead>
+          <tr>
+            <th style="width:18%;">구분</th>
+            <th>일반 베어링<br><span style="font-weight:400;font-size:0.78rem;">(Plain / Bushing)</span></th>
+            <th>볼 베어링<br><span style="font-weight:400;font-size:0.78rem;">(Ball Bearing)</span></th>
+            <th>롤러 베어링<br><span style="font-weight:400;font-size:0.78rem;">(Roller Bearing)</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--text2);">접촉 형태</td>
+            <td>면접촉 (Sliding)</td>
+            <td>점접촉 (Rolling)</td>
+            <td>선접촉 (Rolling)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text2);">마찰 저항</td>
+            <td>큼 (특히 시동 시)</td>
+            <td>매우 작음</td>
+            <td>약간 작음</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text2);">주요 지지 하중</td>
+            <td>반경 방향 (유막 부상)</td>
+            <td><span class="hl"><strong>반경 및 축 방향(추력) 동시 지지</strong></span></td>
+            <td><span class="hl">반경 방향 하중 (대용량)</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text2);">터빈엔진 주축 적용</td>
+            <td><span class="hl-red">불가</span><br><span style="font-size:0.78rem;color:var(--text3);">(용융 및 파손 위험)</span></td>
+            <td><span class="hl-green">필수</span><br><span style="font-size:0.78rem;color:var(--text3);">(1번/최전방 추력 지지)</span></td>
+            <td><span class="hl-green">필수</span><br><span style="font-size:0.78rem;color:var(--text3);">(터빈 축 축 팽창 수용<br>→ Cover 범위가 넓음)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="exam-point">볼 = 반경+축방향(추력) 동시 지지, 최전방 1번 베어링에 필수 / 롤러 = 반경방향 대용량 + 열팽창 수용(Cover 범위 넓음) / 일반 = 주축 적용 불가</div>
+    <button class="ref-link" onclick="showSection('lube')">→ Ch.9 윤활계통 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">윤활 3</span>Fuel-Oil Cooler — 오일 통과 vs 바이패스 (그림 파악)</div>
+    <div class="grid2">
+      <div>
+        <p style="font-size:0.85rem;color:var(--accent3);font-weight:700;margin-bottom:6px;">오일이 냉각기를 통과할 때 (Hot Mode)</p>
+        <ul class="point-list">
+          <li>오일 온도가 높음 → 서모스탯(Thermostatic Valve)이 <span class="hl">열림</span></li>
+          <li>오일이 냉각기를 <span class="hl">통과</span> → 연료로 열 전달 (오일 냉각 / 연료 예열)</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin-bottom:6px;">오일이 바이패스될 때 (Cold Mode)</p>
+        <ul class="point-list">
+          <li>저온 시동 직후 등 오일 점도가 너무 높을 때</li>
+          <li>또는 냉각기 막힘 시 → <span class="hl">Oil Cooler Bypass Valve(55~75 PSID)</span>가 작동</li>
+          <li>오일이 냉각기를 <span class="hl">우회(bypass)</span> → 빠르게 엔진으로 공급</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warn-box">⚠️ 그림 볼 때 포인트: 바이패스될 때는 바이패스 밸브가 작동(열림), 통과할 때는 서모스탯 밸브가 작동(열림). 연료(케로신)를 너무 데우면 안 되므로 연료 사용은 이륙 전까지로 제한</div>
+    <button class="ref-link" onclick="showSection('lube')">→ Ch.9 윤활계통 본문 보기</button>
+  </div>
+
+  <!-- ───────── 시동/점화계통 ───────── -->
+  <div class="cat-divider">🔑 시동 / 점화계통 <span class="cat-count">(2문항)</span></div>
+
+  <div class="card">
+    <div class="card-title"><span class="q-badge">추가</span> 시동 절차 &amp; RPM/EGT 그래프</div>
+    <div class="grid2">
+      <div>
+        <p style="color:var(--accent3);font-weight:700;margin-bottom:8px;">Sequence 순서 (암기)</p>
+        <div style="counter-reset:seq;">
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+            <div style="background:var(--accent1);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;">①</div>
+            <div style="font-size:0.85rem;"><span class="hl">Starter ON</span> — 시동 모터를 작동시킴</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+            <div style="background:var(--accent1);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;">②</div>
+            <div style="font-size:0.85rem;"><span class="hl">5~10% RPM</span>에서 점화 장치 작동 + 연료 레버를 열어 연료 공급(Fuel ON)</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+            <div style="background:var(--accent1);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;">③</div>
+            <div style="font-size:0.85rem;">정상적인 점화는 <span class="hl-red">20초 이내</span>에 이루어짐 — EGT 상승으로 확인 (Light-up)</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;">
+            <div style="background:var(--accent2);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;">④</div>
+            <div style="font-size:0.85rem;">정해진 시간 내 점화가 안 되면 → <span class="hl-red">시동 중단 후 고장 원인 조사</span></div>
+          </div>
+        </div>
+        <div class="warn-box">⚠️ 시동 저하 원인: 낮은 시동 출력 / 약한 점화 / 연료 라인에 공기 유입 → 점화가 느리거나 아예 안 됨</div>
+      </div>
+      <div>
+        <img src="img/starting_process.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
+      </div>
+    </div>
+    <div class="exam-point">EGT 보고 엔진 불 붙은 걸 판단. 시동 순서: Starter ON → Fuel ON + Ignition ON (5~10% RPM) → Light-up (EGT 상승) → Peak EGT → Self-accelerating → Ignition OFF → Starter Cuts Out → Idle RPM</div>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">시동 1</span>엔진 이상 시동 정의 — Hung / Hot / No Ignition</div>
+    <div class="grid2">
+      <div>
+        <p style="font-size:0.85rem;color:var(--accent3);font-weight:700;margin-bottom:6px;">Hung Start (결핍 시동)</p>
+        <ul class="point-list">
+          <li>점화는 됐지만 <span class="hl-red">Idle RPM까지 올라가지 못하고</span> 낮은 회전수에 머무름</li>
+          <li>엔진이 매우 느리게 가속, EGT/TIT가 느리게 증가</li>
+          <li>원인: 시동기 동력 부족 / 연료 공급 부족</li>
+          <li>조치: 엔진 정지 후 문제점 조사</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:0.85rem;color:var(--accent4);font-weight:700;margin-bottom:6px;">Hot Start (고온 시동)</p>
+        <ul class="point-list">
+          <li>연료 과다 공급 → 시동 시 <span class="hl-red">EGT/TIT가 제한치 이상으로 상승</span></li>
+          <li>원인: 연료 농후(결핍시동에서 연료 추가 공급 시 Hot Start로 이어짐), 블리드밸브·VIGVs와 가변정익 고장·교정 불량, 압축기 FOD</li>
+          <li><span class="hl-red">압축기 서지 유발</span>, 심하면 엔진 교환 수준 손상</li>
+          <li>조치: 엔진 정지 후 문제점 조사</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:0.85rem;color:var(--accent5);font-weight:700;margin:10px 0 6px;">No Ignition / No Start (점화 안 됨)</p>
+    <div class="fill-box">연료·점화는 공급되는데 정해진 시간(약 20초) 내에 점화(light-up)가 일어나지 않는 상태의 정의와 원인(약한 점화, 연료라인 공기 유입 등)을 교재에서 찾아 정리. ※ 정리노트에는 Hung/Hot Start만 정식 정의가 있고 No Ignition은 별도 정의가 없으니 교재로 보완</div>
+    <button class="ref-link" onclick="showSection('starting')">→ Ch.10 시동계통 본문 보기</button>
+  </div>
+
+  <div class="card q-card">
+    <div class="card-title"><span class="q-badge">시동 2</span>공기식(Pneumatic) 시동기의 장단점</div>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:6px;">가장 많이 쓰이는 시동기</p>
+    <p style="font-size:0.85rem;color:var(--accent2);font-weight:700;margin-bottom:6px;">✅ 장점</p>
+    <ul class="point-list">
+      <li>공기 터빈 형태로 <span class="hl">출력/무게 비율이 높음</span> (크기에 비해 출력 큼)</li>
+      <li>중량이 전기 시동기의 약 <span class="hl">1/5</span>로 가벼움</li>
+      <li>APU·GPU·작동 중인 다른 엔진에서 공기를 받아 시동 가능(<span class="hl">Cross Feed</span>)</li>
+      <li>거의 모든 대형 상업용·군용 수송기에 사용</li>
+      <li>예: 보잉 747 — 30 lb 중량으로 200마력 생산</li>
+    </ul>
+    <p style="font-size:0.85rem;color:var(--accent4);font-weight:700;margin:10px 0 6px;">⚠️ 단점</p>
+    <div class="fill-box">공기식 시동기의 단점(예: 별도의 공기 공급원(APU/GPU/Cross Feed)이 반드시 필요, 충분한 공기압이 없으면 시동 불가 등)을 교재에서 찾아 정리</div>
+    <button class="ref-link" onclick="showSection('starting')">→ Ch.10 시동계통 본문 보기</button>
+  </div>
+
+</div>
+<!-- END 시험문제 22선 -->
+
 
 <!-- Ch.9 윤활계통 섹션 -->
 <div class="section" id="lube">
@@ -1011,7 +1585,7 @@
 <!-- ==============================
      Ch.4 연소기 (Combustor)
      ============================== -->
-<div class="section active" id="combustor">
+<div class="section" id="combustor">
 
   <div class="sec-header">
     <div class="sec-num">4</div>
@@ -1319,13 +1893,23 @@
     <div class="card-title">🔬 터빈 열역학 (Turbine Thermodynamics)</div>
     <ul class="point-list">
       <li>터빈을 통과하는 유체의 <span class="hl">압력과 온도 감소</span></li>
-      <li>터빈 압력비 TPR = p₀₄/p₀₃ → <span class="hl">항상 1.0보다 작음</span></li>
+      <li>터빈 압력비 TPR = p₀₄/p₀₃ = (T₀₄/T₀₃)^γ/(γ-1) → <span class="hl">항상 1.0보다 작음</span></li>
       <li>과정: <span class="hl-blue">단열(등엔트로피) 과정</span> — 열 출입 없음, 유체가 터빈과 축을 회전시키는 일을 함</li>
       <li>열역학 제1법칙에 따라 터빈 일(TW) = 터빈 입구~출구 유체의 엔탈피 변화량</li>
     </ul>
-    <div class="formula">TW = η_T(h₀₃ - h₀₄) = η_T·c_p·T₀₃·(1 - TPR^((γ-1)/γ))</div>
+    <div class="formula">
+      TW = η_T(h₀₃ - h₀₄) = η_T·c_p·T₀₃·(1 - TPR^((γ-1)/γ))
+      <ul class="point-list">
+        <li>η_T: 터빈 효율</li>
+        <li>h₀₃, h₀₄: 터빈 입구, 출구의 정적 엔탈피</li>
+        <li>c_p: 정압 비열</li>
+        <li>T₀₃: 터빈 입구 온도</li>
+      </ul>
+    </div>
     <div class="note-box">💡 연소실에서 나온 가스의 온도가 높을수록 터빈이 추출할 수 있는 에너지가 커짐 → 현대 엔진들이 고온 내열 합금과 냉각 기술을 사용하는 핵심 이유</div>
-    <div class="exam-point">TPR(터빈 압력비) = 터빈을 빠져나가는 공기 압력 / 터빈으로 들어가는 공기 압력 → 항상 1보다 작음</div>
+    <div class="exam-point">TPR(터빈 압력비) = 터빈을 빠져나가는 공기 압력 / 터빈으로 들어가는 공기 압력 → 항상 1보다 작음<br>
+      압력비 크고 온도 높으면 TW가 큼 = 일을 잘한다. TRP가 클수록 TW는 작아짐
+    </div>
   </div>
 
   <!-- 속도 삼각형 -->
@@ -2357,7 +2941,7 @@
       <li>max보다 좀 더 갈 수 있게 쿠셔닝(Margin) 확보하는 과정</li>
       <li>현대 고성능 엔진은 대부분 컴퓨터가 연료량을 제어하여, 엔진 상태에 적합하도록 연료량이 자동 조절되므로 Trimming이 필요치 않음</li>
     </ul>
-    <div class="note-box">💡 조종석 레버 위치가 엔진의 실제 출력과 100% 기계적으로 일치하면서도, 물리적 파손을 막기 위한 안전 여유를 확보하는 과정</div>
+    <div class="note-box">💡 조종석 레버 위치가 엔진의 실제 출력과 100% 기계적으로 일치하면서도, 물리적 파손을 막기 위한 안전 <span class="hl-red">여유를 확보</span>하는 과정</div>
   </div>
 
   <!-- 가스터빈 연료 종류 -->
@@ -3098,8 +3682,9 @@
 </div><!-- end main-wrap -->
 
 <script>
-const SECTIONS = ['combustor', 'turbine', 'exhaust', 'fuel', 'lube', 'starting', 'ignition', 'summary'];
+const SECTIONS = ['exam', 'combustor', 'turbine', 'exhaust', 'fuel', 'lube', 'starting', 'ignition', 'summary'];
 const SECTION_TITLES = {
+  exam:      '시험문제 22선',
   combustor: 'Ch.4 연소기',
   turbine:   'Ch.5 터빈',
   exhaust:   'Ch.6 배기계통',
