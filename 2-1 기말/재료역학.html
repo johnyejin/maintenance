@@ -218,6 +218,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         <li><div class="nav-item" onclick="show('sec9')"><span class="nav-num">09</span>보 (Beam)</div></li>
         <li><div class="nav-item" onclick="show('sec10')"><span class="nav-num">10</span>기둥 (Column)</div></li>
         <div class="nav-divider"></div>
+        <li><div class="nav-item" onclick="show('exam')"><span class="nav-num" style="color:#f85149;border-color:rgba(248,81,73,.4);">問</span>시험 기출문제</div></li>
         <li><div class="nav-item" onclick="show('checklist')"><span class="nav-num" style="color:var(--warn);border-color:rgba(227,179,65,.4);">★</span>최종 체크리스트</div></li>
       </ul>
     </div>
@@ -287,6 +288,11 @@ svg text{font-family:'Noto Sans KR',sans-serif}
               <div class="index-card-num" style="color:#f85149;">10</div>
               <div class="index-card-title">기둥 (Column)</div>
               <div class="index-card-sub">세장비, 좌굴, 오일러 좌굴하중</div>
+            </div>
+            <div class="index-card" style="border-left-color:#f85149;background:rgba(248,81,73,.04);" onclick="show('exam')">
+              <div class="index-card-num" style="color:#f85149;">問</div>
+              <div class="index-card-title">시험 기출문제</div>
+              <div class="index-card-sub">객관식 11 · 주관식 2 · 정답 &amp; 해설</div>
             </div>
             <div class="index-card" style="border-left-color:var(--warn);background:rgba(227,179,65,.04);" onclick="show('checklist')">
               <div class="index-card-num" style="color:var(--warn);">★</div>
@@ -539,9 +545,9 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         <div class="sub-section">
           <div class="sub-header"><span class="sub-num">②</span><h2>각도·호·속도 관계식</h2></div>
           <div class="card">
-            <div class="formula-block"><div class="label">호의 길이 (반드시 라디안)</div>\[ l = r\theta \]</div>
-            <div class="formula-block"><div class="label">선속도 = 반지름 × 각속도</div>\[ v = r\omega \]</div>
-            <div class="formula-block"><div class="label">각속도, 주기, 진동수</div>\[ \omega = \frac{2\pi}{T} = 2\pi f \]</div>
+            <div class="formula-block"><div class="label">호의 길이 (반드시 라디안) ⭐️⭐️⭐️</div>\[ l = r\theta \]</div>
+            <div class="formula-block"><div class="label">선속도 = 반지름 × 각속도 ⭐️⭐️⭐️</div>\[ v = r\omega \]</div>
+            <div class="formula-block"><div class="label">각속도 = 회전각 / 시간, 주기, 진동수</div>\[ \omega = \frac{2\pi}{T} = 2\pi f \]</div>
             <div class="formula-block"><div class="label">RPM → 각속도 (N: 분당 회전수)</div>\[ \omega = \frac{2\pi N}{60} \text{ [rad/sec]}, \quad v = \frac{\pi d N}{60} \text{ [m/sec]} \]</div>
           </div>
         </div>
@@ -574,9 +580,9 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           <div class="sub-header"><span class="sub-num">⑤</span><h2>원운동 핵심 성질 &amp; 인공위성</h2></div>
           <div class="card">
             <ul style="padding-left:18px;color:#cdd5df;font-size:14px;line-height:2.1;">
-              <li>구심력은 속력을 <span class="hl-red">증가시키지 못한다</span> (운동 방향에 수직 → 일 = 0)</li>
-              <li>일정 구심력 → 등속 원운동</li>
-              <li>속력을 바꾸려면 접선방향 힘(토크)이 필요: F_θ = mrα</li>
+              <li>물체에 작용하는 구심력은 속력을 <span class="hl-red">증가시키지 못한다</span> (운동 방향에 수직 → 일 = 0)</li>
+              <li>일정한 크기의 구심력을 받는 물체는 등속 원운동을 한다.</li>
+              <li>원운동하는 물체의 속력을 바꾸려면 접선방향 힘(토크)이 필요: F_θ = mrα</li>
               <li>인공위성: 중력(구심력)과 원심 효과 균형 → 토크 = 0 → 각운동량 보존 → 계속 회전</li>
             </ul>
           </div>
@@ -1638,13 +1644,207 @@ svg text{font-family:'Noto Sans KR',sans-serif}
 
       </div>
     </div><!-- /sec10 -->
+    <!-- ════════════════ 시험 기출문제 ════════════════ -->
+    <div class="section" id="sec-exam">
+      <div class="hero">
+        <div class="hero-eyebrow">
+          <span class="hero-tag" style="background:rgba(248,81,73,.12);border-color:rgba(248,81,73,.3);color:#f85149;">問 기출</span>
+          <span class="hero-num">EXAM</span>
+        </div>
+        <h1>재료역학 시험 기출문제</h1>
+        <p>객관식 11문항 · 주관식 2문항 — 정답 &amp; 해설 정리</p>
+        <div class="hero-nav">
+          <button class="prev" onclick="show('sec10')">기둥 (Column)</button>
+          <button class="next" onclick="show('checklist')">최종 체크리스트</button>
+        </div>
+      </div>
+      <div class="container">
+
+        <!-- ───── 객관식 ───── -->
+        <div class="sub-section">
+          <div class="sub-header">
+            <span class="sub-num" style="background:rgba(248,81,73,.1);color:#f85149;border-color:rgba(248,81,73,.3);">객관식</span>
+            <h2>객관식 (11문항)</h2>
+          </div>
+
+          <!-- Q1 -->
+          <div class="card">
+            <p><strong class="hl-blue">1.</strong> 압력을 받는 용기에서 <strong>두께를 결정할 때</strong> 고려사항이 <span class="hl-red">아닌 것</span>은? <span class="badge badge-exam">기출</span></p>
+            <p style="font-size:13px;color:var(--text-muted);margin-top:6px;">(부탄가스 용기를 떠올릴 것 — 압력용기 두께 설계식의 구성요소를 묻는 문제)</p>
+
+            <div class="formula-block important">
+              <div class="label">압력용기 두께 설계식</div>
+              \[ t = \frac{P \cdot D \cdot S}{2\,\sigma_u \cdot \eta} + C \]
+              <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">
+                P: 내압 &nbsp;·&nbsp; D: 지름 &nbsp;·&nbsp; S: <span style="color:var(--accent2);">안전계수(Safety factor)</span> — <strong>분자</strong><br>
+                σ<sub>u</sub>: 극한응력 &nbsp;·&nbsp; η: <span style="color:var(--accent);">이음효율(용접효율)</span> — <strong>분모</strong><br>
+                C: <span style="color:var(--accent4);">부식 여유(corrosion allowance)</span> — 보통 +1 mm 추가
+              </p>
+            </div>
+
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>각 요소가 두께에 미치는 영향</strong>
+              <ul style="padding-left:18px;margin-top:6px;line-height:2;">
+                <li>
+                  <span class="hl-blue">이음효율 η (분모)</span> — η는 1보다 작은 값(용접부가 모재보다 약함).<br>
+                  η가 작을수록 분모가 작아져 → <strong>t가 커진다</strong> (이음부 강도 저하를 두께로 보정).
+                </li>
+                <li>
+                  <span class="hl-red">안전계수 S (분자)</span> — S &gt; 1. 분자에 곱해지므로<br>
+                  S가 클수록 → <strong>t가 커진다</strong> (더 두껍게 만들어 안전 확보).
+                </li>
+                <li>
+                  <span class="hl-purple">부식 여유 C (덧셈)</span> — 부식·마모에 의해 닳는 두께를 미리 추가.<br>
+                  보통 <strong>+1 mm</strong> 가산 (내압용기 내용물에 의한 부식 고려).
+                </li>
+              </ul>
+            </div></div>
+
+            <div class="note warn"><span class="note-icon">⚠</span><div>
+              <strong>시험 포인트 —</strong> 안전계수는 <em>분모의 허용응력</em>에 숨어 있는 게 아니라 <strong>분자에 직접 S로 들어간다</strong>는 점에 주의.<br>
+              \(\sigma_{allow} = \sigma_u / S\) 형태로 쓰면 S가 분모로 내려가지만, 필기 공식처럼 <strong>S를 분자에 명시</strong>하면 두께가 커지는 방향이 직관적으로 보임.<br>
+              → 두께 결정 고려사항: <span class="hl-blue">이음효율</span> · <span class="hl-red">안전계수</span> · <span class="hl-purple">부식 여유</span> 이 세 가지. <strong>이와 무관한 보기가 정답.</strong>
+            </div></div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="card">
+            <p><strong class="hl-blue">2.</strong> 프로펠러에 작용하는 하중이 <span class="hl-red">아닌 것</span>은? <span class="badge badge-exam">기출</span></p>
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>정답 해설 —</strong> 회전하는 프로펠러 블레이드에 작용하는 하중:
+              <ul style="padding-left:18px;margin-top:6px;">
+                <li><span class="hl-green">인장 (원심력)</span> — 회전 시 블레이드가 바깥으로 당겨짐</li>
+                <li><span class="hl-green">압축</span> — 공기 추력 반작용</li>
+                <li><span class="hl-green">굽힘 · 비틀림</span> — 추력/공력에 의한 휨, 피치 변화에 따른 비틀림</li>
+              </ul>
+              <p style="margin-top:6px;">→ 인장·압축·굽힘·비틀림은 모두 작용. <strong>이 4가지에 속하지 않는 보기(예: 순수 전단만 / 열응력 등)가 정답</strong>이다.</p>
+            </div></div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="card">
+            <p><strong class="hl-blue">3.</strong> 동체에 받는 하중을 스킨(외피)으로 전달하며 <strong>비틀림 응력과 좌굴을 방지</strong>하는 부재는?</p>
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>정답 — 벌크헤드 (Bulkhead)</strong><br>동체 구간마다 둥글게 배치되는 격벽 부재. 동체 단면 형상을 유지하고, 집중하중을 외피로 분산 전달하며 비틀림·좌굴에 저항한다. (세로 부재 longeron/stringer, 원주 부재 frame/bulkhead 중 단면형상 유지·하중 분산 역할이 벌크헤드)</div></div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="card">
+            <p><strong class="hl-blue">4.</strong> 장주(긴 기둥)에서 압축파괴 대신 <strong>가로방향(횡방향)으로 휘어 발생</strong>하는 현상은?</p>
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>정답 — 좌굴 (Buckling / 버클링)</strong><br>세장비가 큰 장주는 재료의 압축강도에 도달하기 전에 기하학적 불안정으로 옆으로 휘어버린다. 오일러 좌굴하중 \(P_{cr}=\pi^2 EI/l^2\). <span class="hl-blue">▶ 10장(기둥) 참고</span></div></div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="card">
+            <p><strong class="hl-blue">5.</strong> 기체 구조 중 <strong>외피(skin)가 주로 담당하는 하중</strong>은? (외피에 리벳이 체결되어 있음)</p>
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>정답 — 전단 (Shear)</strong><br>외피는 리벳으로 골격에 결합되며, 리벳이 전단하중을 버틴다. 모노코크/세미모노코크 구조에서 외피는 비틀림·전단 흐름(shear flow)을 담당한다.</div></div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="card">
+            <p><strong class="hl-blue">6.</strong> 서로 <strong>평행한 두 회전축</strong>에 대한 동체의 관성모멘트(=단면 2차 모멘트) 관계를 설명한 정리는?</p>
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>정답 — 평행축 정리 (Parallel Axis Theorem)</strong>
+              <div class="formula-block key"><div class="label">평행축 정리</div>\[ I = \bar{I} + A d^2 \]</div>
+              도심축 관성모멘트 \(\bar I\)에 \(Ad^2\)(면적 × 축간거리²)를 더하면 평행한 다른 축에 대한 \(I\)가 된다. <span class="hl-green">▶ 8장 참고</span></div></div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="card">
+            <p><strong class="hl-blue">7.</strong> 충격응력은 같은 조건에서 정적하중보다 <strong>최소 몇 배 이상</strong> 작용하는가?</p>
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>정답 — 최소 2배</strong>
+              <div class="formula-block important"><div class="label">충격계수</div>\[ \delta = \delta_{st}\left(1+\sqrt{1+\dfrac{2h}{\delta_{st}}}\right) \]</div>
+              낙하높이 \(h=0\)(가만히 얹기만 해도)이어도 충격계수 \(=1+\sqrt{1}=2\). 즉 충격하중은 항상 정적하중의 2배 이상으로 작용한다. <span class="hl-red">▶ 6장 참고</span></div></div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="card">
+            <p><strong class="hl-blue">8.</strong> <strong>단면 1차 모멘트</strong>의 목적은 무엇을 구하기 위한 것인가?</p>
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>정답 — 도심 (Centroid)</strong><br>단면 1차 모멘트 \(Q=\int y\,dA = A\bar y\)이므로 \(\bar y = Q/A\). 즉 1차 모멘트를 면적으로 나누면 도심 위치가 나온다. (도심축에서는 \(Q=0\)) <span class="hl-blue">▶ 7장 참고</span></div></div>
+          </div>
+
+          <!-- Q9 -->
+          <div class="card">
+            <p><strong class="hl-blue">9.</strong> <strong>y축에 대한 단면 2차 모멘트</strong> 식은?</p>
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>정답</strong>
+              <div class="formula-block key"><div class="label">y축에 대한 단면 2차 모멘트</div>\[ I_y = \int x^2\, dA \]</div>
+              해당 축에서 <strong>수직거리의 제곱 × 미소면적</strong>을 적분한 값. (x축이면 \(I_x=\int y^2 dA\)). 직사각형(폭 b, 높이 h)의 도심 x축 기준은 \(I_x=bh^3/12\). <span class="hl-green">▶ 8장 참고</span></div></div>
+          </div>
+
+          <!-- Q10 -->
+          <div class="card">
+            <p><strong class="hl-blue">10.</strong> 원통형 압력용기에서 <strong>원주방향으로 작용하는 응력</strong>은?</p>
+            <div class="note tip"><span class="note-icon">✓</span><div><strong>정답 — 후프응력 (Hoop Stress / 원주응력)</strong>
+              <div class="formula-block important"><div class="label">후프응력 vs 축응력</div>\[ \sigma_\theta = \dfrac{pd}{2t}, \qquad \sigma_x = \dfrac{pd}{4t} \]</div>
+              후프응력 \(\sigma_\theta\)는 축응력 \(\sigma_x\)의 2배 → 원통은 원주방향이 더 위험. <span class="hl-red">▶ 2장 참고</span></div></div>
+          </div>
+
+          <!-- Q11 -->
+          <div class="card">
+            <p><strong class="hl-blue">11.</strong> 등속직선운동에는 없고 <strong>등속원운동에는 있는</strong> 힘은?</p>
+            <div class="compare-grid" style="margin-top:8px;">
+              <div class="compare-item" style="border-color:rgba(248,81,73,.4);">
+                <h4 style="color:#f85149;">✗ 가속도 (오답 보기)</h4>
+                <p>등속원운동에 구심<em>가속도</em>는 존재하지만, 문제는 <strong>"힘"</strong>을 묻고 있다. 가속도는 힘이 아니다.</p>
+              </div>
+              <div class="compare-item" style="border-color:rgba(63,185,80,.4);">
+                <h4 style="color:var(--accent3);">✓ 구심력 (정답)</h4>
+                <p>등속원운동은 속력은 일정해도 방향이 계속 바뀌므로 중심방향 <strong>구심력</strong>이 필요. 직선운동엔 없다.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ───── 주관식 ───── -->
+        <div class="sub-section">
+          <div class="sub-header">
+            <span class="sub-num" style="background:rgba(210,168,255,.1);color:var(--accent4);border-color:rgba(210,168,255,.3);">주관식</span>
+            <h2>주관식 (2문항) <span style="font-size:12px;color:var(--text-muted);font-weight:400;">· 계산 문제 없음</span></h2>
+          </div>
+
+          <!-- 서술1 -->
+          <div class="card">
+            <p><strong class="hl-purple">1.</strong> 물체가 원운동할 때 <strong>구심력이 발생하는 과정</strong>에 대해 설명하라.<span style="font-size:12px;color:var(--text-muted);">— 키워드: 합력, 벡터, 힘이 발생하는 원리</span></p>
+            <div class="note info"><span class="note-icon">✎</span><div><strong>모범답안 —</strong>
+              <ul style="padding-left:18px;margin-top:6px;line-height:1.9;">
+                <li><span class="hl-blue">속도는 벡터량</span>이다. 등속원운동은 <strong>속력(크기)은 일정</strong>하지만 매 순간 <strong>방향이 변한다.</strong></li>
+                <li>속도 벡터의 방향이 변한다는 것은 <strong>속도 변화량(Δv)이 존재</strong>한다는 뜻 → 따라서 <span class="hl">가속도가 존재</span>한다.</li>
+                <li>미소시간 동안의 속도 벡터를 그려 빼면(\(\vec v_2-\vec v_1\)), 그 <strong>합력(변화 벡터)의 방향은 항상 원의 중심</strong>을 향한다.</li>
+                <li>뉴턴 2법칙 \(F=ma\)에 의해, 이 중심방향 가속도를 만들기 위해 <strong>중심을 향하는 힘 = 구심력</strong>이 필요하다.</li>
+                <li>크기: \( F = ma = \dfrac{mv^2}{r} = mr\omega^2 \). 방향: 항상 원의 <strong>중심(안쪽)</strong>.</li>
+              </ul>
+              <p style="margin-top:6px;">정리: <em>방향이 바뀌는 운동 → 속도 변화(벡터) → 가속도 발생 → 그 합력이 중심을 향함 → 이것이 구심력.</em></p>
+              <div style="border-top: 1px solid rgba(210,168,255,.3); margin: 10px 0;"></div>
+              <p>✅ 원운동하는 물체는 속력은 일정해도 속도 벡터의 방향이 계속 변한다. 짧은 시간 동안의 두 속도 벡터 차이를 구하면 그 합력(가속도)의 방향은 항상 원의 중심을 향하게 된다. 따라서 중심 방향의 구심가속도가 발생하며, 뉴턴의 제2법칙 F=ma에 의해 중심 방향의 구심력이 발생한다.</p>
+              <p>✅ 원운동 시 속도 벡터의 방향이 계속 변하므로 중심 방향의 구심가속도가 생긴다. 이 가속도를 발생시키기 위해 중심 방향의 구심력이 작용한다.</p>
+            </div></div>
+          </div>
+
+          <!-- 서술2 -->
+          <div class="card">
+            <p><strong class="hl-purple">2.</strong> <strong>등속직선운동</strong>과 <strong>등속원운동</strong>의 차이점을 설명하라.</p>
+            <table style="margin-top:10px;">
+              <tr><th>구분</th><th>등속직선운동</th><th>등속원운동</th></tr>
+              <tr><td>속력(크기)</td><td>일정</td><td>일정</td></tr>
+              <tr><td>속도 방향</td><td><span class="hl-green">일정 (불변)</span></td><td><span class="hl-red">계속 변함</span></td></tr>
+              <tr><td>속도(벡터)</td><td>일정</td><td>변함 (방향 때문)</td></tr>
+              <tr><td>가속도</td><td>0 (없음)</td><td><span class="hl">존재 (구심가속도)</span></td></tr>
+              <tr><td>합력(알짜힘)</td><td>0</td><td>존재 (구심력, 중심방향)</td></tr>
+              <tr><td>경로</td><td>직선</td><td>원(곡선)</td></tr>
+            </table>
+            <div class="note info"><span class="note-icon">✎</span><div><strong>핵심 —</strong> 두 운동 모두 <strong>속력은 일정</strong>하다는 공통점이 있지만, 등속원운동은 <strong>속도의 "방향"이 끊임없이 변한다.</strong> 따라서 등속원운동에만 가속도(구심가속도)와 알짜힘(구심력)이 존재한다.</div></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div><!-- /exam -->
+
+    <!-- ════════════════ 체크리스트 ════════════════ -->
        <div class="section" id="sec-checklist">
       <div class="hero">
         <div class="hero-eyebrow"><span class="hero-tag" style="background:rgba(227,179,65,.12);border-color:rgba(227,179,65,.3);color:#e3b341;">&#9733; 최종</span></div>
         <h1>시험 전 최종 체크리스트</h1>
         <p>핵심 원리 요약 + 자주 하는 실수 정리</p>
         <div class="hero-nav">
-          <button class="prev" onclick="show('sec10')">기둥 (Column)</button>
+          <button class="prev" onclick="show('exam')">시험 기출문제</button>
           <button class="next" onclick="show('index')">목차로 돌아가기</button>
         </div>
       </div>
@@ -1768,6 +1968,7 @@ function show(id) {
     sec8:      '08. 단면 2차 모멘트 & 비틀림',
     sec9:      '09. 보 (Beam)',
     sec10:     '10. 기둥 (Column)',
+    exam:      '問 시험 기출문제',
     checklist: '★ 최종 체크리스트',
   };
   const titleEl = document.getElementById('topbarTitle');
@@ -1800,14 +2001,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar
 // ── 초기 로드: hash 처리 ─────────────────────────────────────────
 window.addEventListener('load', () => {
   const hash = window.location.hash.slice(1);
-  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','checklist'];
+  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','exam','checklist'];
   show(validIds.includes(hash) ? hash : 'index');
 });
 
 // ── 브라우저 뒤로/앞으로 버튼 대응 ─────────────────────────────
 window.addEventListener('popstate', () => {
   const hash = window.location.hash.slice(1);
-  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','checklist'];
+  const validIds = ['index','sec1','sec2','sec3','sec4','sec5','sec6','sec7','sec8','sec9','sec10','exam','checklist'];
   activateTab(validIds.includes(hash) ? hash : 'index');
 });
 </script>
