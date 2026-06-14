@@ -208,10 +208,10 @@ svg text{font-family:'Noto Sans KR',sans-serif}
       <ul class="sidebar-nav">
         <li><div class="nav-item active" onclick="show('index')"><span class="nav-num">홈</span>목차</div></li>
         <li><div class="nav-item" onclick="show('sec1')"><span class="nav-num">01</span>열응력</div></li>
-        <li><div class="nav-item" onclick="show('sec2')"><span class="nav-num">02</span>얇은 압력용기</div></li>
-        <li><div class="nav-item" onclick="show('sec3')"><span class="nav-num">03</span>회전하는 얇은 원환체</div></li>
+        <li><div class="nav-item" onclick="show('sec2')"><span class="nav-num">02</span>얇은 압력용기 (후프응력)</div></li>
+        <li><div class="nav-item" onclick="show('sec3')"><span class="nav-num">03</span>회전하는 얇은 원환체 (등속원운동)</div></li>
         <li><div class="nav-item" onclick="show('sec4')"><span class="nav-num">04</span>탄성에너지</div></li>
-        <li><div class="nav-item" onclick="show('sec5')"><span class="nav-num">05</span>경사단면 응력</div></li>
+        <li><div class="nav-item" onclick="show('sec5')"><span class="nav-num">05</span>경사단면 응력 🙅‍♂️</div></li>
         <li><div class="nav-item" onclick="show('sec6')"><span class="nav-num">06</span>충격하중</div></li>
         <li><div class="nav-item" onclick="show('sec7')"><span class="nav-num">07</span>단면 모멘트 & 도심</div></li>
         <li><div class="nav-item" onclick="show('sec8')"><span class="nav-num">08</span>단면 2차 모멘트 & 비틀림</div></li>
@@ -322,6 +322,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         <div class="sub-section">
           <div class="sub-header"><span class="sub-num">개념</span><h2>왜 열을 가하면 응력이 생기나?</h2></div>
           <div class="card">
+            <p>열응력이란? 온도 변화로 인해 재료가 팽창·수축하려는데, 구속되어 발생하는 응력</p>
             <p>재료에 열이 가해지면 원자의 진동에너지가 증가하고, 진동의 폭이 커지면서 원자들 사이의 평균 거리가 멀어진다 → 재료가 팽창한다.</p>
             <p style="margin-top:10px;"><span class="hl">핵심 구분:</span> 변형이 <strong>자유롭게 허용</strong>되면 응력은 발생하지 않는다. 변형이 <span class="hl-red">외부에 의해 억제</span>되어야 비로소 열응력이 발생한다. 예) 벽에 고정된 봉, 철도 레일</p>
           </div>
@@ -390,7 +391,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
             </div>
             <p>P/A (응력)로 정리하면:</p>
             <div class="formula-block important">
-              <div class="label">열응력 (Thermal Stress)</div>
+              <div class="label">열응력 (Thermal Stress) → 이 공식은 균일 단면을 가진 균일 재료의 봉에만 적용됨</div>
               \[ \sigma = E \alpha \Delta T \]
             </div>
             <div class="note warn"><span class="note-icon">⚠</span><span><strong>주의:</strong> 응력(σ)은 길이 L과 무관하다. 변형량(δ = LαΔT)은 L에 비례. 이 차이를 반드시 구분할 것.</span></div>
@@ -398,7 +399,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           </div>
         </div>
 
-        <div class="sub-section">
+        <!-- <div class="sub-section">
           <div class="sub-header"><span class="sub-num">④</span><h2>열반력 P</h2></div>
           <div class="card">
             <p>고정된 봉에서 발생하는 반력:</p>
@@ -406,7 +407,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
               \[ P = \sigma A = E \alpha \Delta T \cdot A = EA\alpha(t_2 - t_1) \]
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div><!-- /sec1 -->
@@ -483,10 +484,10 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         </div>
 
         <div class="sub-section">
-          <div class="sub-header"><span class="sub-num">②</span><h2>두께 설계 공식 (실무)</h2></div>
+          <div class="sub-header"><span class="sub-num">②</span><h2>두께 설계 공식</h2></div>
           <div class="card">
             <p>허용응력 σ<sub>allow</sub>을 기준으로 최소 두께 산정:</p>
-            <div class="formula-block">\[ t = \frac{pD}{2\sigma_{allow}} + 1\text{ mm (부식여유)} \]</div>
+            <div class="formula-block">\[ t = \frac{P \cdot D \cdot S}{2\,\sigma_u \cdot \eta} + 1\text{ mm (부식여유)} \]</div>
           </div>
         </div>
 
@@ -567,22 +568,23 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           </div>
         </div>
 
-        <div class="sub-section">
+        <!-- <div class="sub-section">
           <div class="sub-header"><span class="sub-num">④</span><h2>회전 원환체의 원심응력 <span class="badge badge-exam">시험 핵심</span></h2></div>
           <div class="card">
             <p>RPM으로 회전하는 링에는 원심력으로 인해 내부에 인장응력이 생긴다.</p>
             <div class="formula-block important"><div class="label">원심응력 (γ: 단위중량 [kgf/m³])</div>\[ \sigma_\theta = \frac{\gamma v^2}{g} = \frac{\gamma r^2\omega^2}{g} = \frac{\gamma\pi^2 d^2 N^2}{60^2 g} \]</div>
             <div class="note info"><span class="note-icon">ℹ</span><span>응력 ∝ v² → RPM이 2배가 되면 응력은 4배. 이것이 엔진 부품의 RPM 한계가 중요한 이유이다.</span></div>
           </div>
-        </div>
+        </div> -->
 
         <div class="sub-section">
           <div class="sub-header"><span class="sub-num">⑤</span><h2>원운동 핵심 성질 &amp; 인공위성</h2></div>
           <div class="card">
             <ul style="padding-left:18px;color:#cdd5df;font-size:14px;line-height:2.1;">
+              <li>물체가 원운동 하려면 물체에 반드시 구심력이 작용해야 한다.</li>
               <li>구심력은 속력을 <span class="hl-red">증가시키지 못한다</span> (운동 방향에 수직 → 일 = 0)</li>
-              <li>일정 구심력 → 등속 원운동</li>
-              <li>속력을 바꾸려면 접선방향 힘(토크)이 필요: F_θ = mrα</li>
+              <li>일정한 크기의 구심력을 받는 물체는 → 등속 원운동을 한다.</li>
+              <li>원운동하는 물체의 속력을 바꾸려면 접선방향 힘(토크)이 필요: F_θ = mrα</li>
               <li>인공위성: 중력(구심력)과 원심 효과 균형 → 토크 = 0 → 각운동량 보존 → 계속 회전</li>
             </ul>
           </div>
@@ -643,6 +645,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
             <p>후크의 법칙 성립 범위에서 P-δ 선형 → 에너지 = 삼각형 면적:</p>
             <div class="formula-block key"><div class="label">탄성에너지 (전체)</div>\[ U = \frac{1}{2}P\delta = \frac{P^2 L}{2AE} = \frac{\sigma^2 AL}{2E} = \frac{\sigma^2 V}{2E} \]</div>
             <div class="formula-block key"><div class="label">단위 체적당 탄성에너지 (Resilience, u)</div>\[ u = \frac{U}{V} = \frac{\sigma^2}{2E} = \frac{E\varepsilon^2}{2} = \frac{\sigma\varepsilon}{2} \]</div>
+            <div class="note danger"><span class="note-icon">ℹ</span><span><strong>⭐️ 하중과 변형량의 관계:</strong> 하중과 변형량이 탄성한계 내에서 비례할때의 면적 = 탄성에너지</span></div>
             <div class="note warn"><span class="note-icon">⚠</span><span>식 변환 핵심: σ = Eε, δ = PL/(AE), P = σA, V = AL — 이 관계를 자유롭게 대입해 변환할 줄 알아야 한다.</span></div>
             <div class="note info"><span class="note-icon">ℹ</span><span><strong>레질리언스(Resilience):</strong> 탄성한도 내 단위 체적당 저장 가능한 탄성에너지 최대량. 재료의 에너지 흡수 능력.</span></div>
           </div>
@@ -744,8 +747,16 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         <div class="sub-section">
           <div class="sub-header"><span class="sub-num">①</span><h2>충격하중이란?</h2></div>
           <div class="card">
-            <p>물체가 갑작스러운 충돌이나 하중을 받을 때 발생하는 응력. <span class="hl-red">정적 하중보다 훨씬 크며</span>, 운동에너지가 순간적으로 재료의 변형에너지로 전환된다.</p>
-            <div class="note danger"><span class="note-icon">💥</span><span>충격하중 응력 ≥ 정적 하중 응력의 2배. 충격 시간(Δt)이 짧을수록 힘이 더 커진다 (충격량 = 힘 × 시간 = 일정).</span></div>
+            <p>물체가 갑작스러운 충돌이나 하중을 받을 때 발생하는 응력.</p>
+            <p><span class="hl-red">정적 하중보다 훨씬 크며</span>, 운동에너지가 순간적으로 재료의 변형에너지로 <span class="hl-red">100%</span> 전환된다.</p>
+            <div class="note danger">
+              <span class="note-icon">💥</span>
+              <ul style="padding-left:18px;font-size:14px;line-height:2.1;">
+                <li>발생 원인: 충돌하는 물체의 운동에너지가 재료 내에서 급격한 변형을 일으키며 흡수될 때 발생</li>
+                <li>충격하중 응력 ≥ 정적 하중 응력의 2배</li>
+                <li>충격 시간(Δt)이 짧을수록 힘이 더 커진다 (충격량 = 힘 × 시간 = 일정)</li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -780,7 +791,8 @@ svg text{font-family:'Noto Sans KR',sans-serif}
             </div>
             <div class="formula-block">\[ W(h + \delta) = \frac{AE\delta^2}{2l} \]</div>
             <p>이차방정식으로 풀면 (δ<sub>st</sub> = Wl/AE, σ<sub>st</sub> = W/A):</p>
-            <div class="formula-block important"><div class="label">충격 최대 변형량</div>\[ \delta = \delta_{st}\left(1 + \sqrt{1 + \frac{2h}{\delta_{st}}}\right) \]</div>
+            <div class="formula-block important"><div class="label">충격에 의한 최대 변형량</div>\[ \delta = \delta_{st}\left(1 + \sqrt{1 + \frac{2h}{\delta_{st}}}\right) \]</div>
+            <div class="note warn"><span class="note-icon">⚠</span>높이가 커질수록 수정계수, 늘어난 길이가 커진다.</div>
             <div class="formula-block important"><div class="label">충격응력</div>\[ \sigma = \sigma_{st}\left(1 + \sqrt{1 + \frac{2h}{\delta_{st}}}\right) \]</div>
             <div class="note warn"><span class="note-icon">⚠</span><span>괄호 안 <strong>(1 + √…)</strong>가 <span class="hl">충격계수(Impact Factor)</span>. 항상 1보다 크므로 충격응력 &gt; 정적응력.</span></div>
           </div>
@@ -825,6 +837,8 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           <div class="sub-header"><span class="sub-num">①</span><h2>단면 모멘트란? — 왜 필요한가</h2></div>
           <div class="card">
             <p>구조물의 변형·저항 능력은 <span class="hl">재료의 성질뿐만 아니라 단면의 형상에도 좌우된다.</span></p>
+            <p>단면 모멘트는 <span class="hl">특정 기준 축에 대한 단면적의 기하학적 분포 특정</span>을 나타낸다.</p>
+            <p>단면 모멘트는 <span class="hl">축에 따라 바뀌며, 전체 단면 모멘트는 부분 단면 모멘트의 총합과 같다.</span></p>
             <p style="margin-top:8px;"><strong>"모멘트(moment)"</strong>라는 말 자체가 <span class="hl-blue">어떤 물리량에 거리를 곱한다</span>는 의미다. (예: 힘의 모멘트 M = F × d)</p>
             <div class="compare-grid">
               <div class="compare-item">
@@ -924,7 +938,9 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         <div class="sub-section">
           <div class="sub-header"><span class="sub-num">④</span><h2>단면 2차 모멘트 I — 개념 이해 <span class="badge badge-exam">시험 핵심</span></h2></div>
           <div class="card">
-            <h3>왜 "2차"인가? — 원리부터</h3>
+            <h3>정의</h3>
+            <p>임의의 축으로부터 미소 면적(dA)까지의 거리를 제곱하여 전체 면적에 대해 적분한 값. 관성 모멘트라고도 불림. <span style="color:#f78166;font-weight:700;">클수록 휘거나 처지는게 적어짐</span></p>
+            <h3 style="padding-top: 12px;">왜 "2차"인가? — 원리부터</h3>
             <p>보(beam)에 굽힘모멘트 M이 작용할 때, 내부적으로 어떤 일이 벌어지는지 생각해보자.</p>
             <div class="diagram-wrap">
               <svg viewBox="0 0 560 180" width="100%" style="max-width:560px;display:block;margin:0 auto;">
@@ -1086,7 +1102,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           </div>
           <div class="card">
             <h3>단면계수 (Section Modulus) Z</h3>
-            <p>단면 2차 모멘트 축으로부터 <span class="hl">가장 먼 섬유(바깥쪽 가장자리)까지의 거리 e</span>로 나눈 값. 굽힘응력 계산에 직접 사용.</p>
+            <p>단면 2차 모멘트 축으로부터 <span class="hl">가장 먼 점까지의 거리 e</span>로 나눈 값. 굽힘응력 계산에 직접 사용.</p>
             <div class="formula-block">
               \[ Z_{x_1} = \frac{I_x}{e_1}, \qquad Z_{x_2} = \frac{I_x}{e_2} \]
             </div>
@@ -1112,6 +1128,60 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           </div>
         </div>
 
+        <!-- ④-A 관성 모멘트 3종 비교 + 질량 관성 모멘트 -->
+        <div class="sub-section">
+          <div class="sub-header"><span class="sub-num" style="background:rgba(210,168,255,.1);color:var(--accent4);border-color:rgba(210,168,255,.3);">관성</span><h2>관성 모멘트 3종 &amp; 질량 관성 모멘트 <span class="badge badge-exam">시험 핵심</span></h2></div>
+
+          <div class="card">
+            <h3>관성 모멘트 3종 한눈에 비교</h3>
+            <p>"관성 모멘트"는 <span class="hl-blue">어떤 변형/운동에 저항하는가</span>에 따라 세 종류로 나뉜다. 거리의 제곱에 무엇을 곱해 적분하느냐만 다르다.</p>
+            <table>
+              <tr><th>종류</th><th>저항하는 대상</th><th>정의식</th><th>거리 기준</th></tr>
+              <tr>
+                <td><strong>단면 2차 모멘트</strong><br>(Area moment, I)</td>
+                <td><span class="hl-blue">굽힘(bending)</span>에 대한 저항</td>
+                <td>\(I = \int_A y^2\,dA\)</td>
+                <td>축까지의 수직거리 y</td>
+              </tr>
+              <tr>
+                <td><strong>단면 극관성 모멘트</strong><br>(Polar moment, J)</td>
+                <td><span class="hl-red">비틀림(torsion)</span>에 대한 저항</td>
+                <td>\(J = \int_A r^2\,dA\)</td>
+                <td>원점까지 반경 r</td>
+              </tr>
+              <tr>
+                <td><strong>질량 관성 모멘트</strong><br>(Mass moment, I<sub>m</sub>)</td>
+                <td><span class="hl-green">회전(rotation)</span>에 대한 저항</td>
+                <td>\(I_m = \int_m r^2\,dm\)</td>
+                <td>회전축까지 반경 r</td>
+              </tr>
+            </table>
+            <div class="note tip"><span class="note-icon">✓</span><span><strong>핵심 차이</strong> — 단면 2차·극관성은 <strong>면적(dA)</strong>에 대해 적분 → 단위 \([\text{m}^4]\) (단면의 기하학적 성질). 질량 관성 모멘트는 <strong>질량(dm)</strong>에 대해 적분 → 단위 \([\text{kg·m}^2]\) (회전 운동의 동역학적 성질).</span></div>
+          </div>
+
+          <div class="card">
+            <h3>질량 관성 모멘트 (Mass Moment of Inertia)</h3>
+            <p>물체를 <span class="hl-green">회전(틀어)</span>시킬 때, 회전을 방해하려는 저항을 나타내는 물리량. 회전 운동에서 질량이 하는 역할(병진 운동의 질량에 대응).</p>
+            <div class="formula-block key">
+              <div class="label">질량 관성 모멘트</div>
+              \[ I_m = \int_m r^2\,dm \]
+            </div>
+            <p style="margin-top:6px;"><span class="hl">r</span>: 회전축에서 미소질량 dm까지의 거리. 질량이 회전축에서 멀리 떨어져 있을수록 \(I_m\)이 커지고, 돌리기 어려워진다(회전 관성이 큼).</p>
+            <div class="note info"><span class="note-icon">ℹ</span><span><strong>물리적 의미</strong> — 회전 운동방정식 \(T = I_m \alpha\) (토크 = 질량관성모멘트 × 각가속도). 병진의 \(F=ma\)에서 질량 m의 자리에 \(I_m\)이 들어간다. 피겨스케이터가 팔을 모으면(r↓) \(I_m\)이 줄어 더 빨리 도는 것이 대표 예.</span></div>
+          </div>
+
+          <div class="card">
+            <h3>단면 2차 모멘트 ↔ 질량 관성 모멘트 관계</h3>
+            <p>두께 t, 밀도 ρ인 <span class="hl-blue">균일한 얇은 판</span>이라면, 질량 관성 모멘트는 단면 2차 모멘트로부터 바로 구할 수 있다.</p>
+            <div class="formula-block important">
+              <div class="label">얇은 판 (밀도 ρ 일정, 두께 t 일정)</div>
+              \[ \tilde{I}_x = \int_m y^2\,dm = \int_A y^2\,(\rho t\,dA) = \rho t \int_A y^2\,dA = \rho t\, I_x \]
+            </div>
+            <div class="note tip"><span class="note-icon">✓</span><span>\(dm = \rho \, t \, dA\) (질량 = 밀도 × 두께 × 미소면적). ρ와 t가 상수면 적분 밖으로 빠져나와 <strong>질량 관성 모멘트 = ρt × 단면 2차 모멘트</strong>가 된다. 즉 단면 2차 모멘트(기하)에 ρt를 곱하면 질량 관성 모멘트(동역학)로 변환.</span></div>
+            <div class="note warn"><span class="note-icon">⚠</span><span><strong>혼동 주의</strong> — 시험에서 \(I = \int y^2 dA\)(면적, m⁴)와 \(I_m = \int r^2 dm\)(질량, kg·m²)를 구분할 것. "물체를 회전시킬 때 적용"되는 것은 <strong>질량 관성 모멘트</strong>다.</span></div>
+          </div>
+        </div>
+
         <!-- ⑤ 원형 단면축의 비틀림 -->
         <div class="sub-section">
           <div class="sub-header"><span class="sub-num">⑤</span><h2>원형 단면축의 비틀림 <span class="badge badge-exam">시험 핵심</span></h2></div>
@@ -1123,7 +1193,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           <div class="card">
             <h3>핵심 비틀림 공식</h3>
             <div class="formula-block important">
-              <div class="label">전단응력 (임의 반지름 r에서)</div>
+              <div class="label">전단응력 (임의 반지름 r에서) ⭐️⭐️⭐️</div>
               \[ \tau = \frac{Tr}{I_p} \]
             </div>
             <div class="formula-block important">
@@ -1131,7 +1201,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
               \[ \tau_{max} = \frac{T \cdot (d/2)}{I_p} = \frac{16T}{\pi d^3} \quad \text{(중실축)} \]
             </div>
             <div class="formula-block important">
-              <div class="label">비틀림각 φ</div>
+              <div class="label">비틀림각 φ ⭐️⭐️⭐️</div>
               \[ \phi = \frac{Tl}{GI_p} \]
             </div>
             <table>
@@ -1168,7 +1238,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
           <div class="sub-header"><span class="sub-num">⑥</span><h2>전동축 (Power Transmission Shaft)</h2></div>
           <div class="card">
             <h3>전달 동력 P = Tω</h3>
-            <p>토크 T가 작용하고 각속도 ω로 회전하는 전동축의 전달동력:</p>
+            <p>토크 T가 작용하고 각속도 ω로 회전하는 전동축의 전달동력: <span class="hl-red">식 외워 ⭐️⭐️⭐️</span></p>
             <div class="formula-block key">
               \[ P = T\omega \quad \Rightarrow \quad T = \frac{P}{\omega} \]
             </div>
@@ -1200,35 +1270,70 @@ svg text{font-family:'Noto Sans KR',sans-serif}
             </div>
             <div class="note info"><span class="note-icon">ℹ</span><span>두 응력이 선재 <strong>안쪽(m면)</strong>에서 같은 방향으로 합산 → 스프링은 안쪽 면에서 먼저 파손된다.</span></div>
           </div>
-          <!--
+
           <div class="card">
-            <h3>수정 공식 (Wahl 공식) — 곡률 및 직접 전단 보정</h3>
-            <p>실제로는 코일의 곡률 효과와 직접 전단이 단순 합산보다 더 복잡하게 작용. A.M. Wahl이 보정계수를 제안:</p>
-            <div class="formula-block">
-              \[ \tau_{max} = \frac{16PR}{\pi d^3}\left(\frac{4m-1}{4m-4} + \frac{0.615}{m}\right), \quad m = \frac{D}{d} \text{ (스프링 지수)} \]
-            </div>
-            <p>\(m = D/d\): 스프링 평균 지름 D를 선재 지름 d로 나눈 값.</p>
-          </div>
-          <div class="card">
-            <h3>스프링의 처짐 & 스프링 상수</h3>
-            <div class="formula-block key">
-              <div class="label">처짐 δ</div>
-              \[ \delta = \frac{64PR^3 n}{Gd^4} = \frac{8PD^3 n}{Gd^4} \]
-            </div>
-            <div class="formula-block key">
-              <div class="label">스프링 상수 k</div>
-              \[ k = \frac{P}{\delta} = \frac{Gd^4}{64R^3 n} = \frac{Gd^4}{8D^3 n} \]
+            <h3>수정 공식 (Wahl 공식) — 곡률 보정</h3>
+            <p>앞의 단순 합산 \(\tau_{max}=\tau_1+\tau_2\)는 두 가지를 무시한 근사다:</p>
+            <ul style="padding-left:18px;margin-top:6px;line-height:1.9;">
+              <li><span class="hl-red">m면과 그 반대 면에서 반지름이 다르다</span> — 코일은 휘어 있어 안쪽(m면) 곡률반경이 더 작다.</li>
+              <li><span class="hl-red">P에 의한 직접 전단응력이 단면에서 균일하지 않다</span> — 단순히 P/A로 더하면 부정확.</li>
+            </ul>
+            <p style="margin-top:6px;">이 두 효과를 보정하기 위해 <strong>A. M. Wahl</strong>이 <span class="hl">수정계수(Wahl 계수)</span>를 제안했다.</p>
+            <div class="formula-block important">
+              <div class="label">Wahl 수정 최대 전단응력</div>
+              \[ \tau_{max} = \frac{16PR}{\pi d^3}\left(\frac{4m-1}{4m-4} + \frac{0.615}{m}\right) = \frac{8PD}{\pi d^3}\left(\frac{4m-1}{4m-4} + \frac{0.615}{m}\right) \]
             </div>
             <table>
               <tr><th>기호</th><th>의미</th></tr>
+              <tr><td>\(m = \dfrac{D}{d}\)</td><td><strong>스프링 지수</strong> = 스프링(평균) 지름 D ÷ 선재 지름 d</td></tr>
+              <tr><td>\(\dfrac{4m-1}{4m-4}+\dfrac{0.615}{m}\)</td><td>Wahl 수정계수 (곡률 + 직접전단 보정)</td></tr>
               <tr><td>R</td><td>코일 평균 반지름 (= D/2)</td></tr>
-              <tr><td>n</td><td>유효 감김수 (active coils)</td></tr>
-              <tr><td>G</td><td>전단탄성계수</td></tr>
-              <tr><td>d</td><td>선재(wire) 지름</td></tr>
             </table>
-            <div class="note tip"><span class="note-icon">✓</span><span>처짐이 크면 스프링 상수가 작다 (= 부드러운 스프링). k ∝ Gd⁴, k ∝ 1/(R³n) — 코일 반지름이나 감김수를 늘리면 부드러워진다.</span></div>
+            <div class="note tip"><span class="note-icon">✓</span><span>스프링 지수 m이 클수록(코일이 선재보다 충분히 클수록) 수정계수는 1에 가까워져 단순 공식과 거의 같아진다. m이 작으면(빽빽한 스프링) 곡률 보정이 중요해진다.</span></div>
           </div>
-        -->
+
+          <div class="card">
+            <h3>코일 스프링의 처짐 δ <span class="badge badge-exam">시험 핵심</span></h3>
+            <p>스프링의 처짐은 <span class="hl-blue">비틀림각 φ</span>로부터 유도된다. 즉 <strong>스프링의 처짐 = 선재가 비틀린 결과</strong> — 비틀림(토크·비틀림각도)과 직접 연관되어 있다.</p>
+
+            <h4 style="color:var(--accent);margin-top:10px;">유도 과정</h4>
+            <ol class="step-list">
+              <li>선재의 미소길이 \(dl\)에 대한 미소 비틀림각:
+                <div class="formula-block" style="margin:6px 0;">\[ d\phi = \frac{T\,dl}{G I_p}, \qquad T = PR \]</div>
+                이 공식들 외워 ⭐️️⭐️⭐️
+              </li>
+              <li>이 \(d\phi\)에 의해 발생하는 미소 처짐 \(d\delta\) (모멘트 팔 R):
+                <div class="formula-block" style="margin:6px 0;">\[ d\delta = R\,d\phi = \frac{PR^2\,dl}{G I_p} = \frac{32 P R^2}{\pi G d^4}\,dl \]</div>
+                <span style="font-size:12px;color:var(--text-muted);">(중실 원형 선재 \(I_p = \pi d^4/32\) 대입)</span>
+              </li>
+              <li>전체 선재 길이 \(l = 2\pi R n\)에 대해 적분:
+                <div class="formula-block key" style="margin:6px 0;">
+                  <div class="label">코일 스프링 처짐</div>
+                  \[ \delta = \frac{32 P R^2}{\pi G d^4}\int_0^{2\pi R n} dl = \frac{64\, n\, P R^3}{G d^4} = \frac{8\, n\, P D^3}{G d^4} \]
+                </div>
+              </li>
+            </ol>
+            <table>
+              <tr><th>기호</th><th>의미</th></tr>
+              <tr><td>P</td><td>스프링에 작용하는 하중</td></tr>
+              <tr><td>R (D)</td><td>코일 평균 반지름 (평균 지름 D = 2R)</td></tr>
+              <tr><td>n</td><td>유효 감김수 (소선의 감김수)</td></tr>
+              <tr><td>d</td><td>선재(소선) 지름</td></tr>
+              <tr><td>G</td><td>전단(횡)탄성계수</td></tr>
+              <tr><td>\(l = 2\pi R n\)</td><td>선재 전체 길이</td></tr>
+            </table>
+            <div class="note warn"><span class="note-icon">★</span><span><strong>핵심 —</strong> 비틀림각 \(d\phi = T\,dl/(GI_p)\) 식을 외울 것. 스프링 처짐은 결국 선재의 <strong>비틀림</strong>에서 나오며, 토크 \(T = PR\)를 적분해 얻는다.</span></div>
+          </div>
+
+          <div class="card">
+            <h3>스프링 상수 k</h3>
+            <p>스프링 상수는 단위 처짐을 일으키는 데 필요한 하중 — <span class="hl">처짐 공식의 역수 관계</span>.</p>
+            <div class="formula-block key">
+              <div class="label">스프링 상수</div>
+              \[ k = \frac{P}{\delta} = \frac{G d^4}{64\, n\, R^3} = \frac{G d^4}{8\, n\, D^3} \]
+            </div>
+            <div class="note tip"><span class="note-icon">✓</span><span>처짐 \(\delta\)가 크면 스프링 상수 k는 작다(= 부드러운 스프링). \(k \propto G d^4\), \(k \propto 1/(n R^3)\) — 선재를 굵게 하면 단단해지고, 코일 반지름이나 감김수를 늘리면 부드러워진다.</span></div>
+          </div>
         </div>
 
         <!-- ⑧ 축 설계시 고려사항 -->
@@ -1356,6 +1461,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         <div class="sub-section">
           <div class="sub-header"><span class="sub-num">③</span><h2>지지점 종류와 반력 <span class="badge badge-exam">시험 핵심</span></h2></div>
           <div class="card">
+            <p><strong>반력</strong>: 보와 같은 구조물의 지지점에서 외력에 대해 부재가 만들어내는 내부 반응력</p>
             <table>
               <tr><th>지점 종류</th><th>작용하는 반력 성분</th><th>억제하는 것</th><th>허용하는 것</th></tr>
               <tr><td><strong>힌지(핀) 지점</strong><br>Hinge / Pin</td><td>수평 반력 Rx, 수직 반력 Ry</td><td>수평·수직 이동</td><td>회전(모멘트 발생 X)</td></tr>
@@ -1531,7 +1637,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
         </div>
 
         <!-- ⑨ 보의 처짐 -->
-        <div class="sub-section">
+        <!-- <div class="sub-section">
           <div class="sub-header"><span class="sub-num">⑨</span><h2>보의 처짐 & 굽힘 변형에너지 (참고)</h2></div>
           <div class="card">
             <h3>보의 처짐 미분방정식</h3>
@@ -1557,7 +1663,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
               \[ U = \int_0^l \frac{M^2}{2EI}\,dx \]
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
     </div><!-- /sec9 -->
@@ -1710,7 +1816,7 @@ svg text{font-family:'Noto Sans KR',sans-serif}
             <p style="font-size:13px;color:var(--text-muted);margin-top:6px;">(부탄가스 용기를 떠올릴 것 — 압력용기 두께 설계식의 구성요소를 묻는 문제)</p>
 
             <div class="formula-block important">
-              <div class="label">압력용기 두께 설계식 (교수님 필기)</div>
+              <div class="label">압력용기 두께 설계식</div>
               \[ t = \frac{P \cdot D \cdot S}{2\,\sigma_u \cdot \eta} + C \]
               <p style="font-size:12px;color:var(--text-muted);margin-top:8px;">
                 P: 내압 &nbsp;·&nbsp; D: 지름 &nbsp;·&nbsp; S: <span style="color:var(--accent2);">안전계수(Safety factor)</span> — <strong>분자</strong><br>
@@ -1848,6 +1954,11 @@ svg text{font-family:'Noto Sans KR',sans-serif}
                 <li>크기: \( F = ma = \dfrac{mv^2}{r} = mr\omega^2 \). 방향: 항상 원의 <strong>중심(안쪽)</strong>.</li>
               </ul>
               <p style="margin-top:6px;">정리: <em>방향이 바뀌는 운동 → 속도 변화(벡터) → 가속도 발생 → 그 합력이 중심을 향함 → 이것이 구심력.</em></p>
+            </div></div>
+            <div class="note info"><span class="note-icon">✎</span><div><strong>모범답안2</strong>
+              <ul style="padding-left:18px;margin-top:6px;line-height:1.9;">
+                <li>원운동하는 물체는 속력은 일정해도 속도 벡터의 방향이 계속 변한다. 짧은 시간 동안의 두 속도 벡터 차이를 구하면 그 합력(가속도)의 방향은 항상 원의 중심을 향하게 된다. 따라서 중심 방향의 구심가속도가 발생하며, 뉴턴의 제2법칙 F=ma에 의해 중심 방향의 구심력이 발생한다.</li>
+              </ul>
             </div></div>
           </div>
 
