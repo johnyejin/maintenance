@@ -295,6 +295,15 @@
     font-size: 0.9rem;
     color: var(--accent2);
   }
+  .formula-note {
+    font-size: 0.78rem;
+    color: var(--text3);
+    margin: 4px 0 2px 2px;
+    line-height: 1.55;
+  }
+  mjx-container { color: var(--accent2); }
+  mjx-container[display="true"] { margin: 0.45em 0 !important; text-align: left !important; }
+  .formula mjx-container[display="true"]:first-child { margin-top: 0.1em !important; }
   .note-box {
     background: rgba(79,142,247,0.08);
     border: 1px solid rgba(79,142,247,0.25);
@@ -443,6 +452,13 @@
     .content { padding: 1.25rem 1rem 4rem; }
   }
 </style>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
 
@@ -568,6 +584,18 @@
       <li>TPR = <span class="hl">터빈 출구 압력 / 터빈 입구 압력</span> (p₀₄ / p₀₃)</li>
       <li>터빈을 지나며 압력·온도가 감소하므로 → <span class="hl-red">값은 항상 1.0보다 작음</span></li>
     </ul>
+    <div class="formula" style="overflow-x:auto;">
+      \[ TPR = \frac{p_{0,4}}{p_{0,3}} = \left(\frac{T_{0,4}}{T_{0,3}}\right)^{\frac{\gamma}{\gamma-1}} \quad (<1) \]
+    </div>
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin:8px 0 4px;">TW(터빈 일)와의 관계</p>
+    <div class="formula" style="overflow-x:auto;">
+      \[ TW = \eta_T\,(h_{0,3} - h_{0,4}) = \eta_T\,c_p\,T_{0,3}\left(1 - TPR^{\frac{\gamma-1}{\gamma}}\right) \]
+    </div>
+    <ul class="point-list">
+      <li>TPR이 <span class="hl">작을수록</span>(입·출구 압력차 클수록) → \( TW\uparrow \) (터빈이 일을 잘 함)</li>
+      <li>TPR이 <span class="hl">1에 가까울수록</span> → \( TW\downarrow \)</li>
+      <li>터빈 입구 온도 \( T_{0,3} \)가 높을수록 → \( TW\uparrow \)</li>
+    </ul>
     <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
@@ -609,18 +637,40 @@
       <li>stage 입구~출구에서 반경방향을 따라 속도, 압력 분포 균일</li>
       <li>노즐~버킷 사이 → 반경 방향을 따라 속도↓ 압력↑</li>
     </ul>
+    <div class="exam-point">
+      터빈 블레이드는 반경 방향의 속도 차이와 원심력에 의한 유동 편중을 방지하기 위해 비틀림(twist) 형상으로 설계되며, 이를 통해 반동도와 압력 분포를 조절하여 균일한 유동을 얻는다.
+    </div>
     <div class="fill-box">루트(뿌리)와 팁(끝)에서 충동/반동 비율을 어떻게 구성하는지(예: 루트는 충동에 가깝게, 팁은 반동에 가깝게 — 반경 방향 속도 차이 때문) 교재에서 확인해 정리</div>
     <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
   <div class="card q-card">
-    <div class="card-title"><span class="q-badge">터빈 4</span>반동도(Degree of Reaction) 계산</div>
-    <div class="formula">ξ = (로터(버킷)에서의 엔탈피 변화 / 스테이지 전체 엔탈피 변화) × 100 (%)</div>
+    <div class="card-title"><span class="q-badge">터빈 4</span>반동도(Degree of Reaction, ξ) 계산</div>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:4px;">반동도 = <span class="hl">로터(버킷)에서의 변화량 ÷ 스테이지 전체 변화량</span>. 1 stage = stator + rotor.</p>
+    <div class="formula" style="overflow-x:auto;">
+      \[ \xi = \frac{\text{enthalpy change in the rotor}}{\text{enthalpy change in the stage}} \times 100\,(\%) \]
+    </div>
+
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin:10px 0 4px;">기준별 표현식 (모두 동일한 값)</p>
+    <div class="formula" style="overflow-x:auto;">
+      \[ \underbrace{\xi = \frac{h_2 - h_3}{h_1 - h_3}\times100\%}_{\text{엔탈피 기준}}
+         \;=\; \underbrace{\frac{T_2 - T_3}{T_1 - T_3}\times100\%}_{\text{온도 기준}}
+         \;=\; \underbrace{\frac{p_2 - p_3}{p_1 - p_3}\times100\%}_{\text{압력 기준}} \]
+    </div>
     <ul class="point-list">
-      <li>ξ = 0% → 충동 터빈 / ξ = 50% → 반동 터빈</li>
-      <li>계산 방식은 압축기 블레이드나 터빈 블레이드나 동일하게 적용</li>
+      <li><span class="hl-blue">엔탈피·온도 기준</span>: 로터에서의 (엔탈피/온도) 강하 ÷ 스테이지 전체 (엔탈피/온도) 강하</li>
+      <li><span class="hl-blue">압력 기준</span>: 로터에서의 압력 강하 ÷ 스테이지 전체 압력 강하</li>
     </ul>
-    <div class="fill-box">예제 수치를 넣은 실제 계산 과정(속도 삼각형/엔탈피 값 대입)이 필요하면 교재 예제로 정리</div>
+
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin:10px 0 4px;">세 기준이 같은 값이 되는 이유</p>
+    <div class="formula" style="overflow-x:auto;">
+      \[ \delta q = dh - \frac{dp}{\rho} \quad\xrightarrow[\text{밀도변화 무시}]{\text{단열 }\delta q=0}\quad dh \propto dp \]
+    </div>
+    <p class="formula-note">압축기·터빈의 과정은 <span class="hl">단열(adiabatic)</span>이고 밀도 변화를 무시하면 \( dh \propto dp \) (두 값이 거의 같음) → 엔탈피·온도·압력 어느 기준으로 계산해도 같은 반동도</p>
+
+    <div class="exam-point">station: 1 = 스테이터 입구 · 2 = 로터 입구(스테이터 출구) · 3 = 로터 출구.<br>
+      ξ = 0% → 충동(Impulse) 터빈 / ξ = 50% → 반동(Reaction) 터빈. "압력(또는 엔탈피)이 로터에서 얼마나 내려갔나"가 곧 반동도. 계산 방식은 압축기 블레이드나 터빈 블레이드나 동일.
+    </div>
     <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
@@ -1014,7 +1064,20 @@
       </div>
     </div>
     <p style="font-size:0.85rem;color:var(--accent5);font-weight:700;margin:10px 0 6px;">No Ignition / No Start (점화 안 됨)</p>
-    <div class="fill-box">연료·점화는 공급되는데 정해진 시간(약 20초) 내에 점화(light-up)가 일어나지 않는 상태의 정의와 원인(약한 점화, 연료라인 공기 유입 등)을 교재에서 찾아 정리. ※ 정리노트에는 Hung/Hot Start만 정식 정의가 있고 No Ignition은 별도 정의가 없으니 교재로 보완</div>
+    <ul class="point-list">
+      <li>정의: 시동기로 엔진은 정상적으로 회전(motoring)하고 연료도 공급되지만, 정해진 시간(보통 <span class="hl">20초</span>) 내에 <span class="hl-red">점화(light-up)가 일어나지 않는</span> 상태 → EGT/TIT 상승이 전혀 없음 (= "no light-up")</li>
+      <li>Hung/Hot Start와의 구분: Hung·Hot은 "점화는 됐으나" 회전수가 안 올라가거나(Hung) 과열되는(Hot) 경우인 반면, No Ignition은 <span class="hl">애초에 연소 자체가 시작되지 않음</span> (EGT 무반응이 핵심 식별점)</li>
+    </ul>
+    <p style="font-size:0.82rem;color:var(--accent4);font-weight:700;margin:8px 0 4px;">주요 원인</p>
+    <ul class="point-list">
+      <li>점화계통 고장: 점화 플러그(igniter) 불량, 익사이터(exciter)·점화 리드 단선, 점화 스위치/릴레이 결함</li>
+      <li>연료계통 문제: 연료 공급 부족·차단, 연료라인 내 공기 유입(vapor lock), 연료노즐 막힘, 연료 펌프 불량</li>
+      <li>회전수 부족: 시동기 동력 부족으로 점화에 필요한 최소 공기 유량(rpm) 미달</li>
+    </ul>
+    <p style="font-size:0.82rem;color:var(--accent2);font-weight:700;margin:8px 0 4px;">조치</p>
+    <ul class="point-list">
+      <li>즉시 연료·점화 차단 후 <span class="hl">모터링(motoring)으로 잔여 연료 배출(purge)</span> → 재시동 시 Hot Start/연료 고임 방지</li>
+    </ul>
     <button class="ref-link" onclick="showSection('starting', undefined, event)">→ Ch.10 시동계통 본문 보기</button>
   </div>
 
@@ -1030,7 +1093,14 @@
       <li>예: 보잉 747 — 30 lb 중량으로 200마력 생산</li>
     </ul>
     <p style="font-size:0.85rem;color:var(--accent4);font-weight:700;margin:10px 0 6px;">⚠️ 단점</p>
-    <div class="fill-box">공기식 시동기의 단점(예: 별도의 공기 공급원(APU/GPU/Cross Feed)이 반드시 필요, 충분한 공기압이 없으면 시동 불가 등)을 교재에서 찾아 정리</div>
+    <ul class="point-list">
+      <li><span class="hl-red">별도의 공기 공급원이 반드시 필요</span> → APU, GPU(지상 동력 장비), 또는 작동 중인 다른 엔진의 블리드 에어(Cross Feed) 중 하나가 있어야 시동 가능</li>
+      <li>충분한 <span class="hl">공기압·공기량이 확보되지 않으면 시동 불가</span> (예: APU 고장 + 지상 장비 없음 → 단독 시동 불가)</li>
+      <li>전기식처럼 배터리만으로 자체 시동(self-start)할 수 없음 → 자력 시동성·독립성이 떨어짐</li>
+      <li>고온·고압 블리드 에어를 다루는 덕트·밸브(SAV 등) 계통이 필요 → 누설·과열 등 정비 요소 증가</li>
+      <li>블리드 에어를 끌어 쓰는 동안 해당 공급원의 출력/효율이 일시적으로 저하됨</li>
+    </ul>
+    <div class="exam-point">공기식은 가볍고 출력이 커서 대형기에 표준으로 쓰이지만, "공기 공급원이 없으면 시동 못 한다"는 의존성이 가장 큰 단점</div>
     <button class="ref-link" onclick="showSection('starting', undefined, event)">→ Ch.10 시동계통 본문 보기</button>
   </div>
 
@@ -1891,24 +1961,41 @@
   <!-- 터빈 열역학 -->
   <div class="card">
     <div class="card-title">🔬 터빈 열역학 (Turbine Thermodynamics)</div>
+    <p style="font-size:0.85rem;color:var(--text2);margin-bottom:6px;">가스터빈(브레이턴) 사이클: <span class="hl">공기 → 압축기(1→2′) → 연소기(연료 분사) → 터빈(3′→4′) → 배기 + 동력 출력</span>. 터빈을 통과하는 유체는 <span class="hl">압력·온도가 감소</span>하면서 축을 돌리는 일을 한다.</p>
+
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin:10px 0 4px;">기호 정의</p>
     <ul class="point-list">
-      <li>터빈을 통과하는 유체의 <span class="hl">압력과 온도 감소</span></li>
-      <li>터빈 압력비 TPR = p₀₄/p₀₃ = (T₀₄/T₀₃)^γ/(γ-1) → <span class="hl">항상 1.0보다 작음</span></li>
-      <li>과정: <span class="hl-blue">단열(등엔트로피) 과정</span> — 열 출입 없음, 유체가 터빈과 축을 회전시키는 일을 함</li>
-      <li>열역학 제1법칙에 따라 터빈 일(TW) = 터빈 입구~출구 유체의 엔탈피 변화량</li>
+      <li>\( p_0 \) = total pressure (전압)</li>
+      <li>\( T_0 \) = total temperature (전온도)</li>
+      <li>\( h_0 \) = specific stagnation enthalpy (정체 엔탈피)</li>
+      <li>\( c_p \) = specific heat (정압 비열)</li>
+      <li>\( \gamma \) = specific heat ratio (비열비)</li>
+      <li>\( \eta_T \) = isentropic efficiency of turbine (터빈 등엔트로피 효율)</li>
     </ul>
-    <div class="formula">
-      TW = η_T(h₀₃ - h₀₄) = η_T·c_p·T₀₃·(1 - TPR^((γ-1)/γ))
-      <ul class="point-list">
-        <li>η_T: 터빈 효율</li>
-        <li>h₀₃, h₀₄: 터빈 입구, 출구의 정적 엔탈피</li>
-        <li>c_p: 정압 비열</li>
-        <li>T₀₃: 터빈 입구 온도</li>
-      </ul>
+
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin:12px 0 4px;">① 터빈 압력비 (TPR, Turbine Pressure Ratio)</p>
+    <div class="formula" style="overflow-x:auto;">
+      \[ TPR = \frac{p_{0,4}}{p_{0,3}} = \left(\frac{T_{0,4}}{T_{0,3}}\right)^{\frac{\gamma}{\gamma-1}} \]
     </div>
-    <div class="note-box">💡 연소실에서 나온 가스의 온도가 높을수록 터빈이 추출할 수 있는 에너지가 커짐 → 현대 엔진들이 고온 내열 합금과 냉각 기술을 사용하는 핵심 이유</div>
-    <div class="exam-point">TPR(터빈 압력비) = 터빈을 빠져나가는 공기 압력 / 터빈으로 들어가는 공기 압력 → 항상 1보다 작음<br>
-      압력비 크고 온도 높으면 TW가 큼 = 일을 잘한다. TRP가 클수록 TW는 작아짐
+    <p class="formula-note">출구압 ÷ 입구압 → 터빈에서 압력이 떨어지므로 <span class="hl-red">TPR은 항상 1보다 작음</span></p>
+
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin:12px 0 4px;">② 터빈 일 (TW, Turbine Work)</p>
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      \begin{aligned}
+      TW &= \eta_T\,(h_{0,3} - h_{0,4}) = \eta_T\,c_p\,(T_{0,3} - T_{0,4}) \\[2pt]
+         &= \eta_T\,c_p\,T_{0,3}\left(1 - \frac{T_{0,4}}{T_{0,3}}\right)
+            = \eta_T\,c_p\,T_{0,3}\left\{1 - \left(\frac{p_{0,4}}{p_{0,3}}\right)^{\frac{\gamma-1}{\gamma}}\right\} \\[2pt]
+         &= \eta_T\,c_p\,T_{0,3}\left(1 - TPR^{\frac{\gamma-1}{\gamma}}\right)
+      \end{aligned}
+      \]
+    </div>
+    <p class="formula-note">터빈 일 = 입구·출구의 엔탈피 차이에 <span class="hl">터빈 효율(\( \eta_T \))</span>을 고려한 실제 추출 일량 (에너지 보존 법칙 · 개방계)</p>
+
+    <div class="note-box">💡 <strong>h-s 선도 해석</strong>: 이상 과정(등엔트로피)은 수직선(3→4)이지만, <span class="hl">실제로는 엔트로피가 발생(3→4′)</span>하여 추출 일이 이상값보다 작아짐 → 그 손실을 \( \eta_T \)로 보정한 값이 실제 TW.</div>
+
+    <div class="exam-point">물리적 의미 — 터빈 입구 온도 \( T_{0,3} \)가 높을수록, 입·출구 압력차(팽창비 \( p_{0,3}/p_{0,4} \))가 클수록 \( TW\uparrow \) (일을 잘 함).<br>
+      즉 <span class="hl">압력차가 클수록 \( TPR(=p_{0,4}/p_{0,3})\downarrow \) → \( TW\uparrow \)</span> / TPR이 1에 가까울수록 \( TW\downarrow \). 연소실 가스 온도가 높을수록 추출 에너지↑ → 현대 엔진이 고온 내열 합금·냉각 기술로 터빈 입구 온도를 높이려는 핵심 이유.
     </div>
   </div>
 
@@ -2132,43 +2219,158 @@
   <!-- 질식 유동 -->
   <div class="card">
     <div class="card-title">🌊 질식 유동 (Choked Flow)</div>
-    <div class="grid2">
-      <div>
-        <p style="color:var(--accent3); font-weight:700; margin-bottom:8px;">주요 속도 방정식 도출</p>
-        <div class="formula">V₂ = √(2p₁υ₁·γ/(γ-1)·[1-(p₂/p₁)^((γ-1)/γ)])</div>
-        <div class="formula" style="margin-top:8px;">dV₂/d(p₂/p₁) = 0 → 최대 속도 (임계 속도)</div>
-        <div class="formula" style="margin-top:8px;">V_critical = √(γRT₂) = <span style="color:var(--accent4);">음속 a₂</span></div>
-        <p style="font-size:0.82rem; color:var(--text2); margin-top:6px;">📌 물리적 의미: 수축 노즐에서 도달 가능한 최대 속도 = 출구에서의 <span class="hl">음속(Mach 1)</span></p>
+
+    <!-- 변수 정의 -->
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin-bottom:6px;">기호 정의</p>
+    <div class="grid2" style="gap:6px;margin-bottom:12px;">
+      <ul class="point-list" style="margin:0;">
+        <li>\( p_1 \) : 입구(터빈 방출) 전압 <span style="color:var(--text3);font-size:0.78rem;">— 등어오는 압력</span></li>
+        <li>\( p_2 \) : 출구 압력 = 대기압 \( p_\text{atm} \)</li>
+        <li>\( \upsilon_1,\,\upsilon_2 \) : 입·출구 비체적 (specific volume)</li>
+        <li>\( T_1,\,T_2 \) : 입·출구 온도</li>
+      </ul>
+      <ul class="point-list" style="margin:0;">
+        <li>\( \gamma \) : 비열비 \( = c_p / c_v \)</li>
+        <li>\( R \) : 기체 상수</li>
+        <li>\( A \) : 노즐 출구 단면적</li>
+        <li>\( \dot{m} \) : 질량 유량 (mass flow rate)</li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 1/2 — 속도 방정식 도출 -->
+    <p style="font-size:0.85rem;color:var(--accent3);font-weight:700;margin-bottom:4px;">① 출구 속도 \( V_2 \) 도출 과정 [1/2]</p>
+    <p style="font-size:0.8rem;color:var(--text2);margin-bottom:6px;">에너지 방정식(열역학 제1법칙) → 엔탈피 정의(\(h = u + pv\))·정압비열 관계식(\(h_1-h_2=c_p(T_1-T_2)\)) 적용 → 이상기체·등엔트로피 관계식 대입 순서로 전개</p>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      q_{12} = (u_2-u_1)+(p_2\upsilon_2-p_1\upsilon_1)+\tfrac{1}{2}(V_2^2-V_1^2)+g(z_2-z_1)+w_{12}
+      \]
+    </div>
+    <p class="formula-note">일반 에너지 방정식 (단열, \(V_1\approx0\), 위치에너지 무시 적용 후 전개)</p>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      V_2 = \sqrt{2\bigl\{p_1\upsilon_1 - p_2\upsilon_2 - c_v(T_1-T_2)\bigr\}}
+      \]
+    </div>
+    <p class="formula-note">엔탈피 정의 \(h=u+pv\) 적용 후 정리</p>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      V_2 = \sqrt{2\left\{p_1\upsilon_1 - p_2\upsilon_2 - \frac{R}{\gamma-1}(T_1-T_2)\right\}}
+      \]
+    </div>
+    <p class="formula-note">\(c_p - c_v = R\), \(\gamma = c_p/c_v\) 대입</p>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      \boxed{V_2 = \sqrt{2\,p_1\upsilon_1\,\frac{\gamma}{\gamma-1}\left[1-\left(\frac{p_2}{p_1}\right)^{\!\frac{\gamma-1}{\gamma}}\right]}}
+      \]
+    </div>
+    <p class="formula-note">온도를 압력비로 변환(등엔트로피 관계) → 최종 출구 속도 식</p>
+
+    <hr class="divider">
+
+    <!-- 임계 속도 -->
+    <p style="font-size:0.85rem;color:var(--accent3);font-weight:700;margin-bottom:4px;">② 임계 속도 \( V_\text{critical} \) 도출 [1/2 계속]</p>
+    <p style="font-size:0.8rem;color:var(--text2);margin-bottom:6px;">\(\dfrac{dV_2}{d(p_2/p_1)}=0\) 으로 최대 속도 조건을 구하면:</p>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      V_\text{critical}
+        = \sqrt{2\,p_1\upsilon_1\,\frac{\gamma}{\gamma+1}}
+        = \sqrt{\gamma\,p_2\upsilon_2}
+        = \sqrt{\gamma R T_2}
+        = a_2
+      \]
+    </div>
+    <p class="formula-note">
+      \(a = \sqrt{\gamma RT}\) : 음속(speed of sound). \(V_\text{critical}\)이 출구 음속 \(a_2\)와 같음
+      → <span class="hl">수축 노즐이 도달할 수 있는 최대 속도 = 출구에서의 음속(Mach 1)</span>
+    </p>
+    <div class="note-box" style="margin-top:6px;">💡 \(V_\text{critical}\)은 기울기가 0이 되는 지점(최고속도), 이 지점을 초과하면 속도가 오히려 떨어짐 → 수축 노즐만으로는 <span class="hl">초음속 불가</span>. 초음속이 필요하면 수축-확산(C-D) 노즐 필요.</div>
+
+    <hr class="divider">
+
+    <!-- 2/2 — 질량 유량 -->
+    <p style="font-size:0.85rem;color:var(--accent3);font-weight:700;margin-bottom:4px;">③ 질량 유량 \( \dot{m} \) 도출 [2/2]</p>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      \dot{m} = \rho_2 V_2 A = \frac{A}{\upsilon_2}\,V_2
+      \]
+    </div>
+    <p class="formula-note">\(\rho_2 = 1/\upsilon_2\) (비체적의 역수) 대입</p>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      \dot{m} = \frac{A}{\upsilon_2}\sqrt{2\,p_1\upsilon_1\,\frac{\gamma}{\gamma-1}\left[1-\left(\frac{p_2}{p_1}\right)^{\!\frac{\gamma-1}{\gamma}}\right]}
+      \]
+    </div>
+
+    <p style="font-size:0.8rem;color:var(--text2);margin:6px 0 4px;">등엔트로피 관계식 적용 후 정리하면:</p>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      \dot{m} = A\sqrt{\frac{2\gamma}{\gamma-1}\,\frac{p_1}{\upsilon_1}
+        \left[\left(\frac{p_2}{p_1}\right)^{\!\frac{2}{\gamma}}
+             -\left(\frac{p_2}{p_1}\right)^{\!\frac{\gamma+1}{\gamma}}\right]}
+      \]
+    </div>
+
+    <hr class="divider">
+
+    <!-- 임계 압력비 -->
+    <p style="font-size:0.85rem;color:var(--accent1);font-weight:700;margin-bottom:4px;">④ 임계 압력비 (Critical Pressure Ratio)</p>
+    <p style="font-size:0.8rem;color:var(--text2);margin-bottom:6px;">\(\dfrac{d\dot{m}}{d(p_2/p_1)}=0\) 으로 최대 유량 조건(=질식 조건)을 구하면:</p>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      \left(\frac{p_2}{p_1}\right)_\text{critical}
+        = \left(\frac{2}{\gamma+1}\right)^{\!\frac{\gamma}{\gamma-1}}
+      \]
+    </div>
+
+    <div class="formula" style="overflow-x:auto;">
+      \[
+      \gamma = 1.4\text{(공기)} \;\Rightarrow\;
+      \left(\frac{p_2}{p_1}\right)_\text{critical} = 0.528
+      \;\Rightarrow\;
+      p_1 = \frac{p_2}{0.528} = \frac{p_\text{atm}}{0.528} \approx \mathbf{1.89}\,p_\text{atm}
+      \]
+    </div>
+    <p class="formula-note">
+      \(p_2 = p_\text{atm}\)(대기압, 출구) /
+      \(p_1 = 1.89\,p_\text{atm}\) : 터빈 방출 압력(turbine discharge pressure) ← <span class="hl">기억해!</span>
+    </p>
+
+    <hr class="divider">
+
+    <!-- 질식 유동 상태의 특징 (이미지2 박스) -->
+    <p style="font-size:0.85rem;color:var(--accent2);font-weight:700;margin-bottom:8px;">질식 유동 (Choked Flow) 상태의 특징</p>
+    <div class="grid3">
+      <div class="mini-card" style="border-top:3px solid var(--accent2);">
+        <div class="label">특징 1 — 속도 한계</div>
+        <div class="value" style="font-size:0.9rem;">M = 1</div>
+        <p style="font-size:0.78rem;color:var(--text2);margin-top:4px;">노즐 출구 속도는 정확히 음속(Mach 1)에 도달. 수축 노즐 단독으로는 초음속 달성 불가</p>
       </div>
-      <div>
-        <p style="color:var(--accent1); font-weight:700; margin-bottom:8px;">임계 압력비 (Critical Pressure Ratio)</p>
-        <div class="formula">(p₂/p₁)_critical = (2/(γ+1))^(γ/(γ-1))</div>
-        <div class="formula" style="margin-top:8px;">(γ = 1.4 for air) → p₂/p₁ = <span style="color:var(--accent4);">0.528</span></div>
-        <div style="margin-top:8px;">
-          <p style="font-size:0.82rem; color:var(--text2);">p₂ = p_atm (대기압)</p>
-          <p style="font-size:0.82rem; color:var(--accent3);">p₁ = 1.89 × p_atm (터빈 방출 압력)</p>
-        </div>
-        <div class="exam-point" style="margin-top:8px;">터빈 downstream 압력이 대기압의 1.89배가 되면 → 노즐 출구에서 M=1인 질식 유동 발생</div>
+      <div class="mini-card" style="border-top:3px solid var(--accent2);">
+        <div class="label">특징 2 — 유량 고정</div>
+        <div class="value" style="font-size:0.9rem;">유량 불변</div>
+        <p style="font-size:0.78rem;color:var(--text2);margin-top:4px;">노즐 입구 압력(\(p_1\))을 아무리 높여도, 출구 외부 압력(\(p_2\))을 아무리 낮춰도 출구 속도·질량 유량은 더 이상 증가하지 않고 일정하게 유지(Choked). 음속으로 신호 전달이 제한되기 때문</p>
+      </div>
+      <div class="mini-card" style="border-top:3px solid var(--accent2);">
+        <div class="label">특징 3 — 압력 추력</div>
+        <div class="value" style="font-size:0.9rem;">Pressure Thrust</div>
+        <p style="font-size:0.78rem;color:var(--text2);margin-top:4px;">\(p_2 > p_\text{atm}\) 상태로 배출 → 발생하지 못한 잔여 압력 에너지가 엔진에 압력 추력(Pressure Thrust)을 추가 제공. 배기가스 속도는 더 이상 증가하지 않지만 추력은 증가 가능</p>
       </div>
     </div>
-    <hr class="divider">
-    <p style="color:var(--accent2); font-weight:700; margin-bottom:8px;">질식 유동 상태의 특징</p>
-    <div class="grid3">
-      <div class="mini-card">
-        <div class="label">특징 1</div>
-        <div class="value" style="font-size:0.9rem;">M = 1</div>
-        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">노즐 출구 속도 = 정확히 음속</p>
-      </div>
-      <div class="mini-card">
-        <div class="label">특징 2</div>
-        <div class="value" style="font-size:0.9rem;">유량 고정</div>
-        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">입구 압력 더 높여도, 출구 압력 더 낮춰도 → 속도·유량 불변</p>
-      </div>
-      <div class="mini-card">
-        <div class="label">특징 3</div>
-        <div class="value" style="font-size:0.9rem;">압력 추력</div>
-        <p style="font-size:0.78rem; color:var(--text2); margin-top:4px;">p₂ > p_atm → 잔여 압력 에너지가 압력 추력(Pressure Thrust) 추가 제공</p>
-      </div>
+
+    <div class="exam-point" style="margin-top:12px;">
+      터빈 downstream 압력이 대기압의 <span class="hl">1.89배</span>가 되는 동시에 배기노즐 출구에 마하수 1인 유동이 형성되면서 최대의 배기가스 속도가 형성된다.<br>
+      이 압력을 초과하더라도 배기가스 속도는 더 이상 증가하지 않는다 — 이것이 <span class="hl">초킹(Choked) 현상</span>. 최대 배기 속도 = 마하 1 (음속).
     </div>
   </div>
 
@@ -3718,6 +3920,9 @@ function showSection(id, pushState, e) {
   }
   // auto-close sidebar on mobile
   if (window.innerWidth <= 860) closeSidebar();
+  if (window.MathJax && MathJax.typesetPromise) {
+    MathJax.typesetPromise([document.getElementById(id)]).catch(function(){});
+  }
 }
 
 function toggleSidebar() {
