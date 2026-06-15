@@ -454,31 +454,31 @@
     <p>핵심 개념 완전 정리</p>
   </div>
   <nav class="sidebar-nav">
-    <button class="nav-btn" data-section="exam" onclick="showSection('exam')">
+    <button class="nav-btn" data-section="exam" onclick="showSection('exam', undefined, event)">
       <span class="ch-num">★</span>📝 시험문제 22선
     </button>
-    <button class="nav-btn" data-section="combustor" onclick="showSection('combustor')">
+    <button class="nav-btn" data-section="combustor" onclick="showSection('combustor', undefined, event)">
       <span class="ch-num">Ch.4</span>🔥 연소기
     </button>
-    <button class="nav-btn" data-section="turbine" onclick="showSection('turbine')">
+    <button class="nav-btn" data-section="turbine" onclick="showSection('turbine', undefined, event)">
       <span class="ch-num">Ch.5</span>⚙️ 터빈
     </button>
-    <button class="nav-btn" data-section="exhaust" onclick="showSection('exhaust')">
+    <button class="nav-btn" data-section="exhaust" onclick="showSection('exhaust', undefined, event)">
       <span class="ch-num">Ch.6</span>💨 배기계통
     </button>
-    <button class="nav-btn" data-section="fuel" onclick="showSection('fuel')">
+    <button class="nav-btn" data-section="fuel" onclick="showSection('fuel', undefined, event)">
       <span class="ch-num">Ch.7</span>⛽ 연료계통
     </button>
-    <button class="nav-btn" data-section="lube" onclick="showSection('lube')">
+    <button class="nav-btn" data-section="lube" onclick="showSection('lube', undefined, event)">
       <span class="ch-num">Ch.9</span>🛢️ 윤활계통
     </button>
-    <button class="nav-btn" data-section="starting" onclick="showSection('starting')">
+    <button class="nav-btn" data-section="starting" onclick="showSection('starting', undefined, event)">
       <span class="ch-num">Ch.10</span>🔑 시동계통
     </button>
-    <button class="nav-btn" data-section="ignition" onclick="showSection('ignition')">
+    <button class="nav-btn" data-section="ignition" onclick="showSection('ignition', undefined, event)">
       <span class="ch-num">Ch.11</span>⚡ 점화계통
     </button>
-    <button class="nav-btn" data-section="summary" onclick="showSection('summary')">
+    <button class="nav-btn" data-section="summary" onclick="showSection('summary', undefined, event)">
       <span class="ch-num">★</span>📋 핵심 요약
     </button>
   </nav>
@@ -523,7 +523,7 @@
       <li>디퓨저는 압축기와 연소기 사이에 위치하며, 속도 에너지를 압력 에너지로 변환 (Velocity → Pressure)</li>
       <li>디퓨저 입구 M ≈ 0.5 → 출구 M ≈ 0.35 (속도↓ → 압력↑)</li>
     </ul>
-    <button class="ref-link" onclick="showSection('combustor')">→ Ch.4 연소기 본문 보기</button>
+    <button class="ref-link" onclick="showSection('combustor', undefined, event)">→ Ch.4 연소기 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -535,7 +535,7 @@
       <li>연료 노즐 하류에 <span class="hl">재순환 영역(recirculation)</span> 생성 → 화염을 연소기 내부에 안정적으로 유지</li>
       <li>공기의 축 방향 속도를 5~6 fps 수준으로 낮춤</li>
     </ul>
-    <button class="ref-link" onclick="showSection('combustor')">→ Ch.4 연소기 본문 보기</button>
+    <button class="ref-link" onclick="showSection('combustor', undefined, event)">→ Ch.4 연소기 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -556,7 +556,7 @@
         <li>대형 시험 설비 필요</li>
       </ul>
     </div>
-    <button class="ref-link" onclick="showSection('combustor')">→ Ch.4 연소기 본문 보기</button>
+    <button class="ref-link" onclick="showSection('combustor', undefined, event)">→ Ch.4 연소기 본문 보기</button>
   </div>
 
   <!-- ───────── 터빈 ───────── -->
@@ -568,7 +568,7 @@
       <li>TPR = <span class="hl">터빈 출구 압력 / 터빈 입구 압력</span> (p₀₄ / p₀₃)</li>
       <li>터빈을 지나며 압력·온도가 감소하므로 → <span class="hl-red">값은 항상 1.0보다 작음</span></li>
     </ul>
-    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+    <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -592,7 +592,7 @@
       </div>
     </div>
     <div class="exam-point">Shrouded Blade는 효율·진동에는 유리하지만, 무게 증가로 크리프 저항이 나빠진다는 양면성을 꼭 구분할 것</div>
-    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+    <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -610,7 +610,7 @@
       <li>노즐~버킷 사이 → 반경 방향을 따라 속도↓ 압력↑</li>
     </ul>
     <div class="fill-box">루트(뿌리)와 팁(끝)에서 충동/반동 비율을 어떻게 구성하는지(예: 루트는 충동에 가깝게, 팁은 반동에 가깝게 — 반경 방향 속도 차이 때문) 교재에서 확인해 정리</div>
-    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+    <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -621,7 +621,7 @@
       <li>계산 방식은 압축기 블레이드나 터빈 블레이드나 동일하게 적용</li>
     </ul>
     <div class="fill-box">예제 수치를 넣은 실제 계산 과정(속도 삼각형/엔탈피 값 대입)이 필요하면 교재 예제로 정리</div>
-    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+    <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -640,7 +640,7 @@
       <li><span class="hl-blue">③ 충돌 냉각(Impingement)</span>: 고속 공기를 내부 표면에 분사 → 앞전(Leading Edge)에 특히 효과적. 에어포일 원하는 부분에만 적용해 전체 표면에 걸쳐 균일 온도 유지</li>
       <li><span class="hl-blue">④ 발한 냉각(Transpiration)</span>: 다공성 벽을 통해 냉각수가 배어 나옴 → 블레이드 전체를 냉각수 흐름으로 덮기 때문에 → 매우 높은 온도에서도 효과적</li>
     </ul>
-    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+    <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -650,7 +650,7 @@
       <li>블레이드 표면의 작은 구멍들로 냉각 공기가 분사되어, 뜨거운 가스 흐름과 블레이드 표면 사이에 <span class="hl">얇은 공기 단열층(막)</span>을 형성 → 표면을 직접 보호</li>
       <li>구멍의 위치·각도에 따라 막이 표면을 따라 흐르며 덮어주는 원리를 이해할 것</li>
     </ul>
-    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+    <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -664,7 +664,7 @@
       <li>고온 가스 환경에서 발생하는 스케일형 부식·침식에 최상의 보호 효과 제공</li>
       <li>스케일링 → 공기 중 나트륨 + 연료의 황이 모재와 화학 반응을 일으켜 발생</li>
     </ul>
-    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+    <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -673,7 +673,7 @@
       <li>문제 상황: 이륙/상승 시 블레이드 팽창 → 케이스와 간극 좁아짐 / 순항 시 냉각 → (터빈 케이스 열팽창에 비해 블레이드 열팽창이 부족해) 간극 벌어짐 → 효율 저하</li>
       <li>기능: <span class="hl">FADEC 제어</span> + 외부 터빈 케이스에 <span class="hl">팬 압축 공기를 분사</span> → 케이스를 능동적으로 수축/팽창시켜 <span class="hl">팁 간극(tip clearance)을 최적으로 유지</span> → 모든 출력 설정에서 팁 누설 최소화 → 효율 향상</li>
     </ul>
-    <button class="ref-link" onclick="showSection('turbine')">→ Ch.5 터빈 본문 보기</button>
+    <button class="ref-link" onclick="showSection('turbine', undefined, event)">→ Ch.5 터빈 본문 보기</button>
   </div>
 
   <!-- ───────── 배기 ───────── -->
@@ -699,7 +699,7 @@
       <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">확산형 배기 덕트</p>
     </div>
     <div class="fill-box">콘(cone)이 왜 그런 형상(뒤로 갈수록 좁아지는 원추형)인지 — 유로 단면적 변화와 디퓨저 작용으로 배기가스 흐름을 방해하지 않으면서 압력을 회복시키는 원리를 교재에서 확인해 정리</div>
-    <button class="ref-link" onclick="showSection('exhaust')">→ Ch.6 배기계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('exhaust', undefined, event)">→ Ch.6 배기계통 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -717,7 +717,7 @@
         </ul>
       </div>
     </ul>
-    <button class="ref-link" onclick="showSection('exhaust')">→ Ch.6 배기계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('exhaust', undefined, event)">→ Ch.6 배기계통 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -727,7 +727,7 @@
       <li><span class="hl-green">② 조개껍데기형(Clam Shell Door)</span>: <span class="hl-red">공기로 작동.</span> 역추력 선택 시 덕트는 덮개를 벗기기 위해 문이 회전해 정상적인 가스흐름 출구를 닫음. casscade vane이 뜨거운 배기가스를 역방향으로 전환해 역방향 추력 발생</span></li>
       <li><span class="hl">③ 버킷타겟형(Bucket Target)</span>: <span class="hl-red">유압으로 작동</span>, 양동이 형태 문으로 뜨거운 배기가스를 역방향 유도 (전진추력 모드 시 역추력장치 문은 닫혀서 엔진에 <span class="hl-red">C-D 노즐</span> 형성), 역추력 door는 전통적인 푸시로드 이용해 작동</li>
     </ul>
-    <button class="ref-link" onclick="showSection('exhaust')">→ Ch.6 배기계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('exhaust', undefined, event)">→ Ch.6 배기계통 본문 보기</button>
   </div>
 
   <!-- ───────── 연료계통 ───────── -->
@@ -753,7 +753,7 @@
       <img src="img/fuel_diagram.jpg" style="max-height:500px; width:auto; max-width:100%; display:block; margin:0 auto; border-radius: 8px;" />
       <p style="text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">연료계통</p>
     </div>
-    <button class="ref-link" onclick="showSection('fuel')">→ Ch.7 연료계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('fuel', undefined, event)">→ Ch.7 연료계통 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -812,7 +812,7 @@
     </div>
     <div class="note-box" style="margin-top:8px;">💡 Pilot(1차) 연료는 전 단계에서 항상 <span class="hl-green">열림</span>. <span class="hl">Main(2차)</span>는 고출력에서만 열리고, <span class="hl">Return to fuel supply</span>(연료를 펌프 입구로 되돌리는 경로)는 엔진 정지 시에만 열려 매니폴드 잔여 연료를 덤프함.</div>
     <div class="exam-point">시동/저출력 = 1차만 열림(2차 닫힘) / 출력 증가 = 1차+2차 모두 열림 / 정지 = 덤프. 그림에서 두 밸브의 개폐 상태를 구분할 것</div>
-    <button class="ref-link" onclick="showSection('fuel')">→ Ch.7 연료계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('fuel', undefined, event)">→ Ch.7 연료계통 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -870,7 +870,7 @@
       </div>
     </div>
     <div class="exam-point">과속 → 플라이웨이트 밖으로 → 연료 차단(감소) / 저속 → 플라이웨이트 안으로 → 연료 증가. 두 경우 모두 최종적으로 정속(평형)으로 돌아옴</div>
-    <button class="ref-link" onclick="showSection('fuel')">→ Ch.7 연료계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('fuel', undefined, event)">→ Ch.7 연료계통 본문 보기</button>
   </div>
 
   <!-- ───────── 윤활계통 ───────── -->
@@ -886,7 +886,7 @@
       <li>탱크 벤트 릴리프 밸브: 탱크와 대기 사이 차압이 3~6psi일때 여분의 공기 외부로 배출</li>
       <li>Bleed Orifice: 엔진 정지 후 탱크 내부압력 제거</li>
     </ul>
-    <button class="ref-link" onclick="showSection('lube')">→ Ch.9 윤활계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('lube', undefined, event)">→ Ch.9 윤활계통 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -930,7 +930,7 @@
       </table>
     </div>
     <div class="exam-point">볼 = 반경+축방향(추력) 동시 지지, 최전방 1번 베어링에 필수 / 롤러 = 반경방향 대용량 + 열팽창 수용(Cover 범위 넓음) / 일반 = 주축 적용 불가</div>
-    <button class="ref-link" onclick="showSection('lube')">→ Ch.9 윤활계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('lube', undefined, event)">→ Ch.9 윤활계통 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -953,7 +953,7 @@
       </div>
     </div>
     <div class="warn-box">⚠️ 그림 볼 때 포인트: 바이패스될 때는 바이패스 밸브가 작동(열림), 통과할 때는 서모스탯 밸브가 작동(열림). 연료(케로신)를 너무 데우면 안 되므로 연료 사용은 이륙 전까지로 제한</div>
-    <button class="ref-link" onclick="showSection('lube')">→ Ch.9 윤활계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('lube', undefined, event)">→ Ch.9 윤활계통 본문 보기</button>
   </div>
 
   <!-- ───────── 시동/점화계통 ───────── -->
@@ -1015,7 +1015,7 @@
     </div>
     <p style="font-size:0.85rem;color:var(--accent5);font-weight:700;margin:10px 0 6px;">No Ignition / No Start (점화 안 됨)</p>
     <div class="fill-box">연료·점화는 공급되는데 정해진 시간(약 20초) 내에 점화(light-up)가 일어나지 않는 상태의 정의와 원인(약한 점화, 연료라인 공기 유입 등)을 교재에서 찾아 정리. ※ 정리노트에는 Hung/Hot Start만 정식 정의가 있고 No Ignition은 별도 정의가 없으니 교재로 보완</div>
-    <button class="ref-link" onclick="showSection('starting')">→ Ch.10 시동계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('starting', undefined, event)">→ Ch.10 시동계통 본문 보기</button>
   </div>
 
   <div class="card q-card">
@@ -1031,7 +1031,7 @@
     </ul>
     <p style="font-size:0.85rem;color:var(--accent4);font-weight:700;margin:10px 0 6px;">⚠️ 단점</p>
     <div class="fill-box">공기식 시동기의 단점(예: 별도의 공기 공급원(APU/GPU/Cross Feed)이 반드시 필요, 충분한 공기압이 없으면 시동 불가 등)을 교재에서 찾아 정리</div>
-    <button class="ref-link" onclick="showSection('starting')">→ Ch.10 시동계통 본문 보기</button>
+    <button class="ref-link" onclick="showSection('starting', undefined, event)">→ Ch.10 시동계통 본문 보기</button>
   </div>
 
 </div>
@@ -3695,7 +3695,11 @@ const SECTION_TITLES = {
   summary:   '핵심 요약'
 };
 
-function showSection(id, pushState) {
+function showSection(id, pushState, e) {
+  if (e && (e.metaKey || e.ctrlKey)) {
+    window.open(location.pathname + '#' + id, '_blank');
+    return;
+  }
   if (!document.getElementById(id)) return;
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
