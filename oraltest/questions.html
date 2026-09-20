@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>항공정비사 구술시험 기출 정리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap');
+  :root{
+    --bg:#0f1115; --card:#181b21; --card2:#1f232b; --accent:#4fd1c5; --accent2:#f6ad55;
+    --text:#e6e8eb; --sub:#9aa4b2; --border:#2a2f3a; --star:#f6ad55;
+    --line:#2a2f3a; --sb-left:248px;
+  }
+  html{scroll-behavior:smooth}
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans KR',sans-serif;margin:0;padding:0 0 80px;line-height:1.6}
+  header{padding:36px 24px 20px;text-align:center;border-bottom:1px solid var(--border)}
+  header h1{margin:0 0 6px;font-size:1.6rem;color:var(--accent)}
+  header p{margin:0;color:var(--sub);font-size:.9rem}
+  nav{max-width:900px;margin:20px auto;padding:0 16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  nav a{background:var(--card2);color:var(--accent);text-decoration:none;padding:6px 12px;border-radius:20px;font-size:.8rem;border:1px solid var(--border)}
+  nav a:hover{background:var(--accent);color:#0f1115}
+  main{max-width:900px;margin:0 auto;padding:0 16px}
+  section{margin-top:44px;scroll-margin-top:20px}
+  section h2{color:var(--accent2);border-bottom:2px solid var(--border);padding-bottom:8px;font-size:1.25rem}
+  details{background:var(--card);border:1px solid var(--border);border-radius:10px;margin:10px 0;padding:0;overflow:hidden}
+  summary{cursor:pointer;padding:14px 16px;font-weight:500;list-style:none;display:flex;gap:8px;align-items:flex-start}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"▸";color:var(--accent);flex-shrink:0}
+  details[open] summary::before{content:"▾"}
+  .star{color:var(--star);margin-right:4px}
+  .ans{padding:0 18px 18px 34px;color:var(--sub);border-top:1px solid var(--border)}
+  .ans p{margin:10px 0}
+  .ans b{color:var(--text)}
+  .en{color:#8ea2c6;font-size:.85em}
+  .tag{display:inline-block;background:var(--card2);color:var(--sub);font-size:.7rem;padding:2px 8px;border-radius:10px;margin-left:6px}
+  footer{text-align:center;color:var(--sub);font-size:.8rem;margin-top:60px}
+  code{background:var(--card2);padding:1px 6px;border-radius:4px;color:var(--accent)}
+
+  /* ===== LEFT SIDEBAR ===== */
+  .sidebar-left{position:fixed;top:0;left:0;width:var(--sb-left);height:100vh;background:linear-gradient(180deg,#12151b,#171b23);border-right:1px solid var(--line);padding:26px 18px;overflow-y:auto;z-index:50;display:flex;flex-direction:column;gap:6px}
+  .sb-brand{font-family:'Gowun Batang',serif;font-weight:700;font-size:1.15rem;color:var(--text);margin-bottom:4px}
+  .sb-brand span{color:var(--accent)}
+  .sb-sub{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.16em;color:var(--sub);text-transform:uppercase;margin-bottom:22px}
+  .sb-label{font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.18em;color:var(--accent2);text-transform:uppercase;margin:14px 0 8px;padding-left:6px}
+  .nav-btn{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;border:1px solid transparent;color:var(--sub);font-family:'IBM Plex Sans KR',sans-serif;font-size:.9rem;font-weight:400;padding:10px 12px;border-radius:9px;cursor:pointer;transition:all .15s;text-decoration:none}
+  .nav-btn:hover{background:#ffffff08;color:var(--text)}
+  .nav-btn.active{background:linear-gradient(135deg,#13302d,#17403a);border-color:#2f7f73;color:var(--accent);font-weight:500}
+  .nav-btn .dot{width:8px;height:8px;border-radius:50%;background:var(--line);flex-shrink:0;transition:background .15s}
+  .nav-btn.active .dot{background:var(--accent);box-shadow:0 0 8px var(--accent)}
+  .nav-btn .cnt{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--sub);background:#ffffff0a;padding:1px 7px;border-radius:10px}
+  .home-btn{margin-top:auto;display:flex;align-items:center;gap:9px;text-decoration:none;border:1px solid var(--line);color:var(--sub);font-size:.85rem;padding:11px 13px;border-radius:9px;transition:all .15s}
+  .home-btn:hover{border-color:var(--accent);color:var(--accent);background:#ffffff05}
+  .sb-toggle{display:none;position:fixed;top:14px;left:14px;z-index:60;background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:9px;width:44px;height:44px;font-size:1.2rem;cursor:pointer}
+  .sb-overlay{display:none;position:fixed;inset:0;background:#0008;z-index:45}
+  .content{margin-left:var(--sb-left)}
+  @media(max-width:820px){
+    .sb-toggle{display:block}
+    .sidebar-left{transform:translateX(-100%);transition:transform .25s}
+    .sidebar-left.open{transform:none}
+    .sb-overlay.show{display:block}
+    .content{margin-left:0}
+    header{padding:74px 20px 20px}
+  }
+</style>
+</head>
+<body>
+<button class="sb-toggle" id="sbToggle">☰</button>
+<div class="sb-overlay" id="sbOverlay"></div>
+<aside class="sidebar-left" id="sidebarLeft">
+  <div class="sb-brand">구술시험 <span>기출정리</span></div>
+  <div class="sb-sub">항공정비사 · ORAL EXAM</div>
+  <div class="sb-label">챕터 선택</div>
+  <a class="nav-btn" href="#law" data-sec="law"><span class="dot"></span>1. 항공법규<span class="cnt">14</span></a>
+  <a class="nav-btn" href="#materials" data-sec="materials"><span class="dot"></span>2. 기체구조·재료<span class="cnt">17</span></a>
+  <a class="nav-btn" href="#powerplant" data-sec="powerplant"><span class="dot"></span>3. 동력장치<span class="cnt">26</span></a>
+  <a class="nav-btn" href="#electrical" data-sec="electrical"><span class="dot"></span>4. 전기·전자·계기<span class="cnt">46</span></a>
+  <a class="nav-btn" href="#hydraulic" data-sec="hydraulic"><span class="dot"></span>5. 유압·공압<span class="cnt">12</span></a>
+  <a class="nav-btn" href="#landing" data-sec="landing"><span class="dot"></span>6. 착륙장치<span class="cnt">11</span></a>
+  <a class="nav-btn" href="#fuel" data-sec="fuel"><span class="dot"></span>7. 연료계통<span class="cnt">8</span></a>
+  <a class="nav-btn" href="#fire" data-sec="fire"><span class="dot"></span>8. 화재탐지·소화<span class="cnt">8</span></a>
+  <a class="nav-btn" href="#env" data-sec="env"><span class="dot"></span>9. 여압·공조·산소<span class="cnt">11</span></a>
+  <a class="nav-btn" href="#comm" data-sec="comm"><span class="dot"></span>10. 통신·항법<span class="cnt">4</span></a>
+  <a class="nav-btn" href="#control" data-sec="control"><span class="dot"></span>11. 조종계통<span class="cnt">6</span></a>
+  <a class="nav-btn" href="#etc" data-sec="etc"><span class="dot"></span>12. 비파괴·공구·일반<span class="cnt">15</span></a>
+  <a class="home-btn" href="https://johnyejin.github.io/maintenance">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    홈으로 (maintenance)
+  </a>
+</aside>
+
+<div class="content">
+<header>
+  <h1>✈️ 항공정비사 면허 구술시험 기출 정리</h1>
+  <p>표준서 기준 챕터별 정리</p>
+</header>
+
+
+<main>
+
+<!-- ================= 항공법규 ================= -->
+<section id="law">
+<h2>1. 항공법규 <span class="en">Aviation Law</span></h2>
+
+<details><summary><span class="star">★</span>항공안전법 32조 1항 — 정비 후 확인 절차, 국토교통부령이란?</summary>
+<div class="ans">
+<p><b>32조 1항</b>: 항공기 등을 정비한 경우, <b>자격증명을 받은 자</b>(항공정비사)가 <b>국토교통부령으로 정하는 자격요건을 갖춘 사람</b>에게 확인을 받아야 감항성이 있는 것으로 본다는 조항.</p>
+<p><b>국토교통부령이 정하는 자격요건</b>이란 시행규칙에서 정한 세부 조건들로, 정비확인자가 갖춰야 할 자격증명·자격증명서 정보·정비경험(예: 해당 항공기 형식에 대한 정비경력) 등을 포함한다. 답변 시 "국토교통부령 = 시행규칙에서 정하는 세부 자격요건(자격증명 보유, 정비확인 경력 등)"으로 구체적으로 풀어 말해야 한다.</p>
+</div></details>
+
+<details><summary>항공안전법 36조 1·2·3항 — 자격증명 관련 별표 구분</summary>
+<div class="ans">
+<p>36조는 <b>항공종사자 자격증명</b>에 관한 조항. 1항은 자격증명 취득 요건(연령·경력·시험 합격 등), 2항은 항공영어구술능력증명이 필요한 업무(조종·관제 등) 관련, 3항은 자격증명 취소·정지 관련 내용으로 구성되며, 별표에는 자격증명 종류별 응시연령·경력기준·시험과목이 구분되어 있다.</p>
+</div></details>
+
+<details><summary>항공안전법 제정목적</summary>
+<div class="ans"><p>국제민간항공협약 및 부속서에 따라 항공기·경량항공기·초경량비행장치가 안전하게 항행하기 위한 방법을 정하고, 항공시설을 효율적으로 설치·관리하도록 함으로써 <b>생명과 재산을 보호</b>하고 항공기술 발전에 이바지하는 것.</p></div></details>
+
+<details><summary>항공정비사(자격증명) 업무범위는 무엇인가</summary>
+<div class="ans"><p>항공기·경량항공기 또는 그 장비품 및 부품에 대한 정비·개조·수리 후 감항성 확인 업무. 시행령/시행규칙 별표에 세부 범위가 규정되어 있으며, 자신이 확인한 정비에 대해 안전 책임을 진다.</p></div></details>
+
+<details><summary>감항증명 / 형식증명 / 제작증명의 정의와 관계</summary>
+<div class="ans">
+<p><b>형식증명(Type Certificate)</b>: 항공기 등의 설계가 기술기준에 적합함을 증명.<br>
+<b>제작증명(Production Certificate)</b>: 형식증명받은 설계대로 항공기를 반복 제작할 능력이 있음을 증명.<br>
+<b>감항증명(Airworthiness Certificate)</b>: 개별 항공기가 형식증명된 설계와 일치하고 안전하게 운항할 수 있는 상태임을 증명. 감항증명은 형식증명이 전제되어야 발급 가능(관계).</p>
+</div></details>
+
+<details><summary>감항증명은 얼마에 한 번씩? 연장에 필요한 것은?</summary>
+<div class="ans"><p>보통 <b>수시감항검사</b> 또는 정기적 검사를 통해 유효기간을 갱신하며, 국내 운송용은 통상 <b>1년</b> 단위로 갱신. 연장을 위해서는 정비규정에 따른 정비 이행, 감항성개선지시(AD) 이행, 정기점검 완료 등이 확인되어야 한다.</p></div></details>
+
+<details><summary>1962년/2016년 항공법 분법(分法) — 나뉘어 생긴 법</summary>
+<div class="ans"><p>과거 통합되어 있던 <b>항공법</b>이 2017년(2016년 개정, 2017.3 시행) <b>항공안전법·항공사업법·공항시설법</b> 3개로 분법되었다. 항공안전법은 안전운항·자격증명·정비 관련, 항공사업법은 항공운송사업 등 산업 관련, 공항시설법은 공항·비행장 시설 관련 내용을 각각 담당한다.</p></div></details>
+
+<details><summary>수리와 개조 — 30조 (수리개조승인) 누가 승인?</summary>
+<div class="ans"><p>항공기 등을 수리·개조하려는 소유자 등은 <b>국토교통부장관</b>의 승인을 받아야 한다(수리개조승인서). 형식증명 기준에 영향을 주는 대수리·대개조의 경우 해당됨.</p></div></details>
+
+<details><summary>MEL / MEL Category (A,B,C,D) / CDL</summary>
+<div class="ans">
+<p><b>MEL(Minimum Equipment List)</b>: 일부 장비가 고장난 상태에서도 안전 운항이 가능한 조건과 정비이연 기간을 정한 목록.<br>
+<b>Category A~D</b>: 이연 허용 기간 구분 — A: 개별 품목마다 정해진 기간(리마크란 참조), B: 3일(72시간), C: 10일, D: 120일.<br>
+<b>CDL(Configuration Deviation List)</b>: 2차 구조물이나 페어링 등 <b>부품이 결손</b>된 상태로도 운항 가능한 항목 목록. CDL 항목 발생 시 <b>정비사는 작업이 가능하면 즉시 수리</b>해야 한다(단순 이연 대상 아님).</p>
+</div></details>
+
+<details><summary>AD (감항성개선지시) / SB (Service Bulletin)</summary>
+<div class="ans">
+<p><b>AD</b>: 항공당국이 발행하는 <b>강제성</b> 지시. 안전에 영향을 주는 결함이 발견되었을 때, 정해진 기간 내 이행하지 않으면 <b>해당 항공기는 감항성을 상실</b>하여 운항할 수 없다(비행 금지).<br>
+<b>SB</b>: 제작사가 권고하는 <b>비강제성</b> 정비 정보. 단, AD에서 SB 이행을 요구하면 그 SB는 강제사항이 된다.</p>
+</div></details>
+
+<details><summary>비행시간(Flight Time)과 블록타임(Block Time)</summary>
+<div class="ans"><p><b>Flight Time(=Time in Service)</b>: 항공기가 이륙 목적으로 자력으로 움직이기 시작한 순간부터 착륙 후 정지할 때까지의 시간(항공일지에 기록되는 시간).<br><b>Block Time</b>: 항공기가 자력으로 게이트를 떠난 순간부터 도착 게이트에 정지할 때까지의 시간(Flight Time보다 김).</p></div></details>
+
+<details><summary>정비규정 기재사항 (주요 7개 항목)</summary>
+<div class="ans"><p>일반적으로 정비조직·정비방식·정비프로그램(주기점검), 검사방식, 품질관리, 기록·문서관리, 부품관리, 자격관리, 교육훈련 등의 항목이 포함된다(회사 정비규정마다 세부 목차는 다를 수 있음).</p></div></details>
+
+<details><summary>국가교정제도 / 검교정 주기</summary>
+<div class="ans"><p>국가에서 지정한 표준기관을 통해 계측기의 정확도를 국가표준(KOLAS 등)에 소급하여 검증받는 제도. 계측장비는 정기적으로(장비 특성에 따라 보통 <b>6개월~1년</b>) 교정을 받아야 하며, 어떤 주기를 적용할지는 <b>장비마다 다름</b>(제작사 권고·정비규정 기준).</p></div></details>
+
+<details><summary>만 18세 이상 취득 가능한 항공 관련 자격증 5가지</summary>
+<div class="ans"><p>항공정비사, 항공사, 항공공장정비사, 항공교통관제사, 자가용조종사 등(사업용조종사·운송용조종사는 연령기준이 더 높음). 세부 응시연령은 시행규칙 별표를 확인.</p></div></details>
+
+</section>
+
+<!-- ================= 기체구조/재료 ================= -->
+<section id="materials">
+<h2>2. 기체구조 · 재료 <span class="en">Airframe & Materials</span></h2>
+
+<details><summary><span class="star">★</span>알루미늄 합금 종류(1xxx~8xxx) / 2024·1200·1300은?</summary>
+<div class="ans">
+<p>주합금원소로 구분: <b>1xxx</b>=순수 알루미늄(99%↑), <b>2xxx</b>=구리(Cu), <b>3xxx</b>=망간(Mn), <b>4xxx</b>=규소(Si), <b>5xxx</b>=마그네슘(Mg), <b>6xxx</b>=Mg+Si, <b>7xxx</b>=아연(Zn), <b>8xxx</b>=기타원소.<br>
+<b>2024</b>는 2xxx계로 <b>구리</b>가 주합금원소이며, 열처리(고용체화+시효경화) 합금으로 항공기 외피에 널리 사용.<br>
+<b>1200, 1300</b>은 순수알루미늄 계열로 강도는 낮지만 성형성·내식성이 좋아 리벳(순정 리벳) 등에 사용.</p>
+</div></details>
+
+<details><summary>철합금 종류</summary>
+<div class="ans"><p>탄소강, 합금강(크롬몰리브덴강, 니켈강 등), 스테인리스강(내식강), 고장력강 등. 항공기 구조에는 강도 대비 무게 문제로 제한적으로 사용(랜딩기어, 엔진 마운트 등 고강도 필요부위).</p></div></details>
+
+<details><summary>알로다인(Alodine) / 아노다이징(Anodizing) — 정의·차이·이유</summary>
+<div class="ans">
+<p><b>알로다인</b>: 화학적 피막처리(화성처리)로 알루미늄 표면에 얇은 산화 피막을 형성하는 <b>상온 화학처리</b> 방법. 표면 도장 전 부착력 향상 및 부식 방지를 위해 사용하며, 주로 <b>현장 수리·소형 부위</b>에 적용.<br>
+<b>아노다이징</b>: 전해액 속에서 <b>전류를 가해</b> 인위적으로 산화피막을 두껍게 형성하는 방법(양극산화). 내식성·경도가 더 우수하지만 공정이 크고 설비가 필요해 <b>공장(생산단계)</b>에서 주로 수행.<br>
+<b>알로다인을 추가로 칠하는 이유</b>: 아노다이징 피막이 손상되거나 현장 수리 시 아노다이징 설비 없이도 빠르게 부식방지 피막을 재생하기 위함.<br>
+<b>세척(전처리)을 하는 이유</b>: 표면의 기름·이물질을 제거해야 화성피막이 균일하게 형성되고 부착력이 좋아지기 때문.</p>
+</div></details>
+
+<details><summary>리벳 — 종류, 식별(AN470 DD 3-5), 열처리 이유, 선택 기준</summary>
+<div class="ans">
+<p><b>종류</b>: 솔리드 리벳(유니버설/둥근머리/접시머리 등), 블라인드 리벳(포프너트형·체리리벳 등).<br>
+<b>AN470 DD 3-5 해석</b>: AN470=유니버설 머리 솔리드 리벳 규격, <b>DD</b>=재질기호(2024 알루미늄합금), <b>3</b>=지름(3/32인치 단위, 3×1/32"), <b>5</b>=길이(5×1/16인치).<br>
+<b>아이스박스 리벳(DD, D 등 열처리 리벳)</b>: 상온에서 시효경화가 빨리 진행되어 너무 단단해지므로, 소둔 후 <b>냉동(아이스박스) 보관</b>하여 무른 상태를 유지시켜 작업성을 확보한다. 꺼낸 후 일정 시간 내 사용해야 함.<br>
+<b>리벳 선택</b>: 판재 두께·재질에 맞는 지름과 강도의 리벳을 선정(모재보다 강도가 낮은 재질 선택이 원칙 — 파단 시 리벳이 먼저 파손되도록).</p>
+</div></details>
+
+<details><summary>카운터싱크 / 딤플링 — 사용공구, 딤플링 결함</summary>
+<div class="ans"><p><b>카운터싱크</b>: 판재에 원뿔형 홈을 파서 접시머리 리벳이 표면과 동일 평면이 되도록 하는 작업(카운터싱크 커터 사용). 판재가 두꺼울 때 사용.<br><b>딤플링</b>: 얇은 판재를 눌러 오목하게 성형(딤플링 다이/펀치 사용). 판재가 얇아 카운터싱크 시 강도가 부족할 때 사용.<br><b>딤플링 결함</b>: 크랙, 불완전 딤플(공차 밖 각도), 판재 변형 등.</p></div></details>
+
+<details><summary>리벳/토크 — 토크를 왜 하는지, 연장공구 사용 시 토크값 계산</summary>
+<div class="ans">
+<p><b>토크(체결력)를 가하는 이유</b>: 볼트·너트가 정해진 축력(clamping force)을 유지하여 진동에 의한 풀림, 누설, 구조 이완을 방지하기 위함.</p>
+<p><b>연장공구 사용 시 토크값 환산식</b>: <code>TW = TE × (L / (L+A))</code> (TW=렌치 표시 토크, TE=실제 필요 토크, L=렌치 길이, A=연장 길이)<br>
+예: TE=1500 in-lb, 연장(A)=5in, 렌치 유효길이(L)=15in → TW = 1500 × 15 / (15+5) = <b>1125 in-lb</b></p>
+</div></details>
+
+<details><summary>고정 와셔 사용 금지 부위 — 이유</summary>
+<div class="ans"><p><b>1·2차 구조물</b> 및 <b>자주 장탈착하는 부위</b>에는 고정(비회전) 와셔 사용을 피한다. 반복 장탈착 시 마모되고, 또한 공기흐름 노출부에서는 와셔 틈으로 <b>수분·공기 침투에 의한 부식</b>이 발생할 수 있기 때문.</p></div></details>
+
+<details><summary>턴버클(Turnbuckle) / 안전결선(단선식·복선식)</summary>
+<div class="ans"><p><b>턴버클</b>: 케이블 인장력(장력)을 조절하는 부품, 배럴과 양단의 터미널(좌·우 나사)로 구성. 조정 후 반드시 안전결선/안전핀으로 고정.<br><b>안전결선 단선식/복선식</b>: 단선식은 결선이 한 가닥, 복선식은 두 가닥으로 서로 당기는 방향으로 꼬아 더 강한 풀림방지력 제공. <b>단선식을 사용해야 하는 상황</b>: 볼트 간격이 좁거나 접근이 어려운 곳, 부품이 소형이라 복선식 시공이 곤란한 경우 등.</p></div></details>
+
+<details><summary>싱글랩 / 더블랩 사용 구분</summary>
+<div class="ans"><p><b>싱글랩(Single lap)</b>: 두 판재를 겹쳐 한 줄(또는 한쪽)로 접합 — 하중이 적은 부위.<br><b>더블랩(Double lap)</b>: 접합판 양쪽에 덧판(strap)을 대어 접합 — 더 큰 하중을 받는 구조 수리에 사용.</p></div></details>
+
+<details><summary>복합소재 FRP — 뜻, 종류</summary>
+<div class="ans"><p><b>FRP = Fiber Reinforced Plastics(섬유강화플라스틱)</b>. 종류: <b>GFRP</b>(유리섬유), <b>CFRP</b>(탄소섬유), <b>AFRP/KFRP</b>(아라미드/케블라 섬유) 등 — 강화섬유 종류에 따라 구분.</p></div></details>
+
+<details><summary>NDI(비파괴검사) 종류와 원리·특징</summary>
+<div class="ans">
+<p><b>육안검사(VI)</b>: 가장 기본, 보어스코프 등 보조기구 사용 가능.<br>
+<b>침투탐상(PT)</b>: 표면 개구 결함에 침투액을 스며들게 한 뒤 현상액으로 드러냄. 비자성체에도 사용 가능.<br>
+<b>자분탐상(MT)</b>: 강자성체 표면·표면직하 결함, 자화 후 자분 도포로 누설자속을 검출.<br>
+<b>와전류탐상(ET)</b>: 도체에 교류자장을 걸어 유도되는 와전류 변화로 결함 검출, 표면 및 근접 표면 결함.<br>
+<b>초음파탐상(UT)</b>: 초음파 반사를 이용해 내부 결함 검출.<br>
+<b>방사선탐상(RT)</b>: X선/감마선으로 내부 결함을 필름에 투영.</p>
+</div></details>
+
+<details><summary>1차 조종면 / 2차 조종면 — 각각 무엇이고 역할</summary>
+<div class="ans"><p><b>1차 조종면</b>: 에일러론(Aileron, 옆놀이), 승강타(Elevator, 키놀이), 방향타(Rudder, 빗놀이) — 항공기의 기본 3축 자세 제어.<br><b>2차 조종면</b>: 플랩, 슬랫, 스포일러, 트림탭 등 — 양력 증가·감속·조종력 보조 등 보조적 기능.</p></div></details>
+
+<details><summary>스테이션 넘버(Station Number) / 존 넘버(Zone Number)</summary>
+<div class="ans"><p><b>Station Number</b>: 기체 특정 기준점(0점, 보통 기수 전방)으로부터의 거리(인치)로 위치를 표시하는 좌표계 — <b>FS(Fuselage Station), BL(Buttock Line, 좌우), WL(Water Line, 상하)</b>로 3차원 위치 표현.<br><b>Zone Number</b>: 정비 매뉴얼(ATA 표준)에서 기체를 100번대(하부동체), 200번대(상부동체 전방), 300번대(꼬리부), 400번대(파워플랜트/나셀), 500번대(좌측날개), 600번대(우측날개), 700번대(랜딩기어), 800번대(도어) 등으로 구역을 나눈 번호체계.</p></div></details>
+
+<details><summary>인티그럴 탱크(Integral Tank) — 개념, 장단점</summary>
+<div class="ans"><p>날개 구조 자체(스파·리브·스킨으로 둘러싸인 공간)를 실란트로 밀폐해 연료탱크로 사용하는 방식. <b>장점</b>: 별도 탱크 무게 절감, 공간 효율적 사용, 연료 탑재량 증가. <b>단점</b>: 누설(leak) 발생 시 수리가 어렵고, 실란트 노후화 관리가 필요.</p></div></details>
+
+<details><summary>실란트(Sealant) — 설명, 종류(A/B/C/D)</summary>
+<div class="ans"><p>구조 이음부·연료탱크 등의 기밀·방수를 위해 사용하는 화학 밀폐제. 등급(Class)은 경화 후 <b>흐름성/작업시간(Working life)</b>에 따라 A(흐름성 있음, brushable), B(non-sagging, 수직면용) 등으로 구분되며 용도에 맞춰 선택.</p></div></details>
+
+<details><summary>연료탱크 leak(누설)의 원인 / 큐어 데이트(Cure Date)</summary>
+<div class="ans"><p><b>누설 원인</b>: 실란트 경화 불량·노후화·박리, 구조 피로 크랙, 볼트/리벳 체결부 실 손상, 압력 과다 등.<br><b>큐어 데이트</b>: 실란트가 완전 경화되는 데 필요한 기간(제작사 명시) — 이 기간 내 가압/연료 주입을 하면 안 됨.</p></div></details>
+
+<details><summary>연료탱크 작업 전/작업 시 해야 하는 것, Fuel Tank Entry Checklist, 인벤토리</summary>
+<div class="ans"><p><b>작업 전</b>: 연료 배출(디퓨얼링), 벤트/퍼지(환기)로 가연성 증기 제거, 가스프리(Gas Free) 검사, 정전기 방지 접지(Bonding). <b>작업 시</b>: 화기·스파크 방지 공구 사용, 인원 출입 확인(Entry Checklist 서명), <b>인벤토리(도구·물품 개수 확인)</b>로 탱크 내 이물질 잔류 방지, 감시자(attendant) 배치.</p></div></details>
+
+</section>
+
+<!-- ================= 동력장치 ================= -->
+<section id="powerplant">
+<h2>3. 동력장치 <span class="en">Powerplant</span></h2>
+
+<details><summary><span class="star">★</span>왕복엔진 작동원리 / 4행정 사이클</summary>
+<div class="ans"><p>흡입-압축-폭발(팽창)-배기의 4행정으로 작동. 흡입행정에서 혼합기 유입, 압축행정에서 압축 후 점화플러그로 점화(상사점 전에 미리 점화), 폭발행정에서 연소가스 팽창력으로 피스톤을 밀어 크랭크축 회전, 배기행정에서 연소가스 배출.</p></div></details>
+
+<details><summary>가스터빈엔진 작동원리 / 브레이턴 사이클</summary>
+<div class="ans"><p>흡입(Intake)-압축(Compression)-연소(Combustion)-배기(Exhaust)의 연속 사이클(브레이턴 사이클). 압축기가 공기를 압축하고 연소실에서 연료와 혼합·연소시켜 고온고압 가스를 생성, 터빈을 돌려 압축기를 구동하고 나머지 에너지로 추력을 발생시킨다.</p></div></details>
+
+<details><summary>충동터빈 / 반동터빈 차이</summary>
+<div class="ans"><p><b>충동터빈</b>: 노즐(고정 베인)에서 압력에너지를 속도에너지로 모두 변환한 뒤 로터 블레이드에 부딪혀(충격) 회전력을 얻음 — 로터 통과 시 압력강하 없음.<br><b>반동터빈</b>: 로터 블레이드 자체가 노즐 형상을 가져 블레이드를 지나면서도 팽창(압력강하)이 일어나 반작용력으로 회전 — 실제 항공기 터빈은 대부분 <b>충동-반동 혼합형</b>.</p></div></details>
+
+<details><summary>가스터빈엔진 윤활(오일) 목적</summary>
+<div class="ans"><p>베어링·기어 등 회전부의 <b>윤활(마찰 감소)</b>, <b>냉각</b>(마찰열 흡수), <b>세척</b>(마모 입자 제거), <b>방청</b>, 씰링 보조 등의 목적.</p></div></details>
+
+<details><summary>N1 / N2 — 기계적으로 연결되어 있는가? 무엇이 먼저 구동되나?</summary>
+<div class="ans"><p>투축(twin-spool) 엔진 기준 N1(팬/저압압축기-저압터빈)과 N2(고압압축기-고압터빈)는 <b>서로 기계적으로 연결되어 있지 않다</b>(각각 별도의 축, 가스흐름으로만 상호작용). 시동 시에는 스타터가 <b>N2(고압축)</b>을 먼저 구동하여 압축공기를 만들고, 연료 점화 후 배기가스가 저압터빈을 돌려 N1이 뒤따라 회전한다.</p></div></details>
+
+<details><summary>Hot Start — 내용 및 원인 4가지 이상</summary>
+<div class="ans"><p>시동 중 배기가스온도(EGT/ITT)가 <b>허용 한계치를 초과</b>하는 현상. <b>원인</b>: ①연료조절장치 이상으로 과도한 연료 공급, ②시동기 회전력 부족(N2 회전수 낮은 상태에서 점화), ③배터리 전압 부족, ④점화 순서/타이밍 이상, ⑤흡입공기 부족(바람 방향·풍속 영향), ⑥오래된/손상된 연료노즐로 인한 분무 불량 등.</p></div></details>
+
+<details><summary>디토네이션(Detonation) — 원인 6가지, 방지법</summary>
+<div class="ans">
+<p>정상 화염전파가 아닌 <b>미연소 혼합기의 자연발화(폭발적 연소)</b>로 실린더 내 급격한 압력 상승이 발생하는 현상(왕복엔진). <b>원인</b>: ①연료 옥탄가 부족, ②과도한 매니폴드압력(과급), ③혼합비가 너무 희박, ④실린더 과열(냉각 불량), ⑤과도한 압축비/점화시기 이상(너무 이른 점화), ⑥연소실 내 카본 퇴적(열점 형성) 등.<br>
+<b>방지법</b>: 옥탄가 맞는 연료 사용, 혼합비를 농후하게 운용, 냉각 유지, 매니폴드압력 제한 준수, 정상 점화시기 유지.</p>
+</div></details>
+
+<details><summary>내부 점화시기 조절 / 외부 점화시기 조절</summary>
+<div class="ans"><p><b>외부시기조절</b>: 엔진 외부에서 <b>타이밍라이트(Timing Light)</b>를 사용해 마그네토와 엔진 크랭크축의 상대적 점화 시점을 맞추는 작업.<br><b>내부시기조절</b>: 압축 상사점 전 특정 각도(예: 25°BTC)에서 마그네토 <b>브레이커 포인트가 열리는 순간</b>을 맞추는 작업 — 마그네토 자체의 <b>E-gap(내부 타이밍)</b>으로 조절한다.</p></div></details>
+
+<details><summary>왕복엔진 점화계통 / 가스터빈 점화계통</summary>
+<div class="ans"><p><b>왕복엔진</b>: 마그네토(자석식 발전 점화장치)가 자체적으로 고전압을 발생시켜 점화플러그로 스파크 발생 — 엔진 회전에 의해 구동, 외부 전원 불필요(이중 마그네토로 이중화).<br><b>가스터빈</b>: 고에너지 점화장치(HEI, Exciter Box)가 배터리/발전기 전원을 받아 고전압 축전 후 순간 방전하여 점화플러그(igniter plug)에서 강한 스파크 발생 — 시동 시에만 사용, 정상 연소 유지 시 점화 불필요.</p></div></details>
+
+<details><summary>터빈엔진 점화장치 장단점</summary>
+<div class="ans"><p><b>장점</b>: 매우 높은 에너지의 스파크로 저온·고고도 등 열악한 조건에서도 점화 신뢰성 높음. <b>단점</b>: 고전압 축전으로 감전 위험이 크고, 점검 시 방전 절차가 필요하며 부품 수명이 짧을 수 있음.</p></div></details>
+
+<details><summary>모터링(Motoring) — Dry / Wet, 시운전 중 화재 시 모터링?</summary>
+<div class="ans"><p><b>Dry Motoring</b>: 연료·점화를 차단한 채 시동기로 엔진을 회전시키는 작업(누설 확인, 이물질 제거, 점검용).<br><b>Wet Motoring</b>: 연료는 공급하되 점화는 차단하고 회전시키는 작업(연료계통 점검, 시동 실패 후 잔류연료 배출 등).<br><b>시운전(엔진) 화재 시</b>: 대개 <b>Dry Motoring</b>으로 잔류 연료를 배출/소화하며 화재를 진압한다(연료 추가 공급 없이 회전만).</p></div></details>
+
+<details><summary>엔진 화재 발생 시 단계별 대응</summary>
+<div class="ans"><p>① 연료차단(Fuel Shutoff) → ② 점화 차단 → ③ 소화장치(Fire Bottle) 작동 → ④ 필요시 추가 소화병 작동 → ⑤ 소화 확인 후 정비/점검. 절차는 항공기 체크리스트에 따라 단계적으로 수행.</p></div></details>
+
+<details><summary>왕복엔진 오일량 점검 및 보충 방식</summary>
+<div class="ans"><p>딥스틱(유량계) 또는 시야창(Sight Gauge)으로 점검, 규정된 하한선 이하 시 지정된 등급의 오일을 보충구(filler)를 통해 보급. 시운전 직후에는 오일이 배관에 남아있어 즉시 점검 시 오차가 있을 수 있으므로 일정 시간 경과 후 점검.</p></div></details>
+
+<details><summary>가스터빈엔진 오일 보충 시기 / 무엇을 보고 보충?</summary>
+<div class="ans"><p>조종석/EICAS의 <b>Oil Quantity 지시계(Sight Gage 또는 AUX EICAS 표시)</b>를 보고 판단. 규정된 최소량 이하로 표시되면 보충한다.</p></div></details>
+
+<details><summary>왕복엔진 다축엔진 구성 명칭 (도면 제시형)</summary>
+<div class="ans"><p>실린더, 피스톤, 커넥팅로드, 크랭크축, 캠축, 밸브(흡기/배기), 크랭크케이스 등 도면에 표시된 각 부품 명칭을 순서대로 답하는 문제 — 표준 왕복엔진 단면도 학습 필요.</p></div></details>
+
+<details><summary>부분품 정비방식 — HT, OC, CM (PR, PO, TR)</summary>
+<div class="ans">
+<p><b>HT(Hard Time)</b>: 정해진 사용시간·주기에 도달하면 무조건 오버홀 또는 교체.<br>
+<b>OC(On-Condition)</b>: 정기적으로 상태 점검을 하여 기준 이내면 계속 사용(상태정비).<br>
+<b>CM(Condition Monitoring)</b>: 신뢰성 관리 프로그램으로 지속적 데이터를 모니터링하여 문제 발생 시 조치(예방정비 강제 없음).<br>
+<b>PR/PO/TR</b>은 항공기 정비방식 중 <b>Primary(주정비방식)/Preventive/Trend</b> 등 회사 정비규정 상 세부 명칭으로 정비규정마다 정의가 다를 수 있어, 실제 답변 시 <b>해당 정비규정에 정의된 뜻</b>을 확인해 설명해야 함 — 일반적으로 HT/OC/CM의 하위 적용방식 구분으로 이해.</p>
+</div></details>
+
+<details><summary>발동기 정비방식</summary>
+<div class="ans"><p>엔진 부위별로 HT(수명부품), OC(보어스코프 등 상태점검), CM(트렌드 모니터링, 오일분석) 방식을 혼합 적용하는 것이 일반적.</p></div></details>
+
+<details><summary>CSI / HSI — 정의, 보어스코프는 육안검사만인가? 누설검사는 왜?</summary>
+<div class="ans">
+<p><b>CSI(Compressor Section Inspection)</b>: 압축기 섹션 점검. <b>HSI(Hot Section Inspection)</b>: 연소실·터빈 등 고온부 점검.<br>
+<b>보어스코프</b>는 육안검사의 보조도구로, 내부를 광학적으로 <b>육안 관찰</b>하는 것이 주 목적이지만 크랙·손상 탐지에도 활용되므로 단순 육안검사만이 아니라 검사자의 판단 근거 자료(사진기록 등)로도 활용된다.<br>
+<b>누설검사를 하는 이유</b>: 연소가스·오일 등의 누설은 성능저하·화재위험·부품손상의 징후이므로 조기 발견을 위해 실시.<br>
+<b>디퓨저(Diffuser)</b>: 압축기 출구에서 공기 속도를 줄이고 압력을 높여 연소실로 균일하게 공급하는 부품.</p>
+</div></details>
+
+<details><summary>프로펠러 종류 / 블레이드 4가지 구분 / 조속기(거버너)</summary>
+<div class="ans"><p><b>종류</b>: 고정피치, 조정피치(가변피치, 정속프로펠러 등). <b>블레이드 4가지 구분</b>: 재질(목재/금속/복합재)별, 또는 피치조정 방식(고정/2단/가변/완전페더링) 등 기준에 따라 구분. <b>조속기(Governor)</b>: 엔진 회전수를 감지하여 오일압을 조절, 프로펠러 피치각을 자동 변경해 <b>일정한 RPM(정속)</b>을 유지시키는 장치.</p></div></details>
+
+<details><summary>프로펠러 소음 줄이는 방법 / 항공기 소음 감소 방법</summary>
+<div class="ans"><p>프로펠러 팁 속도를 음속 이하로 낮게 설계(블레이드 수 증가로 RPM 낮춤), 블레이드 형상 최적화, 엔진 나셀 흡음재, 배기 소음기(Hush kit) 장착 등.</p></div></details>
+
+<details><summary>프로펠러 깃(블레이드) 손상 시 수리 방법</summary>
+<div class="ans"><p>경미한 손상(니크, 스크래치)은 <b>샌드페이퍼(사포)로 갈아내어(블렌딩)</b> 응력집중을 제거하는 방식으로 수리. 손상이 규정 한계를 초과하면 교체.</p></div></details>
+
+<details><summary>시운전 전 점검사항 / 런업 전 절차</summary>
+<div class="ans"><p>연료·오일량 점검, 이물질(FOD) 확인, 카울링/패널 결속 확인, 주변 안전구역 확보, 소화기 대기, 브레이크/초크 확인, 계기 정상 여부 확인 등.</p></div></details>
+
+<details><summary>토잉(Towing)과 택싱(Taxiing)의 차이 / 토잉카 Shear Pin</summary>
+<div class="ans"><p><b>토잉</b>: 견인차(토바/토잉카)로 항공기를 자체 엔진 미가동 상태에서 끌어 이동. <b>택싱</b>: 항공기가 자체 엔진 추력으로 지상 이동. <b>Shear Pin</b>: 토잉바에 사용되는 안전핀으로, 견인 중 노즈기어에 과도한 하중(토크)이 걸리면 <b>의도적으로 먼저 파단</b>되어 기어 구조 손상을 방지하는 희생부품.</p></div></details>
+
+<details><summary>토잉 시 절차 / 웨잉(Weighing) 시 주의사항</summary>
+<div class="ans"><p><b>토잉</b>: 조향핀 장탈(필요시), 견인속도 제한 준수, 유도자 배치, 브레이크 시스템 확인, 노즈기어 조향각 한계 준수.<br><b>웨잉(중량측정)</b>: 격납고 내 평탄한 바닥, 무풍 상태, 연료·오일량 규정 준수(또는 배출), 항공기 수평(레벨) 유지, 정밀 저울 교정 상태 확인 후 측정.</p></div></details>
+
+<details><summary>무연료중량(Empty Weight) / Payload / 자중(Basic Empty Weight)</summary>
+<div class="ans"><p><b>자중(Basic Empty Weight)</b>: 기체구조, 엔진, 고정장비 등을 포함한 항공기 자체 중량(승무원·연료·화물 제외).<br><b>Payload</b>: 승객·화물 등 유상 탑재량.<br><b>무연료중량(ZFW)</b>: 자중 + 승무원 + 승객·화물(연료 제외 최대 허용중량).</p></div></details>
+
+<details><summary>웨어 인디케이터 핀(Wear Indicator Pin) / 라이닝(Lining)</summary>
+<div class="ans"><p><b>웨어 인디케이터 핀</b>: 브레이크 라이닝 등의 마모 상태를 육안으로 확인할 수 있도록 부품에 심어둔 핀 — 핀이 표면과 거의 같은 높이가 되면 마모 한계 도달을 의미.<br><b>라이닝</b>: 브레이크 디스크에 접촉해 마찰력을 발생시키는 마모성 소모부품.</p></div></details>
+
+</section>
+
+<!-- ================= 전기전자/계기 ================= -->
+<section id="electrical">
+<h2>4. 전기·전자 · 계기 <span class="en">Electrical & Instruments</span></h2>
+
+<details><summary><span class="star">★</span>IDG(Integrated Drive Generator) 원리 / 정류자</summary>
+<div class="ans"><p>엔진 회전수가 변해도 <b>유압식 정속구동장치(CSD)</b>로 발전기 입력축 회전수를 일정하게 유지시켜, <b>115V 400Hz 정전압·정주파수</b>의 교류전력을 생성하는 장치(구동장치+발전기 통합형).<br><b>정류자(Rectifier)</b>: 교류를 직류로 변환하는 장치(영어로는 Rectifier), 다이오드의 정류작용을 이용해 구성되며, 브러시리스 발전기의 여자전류 공급 등에도 사용.</p></div></details>
+
+<details><summary>항공기에 115V, 400Hz를 사용하는 이유</summary>
+<div class="ans"><p><b>400Hz(고주파)</b>를 사용하면 변압기·모터 등의 <b>철심(코어) 크기를 줄일 수 있어 경량화</b>가 가능(주파수가 높을수록 동일 출력에서 자성부품이 작아짐). 항공기는 무게가 중요하므로 60Hz보다 훨씬 높은 400Hz를 채택.</p></div></details>
+
+<details><summary>AC를 DC로 바꾸는 장치(TRU) / DC를 AC로 승압(변환)하는 것</summary>
+<div class="ans"><p><b>TRU(Transformer Rectifier Unit)</b>: 변압기로 AC 전압을 낮춘 뒤 <b>정류회로(다이오드)</b>로 직류로 변환하는 장치 — 배터리 충전 및 DC 부하에 전력 공급.<br><b>DC→AC(승압/변환)</b>: <b>인버터(Inverter)</b>가 담당(비상 상황 시 배터리 DC 전원을 AC로 변환하여 필수 계기 등에 공급).</p></div></details>
+
+<details><summary>항공기 발전기가 죽으면 어떻게 하나? — 비상전원</summary>
+<div class="ans"><p>배터리로 필수 부하(Essential Bus)에 전력 공급, 필요시 <b>APU 발전기</b> 가동, 또는 <b>RAT(Ram Air Turbine)</b>를 전개하여 비상 유압/전력 확보. 배터리(DC)만으로 AC가 필요한 기기는 <b>인버터</b>가 변환해 공급.</p></div></details>
+
+<details><summary>배터리 결함 종류 / 세척 방법 / 장탈 절차 및 주의사항</summary>
+<div class="ans">
+<p><b>결함</b>: 과충전/과방전, 셀 단락, 전해액 누출, 열폭주(Thermal Runaway), 용량 저하 등.<br>
+<b>세척</b>: 니켈카드뮴 배터리는 <b>붕산(Boric Acid) 용액</b>으로 중화 세척, 납산 배터리는 베이킹소다(중탄산나트륨) 용액으로 중화 후 세척.<br>
+<b>장탈 절차</b>: (-)단자 먼저 분리 후 (+)단자 분리(장착 시 반대 순서), 보호장구(장갑·보안경) 착용, 스파크 방지, 전해액 접촉 주의.</p>
+</div></details>
+
+<details><summary>회로보호장치 종류 / 회로보호기</summary>
+<div class="ans"><p>퓨즈(Fuse), 회로차단기(Circuit Breaker, CB), 전류제한기(Current Limiter) 등. 퓨즈는 1회성 소모품, CB는 재사용 가능(리셋), 전류제한기는 CB보다 큰 전류를 짧은 지연시간으로 차단(발전기 급전선 보호 등에 사용).</p></div></details>
+
+<details><summary>스위치 종류</summary>
+<div class="ans"><p>토글스위치, 로터리스위치, 푸시버튼스위치, 마이크로스위치, 근접스위치, 서모스위치 등.</p></div></details>
+
+<details><summary>멀티테스터(Multimeter) 사용법 / 저항 측정 시 주의사항</summary>
+<div class="ans"><p><b>사용법</b>: 측정 대상(전압/전류/저항)에 맞춰 레인지 선택 후 리드를 회로에 병렬(전압)/직렬(전류) 연결. <b>저항 측정 시 주의사항</b>: 반드시 <b>회로 전원을 차단한 상태</b>에서 측정(통전 중 측정 시 손상·오차 위험), 병렬 경로가 있으면 분리 후 측정.</p></div></details>
+
+<details><summary>메가옴테스터(메가미터) — 무엇이고 왜 쓰나, 절연저항 측정</summary>
+<div class="ans"><p>고전압(수백V)을 인가해 <b>절연저항</b>(수 MΩ~GΩ 단위)을 측정하는 장비. 일반 멀티미터로는 검출 못 하는 미세한 절연 열화·누전 경로를 확인하기 위해 사용(배선·모터 권선 등의 절연 상태 점검).</p></div></details>
+
+<details><summary>ESDS(Electro-Static Discharge Sensitive) — 주의사항</summary>
+<div class="ans"><p>정전기에 민감한 전자부품. 취급 시 <b>손목 접지대(Wrist Strap)</b> 착용, 정전기 방지 매트·포장재 사용, 접지된 작업대에서 취급, 절연체 표면과의 접촉 최소화 등.</p></div></details>
+
+<details><summary>안티아이싱 / 디아이싱 차이 / 윈드실드 방빙 — 전기히터 정상작동 확인</summary>
+<div class="ans"><p><b>안티아이싱(Anti-icing)</b>: 결빙이 생기기 전에 <b>예방적으로</b> 가열/제빙액을 가해 착빙을 막는 것. <b>디아이싱(De-icing)</b>: 이미 형성된 얼음을 <b>제거</b>하는 것.<br><b>윈드실드 전기히터 작동 확인</b>: 손으로 만져보는 것 외에, <b>계기판의 윈드실드 히터 지시등/온도 지시계(암미터 또는 CAUTION 표시)</b>를 통해 전류가 흐르고 있는지, 또는 온도조절기가 정상 순환하는지 확인한다.</p></div></details>
+
+<details><summary>제방빙 종류(Type 1~4) / 제빙액 분사 금지구역</summary>
+<div class="ans">
+<p><b>Type I</b>: 가열 희석형, 제빙(De-icing) 전용, 유효시간 짧음.<br><b>Type II·IV</b>: 점성 물질 함유로 표면에 오래 붙어있어 <b>방빙(Anti-icing)</b> 효과 지속(Type IV가 더 김), 이륙 전 활주 시 기류로 씻겨나감.<br><b>Type III</b>: 저속기용, I과 II·IV의 중간 특성.<br>
+<b>분사 금지구역</b>: <b>엔진 흡입구, 피토관·정압공, APU 흡입구, 브레이크, 윈드실드 워셔구, 센서류</b> 등.</p>
+</div></details>
+
+<details><summary>공기조화계통 — VCM(Vapor Cycle Machine) 원리, 냉매통 영문</summary>
+<div class="ans"><p><b>VCM</b>: 냉매를 압축-응축-팽창-증발시키는 <b>증기압축 냉동사이클</b>로 객실 냉방을 보조하는 장치(ACM 단독으로 냉방이 부족할 때 사용). <b>냉매통(Refrigerant Reservoir)</b>은 영문으로 <b>Receiver/Dryer</b> 또는 <b>Refrigerant Reservoir</b>로 표기.</p></div></details>
+
+<details><summary>ACM(Air Cycle Machine) 원리·구조 / VCM 챕터(ATA)</summary>
+<div class="ans"><p><b>ACM</b>: 압축공기(Bleed Air)를 <b>공랭식 열교환기+터빈(팽창)</b>을 거쳐 단열팽창시켜 냉각시키는 <b>공기순환식</b> 냉방장치 — 압축기·터빈·팬이 한 축에 결합된 구조(3-Wheel/4-Wheel Bootstrap 방식). <b>ATA 챕터</b>: ACM/VCM은 보통 <b>ATA 21(Air Conditioning)</b>에 속함.</p></div></details>
+
+<details><summary>ISIS(Integrated Standby Instrument System)</summary>
+<div class="ans"><p>주계기(PFD/ND) 고장에 대비한 <b>독립형 예비계기</b>로, 자세·속도·고도 정보를 하나의 소형 LCD 화면에 통합 표시하는 시스템.</p></div></details>
+
+<details><summary>EICAS / ECAM — 경고 표시 방식(Warning, Caution)</summary>
+<div class="ans"><p><b>EICAS(Engine Indicating and Crew Alerting System)</b>, <b>ECAM(Electronic Centralized Aircraft Monitoring)</b> — 각각 보잉·에어버스 계열 승무원 경고/엔진지시 시스템. 경고는 심각도에 따라 <b>Warning(적색, 즉각조치 필요), Caution(황색, 주의 요망), Advisory(청색/백색, 정보성)</b> 등급으로 구분 표시.</p></div></details>
+
+<details><summary>고도계 종류(R/A, LRRA / QNE, QNH, QFE) — 원리, 보정 이유</summary>
+<div class="ans">
+<p><b>고도계 종류</b>: 기압고도계(정압을 이용), 전파고도계(Radio Altimeter/LRRA — 지면까지 전파를 쏘아 반사시간으로 절대고도 측정).<br>
+<b>QNE</b>: 표준기압(29.92inHg/1013hPa) 기준 고도(전이고도 이상 사용). <b>QNH</b>: 해면기압 기준 고도(활주로 표고 표시). <b>QFE</b>: 공항 표고 기준(활주로에서 0으로 표시).<br>
+<b>보정하는 이유</b>: 지역·시간별 기압이 다르므로 실제 지형·고도와 일치시켜 <b>정확한 고도정보 및 항공기 간 수직간격 유지</b>를 위해 보정.</p>
+</div></details>
+
+<details><summary>아네로이드(Aneroid) 원리 / 고도 상승 시 기압 변화가 일정한가?</summary>
+<div class="ans"><p><b>아네로이드</b>: 밀폐된 금속 캡슐이 외부 기압 변화에 따라 팽창/수축하며, 이 기계적 변위를 지침에 연결해 고도를 지시하는 원리.<br><b>고도-기압 관계</b>: 고도가 올라갈수록 기압은 낮아지지만, <b>일정한 비율(선형)로 감소하지 않는다</b> — 고도가 높아질수록 기압 감소율이 완만해지는 <b>비선형(대략 지수함수적) 관계</b>다.</p></div></details>
+
+<details><summary>피토튜브(Pitot Tube)의 원리</summary>
+<div class="ans"><p>비행 중 정면으로 마주치는 공기의 <b>전압(동압+정압)</b>을 측정하고, 별도의 정압공에서 얻은 <b>정압</b>과의 차이(동압)를 이용해 <b>속도계</b>(베르누이 정리 기반)를 구동한다.</p></div></details>
+
+<details><summary>동정압(Pitot-Static) 계통 누설 점검 방법</summary>
+<div class="ans"><p>전용 시험장비(피토정압 테스터)로 계통에 압력/부압을 가해 규정된 시간 동안 <b>지시값 변화(누설률)</b>가 허용범위 이내인지 확인하는 <b>누설 검사(Leak Check)</b>를 수행.</p></div></details>
+
+<details><summary>자이로(Gyro) 원리</summary>
+<div class="ans"><p>고속 회전하는 로터의 <b>강직성(Rigidity in Space)</b>과 <b>세차성(Precession)</b> 두 가지 성질을 이용해 자세·방향 변화를 감지하는 원리.</p></div></details>
+
+<details><summary>자북 / 진북 위치</summary>
+<div class="ans"><p><b>진북(True North)</b>: 지구 자전축의 북극점. <b>자북(Magnetic North)</b>: 지구 자기장이 가리키는 북쪽으로, 캐나다 북극 지역에 위치하며 매년 조금씩 이동한다(진북과 위치가 다름 — 편각 존재).</p></div></details>
+
+<details><summary>IRU(관성기준장치) — 목적 3가지, 위치 외 나타내는 것</summary>
+<div class="ans"><p><b>목적</b>: ① 항공기 위치(자립항법), ② 자세(피치·롤) 정보 제공, ③ 방위(헤딩) 정보 제공.<br><b>위치 외</b>: 가속도, 자세각, 각속도, 헤딩 정보도 함께 산출해 비행제어/계기에 공급한다.<br><b>왜 쓰나</b>: 외부 신호(위성·지상국) 없이도 <b>자립적으로</b> 관성센서(가속도계·자이로)만으로 위치·자세를 지속 계산할 수 있어 신뢰성이 높다.</p></div></details>
+
+<details><summary>VOR / NDB — 국(局)의 위치, ADF와 차이점</summary>
+<div class="ans"><p><b>VOR국·NDB국의 위치</b>: 공항 인근이나 항로 상의 지상 송신국(항행안전시설)으로, 항공로도(Enroute Chart)에 별도 기호로 표시된 지정 지점에 위치.<br><b>ADF</b>: NDB국의 무지향성 전파를 수신해 <b>상대방위(RB)</b>만 지시(방향탐지 정확도 낮음). <b>VOR</b>: 지상국에서 방위각별로 다른 위상신호를 방사, 수신기가 <b>절대방위(자북기준 라디얼)</b>를 정확히 지시 — VOR이 ADF보다 정확·안정적.</p></div></details>
+
+<details><summary>ADF — 전파 송수신 원리 (산·건물에 가로막힐 경우는?)</summary>
+<div class="ans"><p>ADF는 NDB에서 송신하는 <b>중파(장파~중파, LF/MF)</b> 무지향성 전파를 루프안테나(지향성)와 센스안테나(무지향성)의 조합으로 수신, 두 신호를 비교해 상대방위를 계산한다. 중파는 지표면을 따라 전파(지표파)되는 특성이 있어 어느 정도는 지형 장애물을 우회하지만, 산·고층건물 등에 의해 <b>회절·반사되어 오차(산악효과 등)</b>가 발생할 수 있다.</p></div></details>
+
+<details><summary>DME — 어디서 먼저 송신? 수신은 어디서?</summary>
+<div class="ans"><p><b>항공기(기내 질문기)가 먼저 질문 펄스를 송신</b>하고, 지상 DME국(응답기)이 이를 수신하여 일정 지연 후 응답 펄스를 보낸다. 항공기는 이 왕복시간으로 <b>경사거리(Slant Range)</b>를 계산한다. (송신: 항공기 → 지상국, 수신: 지상국이 받아 응답 → 항공기가 응답을 수신)</p></div></details>
+
+<details><summary>HF / VHF / UHF — 차이, 안테나 위치, 안테나가 없으면?</summary>
+<div class="ans"><p><b>HF(고주파, 2~30MHz)</b>: 전리층 반사를 이용해 <b>장거리(대양횡단)</b> 통신 가능, 안테나는 보통 <b>수직꼬리날개(Vertical Stabilizer) 앞전 또는 동체</b>에 와이어/블레이드형으로 장착.<br><b>VHF(초단파, 30~300MHz)</b>: 가시선(Line of Sight) 통신, 근거리 관제교신용, 동체 상·하부에 블레이드 안테나.<br><b>UHF</b>: 군용 통신 등에 사용되는 더 높은 주파수 대역.<br><b>안테나가 없으면</b>: 해당 대역 통신이 완전히 불가능해지므로 규정상 <b>MEL 적용 대상</b>이며 대체 통신수단(예비 무전기, 다른 대역)을 확보해야 함.</p></div></details>
+
+<details><summary>번개(Lightning)와 전파장치 — 몇 km에서 어떤 전파장치 사용?</summary>
+<div class="ans"><p>연료 보급 시 <b>약 8km 이내</b>에 번개가 관측되면 <b>HF 무전기 사용을 금지</b>하는 등 주의를 기울인다(HF는 고출력 전파로 스파크 유발 가능성이 있어 연료증기 인화 위험 때문).</p></div></details>
+
+<details><summary>TCAS — RA/TA 단계, 정식 명칭</summary>
+<div class="ans"><p><b>TCAS(Traffic Collision Avoidance System, 공중충돌방지장치)</b>. 근접 항공기 감지 시 2단계 경고: <b>TA(Traffic Advisory)</b> — 주의 단계(위치만 알림), <b>RA(Resolution Advisory)</b> — 회피 기동을 구체적으로 지시하는 경보 단계.</p></div></details>
+
+<details><summary>GPWS — 목적</summary>
+<div class="ans"><p>지상접근경고장치(Ground Proximity Warning System). 항공기가 의도치 않게 지형·장애물에 근접할 때 조종사에게 경고하여 <b>CFIT(제어 비행 상태 지형 충돌)</b> 사고를 방지.</p></div></details>
+
+<details><summary>플라이바이와이어(FBW) — 흐름/순서, transformer 역할, 반대 역할 장치</summary>
+<div class="ans"><p>조종사 입력(조종간)→ <b>센서가 전기신호로 변환</b> → 컴퓨터(FCC)가 신호 연산·보정 → 전기신호를 <b>액추에이터(모터/유압서보)</b>로 전달 → 조종면 작동. <b>Transformer(주로 신호변환기/센서 의미로 언급)</b>는 조종사의 기계적 입력을 전기신호로 바꾸는 <b>역할</b>을 하며, <b>반대 역할</b>(전기신호를 다시 기계적 동작으로 바꾸는 것)은 <b>액추에이터(Actuator)</b>가 담당.</p></div></details>
+
+<details><summary>플라이바이와이어(FBW) 장점</summary>
+<div class="ans"><p>기계적 링키지·케이블 제거로 <b>무게 감소</b>, 조종력 감소(파워 부스트로 <b>조종력 경감</b>), 비행 포락선 보호(플라이트 엔벨로프 프로텍션), 정비성 향상.</p></div></details>
+
+<details><summary>오토파일럿(Autopilot) 설명</summary>
+<div class="ans"><p>비행자세·고도·방향 등을 자동으로 유지·조종하는 시스템. 센서(자이로·IRU 등)로부터 자세정보를 받아 컴퓨터가 연산 후 서보(액추에이터)를 통해 조종면을 자동 조작한다.</p></div></details>
+
+<details><summary>Kick-in / Kick-back 현상</summary>
+<div class="ans"><p>오토파일럿/조종계통에서 <b>Kick-in</b>은 특정 조건 성립 시 자동으로 기능이 개입/작동되는 현상, <b>Kick-back</b>은 조종사 수동 입력 시 조종력에 저항하는 반발력이 느껴지는 현상(주로 서보 클러치 관련)을 의미.</p></div></details>
+
+<details><summary>스태틱 디스차저(Static Discharger) — 정전기 방출 외 기능은?</summary>
+<div class="ans"><p>기본 기능은 기체에 쌓인 정전기를 대기로 방전시켜 무전기 잡음을 방지하는 것. 그 외 특별한 능동 기능은 없으며, <b>수동적(passive) 방전 소자</b>로서 방출 이외의 기능은 없다고 보는 것이 맞다(추가 기능 없음이 정답에 가까움).</p></div></details>
+
+<details><summary>본딩(Bonding)과 그라운딩(Grounding) 차이</summary>
+<div class="ans"><p><b>본딩</b>: 항공기 <b>기체 각 부분끼리</b>를 전기적으로 연결해 전위를 동일하게 만드는 것(정전기·낙뢰전류 분산, 무선간섭 방지). <b>그라운딩</b>: 항공기(또는 장비)를 <b>대지(접지)</b>와 전기적으로 연결하는 것.</p></div></details>
+
+<details><summary>본딩와이어(Bonding Wire)란</summary>
+<div class="ans"><p>기체의 분리된 두 금속 부품(예: 조종면과 구조부) 사이를 전기적으로 연결해주는 짧은 도체선 — 정전기 축적·전위차를 방지.</p></div></details>
+
+<details><summary>커넥터 장탈공구 — 크림핑 툴, 플러그, 리셉터클</summary>
+<div class="ans"><p><b>크림핑 툴(Crimping Tool)</b>: 전선 끝에 터미널/핀을 압착 고정하는 공구. <b>플러그(Plug)</b>: 커넥터의 수(male) 측 또는 이동측, <b>리셉터클(Receptacle)</b>: 장비/패널에 고정된 암(female)측 커넥터. 커넥터 분리 시 전용 <b>추출 공구(Extraction Tool)</b>로 핀 손상 없이 장탈한다.</p></div></details>
+
+<details><summary>스플라이스(Splice)·터미널 클램핑</summary>
+<div class="ans"><p>전선을 영구적으로 접속할 때 <b>스플라이스 슬리브</b>에 전선을 넣고 압착(크림핑)하여 연결하며, 터미널은 규정된 토크로 <b>클램핑(체결)</b>하여 진동에 의한 풀림·저항 증가를 방지한다.</p></div></details>
+
+<details><summary>전선 굵기(전선 정하는 기준)</summary>
+<div class="ans"><p>허용 전류용량(발열 한계), 전압강하 허용치, 배선 길이, 설치 환경(다발 여부·온도) 등을 고려해 AWG 규격으로 선정한다.</p></div></details>
+
+<details><summary>아날로그 회로와 디지털 회로 — 설명 및 차이점</summary>
+<div class="ans"><p><b>아날로그</b>: 연속적으로 변화하는 값(전압 등)으로 정보를 표현. <b>디지털</b>: 이산적인(0/1) 값으로 정보를 표현. 디지털은 노이즈에 강하고 정밀한 연산·저장이 쉬우며, 아날로그는 실시간 물리량을 직접 표현하는 데 유리하지만 잡음에 취약하다.</p></div></details>
+
+<details><summary>키르히호프 법칙</summary>
+<div class="ans"><p><b>전류법칙(KCL)</b>: 회로의 한 접합점에서 들어오는 전류의 합은 나가는 전류의 합과 같다. <b>전압법칙(KVL)</b>: 폐회로를 따라 한 바퀴 돌면 전압 상승과 강하의 합은 0이다.</p></div></details>
+
+<details><summary>정상 상황 시 IDG에서 전원 생성→장비품까지 전체 흐름</summary>
+<div class="ans"><p>엔진 회전 → IDG(CSD+발전기)에서 115V 400Hz AC 생성 → <b>발전기 제어장치(GCU)</b>로 전압/주파수 조절 → <b>버스타이시스템(Bus Tie)</b>을 거쳐 각 <b>AC 버스</b>로 배분 → 필요 부위는 TRU를 통해 DC로 변환되어 <b>DC 버스</b>로 배분 → 각 개별 장비품(부하)에 전력 공급.</p></div></details>
+
+<details><summary>왕복엔진 발전기와 가스터빈엔진 발전기 차이점</summary>
+<div class="ans"><p><b>왕복엔진(경항공기)</b>: 대개 <b>DC 발전기(알터네이터)</b>를 사용, 상대적으로 저용량. <b>가스터빈엔진(대형기)</b>: <b>IDG/VFG 등 AC 발전기</b>를 사용해 115V 400Hz 정전압·정주파수 대용량 전력을 생성하는 구조로, 정속구동장치가 추가되는 점이 큰 차이.</p></div></details>
+
+<details><summary>메가옴미터가 뭐야?</summary>
+<div class="ans"><p>위 <b>메가옴테스터</b> 항목과 동일 — 고전압으로 절연저항(MΩ 단위)을 측정하는 절연저항계.</p></div></details>
+
+<details><summary>ATA(Air Transport Association) 챕터 체계 아는 대로</summary>
+<div class="ans"><p>정비매뉴얼을 시스템별로 표준화한 번호체계(예: 21 공조, 24 전기, 27 조종계통, 28 연료, 29 유압, 32 착륙장치, 34 항법, 49 APU, 71~80 동력장치 등). 정비사는 이 챕터 구조로 매뉴얼을 찾아 작업한다.</p></div></details>
+
+</section>
+
+<!-- ================= 유압/공압 ================= -->
+<section id="hydraulic">
+<h2>5. 유압 · 공압계통 <span class="en">Hydraulic & Pneumatic</span></h2>
+
+<details><summary><span class="star">★</span>유압 원리 — 파스칼의 원리</summary>
+<div class="ans"><p><b>파스칼의 원리</b>: 밀폐된 유체에 가해진 압력은 유체 내 모든 지점에 동일하게(감소 없이) 전달된다. 이를 이용해 작은 힘으로 큰 힘을 얻는(피스톤 면적비를 이용) 유압시스템이 구성된다.</p></div></details>
+
+<details><summary>유압호스(hydraulic hose) 색깔 / HYD 계통 튜브·호스 색깔</summary>
+<div class="ans"><p>일반적으로 <b>유압라인은 노란색(또는 특정 색상 밴드/테이프)</b>로 식별 표시하며, 계통별로 연료(빨강 등)·산소(녹색 등)와 구분되는 색상코드를 사용한다(제작사·정비매뉴얼의 배관 식별 표준에 따름). 답변 시 매뉴얼에 명시된 정확한 색상 표를 확인해 말하는 것이 안전.</p></div></details>
+
+<details><summary>작동유(유압유) 종류 및 취급요령/보급 주의사항</summary>
+<div class="ans"><p><b>종류</b>: 광물성(Mineral-base, MIL-H-5606 계열), 인산에스테르계(합성, Skydrol 등, 대형기 주로 사용). 서로 <b>혼합 금지</b>(씰 재질 손상). <b>취급요령</b>: 피부·눈 접촉 주의(특히 인산에스테르계는 도장 손상·자극성 있음), 밀폐용기 보관, 지정된 계통에만 사용, 습기·이물질 유입 방지, 규정된 등급만 보급.</p></div></details>
+
+<details><summary>유압계통 작업 시 가장 중요하면서 먼저 해야 할 것 (이유)</summary>
+<div class="ans"><p><b>디프레싱(Depressurizing, 감압)</b> — 계통 내 잔압을 완전히 제거하는 것. 잔압이 남은 상태에서 작업하면 갑작스런 유압유 분출로 <b>부상·화재 위험</b>이 있기 때문에 가장 먼저 수행해야 한다.</p></div></details>
+
+<details><summary>유압계통 점검 시 가장 중요한 것과 이유</summary>
+<div class="ans"><p><b>계통 감압(Depressurize) 및 오염(청결) 관리</b>가 핵심 — 유압계통은 미세 이물질에도 밸브·펌프가 손상되므로 청결 유지가 중요하고, 압력이 남은 상태에서의 점검은 위험하기 때문.</p></div></details>
+
+<details><summary>오링(O-ring) / 백업링(Backup ring) / 패킹 / 시일 — 역할</summary>
+<div class="ans"><p><b>오링</b>: 고정 또는 왕복 운동부의 <b>기밀(누설방지)</b> 역할을 하는 원형 단면 씰. <b>백업링</b>: 고압 조건에서 오링이 틈새로 밀려나가(압출) 손상되는 것을 막기 위해 오링 옆에 추가로 설치하는 지지링. <b>패킹/시일</b>: 넓은 의미로 누설방지용 밀폐부품 전반을 지칭.</p></div></details>
+
+<details><summary>동력펌프 EDP / EMDP란</summary>
+<div class="ans"><p><b>EDP(Engine-Driven Pump)</b>: 엔진 기어박스에 의해 직접 구동되는 유압펌프. <b>EMDP(Electric Motor-Driven Pump)</b>: 전동기로 구동되는 보조/예비 유압펌프(지상 작업, 엔진 미가동 시, 비상 시 등에 사용).</p></div></details>
+
+<details><summary>스탠드파이프(Stand Pipe) — 유압계통에서의 역할</summary>
+<div class="ans"><p>저장탱크(레저버) 내부에 세워진 파이프로, 정상 계통은 스탠드파이프를 통해 흡입하고, <b>일부 유압유가 손실되어도 스탠드파이프 하단에 남은 예비량은 비상계통(예: 비상 브레이크)에서 별도로 사용</b>할 수 있도록 확보하는 구조.</p></div></details>
+
+<details><summary>레저버(Reservoir) 탱크 — 역할</summary>
+<div class="ans"><p>유압유를 저장하고, 계통의 열팽창·수축에 따른 <b>체적 변화 보상</b>, 펌프로의 원활한 공급(기포 분리), 계통 내 공기 배출 공간 제공 등의 역할을 한다.</p></div></details>
+
+<details><summary>서지탱크(Surge Tank) / 벤트(Vent)</summary>
+<div class="ans"><p><b>서지탱크</b>(연료계통 문맥): 연료 팽창이나 과충전 시 넘치는 연료를 임시로 받아 벤트라인을 통해 대기로 배출하기 전 완충 저장하는 공간. <b>벤트</b>: 탱크 내외부 압력을 대기압과 균형 맞추기 위한 통기구.</p></div></details>
+
+<details><summary>여압(계통에서) — 무엇으로 여압하나?</summary>
+<div class="ans"><p>연료탱크 등에서는 여압을 위해 <b>가압공기(Bleed Air 등)</b>를 사용하기도 하며, 객실 여압은 별도(공조계통 항목 참고).</p></div></details>
+
+<details><summary>동정압 계통 누설 확인 작업</summary>
+<div class="ans"><p>피토정압 테스터로 규정 압력을 가한 뒤 일정시간 동안 <b>계기 지시치 변화(누설률)</b>가 허용치 내인지 점검(위 전기전자 섹션과 연계).</p></div></details>
+
+</section>
+
+<!-- ================= 착륙장치 ================= -->
+<section id="landing">
+<h2>6. 착륙장치 <span class="en">Landing Gear</span></h2>
+
+<details><summary><span class="star">★</span>착륙장치(Landing Gear)의 목적 / 역할</summary>
+<div class="ans"><p>지상에서 항공기 <b>하중을 지지</b>하고, 이착륙 시 <b>충격을 흡수</b>하며, 지상 <b>이동(조향·제동)</b>을 가능하게 하는 장치.</p></div></details>
+
+<details><summary>올레오 스트럿(Oleo Strut) — 원리·구조, 최근 사용되는 스트러트 종류</summary>
+<div class="ans"><p><b>원리</b>: 실린더 내부의 <b>공기(질소)의 압축성</b>과 <b>오일의 오리피스 통과 저항(감쇠)</b>을 조합하여 착륙 충격 에너지를 흡수·소산하는 공기-유압식 완충장치. <b>구조</b>: 실린더, 피스톤, 오리피스, 질소가스 챔버, 오일로 구성. <b>최근 주류</b>: 대부분 <b>올레오식(공기-유압식)</b> 스트럿을 사용.</p></div></details>
+
+<details><summary>시미(Shimmy) 현상 / 시미댐퍼 원리</summary>
+<div class="ans"><p><b>시미</b>: 노즈기어(또는 랜딩기어 바퀴)가 지상 활주 중 좌우로 진동하며 흔들리는 현상(타이어 불균형·베어링 마모 등이 원인). <b>시미댐퍼</b>: 유압식 감쇠기로 바퀴의 좌우 진동 에너지를 흡수해 시미 발생을 억제한다.</p></div></details>
+
+<details><summary>스키드(Skid) — 무엇, 발생 시 문제점</summary>
+<div class="ans"><p><b>스키드</b>: 제동 시 바퀴 회전이 멈춘 채(록업) 지면과 미끄러지는 현상. <b>문제점</b>: 타이어 국부 마모(플랫 스팟), 제동 효율 저하(정지거리 증가), 타이어 파열 위험 — 안티스키드 시스템이 이를 방지.</p></div></details>
+
+<details><summary>안티스키드(Anti-skid)란</summary>
+<div class="ans"><p>휠 속도 센서로 바퀴 회전을 감지하여 록업(스키드) 징후 시 자동으로 제동압을 순간 해제/조절해 <b>최대 제동력을 유지하면서 스키드를 방지</b>하는 시스템(자동차 ABS와 유사).</p></div></details>
+
+<details><summary>브레이크 마모 점검 / 마모 확인 방법</summary>
+<div class="ans"><p>브레이크 <b>웨어 인디케이터 핀</b>의 돌출 길이를 확인해 규정 이하로 짧아지면 라이닝 교체 시기로 판단.</p></div></details>
+
+<details><summary>브레이크 계통 이상현상 4가지 / 드래깅과 스펀지 차이</summary>
+<div class="ans"><p><b>이상현상</b>: 드래깅(Dragging, 제동 후 완전 해제 안 됨), 스펀지(Spongy, 페달감이 물렁하고 반응 느림 — 계통 내 공기 혼입), 페이딩(Fading, 과열로 제동력 저하), 그래빙(Grabbing, 갑작스런 제동 잡힘).<br><b>차이</b>: <b>드래깅</b>은 브레이크가 완전히 풀리지 않아 계속 마찰이 남는 것, <b>스펀지</b>는 유압계통에 공기가 섞여 페달을 밟아도 압력전달이 물렁하게 느껴지는 것(블리딩으로 해결).</p></div></details>
+
+<details><summary>타이어 레이디얼과 바이어스 — (-) 표시 제외 구별방법 / 타이어 종류 차이점</summary>
+<div class="ans"><p><b>바이어스(Bias-ply)</b>: 코드층이 대각선으로 교차 배열, 옆벽이 두껍고 튼튼함. <b>레이디얼(Radial)</b>: 코드층이 방사형(직각)으로 배열, 옆벽이 얇고 유연하며 접지면이 넓음. 타이어 표기에서 레이디얼은 크기 표기에 <b>"R"</b>이 붙지만(예: 예: 205/-- R --), 문제에서 <b>(-) 표시(브랜드/사이즈 하이픈)를 제외</b>하고 구별하려면 <b>측면(사이드월) 코드 배열 패턴(방사형/대각선)을 육안으로 확인</b>하거나 <b>"RADIAL" 문구 표기 유무</b>로 구분한다.</p></div></details>
+
+<details><summary>타이어 압력 점검 / 보충 방법 / 보관 방법</summary>
+<div class="ans"><p><b>점검</b>: 규정된 냉간 압력 기준으로 게이지 측정, 주기적 점검. <b>보충</b>: 질소가스로 보충(수분 없는 건조가스 사용 — 온도변화에 따른 압력변화 최소화 및 화재위험 감소). <b>보관</b>: 직사광선·오존·오일 접촉을 피하고 서늘하고 건조한 곳에 세워서 또는 눕혀서(규정에 따라) 보관.</p></div></details>
+
+<details><summary>착륙 후 타이어 압력에 따른 조치 (5%, 10%, 24시간 후 기준)</summary>
+<div class="ans"><p>착륙 후 압력이 기준보다 <b>5% 이상 낮으면</b> 원인 점검, <b>10% 이상 낮으면</b> 공기(질소) 보충, 보충 후 <b>24시간 경과 후</b> 다시 압력을 확인해 정상 여부를 재점검하는 절차(수치는 매뉴얼 기준이며 항공기 형식마다 다를 수 있음).</p></div></details>
+
+<details><summary>랜딩기어 작업 시 주의사항</summary>
+<div class="ans"><p>지상 안전핀(Ground Safety Pin) 장착 확인, 유압계통 감압 확인, 도어/기어 낙하 방지용 다운록 확인, 작업 전 항공기 잭업(Jacking) 및 견고한 지지 확인.</p></div></details>
+
+</section>
+
+<!-- ================= 연료 ================= -->
+<section id="fuel">
+<h2>7. 연료계통 <span class="en">Fuel System</span></h2>
+
+<details><summary><span class="star">★</span>연료 종류 4가지 / 차이점</summary>
+<div class="ans"><p><b>Jet A / Jet A-1</b>: 등유(케로신)계, 상용 터빈기 표준연료(A-1이 어는점이 더 낮아 국제선용). <b>Jet B</b>: 나프타-케로신 혼합, 한랭지용(휘발성 높음). <b>AVGAS(100LL 등)</b>: 왕복엔진용 항공가솔린. 차이는 주로 <b>기화점·어는점·옥탄가/발열량</b> 등 특성에 있다.</p></div></details>
+
+<details><summary>연료 보급 시 주의사항</summary>
+<div class="ans"><p>본딩(정전기 접지) 연결 확인, 화기 엄금, 규정된 연료 종류·등급 확인, 오염(수분·이물질) 확인, 과충전 방지, 근처 8km 이내 뇌우 시 HF 사용 금지, 승객 탑승 중 급유 시 별도 안전절차 준수.</p></div></details>
+
+<details><summary>연료 샘플링(Fuel Sampling) — 언제 하는가</summary>
+<div class="ans"><p>일반적으로 <b>매일 첫 비행 전(주기점검 시)</b> 연료탱크 드레인에서 샘플을 채취해 수분·침전물 유무를 확인한다 — <b>연료 보급 직전이 아니라</b> 정기 점검 절차의 일부로 수행.</p></div></details>
+
+<details><summary>연료계통 누설 — 날개에서 자주 누설되는 부위와 이유</summary>
+<div class="ans"><p>날개 <b>인티그럴 탱크의 리벳/패스너 체결부, 실란트 접합부</b> 등에서 자주 발생 — 반복적인 비행 하중에 의한 날개 굴곡(Flex)으로 실란트에 미세균열이 생기기 쉽기 때문.</p></div></details>
+
+<details><summary>연료계통 누설 — 양에 따른 단계 구분</summary>
+<div class="ans"><p>일반적으로 매뉴얼 기준 <b>Stain(얼룩)/Seep(스며나옴)/Heavy Seep(다량 스며나옴)/Running Leak(흐르는 누설)</b> 등 단계로 구분하며, 단계별로 허용 여부 및 조치(계속 감시/즉시 수리)가 다르다.</p></div></details>
+
+<details><summary>스탠드파이프(연료탱크 문맥)</summary>
+<div class="ans"><p>연료탱크에서도 유압탱크와 유사하게, 정상 흡입구보다 약간 높게 세워진 파이프로 <b>탱크 하단 침전물이나 수분이 엔진으로 유입되는 것을 방지</b>하는 역할을 한다.</p></div></details>
+
+<details><summary>증기폐쇄(Vapor Lock)</summary>
+<div class="ans"><p>연료가 고온·저압 환경에서 배관 내 기화(증기화)되어 <b>기포가 연료 흐름을 막아버리는 현상</b> — 연료펌프의 정상적인 연료 공급을 방해해 엔진 출력 저하나 정지를 유발할 수 있다.</p></div></details>
+
+<details><summary>디퓨저(Diffuser) 역할</summary>
+<div class="ans"><p>(연료/공압 문맥) 유체의 속도를 낮추고 압력을 회복시켜 <b>흐름을 균일하게 분배</b>하는 역할(압축기 디퓨저는 동력장치 섹션 참고).</p></div></details>
+
+</section>
+
+<!-- ================= 화재탐지/소화 ================= -->
+<section id="fire">
+<h2>8. 화재탐지 · 소화 <span class="en">Fire Protection</span></h2>
+
+<details><summary><span class="star">★</span>화재탐지계통 종류 (아는 대로)</summary>
+<div class="ans"><p><b>린드버그식(공압식/압력식)</b>, <b>열전쌍식(Thermocouple)</b>, <b>열스위치식(Thermal Switch)</b>, <b>광전식(Photoelectric, 연기감지)</b>, <b>이온화식(연기감지)</b> 등이 있다.</p></div></details>
+
+<details><summary>린드버그(Lindberg)식 화재감지기 — 구조·원리, 4가지 감지방식</summary>
+<div class="ans"><p><b>공압식(압력식)</b> 화재감지기로 감지 튜브 내부에 <b>불활성 가스와 흡습 코어(Wire core)</b>가 채워져 있으며, 화재 발생 시 다음 <b>4가지 원리</b>로 반응: ① <b>가스 팽창</b>에 의한 <b>평균온도 상승 감지(Overheat)</b>, ② 국부적인 급격한 <b>고온에 의한 코어 가스 방출·압력 급상승(Fire)</b>, ③ 튜브 손상 시 압력 저하로 <b>결함(단선) 신호</b>, ④ 평상시 <b>정상(기준)압력</b> 유지 상태. 튜브 양단의 압력스위치가 이 압력변화를 감지해 조종실에 경고한다.</p></div></details>
+
+<details><summary>공압식 화재감지기 구조와 원리</summary>
+<div class="ans"><p>린드버그식과 동일 원리 — 밀폐된 감지튜브 내 가스의 압력변화(온도에 비례)를 <b>반응스위치(Responder Assembly)</b>가 감지해 경고신호를 발생시킨다.</p></div></details>
+
+<details><summary>광전식(연기감지) — 원리, 빛의 굴절과 포토셀 수신 원리 상세</summary>
+<div class="ans"><p>감지기 내부의 <b>발광부(LED)</b>에서 빛을 방출하고 평상시에는 빛이 <b>수광부(포토셀)</b>로 직접 도달하지 않도록 각도가 설계되어 있다. 연기가 감지기 내부로 유입되면 연기 입자에 의해 빛이 <b>산란(굴절/반사)</b>되어 일부 빛이 포토셀 쪽으로 꺾여 들어가고, 포토셀이 이 산란광을 감지해 <b>광전류가 증가</b>하면 이를 연기 발생으로 판단해 경고를 발생시킨다.</p></div></details>
+
+<details><summary>화재탐지 계통 — 조종사에게 경고가 이루어지는 곳, 어느 계기에 지시?</summary>
+<div class="ans"><p>조종실의 <b>화재경고등(Fire Warning Light/Handle)</b>과 <b>EICAS/ECAM 경고 메시지</b>를 통해 경고가 이루어지며, 마스터 경고(Master Warning)와 함께 오디오 경보음(벨/차임)도 동반된다.</p></div></details>
+
+<details><summary>화재 종류 (A, B, C, D급) / 엔진 소음 줄여주는 장치와 무관하지만 D급 소화</summary>
+<div class="ans"><p><b>A급</b>: 일반 가연물(종이·목재 등) — 물·포말 소화기.<br><b>B급</b>: 유류(연료·오일 등) — 이산화탄소·분말·할론 소화기.<br><b>C급</b>: 전기화재 — 비전도성 소화제(할론·CO2), 물 사용 금지.<br><b>D급</b>: <b>금속화재</b>(마그네슘 등) — 전용 <b>건조분말(Dry Powder) 소화기</b> 사용(물 사용 시 폭발적 반응 위험).</p></div></details>
+
+<details><summary>연료탱크 압력식 화재경보장치 구조·원리</summary>
+<div class="ans"><p>린드버그식과 동일한 개념의 압력변화 감지 튜브를 연료탱크 인접 구역(나셀 등)에 배치하여 국부 온도상승을 감지, 압력스위치를 통해 경보를 발생시킨다.</p></div></details>
+
+<details><summary>제빙(제방빙)액 뿌리면 안 되는 곳</summary>
+<div class="ans"><p><b>윈드실드(운전자 시야 저하), 엔진 흡입구/블레이드, 피토관·정압공, APU 흡입구, 브레이크, 센서류</b> 등 — 위 전기전자 섹션의 분사 금지구역 항목과 동일.</p></div></details>
+
+</section>
+
+<!-- ================= 여압/공조/산소 ================= -->
+<section id="env">
+<h2>9. 여압 · 공조 · 산소계통 <span class="en">Pressurization, Air Conditioning & Oxygen</span></h2>
+
+<details><summary><span class="star">★</span>아웃플로우 밸브(Outflow Valve) — 목적, 자동작동 여부, 고장 시 조치</summary>
+<div class="ans"><p><b>목적</b>: 객실로 유입된 공기를 조절 배출하여 <b>객실압력(고도)을 원하는 수준으로 유지</b>하는 밸브. <b>자동작동</b>: 정상 시 CPC(Cabin Pressure Controller)의 명령을 받아 <b>자동으로 개폐</b>되며, 필요시 수동조작도 가능. <b>기내 공기가 과도하게 차서(과압) 밸브 고장 시</b>: 안전밸브(Safety/Relief Valve, Positive/Negative Pressure Relief Valve)가 <b>기계적으로 자동 작동</b>하여 과도한 압력을 배출해 구조 손상을 방지, 승무원은 수동으로 덤프밸브를 조작할 수 있다.</p></div></details>
+
+<details><summary>여압은 무엇으로 조절하나 / 아웃플로우밸브로만 여압하나?(덤프밸브, 왕복기관 제외)</summary>
+<div class="ans"><p>주로 <b>아웃플로우밸브</b>의 개폐량으로 배출량을 조절해 여압을 유지하지만, 그 외 <b>덤프밸브(Dump Valve, 지상 시 완전 개방)</b>와 안전(릴리프)밸브가 함께 계통을 구성한다. 왕복기관(비여압기)은 해당 없음.</p></div></details>
+
+<details><summary>객실 여압 장치 — 목적, 구성품 (정상시 사용하는 것만)</summary>
+<div class="ans"><p><b>목적</b>: 고고도에서도 승객·승무원이 호흡 가능한 압력(약 8,000ft 상당) 유지. <b>정상시 구성품</b>: 블리드에어 공급원, ACM(공기순환식냉각), <b>아웃플로우밸브</b>, <b>CPC(캐빈압력조절컴퓨터)</b>, 압력 지시계기.</p></div></details>
+
+<details><summary>CPC(Cabin Pressure Controller) 설명</summary>
+<div class="ans"><p>객실 고도·압력차·상승률 등을 계산해 아웃플로우밸브의 개폐를 자동으로 제어하는 컴퓨터. 이중/삼중화되어 있는 경우가 많고, 팩(공조팩) 계통과 연동된다.</p></div></details>
+
+<details><summary>팩(Pack) 시스템이 하나 페일되면 무엇을 근거로 조치?</summary>
+<div class="ans"><p><b>MEL(최소장비목록)</b>을 근거로, 남은 정상 팩(Pack)만으로 필요한 공조·여압 성능을 충족할 수 있는지 확인 후 이연 운항 여부를 결정한다.</p></div></details>
+
+<details><summary>객실고도, 산소마스크 자동 낙하 고도</summary>
+<div class="ans"><p>일반적으로 <b>객실고도 약 10,000~14,000ft(기종·규정에 따라 상이, 보통 14,000ft 전후)</b>에 도달하면 승객 산소마스크가 자동으로 낙하하도록 설계된다.</p></div></details>
+
+<details><summary>승객 산소마스크에 사용하는 산소 — 고체, 어떻게 사용하는지</summary>
+<div class="ans"><p>대부분 <b>화학적 산소발생기(Chemical Oxygen Generator)</b>를 사용 — 고체 화합물(염소산나트륨 등)이 <b>발화(점화핀 격발)</b>되면 화학반응으로 산소를 발생시켜 마스크로 공급한다(1회용, 재충전 불가, 발열 주의).</p></div></details>
+
+<details><summary>Crew Oxygen(승무원 산소) 계통 — 구성품, 산소는 어디서?</summary>
+<div class="ans"><p>승무원용은 대개 <b>고압 기체산소 실린더(가스 봄베)</b>에서 저장된 산소를 감압밸브를 거쳐 마스크로 공급하는 방식(퀵도닝 마스크 포함)으로, 승객용 화학발생식과 달리 <b>재사용/재충전이 가능한 고압가스 저장식</b>이 일반적. 정비 시 압력 확인, 산소 순도 유지, 가연물·오일 접촉 절대 금지(자연발화 위험) 등에 유의.</p></div></details>
+
+<details><summary>산소계통 시스템 3가지</summary>
+<div class="ans"><p>① 승무원용 산소계통(Flight Crew Oxygen), ② 승객용 산소계통(Passenger Oxygen), ③ 휴대용 산소계통(Portable Oxygen) — 용도별로 구분.</p></div></details>
+
+<details><summary>산소계통 작업 시 주의사항</summary>
+<div class="ans"><p>오일·그리스 등 가연물이 산소와 접촉하지 않도록 절대 주의(고압 순수산소 환경에서 자연발화 위험), 화기 엄금, 압력 방출 후 작업, 지정된 산소전용 공구·윤활제만 사용, 정전기 방지.</p></div></details>
+
+<details><summary>날개(엔진 입구)에 눈이 쌓여있을 때</summary>
+<div class="ans"><p>이륙 전 반드시 제설·제빙 작업을 시행해야 하며, 눈이 엔진 흡입구를 막거나 이륙 후 이물질로 흡입될 경우 엔진 손상(FOD/손상) 및 양력 저하 위험이 있으므로 방빙/제빙 절차(Type I~IV)를 거쳐야 한다.</p></div></details>
+
+</section>
+
+<!-- ================= 통신/항법(요약, 상세는 전기전자 섹션) ================= -->
+<section id="comm">
+<h2>10. 통신 · 항법장치 <span class="en">Communication & Navigation</span></h2>
+<p style="color:var(--sub);font-size:.85rem">※ HF/VHF, ADF/VOR/DME, TCAS, GPWS, GPS, IRU 등 세부 원리는 <a href="#electrical" style="color:var(--accent)">4장 전기·전자·계기</a>에 통합 정리되어 있습니다.</p>
+
+<details><summary>항법장치 · 통신장치 무엇이 있는지 다 말해보기</summary>
+<div class="ans"><p><b>통신</b>: VHF, HF, UHF, ACARS(데이터통신).<br><b>항법</b>: VOR, ADF, DME, ILS, GPS, IRU/INS, RMI, ADI, MMR(Multi-Mode Receiver), 고도계(전파/기압), TCAS, GPWS.</p></div></details>
+
+<details><summary>ACARS — 무엇, 데이터통신인지 음성통신인지, 누구에게 알려주나</summary>
+<div class="ans"><p><b>ACARS(Aircraft Communications Addressing and Reporting System)</b>: 항공기와 지상 간 <b>데이터통신(문자/디지털 데이터)</b> 시스템 — 음성통신이 아님. 항공기 상태 정보(엔진 데이터, 위치, 정비 메시지 등)를 <b>운항관리/정비부서(회사 지상국)</b>에 자동으로 송신한다.</p></div></details>
+
+<details><summary>ILS / MMR / GPS(세 가지 요소)</summary>
+<div class="ans"><p><b>ILS(계기착륙시설)</b>: 로컬라이저(방위)+글라이드슬로프(활공각)로 정밀 착륙 유도. <b>MMR</b>: ILS·GPS 등 여러 항법신호를 하나의 수신기로 통합 처리하는 장치. <b>GPS 3요소</b>: 우주부문(위성), 제어부문(지상관제국), 사용자부문(수신기).</p></div></details>
+
+<details><summary>RMI / ADI</summary>
+<div class="ans"><p><b>RMI(Radio Magnetic Indicator)</b>: 자침방위와 VOR/ADF 방위를 함께 지시하는 계기. <b>ADI(Attitude Director Indicator)</b>: 자세지시계에 비행지시(플라이트디렉터) 정보를 함께 표시하는 계기.</p></div></details>
+
+</section>
+
+<!-- ================= 조종계통 ================= -->
+<section id="control">
+<h2>11. 조종계통 <span class="en">Flight Controls</span></h2>
+
+<details><summary><span class="star">★</span>턱언더(Tuck Under) / 더치롤(Dutch Roll)</summary>
+<div class="ans"><p><b>턱언더</b>: 고속(천음속) 비행 시 마하수 증가로 압력중심이 뒤로 이동하며 <b>기수가 아래로 숙여지는(피치다운)</b> 경향 현상. <b>더치롤</b>: 방향안정성에 비해 <b>가로안정성이 과도</b>할 때 발생하는 <b>롤과 요잉이 결합된 진동</b> — 요댐퍼(Yaw Damper)로 억제.</p></div></details>
+
+<details><summary>도살핀(Dorsal Fin) / 피치업(Pitch-up)</summary>
+<div class="ans"><p><b>도살핀</b>: 수직꼬리날개 앞쪽에 붙은 확장부로, 고받음각에서 <b>방향안정성을 보강</b>해 방향타 실속(rudder lock) 등을 방지. <b>피치업</b>: 고받음각에서 날개 실속이 시작되며 하강기류가 수평꼬리날개 효과를 감소시켜 <b>기수가 오히려 위로 들리는</b> 불안정 현상.</p></div></details>
+
+<details><summary>이륙 시 사용하는 조종면</summary>
+<div class="ans"><p><b>플랩(양력 증가)</b>을 이륙 위치로 세팅, 이륙활주 중 <b>에일러론·러더</b>로 방향 유지, <b>승강타</b>로 로테이션(기수 들기)하여 이륙.</p></div></details>
+
+<details><summary>보조 조종장치 다 설명해보기</summary>
+<div class="ans"><p>트림탭(Trim Tab, 조종력 상쇄), 서보탭(Servo Tab, 조종력 보조), 밸런스탭(Balance Tab), 스포일러(양력 감소·롤 보조), 스피드브레이크(감속) 등.</p></div></details>
+
+<details><summary>조종계통 — 기계식·유압식 외 전기적인 것은?</summary>
+<div class="ans"><p><b>FBW(Fly-by-Wire)</b> — 전기신호로 조종면을 제어하는 방식(위 전기전자 섹션 참고).</p></div></details>
+
+<details><summary>조향장치(Nose Wheel Steering) 작동 방법 — 조종대 외 2개 더</summary>
+<div class="ans"><p>일반적인 <b>틸러(Tiller, 조향핸들)</b> 외에도, <b>러더 페달</b>(제한된 각도 내 조향 연동)과 <b>차동 브레이크(좌우 브레이크 차등 조작)</b>로도 지상 조향이 가능하다.</p></div></details>
+
+</section>
+
+<!-- ================= 비파괴검사/공구/일반 ================= -->
+<section id="etc">
+<h2>12. 비파괴검사 · 공구 · 일반 <span class="en">NDI, Tools & General</span></h2>
+
+<details><summary><span class="star">★</span>공구 — 뾰족한 것을 뭉뚝하게 만들어 빼는 공구</summary>
+<div class="ans"><p><b>펀치(Punch)</b> 계열 공구 — 손상되었거나 박힌 핀·리벳 등을 제거할 때 사용하는 <b>핀 펀치(Pin Punch)</b> 또는 <b>드리프트 펀치(Drift Punch)</b>를 지칭하는 것으로 보이며, 끝이 뭉뚝해 모재 손상 없이 밀어내는 용도로 사용된다.</p></div></details>
+
+<details><summary>와이어 스트리퍼(Wire Stripper)</summary>
+<div class="ans"><p>전선 피복을 제거하는 전용 공구 — 심선 손상 없이 규격에 맞춰 피복만 정확히 벗겨내도록 설계되어 있다.</p></div></details>
+
+<details><summary>토크렌치 환산법</summary>
+<div class="ans"><p>연장공구 사용 시 <code>TW = TE × L/(L+A)</code> 공식으로 환산(동력장치 섹션의 리벳/토크 항목 참고).</p></div></details>
+
+<details><summary>도면 기호(범례)</summary>
+<div class="ans"><p>정비매뉴얼/도면에 사용되는 표준 기호(용접부, 리벳 종류, 재질 표시, 단면 표시 등)를 매뉴얼 범례(Legend)에서 확인하여 답변 — 시험에서는 실제 매뉴얼 도면 기호표를 암기해두는 것이 필요.</p></div></details>
+
+<details><summary>Log Book(항공일지)에 있는 내용 / 주요 기록사항</summary>
+<div class="ans"><p>항공기 등록부호, 비행시간·비행횟수, 정비내역(수행 작업, AD/SB 이행 기록), 결함 및 조치사항, 정비확인자 서명, 부품 교환 이력 등.</p></div></details>
+
+<details><summary>항공기 탑재 서류</summary>
+<div class="ans"><p>감항증명서, 등록증명서, 소음기준적합증명서, 운용한계지정서, 항공일지, 무선국 허가증, 보험가입증명서 등.</p></div></details>
+
+<details><summary>비상등 종류</summary>
+<div class="ans"><p>객실 통로등, 비상구 표시등(EXIT Sign), 외부 비상탈출등(Escape Slide light), 좌석 하단 유도등 등 — 배터리로 별도 작동되는 독립 전원계통을 가짐.</p></div></details>
+
+<details><summary>조종석 좌석(구성품)</summary>
+<div class="ans"><p>시트 프레임, 시트벨트/하니스, 완충 스트럿, 전후·상하 조절 레일, 헤드레스트, 팔걸이, 비상시 이젝션/충격흡수 구조 등으로 구성.</p></div></details>
+
+<details><summary>항공기 안테나 모든 종류</summary>
+<div class="ans"><p>VHF, HF(와이어/블레이드), VOR(위스본형), ADF(루프+센스), DME, 트랜스폰더(ATC), TCAS, GPS, 레이더돔(기상레이더), ELT 안테나(보통 1개) 등.</p></div></details>
+
+<details><summary>휘스톤 브릿지(Wheatstone Bridge) — 공식</summary>
+<div class="ans"><p>미지의 저항을 정밀 측정하는 회로. 평형조건: <code>R1/R2 = R3/Rx</code> (또는 <code>R1×Rx = R2×R3</code>) — 브릿지가 평형(검류계 전류 0)일 때 이 식으로 미지저항 Rx를 구한다.</p></div></details>
+
+<details><summary>크리프(Creep) — 어느 정비 분야에서, 무엇인가</summary>
+<div class="ans"><p><b>재료(구조/재료역학)</b> 분야에서 다루는 개념으로, 재료가 <b>일정한 하중을 장시간 받을 때 시간에 따라 서서히 영구변형이 진행</b>되는 현상 — 고온·고응력 부위(터빈 블레이드 등)의 수명평가에서 중요하게 다뤄진다.</p></div></details>
+
+<details><summary>뉴턴 운동 1·2·3법칙</summary>
+<div class="ans"><p><b>1법칙(관성)</b>: 외력이 없으면 물체는 현재 운동상태를 유지. <b>2법칙(가속도)</b>: F=ma, 힘은 질량과 가속도의 곱. <b>3법칙(작용-반작용)</b>: 모든 작용에는 크기가 같고 방향이 반대인 반작용이 존재 — 제트엔진 추력 원리의 기초.</p></div></details>
+
+<details><summary>PME 풀네임 / 작업 전 해야 하는 것 / 장갑 왜 끼는지</summary>
+<div class="ans"><p><b>PME = Personal Maintenance Equipment(개인정비장비/도구)</b> — 작업 전 <b>공구 점검(수량·상태 확인, Tool control)</b>을 해야 하며, 장갑은 <b>화학물질(연료·유압유 등) 피부접촉 방지, 날카로운 부위로부터 손 보호, 정전기 방전 방지</b> 등의 목적으로 착용한다.</p></div></details>
+
+<details><summary>항공정비사 몇 살부터?</summary>
+<div class="ans"><p>항공정비사 자격증명 응시연령은 <b>만 18세 이상</b>(시행규칙 별표 기준).</p></div></details>
+
+<details><summary>부품 식별 문제 (조 볼트, 터미널 등 실물/사진 제시형)</summary>
+<div class="ans"><p>시험장에서 실제 부품(볼트, 터미널, 커넥터 등)을 제시하고 명칭·용도를 묻는 유형 — 표준 하드웨어(AN/MS/NAS 규격) 명칭과 형상을 사진으로 익혀두는 것이 필요.</p></div></details>
+
+</section>
+
+<footer>
+  ✈️
+</footer>
+
+</main>
+</div>
+
+<script>
+const sidebarLeft = document.getElementById('sidebarLeft');
+const overlay = document.getElementById('sbOverlay');
+function closeSidebar(){ sidebarLeft.classList.remove('open'); overlay.classList.remove('show'); }
+document.getElementById('sbToggle').addEventListener('click', () => {
+  sidebarLeft.classList.toggle('open');
+  overlay.classList.toggle('show');
+});
+overlay.addEventListener('click', closeSidebar);
+document.querySelectorAll('.nav-btn').forEach(b => b.addEventListener('click', () => {
+  if (window.innerWidth <= 820) closeSidebar();
+}));
+
+// scroll spy
+const btns = document.querySelectorAll('.nav-btn[data-sec]');
+let ticking = false;
+function updateActive(){
+  let current = '';
+  btns.forEach(b => {
+    const el = document.getElementById(b.dataset.sec);
+    if (el && el.getBoundingClientRect().top <= 120) current = b.dataset.sec;
+  });
+  btns.forEach(b => b.classList.toggle('active', b.dataset.sec === current));
+}
+window.addEventListener('scroll', () => {
+  if (!ticking){ requestAnimationFrame(() => { updateActive(); ticking = false; }); ticking = true; }
+});
+updateActive();
+</script>
+</body>
+</html>
