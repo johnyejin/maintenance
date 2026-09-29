@@ -200,7 +200,9 @@ const FILE_GROUPS = [
     title: "2-2 중간 📘",
     icon: "📘",
     theme: "blue",
-    files: []
+    files: [
+      { title: "동력장치2", desc: "기본원리 · Cold Section · Hot Section · Other Section", path: "2-2 중간/동력장치2.html" },
+    ]
   },
   {
     id: "g3",
@@ -217,7 +219,7 @@ const FILE_GROUPS = [
     icon: "🎙️",
     theme: "red",
     files: [
-      { title: "구술시험 기출 정리",  desc: "법규 · 기체구조 · 동력장치 · 전기전자 · 유압공압 등 12챕터", path: "구술시험/oral_exam_guide.html" },
+      { title: "구술시험 기출 정리",  desc: "법규 · 기체구조 · 동력장치 · 전기전자 · 유압공압 등 12챕터", path: "oraltest/questions.html" },
     ]
   },
 ];
@@ -265,7 +267,7 @@ FILE_GROUPS.forEach(group => {
 });
 
 /* 첫 번째 그룹 기본으로 열어두기 */
-document.getElementById(FILE_GROUPS[0].id)?.classList.add('open');
+document.getElementById(FILE_GROUPS[1].id)?.classList.add('open');
 
 function toggle(id) {
   const el = document.getElementById(id);
