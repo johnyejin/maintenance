@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>항공기 재료 · 중간고사 정리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#12161c; --panel:#191f27; --panel2:#1f2630; --line:#2b3440;
+  --text:#dbe2ea; --muted:#8c98a6; --strong:#f3f6f9;
+  --cu:#d08a52;    /* 비철금속 - 구리색 */
+  --proc:#6aa2d8;  /* 가공 */
+  --heat:#e2664a;  /* 열처리 */
+  --al:#a7b4c2;    /* 알루미늄 */
+  --nm:#4fb39a;    /* 비금속 */
+  --star:#f2c14e; --ok:#5cc98a; --no:#e2664a;
+  --sidebar:250px;
+  --font:'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --mono:'IBM Plex Mono', ui-monospace, Consolas, monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--star);outline-offset:2px;border-radius:4px}
+
+/* ---------- 사이드바 ---------- */
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:var(--panel);border-right:1px solid var(--line);padding:22px 18px;overflow-y:auto;z-index:20}
+.navbtn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);text-decoration:none;font-weight:600;color:var(--strong);font-size:14px}
+.navbtn:hover{border-color:var(--proc)}
+.navbtn svg{flex:none}
+.side-title{margin:24px 4px 6px;font-size:13px;color:var(--muted)}
+.toc{list-style:none;margin:0;padding:0}
+.toc a{display:flex;gap:10px;align-items:center;padding:6px 8px;border-radius:6px;text-decoration:none;font-size:14px;color:var(--text)}
+.toc a:hover,.toc a.active{background:var(--panel2);color:var(--strong)}
+.toc .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.toc .sub a{padding-left:26px;font-size:13px;color:var(--muted)}
+.filter{margin-top:24px;display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;padding:8px;border-radius:6px;border:1px dashed var(--line)}
+.filter input{accent-color:var(--star);width:16px;height:16px}
+
+/* ---------- 모바일 상단바 ---------- */
+.topbar{display:none}
+@media (max-width:960px){
+  .sidebar{transform:translateX(-100%);transition:transform .2s}
+  body.nav-open .sidebar{transform:none;box-shadow:0 0 0 100vmax rgba(0,0,0,.5)}
+  .topbar{display:flex;position:sticky;top:0;z-index:15;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:var(--panel);border-bottom:1px solid var(--line)}
+  .topbar .navbtn{padding:7px 10px}
+  .menu-btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 12px;font:inherit;font-size:14px;cursor:pointer}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.sidebar{transition:none}}
+
+/* ---------- 본문 ---------- */
+main{margin-left:var(--sidebar);padding:48px 56px 96px;max-width:calc(var(--sidebar) + 920px)}
+@media (max-width:960px){main{margin-left:0;padding:28px 18px 80px}}
+.hero{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:12px}
+.hero .course{font-size:14px;color:var(--muted)}
+.hero h1{margin:6px 0 10px;font-size:clamp(28px,4.4vw,42px);line-height:1.2;font-weight:700;color:var(--strong);letter-spacing:-.01em}
+.hero p{margin:0;color:var(--muted);max-width:62ch}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+
+section.chapter{padding-top:44px}
+.chapter > h2{display:flex;align-items:baseline;gap:14px;font-size:26px;margin:0 0 6px;color:var(--strong);font-weight:700}
+.chapter > h2 .num{font-family:var(--mono);font-size:15px;font-weight:500;color:var(--c)}
+.chapter > .lead{margin:0 0 20px;color:var(--muted)}
+h3{font-size:19px;margin:30px 0 12px;color:var(--strong);font-weight:600}
+h4{font-size:16px;margin:0 0 8px;color:var(--strong);font-weight:600}
+.en{font-weight:400;color:var(--muted);font-size:.86em;margin-left:4px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:6px;padding:18px 20px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.grid .card{margin:0}
+.card ul,.card ol{margin:6px 0 0;padding-left:20px}
+.card li{margin:3px 0}
+.card p{margin:4px 0}
+b,strong{color:var(--strong);font-weight:600}
+.hl{color:var(--c);font-weight:600}
+.memo{display:block;margin-top:10px;padding:8px 12px;border-radius:4px;background:rgba(242,193,78,.08);color:#e9d39a;font-size:14px}
+.memo::before{content:"✎ 수업 메모  ";color:var(--star)}
+.ref{display:block;margin-top:10px;font-size:13.5px;color:var(--muted)}
+.ref::before{content:"참고 · 슬라이드 외 보충  "}
+
+.c-cu{--c:var(--cu)} .c-proc{--c:var(--proc)} .c-heat{--c:var(--heat)} .c-al{--c:var(--al)} .c-nm{--c:var(--nm)}
+
+/* 시험 포인트 */
+.star{position:relative}
+.star::after{content:"★";position:absolute;top:12px;right:14px;color:var(--star);font-size:15px}
+li.s::marker{content:"★ ";color:var(--star)}
+.only-star .card:not(.star),.only-star .figure,.only-star .tablewrap,.only-star .quiz,.only-star h3.skip{display:none}
+
+/* 표 */
+.tablewrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--panel2);color:var(--strong);font-weight:600;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600;color:var(--strong);white-space:nowrap}
+
+/* 냉각 곡선 */
+.figure{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px;margin:16px 0}
+.figure figcaption{font-size:13.5px;color:var(--muted);margin-top:8px}
+.figure svg{width:100%;height:auto;display:block}
+.curve-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.curve-btns button{font:inherit;font-size:13.5px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);color:var(--text);cursor:pointer}
+.curve-btns button[aria-pressed="true"]{border-color:var(--heat);color:var(--strong);background:rgba(226,102,74,.15)}
+.path{fill:none;stroke-width:3;transition:opacity .2s}
+.dim .path{opacity:.15}
+.dim .path.on{opacity:1}
+
+/* 비교 쌍 */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.vs{grid-template-columns:1fr}}
+
+/* 퀴즈 */
+.quiz details{background:var(--panel);border:1px solid var(--line);border-radius:6px;margin:8px 0}
+.quiz summary{cursor:pointer;padding:12px 16px;font-weight:500;color:var(--strong);list-style:none;display:flex;gap:10px}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:"Q";font-family:var(--mono);color:var(--star);font-weight:500}
+.quiz details[open] summary{border-bottom:1px solid var(--line)}
+.quiz .ans{padding:12px 16px 14px 38px;color:var(--text)}
+
+footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+
+/* ---------- 페이지 전환 ---------- */
+.page,.side-block{display:none}
+.page.active,.side-block.active{display:block}
+.navbtn{margin-bottom:8px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border-radius:8px;background:var(--bg);border:1px solid var(--line);margin-top:6px}
+.tabs a{text-align:center;padding:7px 6px;border-radius:6px;text-decoration:none;font-size:13.5px;color:var(--muted)}
+.tabs a[aria-current="page"]{background:var(--panel2);color:var(--strong);font-weight:600}
+.topbar .tabs{margin:0;flex:1;max-width:220px}
+@media (max-width:960px){html{scroll-padding-top:70px}}
+
+/* ---------- 시험문제 페이지 ---------- */
+.qgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.qgrid a{display:flex;align-items:center;justify-content:center;height:36px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);text-decoration:none;font-family:var(--mono);font-size:14px;border-bottom:2px solid var(--c)}
+.qgrid a:hover{color:var(--strong);border-color:var(--c)}
+.side-legend{margin-top:18px;display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.side-legend span{display:flex;align-items:center;gap:8px}
+.side-legend i{width:10px;height:10px;border-radius:2px}
+.e-mat{--c:var(--cu)} .e-proc{--c:var(--heat)} .e-hw{--c:var(--proc)} .e-sys{--c:var(--nm)}
+
+.q{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:6px;padding:20px 22px;margin:14px 0}
+.q-head{display:flex;gap:14px;align-items:flex-start}
+.q-num{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--c);line-height:1.4;min-width:28px}
+.q-text{flex:1}
+.q-text h2{margin:0;font-size:17px;font-weight:600;color:var(--strong);line-height:1.6}
+.tag{display:inline-block;margin-top:4px;font-size:12.5px;color:var(--muted)}
+.neg{color:var(--no);font-weight:700}
+ol.opts{list-style:none;margin:14px 0 0 42px;padding:0;counter-reset:o}
+ol.opts li{counter-increment:o;display:flex;gap:10px;padding:7px 12px;border-radius:6px;margin:4px 0;border:1px solid transparent}
+ol.opts li::before{content:counter(o);font-family:var(--mono);color:var(--muted);min-width:14px}
+ol.opts li.ans{border-color:var(--ok);background:rgba(92,201,138,.08);color:var(--strong)}
+ol.opts li.ans::after{content:"정답";margin-left:auto;font-size:12.5px;color:var(--ok);font-weight:600;white-space:nowrap;padding-left:10px}
+.short{margin:14px 0 0 42px;padding:9px 14px;border-radius:6px;border:1px solid var(--ok);background:rgba(92,201,138,.08);color:var(--strong);font-weight:600}
+.short::before{content:"정답  ";color:var(--ok);font-weight:600}
+details.exp{margin:12px 0 0 42px}
+details.exp summary{cursor:pointer;font-size:14px;color:var(--muted);list-style:none}
+details.exp summary::-webkit-details-marker{display:none}
+details.exp summary::before{content:"＋ ";color:var(--c)}
+details.exp[open] summary::before{content:"－ "}
+.exp-body{padding:8px 0 0;font-size:15px}
+.exp-body p{margin:4px 0}
+.fix{display:block;margin-top:8px;padding:8px 12px;border-radius:4px;background:rgba(242,193,78,.08);color:#e9d39a;font-size:14px}
+.fix::before{content:"필기 보정  ";color:var(--star);font-weight:600}
+.warn{display:block;margin-top:8px;padding:8px 12px;border-radius:4px;background:rgba(226,102,74,.1);color:#f0b3a5;font-size:14px}
+.warn::before{content:"보기 누락  ";color:var(--no);font-weight:600}
+.link{display:inline-block;margin-top:6px;font-size:14px;color:var(--proc)}
+.quiz-mode ol.opts li.ans{border-color:transparent;background:none;color:var(--text)}
+.quiz-mode ol.opts li.ans::after{content:""}
+.quiz-mode .short{color:transparent;border-style:dashed;border-color:var(--line);background:none;user-select:none}
+.quiz-mode .short::before{content:"정답 (확인 버튼을 누르면 표시)";color:var(--muted);font-weight:400}
+.quiz-mode details.exp{display:none}
+.quiz-mode .q.revealed ol.opts li.ans{border-color:var(--ok);background:rgba(92,201,138,.08);color:var(--strong)}
+.quiz-mode .q.revealed ol.opts li.ans::after{content:"정답"}
+.quiz-mode .q.revealed .short{color:var(--strong);border-style:solid;border-color:var(--ok);background:rgba(92,201,138,.08)}
+.quiz-mode .q.revealed .short::before{content:"정답  ";color:var(--ok);font-weight:600}
+.quiz-mode .q.revealed details.exp{display:block}
+.reveal{display:none;margin:12px 0 0 42px;font:inherit;font-size:14px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);color:var(--text);cursor:pointer}
+.quiz-mode .reveal{display:inline-block}
+.quiz-mode .q.revealed .reveal{display:none}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="navbtn" href="https://johnyejin.github.io/maintenance/" style="margin:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>홈</a>
+  <nav class="tabs" aria-label="페이지">
+    <a href="#notes" data-tab="notes">정리</a>
+    <a href="#exam" data-tab="exam">출제 문제</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="sidebar">목차</button>
+</header>
+
+<nav class="sidebar" id="sidebar" aria-label="사이드바">
+  <a class="navbtn" href="https://johnyejin.github.io/maintenance/"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>정비 학습 홈으로</a>
+  <nav class="tabs" aria-label="페이지">
+    <a href="#notes" data-tab="notes">정리</a>
+    <a href="#exam" data-tab="exam">출제 문제</a>
+  </nav>
+
+  <div class="side-block" data-page="notes">
+    <div class="side-title">항공기 재료 · 5장</div>
+    <ul class="toc">
+    <li><a href="#notes/nonferrous"><span class="dot" style="background:var(--cu)"></span>비철금속</a></li>
+    <li><a href="#notes/substitute"><span class="dot" style="background:var(--cu)"></span>금속의 대체</a></li>
+    <li><a href="#notes/working"><span class="dot" style="background:var(--proc)"></span>금속가공 절차</a></li>
+    <li class="sub"><a href="#notes/hot">열간 가공</a></li>
+    <li class="sub"><a href="#notes/cold">냉간 가공 · 가공경화</a></li>
+    <li><a href="#notes/heat"><span class="dot" style="background:var(--heat)"></span>열처리</a></li>
+    <li class="sub"><a href="#notes/curve">냉각 곡선 · 비교표</a></li>
+    <li class="sub"><a href="#notes/case">표면 경화</a></li>
+    <li><a href="#notes/aluminum"><span class="dot" style="background:var(--al)"></span>알루미늄 합금 · 리벳</a></li>
+    <li><a href="#notes/forming"><span class="dot" style="background:var(--proc)"></span>단조 · 주조 · 압출</a></li>
+    <li><a href="#notes/nonmetal"><span class="dot" style="background:var(--nm)"></span>비금속 재료</a></li>
+    <li class="sub"><a href="#notes/composite">복합재료</a></li>
+    <li><a href="#notes/quiz"><span class="dot" style="background:var(--star)"></span>셀프 체크</a></li>
+  </ul>
+    <label class="filter"><input type="checkbox" id="starOnly"> ★ 시험 포인트만 보기</label>
+  </div>
+
+  <div class="side-block" data-page="exam">
+    <div class="side-title">교수님 출제 문제 15</div>
+    <div class="qgrid">
+    <a href="#exam/q1" class="e-hw">1</a><a href="#exam/q2" class="e-mat">2</a><a href="#exam/q3" class="e-mat">3</a><a href="#exam/q4" class="e-proc">4</a><a href="#exam/q5" class="e-mat">5</a>
+    <a href="#exam/q6" class="e-sys">6</a><a href="#exam/q7" class="e-hw">7</a><a href="#exam/q8" class="e-sys">8</a><a href="#exam/q9" class="e-sys">9</a><a href="#exam/q10" class="e-sys">10</a>
+    <a href="#exam/q11" class="e-hw">11</a><a href="#exam/q12" class="e-proc">12</a><a href="#exam/q13" class="e-mat">13</a><a href="#exam/q14" class="e-mat">14</a><a href="#exam/q15" class="e-hw">15</a>
+  </div>
+    <div class="side-legend">
+      <span><i style="background:var(--cu)"></i>재료 · 성질</span>
+      <span><i style="background:var(--heat)"></i>가공 · 열처리</span>
+      <span><i style="background:var(--proc)"></i>하드웨어 · 리벳 · 실</span>
+      <span><i style="background:var(--nm)"></i>구조 · 계통</span>
+    </div>
+    <label class="filter"><input type="checkbox" id="quizMode"> 정답 가리고 풀기</label>
+  </div>
+</nav>
+
+<main>
+<div class="page" id="page-notes" data-title="항공기 재료 · 중간고사 정리">
+
+
+<div class="hero">
+  <div class="course">항공기 재료 · 중간고사 · 표준교재 5-2 ~ 5-46</div>
+  <h1>항공기 재료, 공정, 하드웨어</h1>
+  <p>비철금속부터 열처리, 복합재료까지. 슬라이드에서 빨간색·밑줄·동그라미로 강조된 내용은 ★로 표시했고, 수업 중 필기는 노란 메모로 남겼습니다.</p>
+  <div class="legend">
+    <span><i style="background:var(--cu)"></i>비철금속</span>
+    <span><i style="background:var(--proc)"></i>가공</span>
+    <span><i style="background:var(--heat)"></i>열처리</span>
+    <span><i style="background:var(--al)"></i>알루미늄</span>
+    <span><i style="background:var(--nm)"></i>비금속</span>
+    <span style="color:var(--star)">★ 시험 포인트</span>
+  </div>
+</div>
+
+<!-- ===================== 비철금속 ===================== -->
+<section class="chapter c-cu" id="nonferrous">
+  <h2><span class="num">5.1</span>항공기용 비철금속<span class="en">Nonferrous Aircraft Metals</span></h2>
+  <p class="lead">구리 계열은 전기·연결부에, 니켈 계열은 고온·고강도 부위에 쓰인다고 묶어서 기억하면 편합니다.</p>
+
+  <h3>구리와 구리합금 <span class="en">Copper &amp; Copper Alloy</span></h3>
+  <div class="grid">
+    <div class="card star">
+      <h4>구리의 용도</h4>
+      <p>전기가 잘 통하는 성질 그대로 쓰입니다.</p>
+      <ul>
+        <li class="s"><span class="hl">버스 바</span> (Bus Bar)</li>
+        <li class="s"><span class="hl">접지선</span> (Bonding)</li>
+        <li class="s">전기계통의 <span class="hl">안전결선</span> (Lock-wire)</li>
+      </ul>
+    </div>
+    <div class="card star">
+      <h4>베릴륨 구리 <span class="en">Beryllium Copper</span></h4>
+      <p>구리계열 합금 중 최근에 개발된 <span class="hl">가장 성공적인</span> 합금.</p>
+    </div>
+    <div class="card">
+      <h4>황동 <span class="en">Brass</span></h4>
+      <p>구리 + 아연 + 소량의 Al, Fe, Pb, Mn, Ni, P, Sn.</p>
+      <p><b>문츠메탈</b> (Muntz metal) = 구리 60% + 아연 40%, 소금물에서도 내식성 우수.</p>
+    </div>
+    <div class="card star">
+      <h4>적색황동 <span class="en">Red Brass</span></h4>
+      <p>주석 함유량 때문에 청동이라고도 불림.</p>
+      <p>→ <span class="hl">연료·오일 라인의 피팅</span>(Fitting) 제작.</p>
+    </div>
+    <div class="card">
+      <h4>구리알루미늄합금</h4>
+      <p>구리합금 중 항공기용으로 매우 높은 등급.</p>
+    </div>
+  </div>
+
+  <h3>니켈과 니켈합금 <span class="en">Nickel &amp; Nickel Alloys</span></h3>
+  <div class="vs">
+    <div class="card star">
+      <h4>모넬 <span class="en">Monel</span></h4>
+      <p>니켈 68% + 구리 29% + 소량의 철·망간. 용접·기계가공 용이.</p>
+      <p>용도: <span class="hl">착륙장치</span>, 고온 고강도·내식성이 필요한 <span class="hl">배기계통</span></p>
+      <p>요구 성질: <span class="hl">고강도</span> + <span class="hl">고인성</span></p>
+    </div>
+    <div class="card star">
+      <h4>인코넬 <span class="en">Inconel</span></h4>
+      <p>초고온에서도 고강도와 내식성 유지.</p>
+      <p>용도: <span class="hl">터빈엔진</span></p>
+      <p>제트엔진 <span class="hl">터빈 블레이드</span>처럼 1,700°C가 넘는 초고온을 견디는 초내열합금도 대부분 니켈 기반.</p>
+    </div>
+  </div>
+  <span class="ref" style="margin-top:4px">슬라이드 원문은 모넬 첨가원소를 "철과 마그네슘"으로 표기했지만, 일반적인 모넬 조성은 철·망간(Mn)입니다. 시험에서는 교수님 표기를 따르세요.</span>
+</section>
+
+<!-- ===================== 금속의 대체 ===================== -->
+<section class="chapter c-cu" id="substitute">
+  <h2><span class="num">5.1</span>항공기용 금속의 대체</h2>
+  <p class="lead">대체 금속을 고를 때 명심해야 할 네 가지 조건.</p>
+  <div class="card star">
+    <ol>
+      <li class="s">구조물의 원래 <span class="hl">강도를 유지</span> — 가장 중요</li>
+      <li class="s">외형 또는 공기역학적인 <span class="hl">매끄러움을 유지</span></li>
+      <li class="s">원래 무게 유지, 또는 추가되는 <span class="hl">무게를 최소로 유지</span></li>
+      <li class="s">금속 원래의 <span class="hl">내식성을 유지</span></li>
+    </ol>
+    <span class="memo">강도 · 매끄러움 · 무게 · 내식성 — "강매무내"</span>
+  </div>
+</section>
+
+<!-- ===================== 금속가공 ===================== -->
+<section class="chapter c-proc" id="working">
+  <h2><span class="num">5.1</span>금속가공 절차</h2>
+  <p class="lead">열간 가공, 냉간 가공, 압출. 한 부품에 열간·냉간을 모두 쓰기도 하며, 금속 종류와 부품 요구조건을 보고 결정합니다.</p>
+
+  <div class="card star">
+    <h4>구분 기준: 재결정온도</h4>
+    <p>재결정온도 = 금속이 <b>60분 이내에 100% 재결정</b>이 완료되는 온도.</p>
+    <p>이보다 <span class="hl">높은</span> 온도에서 가공 → <b>열간가공</b>(고온가공) / <span class="hl">낮은</span> 온도에서 가공 → <b>냉간가공</b>(상온가공)</p>
+  </div>
+
+  <h3 id="hot">열간 가공 <span class="en">Hot-working</span></h3>
+  <div class="card">
+    <p>재결정온도 이상에서 수행하는 소성가공. 대표 방식: <b>단조, 압연, 압출, 인발</b>. 대형 구조물이나 성형이 어려운 부품에 사용.</p>
+    <p>보통 <b>1,050~1,200°C</b>에서 시작해 <b>850~900°C</b> 부근에서 완료.</p>
+  </div>
+
+  <div class="vs">
+    <div class="card star">
+      <h4>장점</h4>
+      <ul>
+        <li class="s">고온에서 유동성↑, <span class="hl">항복강도가 낮아져 비교적 작은 힘으로 큰 변형</span> 가능 → 대형·복잡 형상에 유리</li>
+        <li>잔류응력·변형경화가 재결정으로 제거 → <b>가공경화 없음, 가공 후 내부응력 제거 불필요</b></li>
+        <li>주조 조직의 결정립 미세화 → 균일·치밀한 조직, 기계적 성질 향상</li>
+        <li>강괴 중 기공이 압착되고 편석이 균일화</li>
+        <li>가공에 필요한 힘이 적어 경제적, 대량 생산 가능</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>단점</h4>
+      <ul>
+        <li>고온 가열로 <b>산화 및 탈탄</b> → 표면에 산화피막, 별도의 탈산·정밀가공 필요</li>
+        <li>냉간가공보다 <b>치수 정밀도가 떨어짐</b>, 연신율·단면수축률 낮아질 수 있음</li>
+        <li>거친 작업에 적합하지만 정밀한 가공은 어려움</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h4>가열 방법</h4>
+      <p>가스버너, 유도 가열기, 전기로, 화염가열.</p>
+      <p><b>유도 가열</b>: 전자기 유도로 빠르고 균일 → 효율 높음.<br><b>전기로</b>: 대형 공작물 대량 가열에 선호.</p>
+      <p>과도한 가열 → 탈탄 심화 / 불충분한 가열 → 재결정 불량, 조직 불균일.</p>
+    </div>
+    <div class="card">
+      <h4>열간가공 시 주의사항</h4>
+      <ul>
+        <li>균일하게 가열</li>
+        <li>장시간 가열하지 않을 것 (산화, 내부조직 손상)</li>
+        <li>단조 완료온도는 재결정온도 부근</li>
+        <li>급격히 고온으로 가열하지 않을 것</li>
+        <li>최고 단조온도는 <b>용융온도보다 100°C 낮게</b></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4>소성가공의 장점과 영향</h4>
+    <p><b>장점</b>: 성형치수 정확 · 대량생산으로 균일한 제품 · 조직이 치밀하고 강함 · 재료 사용량 경제적</p>
+    <p><b>영향 ① 기계적 성질 (상온가공)</b>: 인장강도, 항복점, 경도, 전기저항, 피로강도 현저히 증가 / 연신율, 단면수축률 감소</p>
+    <p><b>영향 ② 내부응력 잔존</b>: 압축응력 잔존 → 강도 증가 / 인장응력 잔존 → 균열 발생</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h4>시효경화 <span class="en">Age Hardening</span></h4>
+      <p>시간이 지남에 따라 <b>강도는 증가, 인성은 저하</b>되는 현상. 재료 고유의 성질이며 온도·시간에 따라 변화.</p>
+      <p>잘 일어나는 재료: Fe, 황동, 두랄루민.</p>
+      <p><b>인공시효</b>: 상온에서 100~200°C로 올려 시효경화를 촉진.</p>
+    </div>
+    <div class="card">
+      <h4>강철의 제조 흐름</h4>
+      <p>주괴(ingot) → 열간가공으로 필요한 형태 → 다시 열간/냉간 가공으로 최종 형상.</p>
+      <p><b>프레스</b>: 크고 무거운 부품에 적합. 고강도 강은 망치로 여러 차례 두드려 가공.</p>
+    </div>
+    <div class="card star">
+      <h4>재료 선택의 기준</h4>
+      <p>강도/무게 비(strength/weight ratio)가 좋고, 신뢰도가 높아 갑작스러운 파손 가능성이 적을 것.</p>
+      <p><b>모노코크 구조 외피</b>는 두께가 강도보다 더 중요 → 주어진 두께에서 <span class="hl">가장 가벼운 재료가 최상</span>.</p>
+    </div>
+  </div>
+
+  <h3 id="cold">냉간 가공과 가공경화 <span class="en">Cold-working · Work-hardening</span></h3>
+  <div class="vs">
+    <div class="card star">
+      <h4>냉간 가공</h4>
+      <p>재결정온도보다 <b>낮은</b> 온도에서 하는 소성가공. <span class="hl">항공정비사가 하는 대부분의 금속 가공</span>이 여기에 해당.</p>
+      <ul>
+        <li>강도(strength)·경도(hardness) 증가, 강인성은 감소</li>
+        <li>연신율 감소</li>
+        <li>방향성 있는 섬유조직 → 단단하면서도 메짐</li>
+        <li>조직 균일, 치수 정밀, 표면 우수</li>
+        <li>가공 공수가 적어 가공비 적음</li>
+        <li>200~300°C에서는 <b>청열취성</b> 발생 가능</li>
+      </ul>
+      <p>단점: 경도와 취성이 과도하게 증가. 앞뒤로 굽혔다 폈다 하거나 같은 곳을 계속 때리면 끊어지거나 부서짐.</p>
+    </div>
+    <div class="card">
+      <h4>가공경화</h4>
+      <p>열처리나 합금원소 추가 없이 <b>소성변형만으로</b> 금속이 강화되는 현상. 냉간가공·성형으로 딱딱해지는 것.</p>
+      <p>한 방향으로 소성변형을 받으면 같은 방향의 변형에 대한 저항이 커짐 → 탄성한도 상승, 경도 증가.</p>
+      <p><b>내부응력 제거</b>: 재결정온도 이상으로 가열해 연화.</p>
+      <p><b>회복</b>: 적당히 가열하면 응력이 제거되어 본래 상태로 — 단, <b>경도는 변하지 않음</b>.</p>
+      <p><b>재결정</b>: 재결정온도 이상 가열 → 새 핵이 생겨 전체가 새 결정으로 바뀌며 내부응력 제거, 가공경화 상쇄.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 열처리 ===================== -->
+<section class="chapter c-heat" id="heat">
+  <h2><span class="num">5.1</span>열처리<span class="en">Heat-treating</span></h2>
+  <p class="lead">고체 상태 금속을 가열·냉각해서 경도, 연성, 인장강도, 결정구조를 바꾸는 작업. 핵심은 <b>냉각 방식의 차이</b>입니다.</p>
+
+  <div class="card star">
+    <h4>알루미늄합금 열처리는 딱 두 과정</h4>
+    <p><b>경화</b>(hardening) · <b>강인화</b>(toughening) → <span class="hl">열처리</span></p>
+    <p><b>연화</b>(softening) → <span class="hl">풀림</span></p>
+    <p>목적: 금속을 유용하고 안전하게 쓰기 위해 기계적 성질(또는 그 조합)을 바꾸는 것. 더 단단하고, 강하고, 충격에 잘 견디게.</p>
+  </div>
+
+  <h3 id="curve">냉각 방식으로 갈리는 네 가지 처리</h3>
+  <figure class="figure">
+    <div class="curve-btns" role="group" aria-label="곡선 강조">
+      <button data-k="all" aria-pressed="true">전체</button>
+      <button data-k="q" aria-pressed="false">담금질</button>
+      <button data-k="t" aria-pressed="false">뜨임</button>
+      <button data-k="n" aria-pressed="false">불림</button>
+      <button data-k="a" aria-pressed="false">풀림</button>
+    </div>
+    <svg id="curveSvg" viewBox="0 0 720 340" role="img" aria-label="온도-시간 열처리 곡선">
+      <line x1="60" y1="300" x2="700" y2="300" stroke="#4a5562"/>
+      <line x1="60" y1="300" x2="60" y2="20" stroke="#4a5562"/>
+      <text x="66" y="30" fill="#8c98a6" font-size="13">온도</text>
+      <text x="660" y="322" fill="#8c98a6" font-size="13">시간</text>
+      <line x1="60" y1="118" x2="700" y2="118" stroke="#8c98a6" stroke-dasharray="5 5"/>
+      <text x="580" y="111" fill="#8c98a6" font-size="12">변태점 (A1·A3)</text>
+      <line x1="60" y1="272" x2="700" y2="272" stroke="#4a5562" stroke-dasharray="2 5"/>
+      <text x="610" y="266" fill="#6b7682" font-size="12">Ms (마르텐사이트 시작)</text>
+      <!-- 가열·유지 -->
+      <path d="M60 300 L130 80 L240 80" stroke="#dbe2ea" class="base" fill="none" stroke-width="3"/>
+      <text x="140" y="70" fill="#dbe2ea" font-size="12">변태점 위로 가열 · 유지</text>
+      <!-- 담금질 -->
+      <path class="path k-q" d="M240 80 L272 288" stroke="#6aa2d8"/>
+      <text x="200" y="292" fill="#6aa2d8" font-size="13" font-weight="600">담금질</text>
+      <!-- 뜨임 -->
+      <path class="path k-t" d="M272 288 L300 160 L430 160 L470 290" stroke="#f2c14e"/>
+      <text x="320" y="150" fill="#f2c14e" font-size="13" font-weight="600">뜨임 (변태점 아래 재가열)</text>
+      <!-- 불림 -->
+      <path class="path k-n" d="M240 80 L420 285" stroke="#4fb39a"/>
+      <text x="425" y="250" fill="#4fb39a" font-size="13" font-weight="600">불림 · 공냉</text>
+      <!-- 풀림 -->
+      <path class="path k-a" d="M240 80 C 400 110, 560 200, 690 270" stroke="#e2664a"/>
+      <text x="560" y="190" fill="#e2664a" font-size="13" font-weight="600">풀림 · 노냉</text>
+    </svg>
+    <figcaption>같은 온도까지 가열해도 식히는 속도가 결과를 결정합니다. 급냉(담금질) → 공냉(불림) → 노냉(풀림) 순으로 느려지고, 뜨임은 담금질 뒤에 붙는 후처리입니다.</figcaption>
+  </figure>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>처리</th><th>가열</th><th>냉각</th><th>결과</th><th>핵심 포인트</th></tr></thead>
+      <tbody>
+        <tr><td>담금질 · 경화<br><span class="en">Quenching · 소입</span></td><td>상임계점 바로 위</td><td><b>급냉</b> (물·오일·소금물)</td><td>경도·강도↑, 연성↓</td><td>오스테나이트 → 마르텐사이트</td></tr>
+        <tr><td>뜨임<br><span class="en">Tempering · 소려</span></td><td>하임계점 이하로 재가열 (212°F~)</td><td>서냉</td><td>취성↓, <b>인성 부여</b></td><td>항상 경화 후에 실시</td></tr>
+        <tr><td>불림<br><span class="en">Normalizing · 소준</span></td><td>상임계점 이상</td><td><b>정지공기 중 냉각</b> (공냉)</td><td>내부응력 제거, 좋은 물리적 성질</td><td>용접 부품 필수</td></tr>
+        <tr><td>풀림<br><span class="en">Annealing · 소둔</span></td><td>임계점 이상</td><td><b>노 안에서 서냉</b> (노냉)</td><td>가장 낮은 강도, 최대 연성</td><td>경화의 반대</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <span class="ref">수업 필기에서 불림 옆에 "노냉", 풀림 옆에 "공냉"이 적혀 있었는데, 교재 본문(불림 = 정지공기 냉각, 풀림 = 노 속 서냉)과 반대입니다. 이 표는 교재 기준으로 정리했습니다.</span>
+
+  <div class="card star">
+    <h4>담금질 · 경화 <span class="en">Quenching · Hardening</span></h4>
+    <p>고온으로 가열한 금속을 <span class="hl">급속하게 냉각</span>시키는 일. 소입(燒入) = 불사를 소 + 들 입.</p>
+    <ul>
+      <li>상임계점 바로 위까지 가열 → 필요한 시간 유지 → 오일·물·소금물에 빠르게 담가 냉각</li>
+      <li>경도·강도 증가, 연성 감소</li>
+      <li>조직: 오스테나이트(HB155) → <b>마르텐사이트(HB720)</b></li>
+      <li>탄소강은 <b>1초 안에 1,000°F 이하</b>까지 냉각</li>
+      <li>복잡한 단면 부품은 뒤틀림·균열 우려 → 표면 경화강 X, 오일/공기 담금질하는 <b>심층 경화강</b>으로</li>
+      <li>담금질로 내부응력이 크므로, 완전히 식기 직전에 <b>뜨임</b></li>
+    </ul>
+    <p><b>방법</b>: ① A1·A3 + 50°C로 가열 ② Ms 구역까지 급냉 ③ Ms 이후 서냉 (균열 방지)</p>
+  </div>
+
+  <div class="card star">
+    <h4>뜨임 <span class="en">Tempering</span></h4>
+    <p>담금질한 강에 <span class="hl">적절한 인성을 부여</span>하기 위해 다시 가열 후 서냉. 경화로 생긴 취성을 줄이고 강을 연하게 함.</p>
+    <ul>
+      <li>항상 <b>경화 후</b>에 실시</li>
+      <li>212°F에서 시작해 하임계점까지</li>
+      <li>최소 처리시간 <b>1시간</b>, 두께 1인치 이상이면 1인치마다 1시간 추가</li>
+      <li>항공기용 뜨임 강: 최대인장강도 <span class="hl">125,000~200,000 psi</span></li>
+    </ul>
+  </div>
+
+  <div class="vs">
+    <div class="card star">
+      <h4>풀림 <span class="en">Annealing</span></h4>
+      <ul>
+        <li>내부응력·잔류변형 제거, 미세한 입자구조, 연화, 연성 부여</li>
+        <li>풀림 상태의 강은 <b>가장 낮은 강도</b> — 경화와 반대</li>
+        <li>최대 연성을 위해 아주 서서히 냉각: 열 차단 → 노 속에서 <b>900°F 이하</b>까지 → 꺼내서 공기 중 냉각</li>
+      </ul>
+      <span class="memo">천천히 냉각시키는 이유? 취성을 낮추기 위해</span>
+    </div>
+    <div class="card star">
+      <h4>불림 <span class="en">Normalizing</span></h4>
+      <ul>
+        <li>열처리·용접·주조·성형·기계가공으로 생긴 <span class="hl">내부응력 제거</span></li>
+        <li>상임계점 이상 가열 → <b>정지공기 중 냉각</b></li>
+        <li>항공기에는 <b>불림 상태 강을 자주</b> 쓰고, 풀림 상태 강은 거의 안 씀</li>
+        <li><span class="hl">용접된 부품</span>의 불림은 꼭 필요 — 용접이 인접 재료에 변형을 일으키기 때문</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 id="case">표면 경화 <span class="en">Case-hardening</span></h3>
+  <div class="card star">
+    <p>단단한 <span class="hl">내마모성</span> 표면 + 하중을 견디는 <span class="hl">인성</span> 있는 코어(core)를 만드는 열처리.</p>
+    <ul>
+      <li class="s">적합한 강: <span class="hl">저탄소강, 저합금강</span></li>
+      <li>고탄소강을 표면경화하면 경도가 내부까지 스며들어 취성 증가</li>
+      <li class="s">방법: <span class="hl">침탄법</span>(carburizing), <span class="hl">질화법</span>(nitriding), <span class="hl">시안화법</span>(cyaniding)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 알루미늄 ===================== -->
+<section class="chapter c-al" id="aluminum">
+  <h2><span class="num">5.1</span>알루미늄 합금<span class="en">Aluminum Alloys</span></h2>
+  <div class="card star">
+    <p>순수 알루미늄은 강도가 낮아 구조용으로 쓰기 어렵습니다. 알루미늄도 압연·성형·<span class="hl">냉간 가공</span>으로 강해지지만, 항공기 구조용 합금은 주로 <span class="hl">열처리</span>로 경화합니다.</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>구분</th><th>순수 알루미늄</th><th>알루미늄 합금</th></tr></thead>
+      <tbody>
+        <tr><td>구성</td><td>순수 Al</td><td>Al + Cu, Mg, Si, Zn 등</td></tr>
+        <tr><td>강도 · 경도</td><td>낮음</td><td>첨가 원소에 따라 높음</td></tr>
+        <tr><td>내식성</td><td>우수</td><td>원소에 따라 더 우수하거나 약해짐</td></tr>
+        <tr><td>밀도</td><td>약 2.7 g/cm³</td><td>약 2.7 g/cm³ (원소에 따라 다름)</td></tr>
+        <tr><td>전기 · 열전도성</td><td>매우 우수</td><td>우수 (일부는 순수보다 낮음)</td></tr>
+        <tr><td>가공성</td><td>매우 우수</td><td>일반적으로 우수, 일부 감소</td></tr>
+        <tr><td>용도</td><td>전선, 포일, 가전 외장</td><td>항공기, 자동차, 전자</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>알루미늄합금 리벳의 열처리</h3>
+  <p style="color:var(--muted);margin:0 0 8px">리벳 합금: 1100, 5056, 2117, 2017, 2024</p>
+  <div class="grid">
+    <div class="card star"><h4>1100</h4><p>낮은 강도로 충분한 곳. <span class="hl">제조된 상태 그대로</span> 사용.</p></div>
+    <div class="card"><h4>5056</h4><p><b>마그네슘</b>합금 판재 체결용. 제조된 상태 그대로 사용.</p></div>
+    <div class="card"><h4>2117</h4><p>조금 높은 강도, 알루미늄합금 판재 체결. 열처리 후 특성이 유지되어 <b>언제든 사용 가능</b>.</p></div>
+    <div class="card star"><h4>2017 · 2024</h4><p><span class="hl">고강도</span> 리벳. <span class="hl">높은 하중</span>을 받는 알루미늄합금 구조물 체결.</p><span class="ref">열처리 후 냉장 보관했다 쓰는 아이스박스 리벳</span></div>
+  </div>
+</section>
+
+<!-- ===================== 성형 ===================== -->
+<section class="chapter c-proc" id="forming">
+  <h2><span class="num">5.1</span>단조 · 주조 · 압출</h2>
+  <div class="grid">
+    <div class="card"><h4>단조 <span class="en">Forging</span></h4><p>망치로 두드리거나 프레스로 압착해서 성형.</p></div>
+    <div class="card"><h4>주조 <span class="en">Casting</span></h4><p>금속을 녹여 원하는 모양의 주형(mold)에 쇳물을 부어서 만듦.</p></div>
+    <div class="card"><h4>압출 <span class="en">Extruding</span></h4><p>형틀 구멍으로 금속을 밀어 넣어 같은 단면의 긴 제품을 만듦. 단순~복잡한 단면 모두 가능.</p></div>
+  </div>
+</section>
+
+<!-- ===================== 비금속 ===================== -->
+<section class="chapter c-nm" id="nonmetal">
+  <h2><span class="num">5.2</span>항공기 비금속 재료<span class="en">Nonmetallic Aircraft Materials</span></h2>
+
+  <div class="grid">
+    <div class="card"><h4>목재 <span class="en">Wood</span></h4><p>초기 항공기는 목재와 천. 오늘날은 복원기·일부 자작기 외엔 구조물로 쓰지 않음.</p></div>
+    <div class="card"><h4>플라스틱 <span class="en">Plastics</span></h4><p>유리섬유 보강 <b>열경화성</b> 구조부분품부터 창문 같은 <b>열가소성</b> 내장재까지.</p></div>
+    <div class="card star"><h4>투명 플라스틱</h4><p>조종실 <span class="hl">캐노피</span>, <span class="hl">윈드실드</span>, <span class="hl">창문</span> 등.</p></div>
+  </div>
+
+  <div class="vs" style="margin-top:12px">
+    <div class="card star">
+      <h4>열가소성수지 <span class="en">Thermoplastic</span></h4>
+      <p>가열하면 <span class="hl">연해지고</span>, 냉각하면 딱딱해짐.</p>
+      <p>폴리에틸렌, 폴리스티렌, 폴리염화비닐(PVC)</p>
+    </div>
+    <div class="card star">
+      <h4>열경화성수지 <span class="en">Thermosetting</span></h4>
+      <p>열을 가하면 연화되지 않고 <span class="hl">경화</span>됨.</p>
+      <p>에폭시, 폴리이미드, 페놀, 폴리에스테르 수지</p>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card"><h4>아크릴 수지</h4><p>충격·파손에 큰 저항력, 내화학성. 가장자리가 단순하고 잔금(crazing)이나 긁힌 스크래치가 적음.</p></div>
+    <div class="card"><h4>수지 <span class="en">Resin</span></h4><p>유기질 고분자 물질(또는 무기질 충진재 혼합). 송진 같은 천연수지에서 유래한 이름으로, 넓게는 합성수지까지 포괄.</p></div>
+  </div>
+
+  <h3 id="composite">복합재료 <span class="en">Composite Materials</span></h3>
+  <div class="card star">
+    <p>서로 다른 재료를 인위적으로 혼합한 혼합물. 항공용으로 개발됐지만 지금은 자동차, 운동기구, 선박, 방위산업까지.</p>
+    <p>구성: <span class="hl">보강재</span>(reinforcement) + <span class="hl">모재</span>(matrix) — 금속계, 플라스틱계, 고무계, 무기계</p>
+    <p>예: 콘크리트 = 시멘트(모재) + 자갈·철근(보강재)</p>
+  </div>
+
+  <div class="vs">
+    <div class="card star">
+      <h4>장점</h4>
+      <ul>
+        <li class="s">중량당 강도비가 높음</li>
+        <li>섬유 간 응력 전달은 화학결합으로</li>
+        <li>강성/밀도비: 강·알루미늄의 <b>3.5~5배</b></li>
+        <li>인장강도: 강·알루미늄의 <b>4~6배</b></li>
+        <li>금속보다 수명이 길고 내식성이 매우 큼</li>
+        <li>복잡한 형태, 공기역학적 곡률 제작 가능</li>
+        <li>Joint·fastener가 필요 없어 구조 단순</li>
+        <li>손쉽게 수리 가능</li>
+      </ul>
+      <span class="memo">스크래치 나면 레진 주입</span>
+    </div>
+    <div class="card star">
+      <h4>단점</h4>
+      <ul>
+        <li class="s"><span class="hl">박리</span>(Delamination, 들뜸) 탐지·검사가 어려움</li>
+        <li>축적된 설계 자료(design database) 부족</li>
+        <li>비용이 비쌈, 공정 설비 구축 예산 큼</li>
+        <li>제작·수리 방법의 표준화 부족</li>
+        <li>재료·과정·기술이 다양함</li>
+        <li>수리 지식·경험 정보 부족</li>
+        <li>생산품이 종종 독성(toxic)과 위험성</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h4>복합재료 취급 안전</h4>
+    <ul>
+      <li>피부·눈·폐에 매우 해로울 수 있고, 단기·장기적으로 심각한 자극과 해</li>
+      <li>보호구는 덥고 불편해도 건강 문제, 심지어 죽음까지 막을 수 있음</li>
+      <li>유리 기포(glass bubble)·섬유 조각으로부터 폐 보호 → <b>방독면</b>(respirator), 정확한 착용이 중요</li>
+      <li>수지·용제 작업 시 <b>통기구멍 없는 누설방지 고글</b></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 셀프 체크 ===================== -->
+<section class="chapter quiz" id="quiz" style="--c:var(--star)">
+  <h2><span class="num">★</span>셀프 체크</h2>
+  <p class="lead">답을 떠올린 뒤 펼쳐보세요.</p>
+
+  <details><summary>항공기에서 구리가 주로 쓰이는 세 곳은?</summary><div class="ans">버스 바(Bus Bar), 접지선(Bonding), 전기계통의 안전결선(Lock-wire).</div></details>
+  <details><summary>연료·오일 라인 피팅에 쓰이는 구리합금은?</summary><div class="ans">적색황동(Red Brass). 주석 함유량 때문에 청동이라고도 부릅니다.</div></details>
+  <details><summary>모넬과 인코넬의 용도를 구분하면?</summary><div class="ans">모넬 = 착륙장치, 배기계통(고강도·고인성). 인코넬 = 터빈엔진(초고온에서 강도·내식성 유지).</div></details>
+  <details><summary>대체 금속 선정 시 네 가지 조건과 가장 중요한 것은?</summary><div class="ans">강도 유지(가장 중요), 공기역학적 매끄러움 유지, 무게 최소, 내식성 유지.</div></details>
+  <details><summary>열간가공과 냉간가공을 나누는 기준은?</summary><div class="ans">재결정온도. 그 이상이면 열간, 이하면 냉간. 재결정온도는 60분 이내에 100% 재결정되는 온도입니다.</div></details>
+  <details><summary>열간가공이 작은 힘으로 큰 변형을 줄 수 있는 이유는?</summary><div class="ans">고온에서 유동성이 커지고 항복강도가 낮아지기 때문입니다.</div></details>
+  <details><summary>항공정비사가 하는 대부분의 금속 가공은 열간/냉간 중 무엇?</summary><div class="ans">냉간 가공. 과도하면 가공경화로 경도·취성이 커져 끊어지거나 부서집니다.</div></details>
+  <details><summary>회복과 재결정의 차이는? 회복 후 경도는?</summary><div class="ans">회복은 적당한 가열로 내부응력만 제거되는 단계로 경도는 변하지 않습니다. 재결정은 재결정온도 이상에서 새 결정이 생겨 가공경화까지 상쇄됩니다.</div></details>
+  <details><summary>담금질 후 반드시 하는 처리와 그 이유는?</summary><div class="ans">뜨임. 담금질로 생긴 취성과 높은 내부응력을 줄이고 인성을 부여합니다.</div></details>
+  <details><summary>뜨임 최소 처리시간 규칙은?</summary><div class="ans">최소 1시간, 두께가 1인치 이상이면 1인치 증가마다 1시간씩 추가.</div></details>
+  <details><summary>용접된 부품에 꼭 필요한 열처리는?</summary><div class="ans">불림(Normalizing). 용접이 인접 재료에 변형과 내부응력을 일으키기 때문입니다.</div></details>
+  <details><summary>항공기에 거의 쓰지 않는 강의 열처리 상태는?</summary><div class="ans">풀림 상태. 강도가 가장 낮기 때문이며, 대신 불림 상태 강을 자주 씁니다.</div></details>
+  <details><summary>표면경화에 적합한 강과 대표적인 방법 세 가지는?</summary><div class="ans">저탄소강·저합금강. 침탄법, 질화법, 시안화법.</div></details>
+  <details><summary>항공기 구조용 알루미늄 합금은 주로 무엇으로 경화하나?</summary><div class="ans">냉간 가공보다는 열처리.</div></details>
+  <details><summary>제조된 상태 그대로 쓰는 리벳 두 가지와 고강도 리벳 두 가지는?</summary><div class="ans">그대로 사용: 1100, 5056. 고강도: 2017, 2024.</div></details>
+  <details><summary>열가소성과 열경화성 수지의 차이와 예시는?</summary><div class="ans">열가소성은 가열하면 연해짐(폴리에틸렌, 폴리스티렌, PVC). 열경화성은 가열해도 연해지지 않고 경화(에폭시, 폴리이미드, 페놀, 폴리에스테르).</div></details>
+  <details><summary>복합재료의 두 구성요소와 가장 대표적인 단점은?</summary><div class="ans">보강재(reinforcement)와 모재(matrix). 단점은 박리(Delamination) 탐지·검사가 어렵다는 점.</div></details>
+</section>
+
+<footer>
+  항공기 재료 중간고사 정리 · 표준교재 5-2 ~ 5-46 · <a href="#exam">교수님 출제 문제</a> · <a href="https://johnyejin.github.io/maintenance/">정비 학습 홈</a>
+</footer>
+
+</div>
+<div class="page" id="page-exam" data-title="항공기 재료 · 교수님 출제 문제">
+
+<div class="hero">
+  <div class="course">항공기 재료 · 중간고사 · 교수님 출제 예상 문제</div>
+  <h1>교수님이 알려준 시험문제</h1>
+  <p>정답은 초록색으로 표시했고, 각 문제 아래 해설을 펼치면 왜 그런지 원리를 볼 수 있어요. 사이드바(모바일은 목차 버튼)에서 "정답 가리고 풀기"를 켜면 문제마다 직접 확인하면서 풀 수 있습니다.</p>
+</div>
+
+<!-- 1 -->
+<article class="q e-hw" id="q1">
+  <div class="q-head"><span class="q-num">1</span><div class="q-text"><h2>스크류에 대한 설명으로 <span class="neg">잘못된</span> 것은?</h2><span class="tag">하드웨어 · 스크류와 볼트 비교</span></div></div>
+  <ol class="opts">
+    <li>볼트보다 저강도 재료로 만든다</li>
+    <li>볼트보다 재질 등급이 낮다</li>
+    <li>나사 부분의 정밀도가 낮다 (나사 맞춤이 헐겁다)</li>
+    <li class="ans">일반적으로 명확한 그립(grip)을 갖고 있다</li>
+  </ol>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>스크류는 볼트보다 <b>저강도 재료</b>, <b>헐거운 나사 맞춤</b>, 그리고 <b>그립이 명확하지 않다</b>는 세 가지로 구분합니다.</p>
+    <p>그립은 나사산이 없는 생크(shank) 길이로, 볼트는 체결할 판재 두께에 맞는 그립 길이가 정해져 있지만 스크류는 그렇지 않습니다.</p>
+  </div></details>
+</article>
+
+<!-- 2 -->
+<article class="q e-mat" id="q2">
+  <div class="q-head"><span class="q-num">2</span><div class="q-text"><h2>인성은 어떤 성질을 나타내는가?</h2><span class="tag">재료의 기계적 성질</span></div></div>
+  <div class="short">재료의 질긴 성질</div>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>인성(toughness)은 충격이나 하중을 받아도 쉽게 깨지지 않고 버티는 <b>질긴 성질</b>입니다. 반대 개념은 <b>취성</b>(잘 깨지는 성질).</p>
+    <p>담금질로 생긴 취성을 줄이고 인성을 부여하는 열처리가 <b>뜨임</b>이라는 점과 연결해서 기억하세요 (4번 문제).</p>
+  </div></details>
+</article>
+
+<!-- 3 -->
+<article class="q e-mat" id="q3">
+  <div class="q-head"><span class="q-num">3</span><div class="q-text"><h2>탄소강이란 탄소가 얼마나 포함된 것을 말하는가?</h2><span class="tag">철강 재료</span></div></div>
+  <div class="short">0.03 ~ 2%</div>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>철에 탄소가 이 범위로 들어가면 탄소강, 이보다 많으면 <b>주철</b>, 거의 없으면 순철로 봅니다.</p>
+    <p>교재에 따라 0.02~2.11%로 적기도 하니, 보기에 비슷한 범위가 나오면 가장 가까운 것을 고르면 됩니다.</p>
+  </div></details>
+</article>
+
+<!-- 4 -->
+<article class="q e-proc" id="q4">
+  <div class="q-head"><span class="q-num">4</span><div class="q-text"><h2>금속 열처리 중 담금질한 강을 다시 가열한 후 서냉하는 처리는?</h2><span class="tag">열처리</span></div></div>
+  <div class="short">뜨임 (Tempering)</div>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>담금질 직후의 강은 단단하지만 취성과 내부응력이 큽니다. 하임계점 이하로 재가열해 서냉하면 취성이 줄고 인성이 생깁니다.</p>
+    <p>뜨임은 <b>항상 경화(담금질) 후</b>에 실시하며, 최소 1시간, 두께 1인치마다 1시간씩 추가합니다.</p>
+    <a class="link" href="#notes/heat">정리 페이지 · 열처리 →</a>
+  </div></details>
+</article>
+
+<!-- 5 -->
+<article class="q e-mat" id="q5">
+  <div class="q-head"><span class="q-num">5</span><div class="q-text"><h2>항공기 재료로 탄소섬유 복합재의 장점이 <span class="neg">아닌</span> 것은?</h2><span class="tag">복합재료</span></div></div>
+  <ol class="opts">
+    <li>비중이 낮고 강도가 우수하다</li>
+    <li>피로수명이 길다</li>
+  </ol>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>적어 둔 두 보기는 둘 다 <b>실제 장점</b>이라서, 이 문제의 정답은 기록되지 않은 나머지 보기 중에 있습니다.</p>
+    <span class="warn">③·④번 보기와 정답이 빠져 있어요. 교수님께 확인해 보세요. 탄소섬유 복합재에서 "장점이 아닌 것"으로 자주 나오는 내용은 충격에 강하다(실제로는 충격에 약하고 박리가 생김), 알루미늄과 접촉해도 부식 문제가 없다(실제로는 갈바닉 부식 유발) 같은 것들입니다.</span>
+  </div></details>
+</article>
+
+<!-- 6 -->
+<article class="q e-sys" id="q6">
+  <div class="q-head"><span class="q-num">6</span><div class="q-text"><h2>객실 여압을 지상 기압이 아니라 객실고도 8,000ft로 유지하는 이유는?</h2><span class="tag">구조 · 여압</span></div></div>
+  <div class="short">동체의 강도 한계 때문</div>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>순항고도에서 객실을 지상 기압으로 유지하면 객실 안팎의 <b>압력차</b>가 커지고, 동체가 그 차압을 버티려면 구조가 훨씬 무거워집니다.</p>
+    <p>그래서 사람이 무리 없이 견딜 수 있는 8,000ft 정도로 타협합니다.</p>
+  </div></details>
+</article>
+
+<!-- 7 -->
+<article class="q e-hw" id="q7">
+  <div class="q-head"><span class="q-num">7</span><div class="q-text"><h2>리벳 작업 시 판재가 너무 얇아 카운터싱크를 할 수 없을 때 적용하는 방법은?</h2><span class="tag">리벳 작업</span></div></div>
+  <div class="short">딤플링 (Dimpling)</div>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>판이 접시머리 리벳 머리 높이보다 얇으면, 카운터싱크로 깎아낼 경우 구멍이 칼날처럼 얇아져 판이 약해집니다.</p>
+    <p>딤플링은 깎는 대신 <b>딤플링 다이로 판재 자체를 눌러 오목하게 성형</b>해서 접시머리가 들어갈 자리를 만드는 방법입니다.</p>
+    <span class="fix">필기에는 "판 위에 덧대서"라고 되어 있는데, 무언가를 덧대는 게 아니라 판재를 눌러 변형시키는 방식입니다.</span>
+  </div></details>
+</article>
+
+<!-- 8 -->
+<article class="q e-sys" id="q8">
+  <div class="q-head"><span class="q-num">8</span><div class="q-text"><h2>유압계통·연료계통에 튜브 대신 호스를 사용하는 이유는?</h2><span class="tag">배관</span></div></div>
+  <ol class="opts">
+    <li>호스가 경제적이기 때문</li>
+    <li>내열성 및 강도를 증가시키기 위해</li>
+    <li class="ans">움직이는 부분에 유연성을 주기 위해</li>
+    <li>튜브보다 호스가 장착하기 쉬워서</li>
+  </ol>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>호스는 <b>상대 운동이 있거나 진동이 많은 부분</b>(엔진 연결부, 착륙장치 등)에 씁니다.</p>
+    <p>경제성·강도·내열성은 오히려 튜브가 유리하기 때문에 ①, ②는 오답입니다.</p>
+  </div></details>
+</article>
+
+<!-- 9 -->
+<article class="q e-sys" id="q9">
+  <div class="q-head"><span class="q-num">9</span><div class="q-text"><h2>배관 식별용 색깔 테이프 중 붉은색이 나타내는 계통은?</h2><span class="tag">배관 식별</span></div></div>
+  <div class="short">연료 계통</div>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>배관은 색깔 테이프로 계통을 구분합니다. <b>빨강 = 연료(FUEL)</b>.</p>
+  </div></details>
+</article>
+
+<!-- 10 -->
+<article class="q e-sys" id="q10">
+  <div class="q-head"><span class="q-num">10</span><div class="q-text"><h2>페일세이프 구조가 <span class="neg">아닌</span> 것은?</h2><span class="tag">구조</span></div></div>
+  <ol class="opts">
+    <li>다경로 하중구조</li>
+    <li>하중경감구조</li>
+    <li>대치구조</li>
+    <li class="ans">응력외피구조</li>
+  </ol>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>페일세이프 구조는 한 부재가 파손돼도 나머지가 하중을 견디게 하는 설계로, <b>다경로 하중구조, 이중구조, 대치구조, 하중경감구조</b> 네 가지입니다.</p>
+    <p>응력외피구조(세미모노코크)는 외피가 하중을 분담하는 <b>동체 구조 형식</b>이지 페일세이프 분류가 아닙니다.</p>
+  </div></details>
+</article>
+
+<!-- 11 -->
+<article class="q e-hw" id="q11">
+  <div class="q-head"><span class="q-num">11</span><div class="q-text"><h2>굴곡 표면이나 불규칙한 공간을 메워 울퉁불퉁한 면에 사용하는 실(seal)은?</h2><span class="tag">실 · 밀봉재</span></div></div>
+  <ol class="opts">
+    <li>와이퍼</li>
+    <li class="ans">가스킷</li>
+    <li>패킹</li>
+    <li>실란트</li>
+  </ol>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>가스킷은 서로 움직이지 않는 두 면 사이에 끼우는 <b>정적 밀봉재</b>입니다. 딱딱하지 않아 조이면 면의 굴곡에 맞춰 눌리면서 틈을 메웁니다.</p>
+    <p>패킹은 움직이는 부분(O-ring 등), 와이퍼는 피스톤 로드의 먼지 제거용, 실란트는 바르는 액상 밀봉재입니다.</p>
+  </div></details>
+</article>
+
+<!-- 12 -->
+<article class="q e-proc" id="q12">
+  <div class="q-head"><span class="q-num">12</span><div class="q-text"><h2>금속 가공 중 항공정비사가 주로 수행하는 작업은?</h2><span class="tag">금속가공</span></div></div>
+  <div class="short">냉간가공</div>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>정비 현장에서는 큰 가열 설비 없이 상온에서 <b>국부적으로</b> 굽히고, 자르고, 리벳을 칩니다. 모두 재결정온도 아래에서 하는 냉간가공입니다.</p>
+    <p>너무 반복하면 가공경화로 취성이 커져 부러지는 점도 함께 기억하세요.</p>
+    <a class="link" href="#notes/cold">정리 페이지 · 냉간 가공 →</a>
+  </div></details>
+</article>
+
+<!-- 13 -->
+<article class="q e-mat" id="q13">
+  <div class="q-head"><span class="q-num">13</span><div class="q-text"><h2>항공기 복합재료의 장점이 <span class="neg">아닌</span> 것은?</h2><span class="tag">복합재료</span></div></div>
+  <ol class="opts">
+    <li class="ans">금속보다 수명이 짧다</li>
+    <li>중량당 강도비가 높다</li>
+    <li>공기역학적 곡률 형태의 제작이 가능하다</li>
+    <li>손쉽게 수리할 수 있다</li>
+  </ol>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>교재 기준으로 복합재료는 <b>금속보다 수명이 길고</b> 내식성이 매우 큽니다. 그래서 ①번이 틀린 설명입니다.</p>
+    <a class="link" href="#notes/composite">정리 페이지 · 복합재료 →</a>
+  </div></details>
+</article>
+
+<!-- 14 -->
+<article class="q e-mat" id="q14">
+  <div class="q-head"><span class="q-num">14</span><div class="q-text"><h2>방화벽 재료로 가장 적합한 것은?</h2><span class="tag">재료 선택</span></div></div>
+  <ol class="opts">
+    <li>탄소강</li>
+    <li>마그네슘강</li>
+    <li>알루미늄 합금</li>
+    <li class="ans">오스테나이트계 스테인리스강</li>
+  </ol>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>방화벽은 엔진 화재를 막아야 하므로 <b>고온에서 강도와 내식성</b>을 유지해야 합니다. 오스테나이트계 스테인리스강(18-8 스테인리스)이 대표적이고, 티타늄도 씁니다.</p>
+    <p>알루미늄은 녹는점이 낮고, 마그네슘은 불에 타기 쉬워서 부적합합니다.</p>
+  </div></details>
+</article>
+
+<!-- 15 -->
+<article class="q e-hw" id="q15">
+  <div class="q-head"><span class="q-num">15</span><div class="q-text"><h2>높은 하중을 받는 알루미늄 합금 구조물에 쓰는 고강도 리벳은?</h2><span class="tag">리벳</span></div></div>
+  <div class="short">2024</div>
+  <button class="reveal">정답 확인</button>
+  <details class="exp"><summary>해설</summary><div class="exp-body">
+    <p>교재 기준으로 고강도 리벳은 <b>2017과 2024</b> 두 가지입니다. 보기에 둘 중 하나만 나오면 그것을 고르세요.</p>
+    <p>1100과 5056은 제조된 상태 그대로 쓰는 리벳이고, 2117은 조금 높은 강도로 언제든 사용할 수 있는 리벳입니다.</p>
+    <a class="link" href="#notes/aluminum">정리 페이지 · 리벳 →</a>
+  </div></details>
+</article>
+
+<footer>
+  항공기 재료 중간고사 · 교수님 출제 문제 · <a href="#notes">정리 페이지</a> · <a href="https://johnyejin.github.io/maintenance/">정비 학습 홈</a>
+</footer>
+
+</div>
+</main>
+
+<script>
+(function(){
+  var PAGES=['notes','exam'];
+  var body=document.body, btn=document.getElementById('menuBtn');
+
+  /* ---------- 해시 라우터: #page 또는 #page/섹션id ---------- */
+  function route(){
+    var parts=(location.hash.slice(1)||'notes').split('/');
+    var page=PAGES.indexOf(parts[0])>-1?parts[0]:'notes';
+    var sec=parts[1];
+    document.querySelectorAll('.page').forEach(function(p){p.classList.toggle('active',p.id==='page-'+page)});
+    document.querySelectorAll('.side-block').forEach(function(b){b.classList.toggle('active',b.dataset.page===page)});
+    document.querySelectorAll('.tabs a').forEach(function(a){
+      if(a.dataset.tab===page)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');
+    });
+    document.title=document.getElementById('page-'+page).dataset.title;
+    var target=sec&&document.getElementById(sec);
+    if(target) target.scrollIntoView();
+    else window.scrollTo(0,0);
+    body.classList.remove('nav-open');btn.setAttribute('aria-expanded','false');
+  }
+  window.addEventListener('hashchange',route);
+  route();
+
+  /* ---------- 모바일 사이드바 ---------- */
+  btn.addEventListener('click',function(){
+    var open=body.classList.toggle('nav-open');
+    btn.setAttribute('aria-expanded',open);
+  });
+
+  /* ---------- 정리: 시험 포인트만 보기 ---------- */
+  document.getElementById('starOnly').addEventListener('change',function(e){
+    document.getElementById('page-notes').classList.toggle('only-star',e.target.checked);
+  });
+
+  /* ---------- 정리: 냉각 곡선 ---------- */
+  var svg=document.getElementById('curveSvg');
+  document.querySelectorAll('.curve-btns button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.curve-btns button').forEach(function(x){x.setAttribute('aria-pressed','false')});
+      b.setAttribute('aria-pressed','true');
+      var k=b.dataset.k;
+      svg.querySelectorAll('.path').forEach(function(p){p.classList.remove('on')});
+      if(k==='all'){svg.classList.remove('dim');return;}
+      svg.classList.add('dim');
+      svg.querySelectorAll('.k-'+k).forEach(function(p){p.classList.add('on')});
+      if(k==='t') svg.querySelectorAll('.k-q').forEach(function(p){p.classList.add('on')});
+    });
+  });
+
+  /* ---------- 정리: 현재 섹션 표시 ---------- */
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var obs=new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if(en.isIntersecting) links.forEach(function(l){l.classList.toggle('active',l.getAttribute('href')==='#notes/'+en.target.id)});
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  links.forEach(function(l){var t=document.getElementById(l.getAttribute('href').split('/')[1]);if(t)obs.observe(t);});
+
+  /* ---------- 출제 문제: 정답 가리기 ---------- */
+  var exam=document.getElementById('page-exam');
+  document.getElementById('quizMode').addEventListener('change',function(e){
+    exam.classList.toggle('quiz-mode',e.target.checked);
+    exam.querySelectorAll('.q.revealed').forEach(function(q){q.classList.remove('revealed')});
+  });
+  exam.querySelectorAll('.reveal').forEach(function(b){
+    b.addEventListener('click',function(){
+      var q=b.closest('.q');q.classList.add('revealed');
+      var d=q.querySelector('details.exp');if(d)d.open=true;
+    });
+  });
+})();
+</script>
+</body>
+</html>
