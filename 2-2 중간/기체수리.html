@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>기체수리 학습 노트 · 재료 · 기체수리 · 하드웨어 · 부식방지</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{--bg:#f6f8fb;--panel:#fff;--ink:#1c2430;--muted:#5b6778;--line:#dfe5ee;--accent:#1f5fbf;--accent-soft:#e8f0fc;--red:#d32f2f;--mark:#fff176;--markc:#80f0f0;--side:#0f2340;--side-ink:#dbe6f7;--warn-bg:#fff4f2;--good-bg:#eefaf1;--bad-bg:#fff1f1;--shadow:0 1px 3px rgba(20,40,80,.08)}
 @media (prefers-color-scheme:dark){:root{--bg:#10151d;--panel:#182029;--ink:#e6ebf2;--muted:#9aa7b8;--line:#2a3542;--accent:#7fb0ff;--accent-soft:#1c2b44;--red:#ff6b6b;--mark:#8a7a00;--markc:#0d7a80;--side:#0a1526;--warn-bg:#2b1a1a;--good-bg:#15281c;--bad-bg:#2b1818}}
@@ -95,6 +96,210 @@ img{max-width:100%}
 figure.fig img{max-height:360px;width:auto;object-fit:contain}
 figure.compact img{max-height:260px}
 
+
+/* ===== 시험(중간고사 리뷰) 표시 ===== */
+:root{--exam:#e8590c;--exam-bg:#fff7ed;--exam-line:#fdba74}
+@media (prefers-color-scheme:dark){:root{--exam:#ff922b;--exam-bg:#2a1c0e;--exam-line:#7a4a1c}}
+.exam-badge{display:inline-block;vertical-align:middle;margin-left:8px;padding:1px 9px;border-radius:99px;background:var(--exam);color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.04em;line-height:1.65;white-space:nowrap}
+.exam-badge.off{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.exam-box{border:1px solid var(--exam-line);border-left:5px solid var(--exam);background:var(--exam-bg);border-radius:12px;padding:14px 18px;margin:16px 0;box-shadow:var(--shadow)}
+.exam-head{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--exam);margin-bottom:6px;font-size:.92rem}
+.exam-head .exam-badge{margin-left:0}
+.exam-box ul,.exam-box ol{margin:4px 0}
+.exam-box p{margin:6px 0}
+.exam-box table.tbl{margin:8px 0}
+.fix{margin:10px 0 0;padding:8px 12px;border-radius:8px;background:var(--panel);border:1px dashed var(--exam-line);font-size:.9rem}
+.fix::before{content:"필기 보정 · ";font-weight:800;color:var(--exam)}
+.supp{font-size:.88rem;color:var(--muted)}
+.supp::before{content:"보충 · ";font-weight:700}
+.page-head.exam{background:linear-gradient(135deg,#9a3412,#e8590c)}
+.goto{display:inline-block;margin-top:6px;font-size:.85rem;font-weight:700;color:var(--accent);text-decoration:none}
+.goto:hover{text-decoration:underline}
+.rv-card h4{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fixlist li{margin:6px 0}
+.fixlist b.was{color:var(--muted);font-weight:600;text-decoration:line-through;text-decoration-color:var(--red)}
+.nav-link .num.star{background:var(--exam);color:#fff}
+.legend .exam-badge{margin:0 6px 0 0}
+/* ================= 2026 리디자인 : 밝은 하늘·작업카드 테마 ================= */
+:root,:root[data-x]{
+  color-scheme:light;
+  --bg:#f2f6fb;--panel:#fff;--ink:#1c2a3a;--muted:#617287;--line:#e1e8f0;
+  --accent:#2c64c6;--accent-ink:#1f4f9f;--accent-soft:#eaf1fc;
+  --red:#d6334b;--mark:#fff0a6;--markc:#c9f2ee;
+  --side:#ffffff;--side-ink:#2a3a4d;
+  --warn-bg:#fff5f3;--good-bg:#effaf3;--bad-bg:#fff4f5;
+  --exam:#e8661c;--exam-bg:#fff6ee;--exam-line:#f7c9a6;
+  --shadow:0 1px 2px rgba(28,52,90,.05),0 8px 24px -12px rgba(28,52,90,.14);
+  --c1:#2c64c6;--c2:#11897d;--c3:#5a4fd0;--c4:#2f8a52;--cs:#24466f;--cr:#e8661c;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#f2f6fb;--panel:#fff;--ink:#1c2a3a;--muted:#617287;--line:#e1e8f0;
+  --accent:#2c64c6;--accent-soft:#eaf1fc;--red:#d6334b;--mark:#fff0a6;--markc:#c9f2ee;
+  --side:#fff;--side-ink:#2a3a4d;--warn-bg:#fff5f3;--good-bg:#effaf3;--bad-bg:#fff4f5;
+  --exam:#e8661c;--exam-bg:#fff6ee;--exam-line:#f7c9a6}}
+body{font-family:"Pretendard Variable","Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  background:var(--bg);color:var(--ink);font-size:16px;line-height:1.75;letter-spacing:-.005em;-webkit-font-smoothing:antialiased}
+b,strong{font-weight:700}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* ---- 사이드바 ---- */
+.sidebar{background:var(--side);color:var(--side-ink);border-right:1px solid var(--line);padding:24px 16px;gap:16px}
+.brand{color:var(--ink);font-size:1.12rem;font-weight:800;padding:0 6px}
+.brand small{color:var(--muted);opacity:1;font-weight:500}
+.home-btn{background:var(--accent-soft);color:var(--accent-ink);border-radius:12px;padding:10px 12px;font-weight:700;text-align:left;padding-left:16px}
+.home-btn:hover{background:#dde9fb}
+nav{gap:4px}
+.nav-link{color:var(--side-ink);border-radius:12px;padding:9px 10px;position:relative}
+.nav-link small{color:var(--muted);opacity:1}
+.nav-link .num{background:#eef3f9;color:var(--ink);width:30px;height:30px;border-radius:10px;font-size:.85rem}
+.nav-link:hover{background:#f3f7fc}
+.nav-link.active{background:var(--accent-soft);color:var(--ink);font-weight:700}
+.nav-link.active small{color:var(--accent-ink)}
+.nav-link[data-page="ch1"] .num{--c:var(--c1)}.nav-link[data-page="ch2"] .num{--c:var(--c2)}.nav-link[data-page="ch3"] .num{--c:var(--c3)}
+.nav-link[data-page="ch4"] .num{--c:var(--c4)}.nav-link[data-page="srm"] .num{--c:var(--cs)}.nav-link[data-page="review"] .num{--c:var(--cr)}
+.nav-link .num{color:var(--c);background:color-mix(in srgb,var(--c) 12%,#fff)}
+.nav-link.active .num,.nav-link .num.star{background:var(--c);color:#fff}
+.legend{border-top:1px solid var(--line);color:var(--muted);opacity:1}
+.menu-btn{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow)}
+.backdrop.show{background:rgba(28,42,58,.35)}
+
+/* ---- 본문 ---- */
+.content{padding:36px 44px 96px;max-width:1160px}
+@media (max-width:900px){.content{padding:68px 14px 64px}}
+
+/* ---- 페이지 헤더 : 작업카드(탑승권) ---- */
+.page-head,.page-head.exam{--c:var(--c1);position:relative;display:grid;grid-template-columns:120px 1fr;column-gap:0;
+  background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:22px;padding:0;margin-bottom:36px;box-shadow:var(--shadow);overflow:hidden}
+#page-ch2 .page-head{--c:var(--c2)}#page-ch3 .page-head{--c:var(--c3)}#page-ch4 .page-head{--c:var(--c4)}
+#page-srm .page-head{--c:var(--cs)}#page-review .page-head{--c:var(--cr)}
+.page-head::before,.page-head::after{content:"";position:absolute;left:109px;width:22px;height:22px;border-radius:50%;background:var(--bg);border:1px solid var(--line)}
+.page-head::before{top:-12px}.page-head::after{bottom:-12px}
+.page-head .stub{grid-column:1;grid-row:1/span 5;background:var(--c);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;border-right:2px dashed rgba(255,255,255,.55);padding:20px 8px}
+.page-head .stub small{font-size:.74rem;font-weight:600;opacity:.85;letter-spacing:.02em}
+.page-head .stub b{font-size:2.7rem;font-weight:800;line-height:1;letter-spacing:-.03em}
+#page-srm .page-head .stub b{font-size:1.75rem}
+.page-head>:not(.stub){grid-column:2;padding-left:30px;padding-right:30px}
+.page-head h1{margin:26px 0 4px;font-size:clamp(1.6rem,3vw,2.1rem);font-weight:800;letter-spacing:-.025em;color:var(--ink)}
+.page-head .en,.pill .en{color:var(--muted);opacity:1}
+.page-head .src{margin:2px 0 6px;color:var(--muted);opacity:1;font-size:.92rem}
+.page-head .chips{padding-top:10px;padding-bottom:24px;gap:6px}
+.chips a{background:color-mix(in srgb,var(--c) 9%,#fff);color:color-mix(in srgb,var(--c) 85%,#000);border:1px solid color-mix(in srgb,var(--c) 18%,#fff);
+  padding:5px 13px;font-size:.84rem;font-weight:600}
+.chips a:hover{background:var(--c);color:#fff;border-color:var(--c)}
+@media (max-width:640px){
+  .page-head,.page-head.exam{grid-template-columns:76px 1fr}
+  .page-head::before,.page-head::after{left:65px}
+  .page-head .stub b{font-size:2rem}#page-srm .page-head .stub b{font-size:1.15rem}
+  .page-head>:not(.stub){padding-left:18px;padding-right:16px}
+}
+
+/* ---- 섹션 ---- */
+.sec{margin-bottom:52px}
+.sec>h2{font-size:1.45rem;font-weight:800;letter-spacing:-.02em;border-bottom:none;padding:0 0 0 16px;margin:0 0 18px;position:relative;line-height:1.4}
+.sec>h2::before{content:"";position:absolute;left:0;top:.28em;bottom:.28em;width:5px;border-radius:5px;background:var(--accent)}
+#page-ch2 .sec>h2::before{background:var(--c2)}#page-ch3 .sec>h2::before{background:var(--c3)}#page-ch4 .sec>h2::before{background:var(--c4)}
+#page-srm .sec>h2::before{background:var(--cs)}#page-review .sec>h2::before{background:var(--cr)}
+.sec h3{color:var(--accent-ink);font-weight:750;font-size:1.16rem;margin:30px 0 12px}
+.sec h4{font-weight:750}
+.r,b.r,span.r,p.r{color:var(--red)}
+mark{background:var(--mark);border-radius:4px;padding:0 4px}
+.en{color:var(--muted)}
+
+/* ---- 카드 ---- */
+.card{border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:var(--shadow)}
+.card.key{background:#f3f7fe;border-color:#d6e3f7;border-left:4px solid var(--accent)}
+.card.good{border-left:4px solid #2e9e63}
+.card.bad{border-left:4px solid var(--red)}
+.cards,.two,.three,.four,.grid2,.grid3{gap:16px}
+.warn{border-radius:14px;border-left-width:4px}
+.note{border-radius:14px;border-left-width:4px;background:var(--accent-soft)}
+.tag{border-radius:8px;background:var(--accent-soft);color:var(--accent-ink)}
+.pill{border-radius:99px}
+.formula{border-radius:14px;background:#1d3557}
+
+/* ---- 표 ---- */
+.tbl-wrap{overflow-x:auto;border-radius:14px}
+table.tbl{border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+table.tbl th,table.tbl td{border:none;border-bottom:1px solid var(--line);padding:9px 12px}
+table.tbl th{background:#f1f5fb;color:var(--ink);font-weight:700}
+table.tbl tbody tr:last-child td,table.tbl tbody tr:last-child th{border-bottom:none}
+table.tbl tbody tr:nth-child(even) td{background:#fafcfe}
+table.tbl tr.hl td,table.tbl tr.hl th{background:#fff7c9!important}
+table.tbl caption{caption-side:top;text-align:left;font-weight:700;font-size:.9rem;color:var(--muted);padding:0 0 8px}
+
+/* ---- 그림 ---- */
+figure.fig{border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:var(--shadow);background:#fff}
+figure.fig img{border-radius:10px;cursor:zoom-in}
+figcaption{color:var(--muted);font-size:.84rem}
+figure.fig.srm img{max-height:620px}
+figure.fig.srm.wide img{max-height:none;width:100%;max-width:820px}
+
+/* ---- 시험 표시 ---- */
+.exam-badge{background:var(--exam);border-radius:8px;padding:1px 8px;font-size:.7rem}
+.exam-badge.off{background:#fff}
+.exam-box{border-radius:18px;border:1px solid var(--exam-line);border-left:4px solid var(--exam);background:var(--exam-bg);box-shadow:none}
+.fix{border-radius:10px}
+.goto{color:var(--accent-ink)}
+
+/* ---- SRM 페이지 ---- */
+.case{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 24px;box-shadow:var(--shadow);position:relative}
+.case-tag{display:inline-block;font-weight:700;font-size:.85rem;color:var(--cs);background:#e9eff7;border-radius:8px;padding:2px 10px}
+.case-main{font-size:1.2rem;font-weight:700;margin:10px 0 4px;letter-spacing:-.015em}
+.case-sub{margin:0;color:var(--muted)}
+.route{list-style:none;padding:0;margin:22px 0 8px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+.route::before{content:"";position:absolute;left:10%;right:10%;top:19px;border-top:2px dashed #b9c8da}
+.route li{text-align:center;position:relative}
+.route a{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--ink);padding:0 6px}
+.route .wp{width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid var(--cs);color:var(--cs);display:grid;place-items:center;font-weight:800;margin-bottom:6px;position:relative;z-index:1;transition:background .15s,color .15s}
+.route a:hover .wp{background:var(--cs);color:#fff}
+.route b{font-size:.95rem}
+.route small{color:var(--muted);font-size:.74rem;line-height:1.35}
+@media (max-width:760px){
+  .route{grid-template-columns:1fr;gap:10px}
+  .route::before{left:19px;right:auto;top:20px;bottom:20px;border-top:none;border-left:2px dashed #b9c8da}
+  .route a{flex-direction:row;text-align:left;gap:12px}
+  .route .wp{margin:0;flex:none}
+  .route b{min-width:7em}
+}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.split figure.fig{margin:0}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+ol.steps{list-style:none;padding:0;margin:8px 0 18px;display:grid;gap:8px}
+ol.steps li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px 16px}
+ol.proc{counter-reset:p;list-style:none;padding:0;margin:8px 0 18px;columns:2;column-gap:28px}
+ol.proc li{counter-increment:p;position:relative;padding:6px 0 6px 40px;break-inside:avoid}
+ol.proc li::before{content:counter(p);position:absolute;left:0;top:7px;width:28px;height:28px;border-radius:9px;background:#e9eff7;color:var(--cs);font-weight:800;font-size:.82rem;display:grid;place-items:center}
+@media (max-width:760px){ol.proc{columns:1}}
+.dims{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 16px}
+.dims>div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column}
+.dims span{font-size:.8rem;color:var(--muted)}
+.dims b{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;color:var(--cs);font-variant-numeric:tabular-nums}
+.dims em{font-style:normal;font-size:.75rem;color:var(--muted)}
+.insp{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;box-shadow:var(--shadow);margin:14px 0 8px}
+.insp-cell{padding:14px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.insp-cell:last-child{border-right:none}
+.insp-cell span{font-size:.76rem;color:var(--muted);font-weight:600}
+.insp-cell b{font-size:1.05rem;letter-spacing:-.015em}
+.insp-cell small{color:var(--muted);font-size:.8rem}
+.insp-cell.hot{background:var(--exam-bg)}
+.insp-cell.hot b{color:var(--exam)}
+@media (max-width:760px){.insp{grid-template-columns:1fr 1fr}.insp-cell:nth-child(2){border-right:none}.insp-cell:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.insp-note{margin:6px 2px 14px;color:var(--ink)}
+ul.refs{list-style:none;padding:0}
+ul.refs code{font-family:inherit;font-weight:700;font-size:.82rem;background:#eef3f9;color:var(--cs);border-radius:6px;padding:1px 7px;margin-right:6px}
+
+/* ---- 그림 크게 보기 ---- */
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(20,32,48,.82);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lightbox.show{display:flex}
+.lightbox img{max-width:min(1100px,96vw);max-height:86vh;border-radius:12px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lightbox p{color:#fff;margin:12px 0 0;font-size:.9rem;text-align:center;max-width:820px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.page-head::before,.page-head::after{display:none}.lightbox{display:none!important}}
+
+@media (max-width:640px){.dims{grid-template-columns:1fr 1fr}.page-head h1 .en{display:block;margin:4px 0 0;font-size:.6em}}
+
 </style>
 </head>
 <body>
@@ -103,12 +308,12 @@ figure.compact img{max-height:260px}
 <aside class="sidebar" id="sidebar">
   <div class="brand">✈ 기체수리 노트<small>Aircraft Maintenance Study</small></div>
   <a class="home-btn" href="https://johnyejin.github.io/maintenance/">← 홈으로</a>
-  <nav><a class="nav-link" href="#ch1" data-page="ch1"><span class="num">1</span><span>항공기 재료<small>Aircraft Materials</small></span></a><a class="nav-link" href="#ch2" data-page="ch2"><span class="num">2</span><span>기체수리 원칙<small>Structural Repair Principles</small></span></a><a class="nav-link" href="#ch3" data-page="ch3"><span class="num">3</span><span>항공기 하드웨어<small>Aircraft Hardware</small></span></a><a class="nav-link" href="#ch4" data-page="ch4"><span class="num">4</span><span>항공기 세척 및 부식방지<small>Cleaning & Corrosion Control</small></span></a></nav>
+  <nav><a class="nav-link" href="#ch1" data-page="ch1"><span class="num">1</span><span>항공기 재료<small>Aircraft Materials</small></span></a><a class="nav-link" href="#ch2" data-page="ch2"><span class="num">2</span><span>기체수리 원칙<small>Structural Repair Principles</small></span></a><a class="nav-link" href="#ch3" data-page="ch3"><span class="num">3</span><span>항공기 하드웨어<small>Aircraft Hardware</small></span></a><a class="nav-link" href="#ch4" data-page="ch4"><span class="num">4</span><span>항공기 세척 및 부식방지<small>Cleaning & Corrosion Control</small></span></a><a class="nav-link" href="#srm" data-page="srm"><span class="num">S</span><span>SRM 활용 방법<small>Structural Repair Manual</small></span></a><a class="nav-link" href="#review" data-page="review"><span class="num star">★</span><span>중간고사 리뷰<small>Midterm Review</small></span></a></nav>
 </aside>
 <main class="content" id="content">
 <div class="page" id="page-ch1" data-title="항공기 재료">
 <header class="page-head">
-  <div class="kicker">CHAPTER 1</div>
+  <div class="stub"><small>Chapter</small><b>1</b></div>
   <h1>항공기 재료</h1>
   <div class="chips">
     <a href="#ch1-metal">금속재료</a><a href="#ch1-ferrous">철금속재료</a><a href="#ch1-nonferrous">비철금속재료</a>
@@ -160,31 +365,51 @@ figure.compact img{max-height:260px}
 <!-- ============ 금속재료 ============ -->
 <section class="sec" id="ch1-metal">
   <h2>금속재료 <span class="en">Metals</span></h2>
-  <h3>금속의 특성 <span class="en">Properties of Metals</span></h3>
+  <h3>금속의 특성 <span class="en">Properties of Metals</span><span class="exam-badge">시험</span></h3>
   <p>항공기 정비에서 일차적으로 고려되는 것은 금속이나 그 합금의 <b>경도, 강도, 전성, 연성, 탄성, 인성, 밀도, 취성, 가용성, 전도성, 수축 및 팽창</b> 등과 같은 일반적인 성질들이다.</p>
   <table class="tbl">
     <thead><tr><th style="width:5%">#</th><th style="width:22%">성질</th><th>설명</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td><b>경도</b> (hardness)</td><td>마모, 침투, 절삭, 영구 변형 등에 저항할 수 있는 금속의 능력</td></tr>
-      <tr><td>2</td><td><b>강도</b> (strength)</td><td>변형에 저항하려는 재료의 능력</td></tr>
+      <tr><td>1</td><td><b>경도</b> (hardness)</td><td>마모, 침투, 절삭, 영구 변형 등에 저항할 수 있는 금속의 능력 (얼마나 단단한지)</td></tr>
+      <tr><td>2</td><td><b>강도</b> (strength)</td><td>변형에 저항하려는 재료의 능력 (얼마나 큰 힘을 견디는지)</td></tr>
       <tr><td>3</td><td><b class="r">밀도</b> (Density)</td><td>단위 체적당 질량</td></tr>
-      <tr><td>4</td><td><b>전성</b> (malleability)</td><td>단조, 압연, 압출 등과 같은 가공법으로 판재처럼 넓게 펴는 것이 가능한 성질</td></tr>
-      <tr><td>5</td><td><b>연성</b> (ductility)</td><td>끊어지지 않고 영구적으로 잡아 늘리거나 굽히고, 또는 비틀어 꼬는 것이 가능하게 하는 금속의 성질</td></tr>
+      <tr><td>4</td><td><b>전성</b> (malleability)</td><td>단조, 압연, 압출 등과 같은 가공법으로 판재처럼 <b>넓게 펴는 것</b>이 가능한 성질</td></tr>
+      <tr><td>5</td><td><b>연성</b> (ductility)</td><td>끊어지지 않고 영구적으로 <b>잡아 늘리거나 굽히고, 또는 비틀어 꼬는 것</b>이 가능하게 하는 금속의 성질</td></tr>
       <tr><td>6</td><td><b class="r">탄성</b> (elasticity)</td><td>물체의 변형을 일으키게 했던 하중을 제거하면, 원래 형태로 되돌아가는 금속의 성질</td></tr>
       <tr><td>7</td><td><b>인성</b> (toughness)</td><td>찢어짐이나 전단에 잘 견디고, 파괴됨이 없이 늘리거나 변형시킬 수 있는 성질. <b>인성은 항공기 금속으로서 갖추어야 할 성질 중 하나</b>이다.</td></tr>
-      <tr><td>8</td><td><b>취성</b> (brittleness)</td><td>약간 굽히거나 변형시키면 깨져버리는 금속의 성질</td></tr>
+      <tr><td>8</td><td><b>취성</b> (brittleness)</td><td>약간 굽히거나 변형시키면 깨져버리는 금속의 성질 (탄소가 많으면 취성이 강함)</td></tr>
       <tr><td>9</td><td><b>가용성</b> (Fusibility)</td><td>열에 의해 고체에서 액체로 변하는 금속의 성질. 강은 약 <b>2,600℉</b>에서 녹고 알루미늄은 약 <b>1,100℉</b>에서 녹는다.</td></tr>
       <tr><td>10</td><td><b class="r">전도성</b> (conductivity)</td><td>금속에서 열이나 전기가 전달되는 성질</td></tr>
       <tr><td>11</td><td><b>열팽창</b> (thermal expansion)</td><td>가열 또는 냉각에 의해서 금속이 수축하거나 팽창하는 물리적인 크기의 변화</td></tr>
     </tbody>
   </table>
+
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li>리뷰에서 다시 짚은 성질 : 경도, 강도, 전성, 연성, <b class="r">탄성</b>, 인성, 밀도, 취성, 가용성, 전도성, 열팽창.</li>
+      <li><b class="r">탄성</b> = 변형을 일으킨 하중을 제거하면 원래대로 돌아가는 성질. 복합소재의 중요한 특성이고 금속에도 있다.
+        <ul>
+          <li>CFRP(탄소섬유 강화 플라스틱) 자전거 휠은 휘어도 다시 펴지지만, 알루미늄 휠은 한 번 우그러지면 그대로 남는다. 낚싯대·골프채·배드민턴 라켓도 CFRP.</li>
+          <li>동체 스킨은 상승하며 여압을 받으면 늘어나고, 내려오면 다시 줄어든다. 탄성이 없으면 늘어난 채로 남는다.</li>
+        </ul>
+      </li>
+      <li>열을 가하면 부드러워지는 것 = <b>열가소성</b>, 단단해지는 것 = <b>열경화성</b>. 금속은 가열하면 모두 부드러워지며, 가열해서 딱딱해지는 금속은 없다.</li>
+    </ul></div>
 </section>
 
 <!-- ============ 철금속 ============ -->
 <section class="sec" id="ch1-ferrous">
-  <h2>철금속재료 <span class="en">Ferrous Aircraft Metals</span></h2>
+  <h2>철금속재료 <span class="en">Ferrous Aircraft Metals</span><span class="exam-badge">시험</span></h2>
   <p>“철강(Ferrous)”은 주성분이 “<b class="r">철(iron)</b>”인 금속이다. 철에 약 <b>1%</b> 정도의 탄소가 함유된다면, 그 합금은 순철보다 매우 우수하며 <b class="r">탄소강</b>으로 분류한다.</p>
   <p><b class="r">탄소강(carbon steel)</b>은 강의 성질을 개선하기 위해 <b class="r">다른 원소</b>를 첨가하여 <b class="r">합금강</b>으로 만들 때 <b class="r">모재금속</b>이 된다. 다른 금속을 첨가함으로써 모재금속의 물리적 성질과 화학적 성질을 변화시키거나 개선시킨다.</p>
+
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ol>
+      <li>순철은 너무 무르다 → <b class="r">탄소</b>를 섞어 단단하게 만든 것이 <b class="r">탄소강</b></li>
+      <li>탄소강을 <b class="r">모재금속</b>으로 삼아 다른 원소를 섞으면 <b class="r">합금강</b></li>
+      <li>탄소량에 따라 <b>저탄소강(0.10~0.30%) · 중탄소강(0.30~0.50%) · 고탄소강(0.50~1.05%)</b></li>
+    </ol>
+  </div>
 
   <h3>강과 강 합금 <span class="en">Steel and Steel Alloys</span></h3>
   <ul>
@@ -202,7 +427,7 @@ figure.compact img{max-height:260px}
       <h4><span class="r">저탄소강</span> Low Carbon Steel</h4>
       <ol>
         <li>탄소가 <b class="r">0.10~0.30[%]</b> 함유된 강. SAE 규격번호 <b class="r">1010~1030</b></li>
-        <li>안전결선, 너트, 케이블부싱, 나사를 낸 봉 등의 부품에 사용</li>
+        <li><b class="r">안전결선, 너트, 케이블부싱</b>, 나사를 낸 봉 등의 부품에 사용</li>
         <li>판재는 2차 구조부에, 튜브 형태는 중간 정도의 응력을 받는 구조부에 사용</li>
       </ol>
     </div>
@@ -210,7 +435,7 @@ figure.compact img{max-height:260px}
       <h4><span class="r">중탄소강</span> Medium Carbon Steel</h4>
       <ol>
         <li>탄소가 <b class="r">0.30~0.50[%]</b> 함유된 강</li>
-        <li>특히 기계가공 또는 단조가공용 재료로 사용하며, 표면경도를 요구하는 곳에 적합</li>
+        <li><b class="r">특히 기계가공 또는 단조가공용</b> 재료로 사용하며, 표면경도를 요구하는 곳에 적합</li>
         <li>로드엔드(rod end)와 경량 단조품 등은 <b class="r">SAE 1035</b> 탄소강으로 만든다.</li>
       </ol>
     </div>
@@ -278,7 +503,7 @@ figure.compact img{max-height:260px}
         <li>외형상 스테인리스강(내식강)과 거의 유사한 <b>니켈-크롬-철 합금</b>. 매우 비슷하여 항공기 <b class="r">배기계통</b>에서 서로 대체하여 사용하기도 한다.</li>
         <li>니켈 함유량이 <b>50% 이상</b>이므로 전기화학시험을 하면 니켈이 다량 검출된다.</li>
         <li><b class="r">바닷물</b> 같은 염수에 대한 <b class="r">내식성</b>이 우수, 용접성이 좋고 <b>1600℉</b>의 <b class="r">고온</b>에 견디며 내식강과 유사한 기계 가공성을 갖는다.</li>
-        <li><b class="r">Inconel600</b> (Ni 79%, Fe 8%), <b class="r">Incoloy800</b> (Fe 46%, Ni 32.5%)</li>
+        <li><b class="r">Inconel600</b> (Ni 79%, Fe 8%) → 인코넬 중에서도 비철금속 / 얘를 고온에서 사용, <b class="r">Incoloy800</b> (Fe 46%, Ni 32.5%)</li>
       </ol>
     </div>
   </div>
@@ -294,7 +519,7 @@ figure.compact img{max-height:260px}
     <li>알루미늄, 티타늄(titanium), 구리, 마그네슘 등의 금속</li>
   </ul>
 
-  <h3>알루미늄과 알루미늄 합금 <span class="en">Aluminum and Aluminum Alloys</span></h3>
+  <h3>알루미늄과 알루미늄 합금 <span class="en">Aluminum and Aluminum Alloys</span><span class="exam-badge">시험</span></h3>
   <ul>
     <li><b>알루미늄의 특성</b> : 오늘날 항공기 제작에 <b>가장 널리 사용</b>되는 금속. 두드러진 특성은 <b class="r">가볍다</b>는 것. 비교적 낮은 온도(<b>1,250℉</b>)에서 녹으며, 비자성체이고 <b class="r">전도성</b>이 우수하다.</li>
     <li><b>알루미늄 합금의 분류, 재질기호 식별</b> : <b class="r">4자리수</b>로 규격을 표시한다. 1××× 그룹, 2×××~8××× 그룹, 그리고 현재는 사용되지 않는 9×××의 그룹으로 나눈다.</li>
@@ -383,7 +608,16 @@ figure.compact img{max-height:260px}
     </div>
   </div>
 
-  <h3>알루미늄 합금 표면 처리 방법</h3>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li><b class="r">2×××</b> = 주합금원소 <b class="r">구리</b>. <b>2017 · 2024</b>는 꼭 기억.</li>
+      <li><b class="r">7×××</b> = 주합금원소 <b class="r">아연</b>. 대표 <b>7075</b> (초초두랄루민).</li>
+      <li><b class="r">7075-T6</b> : <b class="r">용체화처리 후 인공시효처리</b>하면 열처리 기호 <b class="r">T6</b>.</li>
+      <li><b class="r">인공시효 = 석출경화 = 석출열처리</b> (세 가지가 같은 말)</li>
+    </ul>
+  </div>
+
+  <h3>알루미늄 합금 표면 처리 방법<span class="exam-badge">시험</span></h3>
   <div class="cards">
     <div class="card">
       <h4><span class="r">알크래드(Alclad)</span> 처리</h4>
@@ -400,6 +634,7 @@ figure.compact img{max-height:260px}
     </div>
     <div class="card">
       <h4><span class="r">양극산화(Anodizing)</span> 처리</h4>
+      <p>전기적 산화피막 형성</p>
       <ol>
         <li>금속 표면을 <b class="r">의도적으로 산화·부식</b>시켜 생긴 <b class="r">산화막</b> 자체가 외부 영향으로부터 제품을 보호하고, 그 다공성 표면 위에 착색도 가능하게 하는 표면처리법.</li>
         <li><b class="r">알루미늄 산화막</b>을 형성하기 위해 알루미늄합금 판재 또는 주조물을 황산이나 크롬산 등의 전해조(electrolytic bath) 안에서 전기적으로 산화시켜 거칠고 다공성의 투명한 산화층을 만든다.</li>
@@ -416,6 +651,9 @@ figure.compact img{max-height:260px}
       </ol>
     </div>
   </div>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <p>표면 처리의 목적은 <b class="r">표면 부식 방지</b>. 이름 세 가지를 기억 : <b class="r">알클래드(Alclad)</b> · <b class="r">알로다인(Alodine)</b> · <b class="r">아노다이징(Anodizing)</b></p></div>
+
 
   <h3>마그네슘과 마그네슘 합금 <span class="en">Magnesium and Magnesium Alloys</span></h3>
   <ul>
@@ -459,7 +697,7 @@ figure.compact img{max-height:260px}
 
 <!-- ============ 금속 대체 ============ -->
 <section class="sec" id="ch1-substitute">
-  <h2>항공기용 금속의 대체 <span class="en">Substitution of Aircraft Metals</span></h2>
+  <h2>항공기용 금속의 대체 <span class="en">Substitution of Aircraft Metals</span><span class="exam-badge">시험</span></h2>
   <p>항공기 수리와 정비를 위해 적절한 대체 금속을 찾으려면 <b>구조수리 교범(SRM)</b>을 참조하는 것이 매우 중요하다.</p>
   <div class="card key">
     <h4>대체 금속 선정 시 <span class="r">필요조건</span> 4가지</h4>
@@ -470,18 +708,28 @@ figure.compact img{max-height:260px}
       <li>금속 원래의 <b class="r">내식성</b>을 유지할 것</li>
     </ol>
   </div>
+
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <p>구조 수리 때 원래 재료가 없으면 대체 금속을 써야 하고, 그 기준이 위 <b>네 가지 필요조건</b>이다. 다른 조건을 다 만족해도 <b class="r">부식이 잘 되는 금속은 안 된다</b>.</p>
+    <p><b>강도 · 매끄러움 · 무게 · 내식성</b> — 무게는 원래대로 또는 최소로, 늘어나면 안 된다.</p></div>
 </section>
 
 <!-- ============ 철강 열처리 ============ -->
 <section class="sec" id="ch1-heat-ferrous">
-  <h2>철강재료의 열처리 <span class="en">Heat-treatment of Ferrous Metals</span></h2>
+  <h2>철강재료의 열처리 <span class="en">Heat-treatment of Ferrous Metals</span><span class="exam-badge">시험</span></h2>
   <ul>
     <li>강 부품의 열처리에서 가장 주의해야 할 사항은 <b>강의 화학조성을 아는 것</b>. 이 화학적 조성에 따라 강의 <b class="r">상임계점(upper critical point)</b>이 결정되기 때문이다.</li>
     <li><b class="r">철금속의 내부구조를 변화</b>시키는 것은 <b class="r">상임계점 이상의 온도로 가열</b>하고, 내부의 변화가 완전히 일어날 충분한 시간 동안 <b class="r">그 온도를 유지</b>한 다음, 미리 정해진 조건에 따라 <b class="r">냉각시키는 과정</b>을 통해서 이루어진다.</li>
     <li>상온에서는 강에 침투해 있는 탄소가 <b class="r">페라이트</b>로 알려진 <b class="r">모철(iron matrix)</b> 전체에 산재된 탄화철 <b class="r">미립자</b> 형태로 존재한다.</li>
-    <li><b class="r">고온</b>에서 <b class="r">탄소</b>는 <b class="r">오스테나이트(austenite)</b>라고 부르는 <b class="r">고용체</b> 형태의 <b class="r">모철 속에 용해</b>되고, 탄화물 미립자가 오스테나이트 상태로 용해된다는 사실이 강의 열처리의 기본이 된다.</li>
+    <li><b class="r">고온</b>에서 <b class="r">탄소</b>는 <b class="r">오스테나이트(austenite)</b>라고 부르는 <b class="r">고용체</b> 형태의 <b class="r">모철 속에 용해(녹음)</b>되고, 탄화물 미립자가 오스테나이트 상태로 용해된다는 사실이 강의 열처리의 기본이 된다.</li>
     <li>이 <b class="r">변태가 일어나는 온도</b>를 <b class="r">임계점</b>이라 하며 강의 구성성분에 따라 다르다. 임계점에 가장 큰 영향을 주는 요소는 <b class="r">탄소 함유량</b>이다.</li>
   </ul>
+
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li><b class="r">임계점</b> = 가열하면 탄화물 미립자가 <b>오스테나이트</b> 상태로 용해되며 조직이 바뀌는 <b class="r">변태</b>가 일어나는 온도.</li>
+      <li>임계점에 가장 큰 영향을 주는 요소는 <b class="r">탄소 함유량</b> → 탄소강 종류(저·중·고탄소강)마다 임계점이 다르다.</li>
+    </ul><p class="fix">노트의 “탄소 고체가 액체로 바뀔 때의 온도”는 녹는점(용융) 설명이라 틀립니다. 임계점은 <b>고체 상태에서 조직이 바뀌는 변태 온도</b>예요. 녹음에서도 “녹는다”라고 표현하셨지만 교재 정의는 변태점입니다.</p></div>
 
   <div class="cards">
     <div class="card">
@@ -525,6 +773,16 @@ figure.compact img{max-height:260px}
       </ul>
     </div>
   </div>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li><b class="r">경화</b> = 가열 → 유지 → <b class="r">담금질(Quenching)</b>. 담금질 액체는 <b>물 · 오일 · 소금물</b>.</li>
+      <li>경화하면 너무 단단해 그대로 쓰면 균열 → 경화 후 <b class="r">반드시 뜨임</b>.</li>
+      <li><b class="r">뜨임</b> : 경화된 강을 <b class="r">재가열</b>(212℉ → 하임계점까지). 온도가 높지 않아 <b class="r">담금질 안 함</b>, <b class="r">공기 중 냉각</b>. 취성↓, 강을 연하게.</li>
+      <li><b class="r">풀림</b> : 응력(잔류변형)을 <b>풀어주는</b> 것. <b class="r">경화의 반대</b> = 가장 부드럽게, <b class="r">가장 낮은 강도</b>.</li>
+      <li>용접하면 열을 받아 조직이 깨지기 쉬운 상태가 되고 응력이 집중된다 → 열처리로 응력을 제거해 줘야 한다.</li>
+    </ul><p class="fix">노트의 “경화 → 담금질 → 뜨임”에서 담금질은 경화의 마지막 단계예요. 순서는 <b>경화(가열·유지·담금질) → 뜨임</b>.</p><p class="fix">리뷰에서는 용접 응력을 풀림 설명 중에 말씀하셨지만, 교재는 <b>용접된 부품에는 불림처리가 꼭 필요</b>하다고 되어 있어요. 문제에 “용접 부품에 필요한 열처리”가 나오면 불림을 고르세요.</p>
+  </div>
+
 
   <table class="tbl">
     <caption>철강재료의 열처리 정리 (Heat treatment)</caption>
@@ -536,9 +794,16 @@ figure.compact img{max-height:260px}
       <tr><td>4</td><td><b>불림</b> (Normalizing)</td><td>가열 : 상임계 온도 이상 <br>균열처리 : 균일하게 가열 유지 <br>냉각 : 노에서 꺼내어 공기중 냉각</td><td>내부응력 감소</td><td>공기 서랭</td><td>용접, 단조가공품</td></tr>
     </tbody>
   </table>
+  <div class="exam-box">
+    <div class="exam-head"><span class="exam-badge">핵심</span></div>
+    <ul>
+      <li>뜨임만 212℉ 하임계점까지 가열</li>
+    </ul>
+  </div>
+
   <figure class="fig"><img src="images/mat_p42_0.jpg" alt="강의 열처리 온도표 : SAE 강 번호별 Normalizing · Annealing · Hardening · Quenching 온도와 뜨임(Tempering) 온도" loading="lazy"><figcaption>강의 열처리 온도표 : SAE 강 번호별 Normalizing · Annealing · Hardening · Quenching 온도와 뜨임(Tempering) 온도</figcaption></figure>
 
-  <h3>표면 경화 <span class="en">Casehardening</span></h3>
+  <h3>표면 경화 <span class="en">Casehardening</span><span class="exam-badge">시험</span></h3>
   <ul>
     <li><b class="r">단단한 내마모성 표면</b>과 강인한 코어로 된 <b class="r">케이스(Case)</b>를 만들기 위한 <b class="r">열처리</b>. 내마모성 표면과 동시에 내부는 가해지는 하중을 견딜 만큼 충분한 인성을 가져야 하는 제품에 이상적.</li>
     <li>적합한 강은 <b class="r">저탄소강</b>과 <b class="r">저합금강</b>.</li>
@@ -566,11 +831,18 @@ figure.compact img{max-height:260px}
       </ul>
     </div>
   </div>
+
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li>표면을 단단하게(케이스) — 표면에 <b class="r">탄소</b> 또는 <b class="r">질소</b>를 침투시킨다.</li>
+      <li><b class="r">침탄법</b> = 탄소 침투 : <b>고체 · 가스 · 액체</b> 침탄법</li>
+      <li><b class="r">질화법</b> = 질소 침투 → 질화물 형성</li>
+    </ul></div>
 </section>
 
 <!-- ============ 비철금속 열처리 ============ -->
 <section class="sec" id="ch1-heat-nonferrous">
-  <h2>비철금속 열처리 <span class="en">Heat-treatment of Nonferrous Metals</span></h2>
+  <h2>비철금속 열처리 <span class="en">Heat-treatment of Nonferrous Metals</span><span class="exam-badge">시험</span></h2>
   <h3>알루미늄 합금 <span class="en">Aluminum Alloys</span> — 열처리 기호(Temper Designation)</h3>
   <table class="tbl small">
     <tbody>
@@ -600,6 +872,19 @@ figure.compact img{max-height:260px}
     </ol>
     <p>앞의 세 단계는 <b class="r">용체화처리</b>라 하며, 짧게 <b class="r">열처리</b>라고도 부른다. 상온에서 하는 시효경화를 <b class="r">자연시효</b>, 지정된 온도로 조절하여 수행하는 시효경화를 <b class="r">인공시효</b> 또는 <b class="r">석출경화</b>라 한다.</p>
   </div>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <p>알루미늄 열처리는 철강 열처리와 <b>순서가 같다</b>. 이름과 담금질 액체만 다르다.</p>
+    <div class="tbl-wrap"><table class="tbl small">
+      <thead><tr><th></th><th>철강재료</th><th>알루미늄 합금</th></tr></thead>
+      <tbody>
+        <tr><td><b>원래 열처리</b></td><td>경화</td><td><b class="r">용체화처리</b></td></tr>
+        <tr><td><b>담금질</b></td><td>물 · 오일 · 소금물 (Quenching)</td><td><b class="r">물만</b> : 냉수 · 온수 · 분무 (그냥 “냉각”이라고도 함)</td></tr>
+        <tr><td><b>재열처리</b></td><td>뜨임</td><td><b class="r">석출경화</b> (= 인공시효 = 석출열처리)</td></tr>
+        <tr><td><b>재열처리 냉각</b></td><td>공기 중</td><td>공기 중</td></tr>
+      </tbody>
+    </table></div>
+    <p>알루미늄은 <b class="r">뜨임이 없다</b>. 대신 뜨임처럼 재가열하는 것이 석출경화. <b class="r">T6 = 용체화처리 후 인공시효</b>.</p></div>
+
 
   <h3><span class="r">용체화처리</span> Solution Heat-treatment</h3>
   <div class="cards">
@@ -615,7 +900,7 @@ figure.compact img{max-height:260px}
     </div>
     <div class="card">
       <h4>(3) 담금질 Quenching</h4>
-      <p>녹기 쉬운 합금성분이 <b class="r">고용체</b>가 된 후 즉각적인 <b class="r">재석출</b>을 <b class="r">방지</b>하거나 <b class="r">지연</b>시키기 위해 담금질한다. 방법은 부품, 합금, 요구 성질을 고려해 선택.</p>
+      <p>녹기 쉬운 합금성분이 <b class="r">고용체</b>(고체 → 액체)가 된 후 즉각적인 <b class="r">재석출</b>을 <b class="r">방지</b>하거나 <b class="r">지연</b>시키기 위해 담금질한다. 방법은 부품, 합금, 요구 성질을 고려해 선택.</p>
       <ul>
         <li><b>① 냉수 담금질(Cold Water)</b> : 판재, 압출성형품, 배관, <b class="r">작은 단조품</b> 등은 <b class="r">냉수욕조</b>에서. 담금질 전 물 온도는 <b class="r">85℉</b>를 초과하지 않게, 충분한 양의 물로 처음보다 <b class="r">20℉</b> 이상 상승하지 않게 한다.</li>
         <li><b>② 온수 담금질(Hot Water)</b> : <b class="r">큰 단조품</b> 및 주물의 <b class="r">두께가 두꺼운</b> 부분은 <b class="r">온수</b> 또는 <b class="r">끓는 물</b>로. 균일하지 못한 온도로 인한 <b class="r">변형</b>을 <b class="r">최소화</b>하고 <b class="r">균열</b>을 <b class="r">감소</b>.</li>
@@ -645,7 +930,7 @@ figure.compact img{max-height:260px}
     </div>
   </div>
 
-  <h3>알루미늄합금 리벳의 열처리 <span class="en">Heat-treatment of Aluminum Alloy Rivets</span></h3>
+  <h3>알루미늄합금 리벳의 열처리 <span class="en">Heat-treatment of Aluminum Alloy Rivets</span><span class="exam-badge">시험</span></h3>
   <p>알루미늄합금 리벳은 <b>1100, 5056, 2117, 2017, 2024</b> 등의 성분으로 만들어진다.</p>
   <table class="tbl">
     <thead><tr><th>리벳</th><th>용도 · 특징</th></tr></thead>
@@ -672,6 +957,17 @@ figure.compact img{max-height:260px}
     </div>
   </div>
   <p class="note-s">정해진 시간 안에 사용하지 못했다면 리벳을 <b class="r">재열처리</b>한 후 <b class="r">냉동보관</b>한다.</p>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <div class="tbl-wrap"><table class="tbl small">
+      <thead><tr><th>합금</th><th>재질 기호</th><th>리뷰 포인트</th></tr></thead>
+      <tbody>
+        <tr><td><b class="r">2017</b></td><td><b>D</b></td><td rowspan="2"><b class="r">아이스박스 리벳</b> (열처리 후 냉장 보관했다 사용)</td></tr>
+        <tr><td><b class="r">2024</b></td><td><b>DD</b></td></tr>
+        <tr><td><b class="r">2117</b></td><td><b>AD</b></td><td>아이스박스 리벳 아님. <b class="r">상온에서 바로</b> 쓸 수 있는 리벳</td></tr>
+      </tbody>
+    </table></div>
+    <p>D가 들어간 세 가지 <b>D · DD · AD</b>를 숫자와 짝지어 구분할 줄 알아야 한다.</p></div>
+
 
   <table class="tbl">
     <caption>알루미늄 합금의 열처리 (Heat Treatment) 정리</caption>
@@ -693,7 +989,7 @@ figure.compact img{max-height:260px}
     <li>이런 재료들은 <b class="r">강화 플라스틱</b>이나 개량된 <b class="r">복합소재</b> 등 <b class="r">비금속 재료</b>로 교체되고 있다.</li>
   </ul>
 
-  <h3>열가소성과 열경화성 플라스틱 재료</h3>
+  <h3>열가소성과 열경화성 플라스틱 재료<span class="exam-badge">시험</span></h3>
   <div class="two">
     <div class="card">
       <h4><span class="r">열가소성 수지</span> (Thermoplastic)</h4>
@@ -726,7 +1022,7 @@ figure.compact img{max-height:260px}
 
 <!-- ============ 복합재료 ============ -->
 <section class="sec" id="ch1-composite">
-  <h2>복합재료 <span class="en">Composite Materials</span></h2>
+  <h2>복합재료 <span class="en">Composite Materials</span><span class="exam-badge">시험</span></h2>
   <p>복합재료는 서로 다른 재료나 물질을 인위적으로 혼합한 <b class="r">혼합물</b>로 정의한다. 일반적으로 <b class="r">보강재(reinforcement)</b>와 <b class="r">모재(matrix)</b>로 구성된다.</p>
   <ul>
     <li><b class="r">보강재</b>는 모재에 의해 접합되거나 둘러싸여 있으며, <b class="r">섬유(fiber)</b>, 휘스커(whisker) 또는 미립자(particle)로 만들어진다.</li>
@@ -769,6 +1065,14 @@ figure.compact img{max-height:260px}
   <div class="warn">
     <b>복합재료 취급 시 안전 <span class="r">(Composite Safety)</span></b> — 복합재료 제품은 피부, 눈, 폐 등에 매우 해로울 수 있으며 단기·장기적으로 심각한 자극과 해를 입힐 수 있다. <b class="r">개인보호용구 착용은 필수</b>. 수지 작업 시 발생하는 증기에 대비해 <b>방독면</b> 착용이 매우 중요하다. 긴 바지와 장갑까지 내려오는 긴 소매를 입거나 보호크림(barrier cream)을 바르면 섬유나 미립자가 피부에 닿는 것을 막을 수 있다.
   </div>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li><b>장점</b> : 강도비가 높다(가벼운데 단단) · 내식성이 크다 → 그래서 <b class="r">수명이 길다</b> · 인장강도가 세다</li>
+      <li><b>단점</b> : 층층이 <b>적층</b>해 만들어서 <b class="r">층 내부의 들뜸(박리)을 찾아내기 어렵다</b></li>
+      <li><b>단점</b> : <b class="r">비싸다</b> — 탄소 복합소재 자전거는 천만~2천만 원대</li>
+      <li><b>단점</b> : 독성, 수리 지식·정보 부족, 제작·수리 <b>표준화</b> 부족 (적용된 항공기가 아직 많지 않음)</li>
+    </ul></div>
+
 
   <h3>복합 소재의 특성</h3>
   <ul>
@@ -808,7 +1112,7 @@ figure.compact img{max-height:260px}
 <!-- ============ 고무 / 시일 / 실란트 ============ -->
 <section class="sec" id="ch1-rubber">
   <h2>고무 · 시일 · 실란트</h2>
-  <h3>고무(Rubber)제품</h3>
+  <h3>고무(Rubber)제품<span class="exam-badge">시험</span></h3>
   <p>먼지·습기·공기의 침입과 액체·가스·공기의 손실을 막고, 진동을 흡수하고 잡음과 충격하중을 감소시키는 데 사용한다. 여기서 고무는 천연고무뿐 아니라 합성고무, 실리콘고무를 포함한다.</p>
   <div class="cards">
     <div class="card">
@@ -840,8 +1144,16 @@ figure.compact img{max-height:260px}
       <p>규소, 수소, 탄소로 만들어진 플라스틱 고무. 개스킷, 시일 등에 사용하며 <b class="r">–150℉에서 600℉</b>의 온도에서 사용 가능.</p>
     </div>
   </div>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li>항공기에서는 대부분 <b class="r">합성고무</b>를 쓴다 : 부틸 · 부나 · 부나-N · 네오프렌 · 실리콘</li>
+      <li><b class="r">부틸</b> : 자극성 강한 <b class="r">스카이드롤(Skydrol) 작동유</b>에 적합</li>
+      <li><b>부나-N</b> : <b>−75℉ ~ 300℉</b></li>
+      <li><b class="r">실리콘 고무</b> : <b class="r">−150℉ ~ 600℉</b>. 저온·고온 모두 가능해 <b class="r">사용 특성이 가장 우수</b>, 다용도로 폭넓게 사용</li>
+    </ul></div>
 
-  <h3>시일 <span class="en">Seals</span></h3>
+
+  <h3>시일 <span class="en">Seals</span><span class="exam-badge">시험</span></h3>
   <p>사용되는 계통에서 공기, 오물(dirt) 등 유체의 흐름을 차단하거나 누설을 방지하기 위해 사용한다. 유압과 공압의 사용빈도 증가로 패킹(packing)과 개스킷(gasket)의 필요성도 증가했고, 운영속도와 온도에 맞게 여러 모양으로 설계된다.</p>
   <div class="two">
     <div class="card">
@@ -854,6 +1166,13 @@ figure.compact img{max-height:260px}
     </div>
   </div>
   <figure class="fig"><img src="images/mat_p73_0.jpg" alt="그림 5-8 링 패킹 (Packing rings) : U-ring · O-ring · V-ring · U-cup · Male · Female" loading="lazy"><figcaption>그림 5-8 링 패킹 (Packing rings) : U-ring · O-ring · V-ring · U-cup · Male · Female</figcaption></figure>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li><b class="r">시일</b> = 기밀 유지, 유체 흐름 차단, <b>누설 방지</b>. 패킹과 개스킷이 있다.</li>
+      <li><b class="r">패킹</b> = <b class="r">움직이는 부분</b>(피스톤, 액추에이터). 예) 랜딩기어 스트럿 : 아래 작동유, 위 압축공기가 새지 않게. O-링 · V-링 · U-링</li>
+      <li><b class="r">개스킷</b> = <b class="r">고정된 부분</b>의 틈. 예) 엔진 실린더 커버 사이</li>
+    </ul></div>
+
 
   <h3>기밀용 실란트 <span class="en">Sealing Compounds</span></h3>
   <p>모든 항공기는 여압을 위한 공기 누설 방지, 연료 누설이나 가스 유입 방지, 기후 차단, 부식 방지를 위해 해당 부분을 밀폐시킨다. 대부분의 실란트(밀폐제)는 최상의 결과를 위해 2가지 이상의 성분을 적절한 비율로 혼합하여 사용한다.</p>
@@ -880,9 +1199,11 @@ figure.compact img{max-height:260px}
 </section>
 
 <section class="sec" id="ch1-appendix">
-  <h2>부록 : 금속별 비중과 재료 비교</h2>
+  <h2>부록 : 금속별 비중과 재료 비교<span class="exam-badge">시험</span></h2>
   <figure class="fig"><img src="images/mat_p77_0.jpg" alt="금속별 비중표 (원소별 비중·용융점·열전도율 등)" loading="lazy"><figcaption>금속별 비중표 (원소별 비중·용융점·열전도율 등)</figcaption></figure>
   <figure class="fig"><img src="images/mat_p78_0.jpg" alt="재료 비교표 : 비중 · 강도 · 내열성 · 내충격성 · 가격 — Steel 7.8, 알루미늄 2.7, 마그네슘 1.7, 티타늄 4.5, PC 2.0, PA 1.4, CFRP 1.5~2.1" loading="lazy"><figcaption>재료 비교표 : 비중 · 강도 · 내열성 · 내충격성 · 가격 — Steel 7.8, 알루미늄 2.7, 마그네슘 1.7, 티타늄 4.5, PC 2.0, PA 1.4, CFRP 1.5~2.1</figcaption></figure>
+    <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <p>리뷰에서 비중표를 같이 보며 <b>비중이 가장 높은 것 · 낮은 것</b>을 찾아봤다. 주요 구조 금속 : 강 7.8 &gt; 티타늄 4.5 &gt; 알루미늄 2.7 &gt; 마그네슘 1.7.</p></div>
   <div class="card">
     <h4>참고 영상 (원본 자료에 첨부)</h4>
     <ul>
@@ -895,11 +1216,11 @@ figure.compact img{max-height:260px}
 </div>
 <div class="page" id="page-ch2" data-title="기체수리 원칙">
 <header class="page-head">
-  <div class="kicker">CHAPTER 2</div>
+  <div class="stub"><small>Chapter</small><b>2</b></div>
   <h1>기체수리 원칙</h1>
   <div class="chips">
     <a href="#ch2-strength">원래의 강도 유지</a><a href="#ch2-figs">수리 구조 도해</a><a href="#ch2-contour">원래의 윤곽 유지</a>
-    <a href="#ch2-weight">최소 무게 · 부식 보호</a><a href="#ch2-bend">굽힘 가공</a><a href="#ch2-holes">4대 홀</a>
+    <a href="#ch2-weight">최소 무게 · 부식 보호</a><a href="#ch2-bend">굽힘 가공</a><a href="#ch2-holes">4대 홀</a><a href="#ch2-srm">SRM 검사</a>
   </div>
 </header>
 
@@ -1102,10 +1423,31 @@ figure.compact img{max-height:260px}
   <figure class="fig"><img src="images/rep_p40_0.jpg" alt="M7B14.7 LIGHTENING HOLES — 벌크헤드/프레임에 플랜징 가공된 하중 경감 홀" loading="lazy"><figcaption>M7B14.7 LIGHTENING HOLES — 벌크헤드/프레임에 플랜징 가공된 하중 경감 홀</figcaption></figure>
 </section>
 
+<section class="sec" id="ch2-srm">
+  <h2>SRM 수리 후 검사 · 리벳 배치 기준<span class="exam-badge">시험</span></h2>
+  <p>SRM 절차를 그대로 따라 스킨을 수리했다면 끝이 아니다. 수리한 부위는 <b>주기를 정해 반복 검사</b>해야 하며, 그 요구사항이 SRM에 나와 있다.</p>
+  <p class="note">손상 식별부터 수리·검사까지 SRM을 찾아가는 전체 흐름은 <a href="#srm">SRM 활용 방법</a> 페이지에 그림과 함께 정리했어요.</p>
+  <div class="tbl-wrap"><table class="tbl">
+    <thead><tr><th>항목</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><b>Method</b></td><td><b class="r">External Detailed Visual Inspection</b> — 외부 상세 육안 검사</td></tr>
+      <tr><td><b>Interval</b></td><td><b class="r">1,000 Flight Cycles</b>마다 (Flight Hour가 아니라 <b class="r">Cycle</b>)</td></tr>
+      <tr><td><b>Structure Detail</b></td><td>수리 부위의 <b>블라인드 파스너</b>와 <b>스킨</b></td></tr>
+      <tr><td><b>Note</b></td><td>파스너의 <b class="r">damage · missing · loose</b> 여부, 스킨 상태 점검</td></tr>
+      <tr><td><b>Inspection Threshold</b></td><td>수리 후 <b class="r">1,000 Flight Cycles</b> 시점에 첫 검사</td></tr>
+    </tbody>
+  </table></div>
+  <div class="card key">
+    <h4>리벳 배치 치수의 기준 = <span class="r">리벳 지름 (D)</span></h4>
+    <p>실습 SRM에는 연거리(edge margin), 피치, 횡단 피치(transverse pitch)가 모두 주어져 있었다. 주어지지 않았다면 <b class="r">리벳 지름 D</b>를 기준으로 공식으로 계산한다.</p>
+    <p class="supp">교재 일반값 : 연거리 2D~4D (접시머리 최소 2.5D) · 피치 3D~12D (보통 6D~8D) · 횡단 피치 최소 2.5D (보통 피치의 75%). 녹음에서 정확한 수치가 잘 안 들려서, 시험 전 교재 표로 한 번 확인하세요.</p>
+  </div>
+</section>
+
 </div>
 <div class="page" id="page-ch3" data-title="항공기 하드웨어">
 <header class="page-head">
-  <div class="kicker">CHAPTER 3</div>
+  <div class="stub"><small>Chapter</small><b>3</b></div>
   <h1>항공기 하드웨어</h1>
   <div class="chips">
     <a href="#ch3-intro">개요</a><a href="#ch3-thread">나사의 구분</a><a href="#ch3-bolt">볼트</a><a href="#ch3-nut">너트</a>
@@ -1114,13 +1456,19 @@ figure.compact img{max-height:260px}
 </header>
 
 <section class="sec" id="ch3-intro">
-  <h2>항공기 하드웨어 <span class="en">Aircraft Hardware</span></h2>
+  <h2>항공기 하드웨어 <span class="en">Aircraft Hardware</span><span class="exam-badge">시험</span></h2>
   <ul>
     <li>항공기 <mark>하드웨어(hardware)</mark>는 항공기의 제작과 수리에 사용되는 여러 가지 종류의 <b>고정용 기구와 기타 작은 부품</b>을 포괄적으로 지칭하는 용어이다.</li>
     <li>하드웨어의 중요성은 크기가 작기 때문에 가끔 경시하는 경향이 있지만, 올바른 선택과 사용은 <b>항공기의 안전과 효율적인 운영</b>에 매우 큰 영향을 준다.</li>
     <li>나사식 파스너(threaded fastener)와 리벳은 보통 <b>AN 규격, NAS 규격, 또는 MS 규격 번호</b>에 의해서 식별한다.</li>
     <li>항공기 체결부품을 교체해야 하는 경우, 가능하면 <b>원래 사용했던 체결부품과 같은 것</b>을 사용해야 한다.</li>
   </ul>
+
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li><b>큰 의미</b>의 하드웨어 : 항공기 제작·수리에 쓰이는 고정용 기구 등 전체</li>
+      <li><b>작은 의미</b>의 하드웨어 : <b class="r">패스너</b>(볼트, 너트, 리벳 등). 패스너는 <b>나사</b>로 되어 있다.</li>
+    </ul></div>
 </section>
 
 <section class="sec" id="ch3-thread">
@@ -1131,7 +1479,7 @@ figure.compact img{max-height:260px}
     <p class="note-s">원문 예시는 지름 1인치 규격 기준(1-14NF, 1-12UNF)이다.</p>
   </div>
 
-  <h3>나사 끼워 맞춤 등급</h3>
+  <h3>나사 끼워 맞춤 등급<span class="exam-badge">시험</span></h3>
   <p>나사는 끼워 맞춤의 등급으로도 구분한다. 나사의 등급은 <b>제작과정에 적용되는 허용공차</b>를 제한한다.</p>
   <table class="tbl small">
     <thead><tr><th>등급</th><th>끼워 맞춤</th><th>비고</th></tr></thead>
@@ -1146,10 +1494,13 @@ figure.compact img{max-height:260px}
     <li>너트(nut)를 볼트에 조립할 때, 등급 4는 너트를 돌리기 위해 렌치를 사용해야 하지만, 등급 1은 맨손으로도 쉽게 돌아간다.</li>
     <li>볼트와 너트는 <b>오른 나사와 왼 나사</b>로도 구분한다. 오른 나사는 <b>시계방향</b>으로 돌리면 조여지고, 왼 나사는 <b>반시계방향</b>으로 돌려야 조여진다.</li>
   </ul>
+
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <p>나사 등급은 1~4. 항공기용 볼트는 <b class="r">3등급 = 중간 끼워 맞춤</b>, <b class="r">4등급 = 밀착 끼워 맞춤(close fit)</b>.</p></div>
 </section>
 
 <section class="sec" id="ch3-bolt">
-  <h2>항공기용 볼트 <span class="en">Aircraft Bolts</span></h2>
+  <h2>항공기용 볼트 <span class="en">Aircraft Bolts</span><span class="exam-badge">시험</span></h2>
   <div class="two">
     <div class="card">
       <h4>재질 · 표면처리</h4>
@@ -1175,6 +1526,14 @@ figure.compact img{max-height:260px}
     <li>큰 하중을 받는 부분에 사용하고, 반복해서 <mark>분해·조립</mark>할 필요가 있는 곳에 사용된다.</li>
     <li>반영구적으로 접합 시에는 <b>리벳(Rivet)이나 용접(Welding)</b>을 사용한다.</li>
   </ul>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li>도금 : <b class="r">카드뮴 도금</b> · 아연 도금. <b class="r">알루미늄 부재에 강 볼트를 쓸 때는 반드시 카드뮴 도금 볼트</b> → 이질 금속 부식 방지</li>
+      <li><b class="r">클레비스 볼트 = 전단 하중</b>만 / <b class="r">아이 볼트 = 인장 하중</b>만</li>
+      <li>셰어(shear) = 전단, 텐션(tension) = 인장(잡아당김)</li>
+    </ul>
+  </div>
+
   <figure class="fig"><img src="images/hw_p06_0.jpg" alt="볼트와 너트의 구조 — thread · nut · runout · shank · radius · head / thread length · grip length · nominal length" loading="lazy"><figcaption>볼트와 너트의 구조 — thread · nut · runout · shank · radius · head / thread length · grip length · nominal length</figcaption></figure>
   <figure class="fig"><img src="images/hw_p07_0.jpg" alt="그림 5-10 항공기 볼트의 식별 (Aircraft bolt identification) — Standard head, Drilled hex head, Countersunk head, Internal hex head, Eyebolt, Clevis bolt, AN standard steel bolt, Special bolt, NSA close tolerance bolt, Aluminum alloy (2024) bolt, Magnetically inspected, Orange-dyed magnetically inspected, Reworked bolt, Low strength material bolt" loading="lazy"><figcaption>그림 5-10 항공기 볼트의 식별 (Aircraft bolt identification) — Standard head, Drilled hex head, Countersunk head, Internal hex head, Eyebolt, Clevis bolt, AN standard steel bolt, Special bolt, NSA close tolerance bolt, Aluminum alloy (2024) bolt, Magnetically inspected, Orange-dyed magnetically inspected, Reworked bolt, Low strength material bolt</figcaption></figure>
 
@@ -1189,7 +1548,7 @@ figure.compact img{max-height:260px}
       <p>외부에서 <mark>인장하중</mark>이 작용하는 곳에 사용된다. 나사산의 끝부분에 구멍이 뚫린 것은 <mark>안전고정(Safetying)</mark>을 위한 것이다.</p>
     </div>
     <div class="card">
-      <h4>3. 조-볼 <span class="en">Jobolt</span></h4>
+      <h4>3. 조-볼트 <span class="en">Jobolt</span></h4>
       <p>항공기 구조물을 <b>영구적으로 고정</b>하기 위해 사용하기도 하며, 교환 또는 수리를 자주 하지 않는 곳에 사용한다.</p>
     </div>
     <div class="card">
@@ -1249,10 +1608,17 @@ figure.compact img{max-height:260px}
   </div>
   <figure class="fig"><img src="images/hw_p16_0.jpg" alt="TENSION BOLTS (텐션 볼트) — Plated(도금) / Un-Plated(무도금)" loading="lazy"><figcaption>TENSION BOLTS (텐션 볼트) — Plated(도금) / Un-Plated(무도금)</figcaption></figure>
 
-  <h3>AN 볼트의 식별 <span class="en">머리 표시</span></h3>
+  <h3>AN 볼트의 식별 <span class="en">머리 표시</span><span class="exam-badge">시험</span></h3>
   <figure class="fig"><img src="images/hw_p17_all.jpg" alt="AN 볼트 머리 표시 : × = 합금강 / 양쪽 홈(–  –) = 알루미늄 합금 / △ = 정밀 공차 볼트(삼각형 표시가 없는 것도 있음) / 삼각형 안 × = 정밀 공차 볼트(합금강) / 작은 – = 내식강 / 원형 머리 = 합금강" loading="lazy"><figcaption>AN 볼트 머리 표시 : × = 합금강 / 양쪽 홈(–  –) = 알루미늄 합금 / △ = 정밀 공차 볼트(삼각형 표시가 없는 것도 있음) / 삼각형 안 × = 정밀 공차 볼트(합금강) / 작은 – = 내식강 / 원형 머리 = 합금강</figcaption></figure>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li><b>S</b> 표시 → 스페셜(special) 볼트</li>
+      <li><b>삼각형</b> 표시 → <b class="r">정밀 공차 볼트</b></li>
+      <li><b>짝대기 두 개(– –)</b> → <b class="r">알루미늄 합금</b> 볼트</li>
+    </ul></div>
 
-  <h3>(3) 볼트의 규격에 의한 식별</h3>
+
+  <h3>(3) 볼트의 규격에 의한 식별<span class="exam-badge">시험</span></h3>
   <div class="two">
     <div class="card key">
       <h4><mark>AN 3 DD H 5 A</mark></h4>
@@ -1276,6 +1642,10 @@ figure.compact img{max-height:260px}
     </div>
   </div>
   <figure class="fig"><img src="images/hw_p18_0.jpg" alt="AN 3 DD 5 A 해설표 : AN3 = AN 볼트 계열(지름 3/16 in) / DD = 2024 알루미늄, D = 2017 알루미늄, C = 내식강(표시가 없는 경우는 카드뮴 도금강) / 5 = 볼트 길이(5/8 in) / A = 생크 구멍 관련 기호로 구멍이 없음" loading="lazy"><figcaption>AN 3 DD 5 A 해설표 : AN3 = AN 볼트 계열(지름 3/16 in) / DD = 2024 알루미늄, D = 2017 알루미늄, C = 내식강(표시가 없는 경우는 카드뮴 도금강) / 5 = 볼트 길이(5/8 in) / A = 생크 구멍 관련 기호로 구멍이 없음</figcaption></figure>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <p><b>AN 3 DD H 5 A</b> : 3 = 지름(3/16″) · DD = 재질 · H = 머리 구멍 <b>있다</b>(없으면 없다) · 5 = 길이(5/8″) · A = 생크 코터핀 구멍 <b class="r">없다</b>(A가 없어야 구멍이 있다)</p>
+    <p>재질 문자 : <b class="r">DD = 2024</b>, <b class="r">D = 2017</b>. (AD = 2117은 리벳 재질 기호)</p></div>
+
 
   <h3>(4) 볼트의 용도와 사용법</h3>
   <ul>
@@ -1286,11 +1656,11 @@ figure.compact img{max-height:260px}
     <li>알루미늄 합금 부위에 강 볼트를 사용 시, <mark>카드뮴(Cd) 도금</mark>된 볼트를 사용하여 부식을 방지해야 한다.</li>
   </ul>
 
-  <h3>(5) 볼트의 길이 결정</h3>
+  <h3>(5) 볼트의 길이 결정<span class="exam-badge">시험</span></h3>
   <ul>
     <li>그립의 길이는 <b>부재의 두께와 같거나 약간 길어야</b> 한다.</li>
     <li>그립 길이의 미세한 조정은 <b>와셔의 삽입</b>으로 가능.</li>
-    <li>와셔는 한쪽 면에 <mark>두 개</mark>, 양쪽 <mark>세 개</mark>까지가 최대이며, 그 이상이 되면 길이에 맞는 그립을 가진 볼트로 교환.</li>
+    <li>와셔는 <b>한쪽 면에 <mark>두 개</mark>, 양쪽 <mark>세 개</mark></b>까지가 최대이며, 그 이상이 되면 길이에 맞는 그립을 가진 볼트로 교환.</li>
     <li>전단력이 걸리는 부재(Shear Bolt)에는 <b>Thread가 하나라도 부재에 걸리면 안 된다.</b></li>
   </ul>
   <figure class="fig"><img src="images/hw_p20_0.jpg" alt="볼트 길이 결정 — 양호(그립이 부재 두께에 맞음) / 불량(나사산이 부재에 걸림)" loading="lazy"><figcaption>볼트 길이 결정 — 양호(그립이 부재 두께에 맞음) / 불량(나사산이 부재에 걸림)</figcaption></figure>
@@ -1298,12 +1668,14 @@ figure.compact img{max-height:260px}
   <h3>(6) 볼트의 장착 방향</h3>
   <ul>
     <li><b>앞에서 뒤로</b>, <b>위에서 아래로</b>, <b>안쪽에서 바깥쪽으로</b> 장착.</li>
+    <li>앞에서 뒤로 → 공기가 앞에서 오니까 진동에 의해 너트가 풀려도 볼트는 안빠짐</li>
+    <li>아래서 위로 → 너트 풀렸을때 자중에 의해 볼트가 빠짐</li>
     <li>유압, 전기 계통의 클램프 장착 시에는 지장이 없는 한 어느 쪽도 무방하다.</li>
   </ul>
 </section>
 
 <section class="sec" id="ch3-nut">
-  <h2>항공기용 너트 <span class="en">Aircraft Nuts</span></h2>
+  <h2>항공기용 너트 <span class="en">Aircraft Nuts</span><span class="exam-badge">시험</span></h2>
   <ul>
     <li>카드뮴도금 탄소강, 스테인리스강, 또는 양극산화 처리한 2024T 알루미늄합금 등으로 만들며, 왼 나사산 또는 오른 나사산으로 만들어진다.</li>
     <li>너트에는 식별을 위한 표시나 문자가 없다. 알루미늄, 황동 등 고유의 광택이나 색상으로 구분할 수 있으며 <b>모양</b>에 따라 쉽게 식별할 수 있다.</li>
@@ -1320,6 +1692,12 @@ figure.compact img{max-height:260px}
       <p>풀림방지를 위한 <b>보조방법이 필요 없고</b>, 구조적으로 고정역할을 하는 부분이 포함되어 있다.</p>
     </div>
   </div>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li>리뷰에서 언급 : <b>자동고정(self-locking) 너트</b>, <b>너트 플레이트</b>, 구조용 <b>캐슬 너트</b></li>
+      <li>너트 코드 끝의 <b class="r">R = 오른나사, L = 왼나사</b>. 볼트 규격에는 없고 <b>너트에만</b> 있다.</li>
+    </ul></div>
+
   <figure class="fig"><img src="images/hw_p23_1.jpg" alt="너트의 종류 : 평너트 · 케슬 너트 · 케슬 전단 너트 · 체크 너트 · 나비 너트" loading="lazy"><figcaption>너트의 종류 : 평너트 · 케슬 너트 · 케슬 전단 너트 · 체크 너트 · 나비 너트</figcaption></figure>
   <figure class="fig"><img src="images/hw_p23_0.jpg" alt="평너트 · 케슬 너트 · 케슬 전단 너트 · 체크 너트 · 나비 너트 (도면)" loading="lazy"><figcaption>평너트 · 케슬 너트 · 케슬 전단 너트 · 체크 너트 · 나비 너트 (도면)</figcaption></figure>
   <figure class="fig"><img src="images/hw_p24_0.jpg" alt="그림 5-13 비자동 고정너트 (Nonself-locking nuts) — AN310 · AN320 · AN315 · AN335 · AN340 · AN345 · AN316 · AN350 (Top view / Profile view)" loading="lazy"><figcaption>그림 5-13 비자동 고정너트 (Nonself-locking nuts) — AN310 · AN320 · AN315 · AN335 · AN340 · AN345 · AN316 · AN350 (Top view / Profile view)</figcaption></figure>
@@ -1332,7 +1710,7 @@ figure.compact img{max-height:260px}
     <figure class="fig compact"><img src="images/hw_p28_1.jpg" alt="Anchor Nut — AN336F(Two-lug) · NAS1025(One-lug) · NAS1027(Corner) · AN256F(Right-angle) · AN362F(High-temp. two-lug) · Two-lug floating · Ganged anchor nuts" loading="lazy"><figcaption>Anchor Nut — AN336F(Two-lug) · NAS1025(One-lug) · NAS1027(Corner) · AN256F(Right-angle) · AN362F(High-temp. two-lug) · Two-lug floating · Ganged anchor nuts</figcaption></figure>
   </div>
 
-  <h3>NUT CODE 식별</h3>
+  <h3>NUT CODE 식별<span class="exam-badge">시험</span></h3>
   <div class="cards">
     <div class="card key">
       <h4>Code Number <b>AN310D5R</b></h4>
@@ -1392,7 +1770,7 @@ figure.compact img{max-height:260px}
 </section>
 
 <section class="sec" id="ch3-washer">
-  <h2>항공기용 와셔 <span class="en">Aircraft Washers</span></h2>
+  <h2>항공기용 와셔 <span class="en">Aircraft Washers</span><span class="exam-badge">시험</span></h2>
   <div class="cards">
     <div class="card">
       <h4>(1) 평 와셔 <span class="en">Plain Washer</span></h4>
@@ -1421,10 +1799,17 @@ figure.compact img{max-height:260px}
   <figure class="fig"><img src="images/hw_p36_1.jpg" alt="스프링 락크 와셔(AN935) · 평형 바깥 톱니바퀴 락크 와셔 (사진)" loading="lazy"><figcaption>스프링 락크 와셔(AN935) · 평형 바깥 톱니바퀴 락크 와셔 (사진)</figcaption></figure>
   <figure class="fig"><img src="images/hw_p36_2.jpg" alt="평형 내부 톱니바퀴 락크 와셔 · 탭 와셔 (사진)" loading="lazy"><figcaption>평형 내부 톱니바퀴 락크 와셔 · 탭 와셔 (사진)</figcaption></figure>
   <figure class="fig"><img src="images/hw_p37_0.jpg" alt="그림 5-18 다양한 유형의 와셔 — Plain AN960 · Ball seat &amp; socket AC9950 &amp; AC955 · Taper pin AN975 · 특수와셔(Special washers) · Split-Lock · Internal toothlock · External toothlock · Plain AN935 · Star lock washers" loading="lazy"><figcaption>그림 5-18 다양한 유형의 와셔 — Plain AN960 · Ball seat & socket AC9950 & AC955 · Taper pin AN975 · 특수와셔(Special washers) · Split-Lock · Internal toothlock · External toothlock · Plain AN935 · Star lock washers</figcaption></figure>
+
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li><b class="r">평와셔</b> 용도 : ① 캐슬 너트의 코터핀 구멍 <b>위치(높이) 조정</b> ② 고정와셔 아래에서 <b>부품 표면 손상 방지</b> ③ 볼트·너트 조립 시 <b>그립 길이</b> 맞추기</li>
+      <li><b class="r">고정와셔</b> : 풀림 방지(lock). 표면이 거칠어 <b class="r">단독으로 쓰면 안 되고</b> 평와셔와 함께 쓴다.</li>
+      <li>위치 : <b class="r">평와셔가 고정와셔 밑</b>(부품 표면 쪽). 위에 놓으면 보호 역할을 못 한다.</li>
+    </ul><p class="fix">노트의 “고정와셔를 평와셔 밑에 놔야 함”은 반대입니다. <b>평와셔가 아래, 고정와셔가 그 위</b>예요.</p></div>
 </section>
 
 <section class="sec" id="ch3-helicoil">
-  <h2>손상된 암 나사산의 수리 <span class="en">Repair of Damaged Internal Threaded</span></h2>
+  <h2>손상된 암 나사산의 수리 <span class="en">Repair of Damaged Internal Threaded</span><span class="exam-badge">시험</span></h2>
   <div class="two">
     <div class="card">
       <h4>부싱의 교환 <span class="en">Replacement Bushings</span></h4>
@@ -1444,6 +1829,13 @@ figure.compact img{max-height:260px}
       <li>반드시 이 헬리코일 장착절차를 따라야 하는 것은 아니며, 장착할 때는 <b>제작사의 지시</b>를 따라야 한다.</li>
     </ul>
   </div>
+
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li><b>수나사</b> = 볼트에 나 있는 것 / <b>암나사</b> = 볼트가 들어가는 쪽 (너트, 엔진 케이스의 나사 구멍)</li>
+      <li>암나사가 손상되면 <b class="r">부싱 교환</b> 또는 <b class="r">헬리코일 교환</b>. 헬리코일은 코일만 바꿔주면 된다.</li>
+      <li><b class="r">헬리코일 용도</b> : ① 손상된 나사산 복원 ② 분해·조립이 빈번한 곳 (장탈·장착 반복으로 나사산이 손상되기 쉬운 곳)</li>
+    </ul></div>
 </section>
 
 <section class="sec" id="ch3-rivet">
@@ -1459,7 +1851,7 @@ figure.compact img{max-height:260px}
     </tbody>
   </table>
 
-  <h3>리벳의 식별 <span class="en">Identification</span></h3>
+  <h3>리벳의 식별 <span class="en">Identification</span><span class="exam-badge">시험</span></h3>
   <table class="tbl small">
     <thead><tr><th>기호</th><th>재질</th></tr></thead>
     <tbody>
@@ -1485,6 +1877,17 @@ figure.compact img{max-height:260px}
     </ul>
   </div>
   <figure class="fig"><img src="images/hw_p44_0.jpg" alt="그림 5-22 리벳 측정 방법 — 리벳의 길이(Length of rivet), 생크의 지름(Diameter of shank), 카운터 성크의 각도(Countersunk angle)" loading="lazy"><figcaption>그림 5-22 리벳 측정 방법 — 리벳의 길이(Length of rivet), 생크의 지름(Diameter of shank), 카운터 성크의 각도(Countersunk angle)</figcaption></figure>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <p>리벳 식별은 볼트와 같은 방식이고 <b class="r">단위만 다르다</b>.</p>
+    <div class="tbl-wrap"><table class="tbl small">
+      <thead><tr><th></th><th>지름</th><th>길이</th></tr></thead>
+      <tbody>
+        <tr><td><b>볼트</b></td><td>1/16″ 단위</td><td>1/8″ 단위</td></tr>
+        <tr><td><b>리벳</b></td><td><b class="r">1/32″</b> 단위</td><td><b class="r">1/16″</b> 단위</td></tr>
+      </tbody>
+    </table></div>
+    <p>재질 표시는 볼트와 같다 (AD = 2117, D = 2017, DD = 2024).</p></div>
+
 
   <h3>블라인드 리벳 <span class="en">Blind Rivets</span></h3>
   <p>일반적으로, 리벳 생크 총 길이는 부품의 두께보다 약 <b>3/64인치에서 1/8인치 이상</b> 길어야 한다.</p>
@@ -1507,7 +1910,7 @@ figure.compact img{max-height:260px}
 </section>
 
 <section class="sec" id="ch3-screw">
-  <h2>항공기 스크루 <span class="en">Aircraft Screws</span></h2>
+  <h2>항공기 스크루 <span class="en">Aircraft Screws</span><span class="exam-badge">시험</span></h2>
   <h3>1. 동체와 날개 점검창에 사용되는 스크루와 볼트의 차이점</h3>
   <p>항공기에 사용되는 고정용 체결요소로서 동체와 날개의 점검창 연결에 주로 사용되는 스크루와 볼트는 다음과 같은 차이점이 있다.</p>
   <ol>
@@ -1527,6 +1930,14 @@ figure.compact img{max-height:260px}
     </ul>
   </div>
   <figure class="fig"><img src="images/hw_p51_1.jpg" alt="스크루 머리의 종류 : SLOTTED · PHILLIPS · SQUARE DRIVE · ALLEN · TORX · ALLEN SECURITY · SCHRADER · TRI-WING · TORX SECURITY · POZIDRIV · CLUTCH · SPANNER" loading="lazy"><figcaption>스크루 머리의 종류 : SLOTTED · PHILLIPS · SQUARE DRIVE · ALLEN · TORX · ALLEN SECURITY · SCHRADER · TRI-WING · TORX SECURITY · POZIDRIV · CLUTCH · SPANNER</figcaption></figure>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div>
+    <ul>
+      <li>볼트와의 차이 : <b class="r">명확한 그립이 없다</b></li>
+      <li>단, <b class="r">구조용 스크루는 그립이 있다</b> → 볼트와 같은 강도. 볼트와 같은 강도가 필요한 <b>항공기 구조(structure) 수리</b>에만 사용</li>
+      <li><b>기계용 스크루</b> : 그립 없음, <b>다목적</b> (나무, 플라스틱, 알루미늄 판재 등)</li>
+      <li>스크루 식별 방법은 <b>시험에 안 나온다</b>고 하셨다.</li>
+    </ul></div>
+
 
   <h3>1. 구조용 스크루 <span class="en">Structural Screw</span></h3>
   <ul>
@@ -1594,7 +2005,7 @@ figure.compact img{max-height:260px}
     <figure class="fig compact"><img src="images/hw_p59_2.jpg" alt="기계용 Screw (100° 접시머리) (좌) · 자동 태핑 Screw (우)" loading="lazy"><figcaption>기계용 Screw (100° 접시머리) (좌) · 자동 태핑 Screw (우)</figcaption></figure>
   </div>
 
-  <h3>4. 스크루의 식별 방법</h3>
+  <h3>4. 스크루의 식별 방법<span class="exam-badge off">시험 X</span></h3>
   <ul>
     <li>스크루의 식별 방법은 볼트와 같이 <b>AN, NAS</b>의 두 종류로 구분한다.</li>
     <li>NAS 스크루는 구조용으로서 부품 번호가 AN 501은 가는 나사 필리스터 머리로서 AN 500과 유사하며, <b>AN510, 520은 둥근 머리, AN507, 509는 평 머리, 525는 와셔 머리</b>로 구분한다.</li>
@@ -1629,7 +2040,7 @@ figure.compact img{max-height:260px}
 </div>
 <div class="page" id="page-ch4" data-title="항공기 세척 및 부식방지">
 <header class="page-head">
-  <div class="kicker">CHAPTER 4</div>
+  <div class="stub"><small>Chapter</small><b>4</b></div>
   <h1>항공기 세척 및 부식방지</h1>
   <div class="chips">
     <a href="#ch4-cpcp">CPCP</a><a href="#ch4-control">부식방지처리</a><a href="#ch4-types">부식의 형태·유형</a><a href="#ch4-agents">부식제</a>
@@ -2491,10 +2902,502 @@ figure.compact img{max-height:260px}
 </section>
 
 </div>
+
+<div class="page" id="page-review" data-title="중간고사 리뷰">
+<header class="page-head exam">
+  <div class="stub"><small>Review</small><b>★</b></div>
+  <h1>중간고사 리뷰</h1>
+  <p class="src">시험 전 교수님 리뷰 녹음과 받아 적은 노트를 함께 정리했어요. 각 카드의 “본문에서 보기”를 누르면 해당 챕터의 자세한 설명으로 이동합니다.</p>
+  <div class="chips">
+    <a href="#review-fix">필기 보정</a><a href="#review-mat">항공기 재료</a><a href="#review-hw">항공기 하드웨어</a><a href="#review-srm">SRM</a><a href="#srm">SRM 활용 페이지</a>
+  </div>
+</header>
+
+<section class="sec" id="review-fix">
+  <h2>먼저 확인 : 노트·녹음과 교재가 다른 부분</h2>
+  <div class="exam-box">
+    <div class="exam-head"><span class="exam-badge">시험</span><span>시험 전에 고쳐 외울 것</span></div>
+    <ol class="fixlist">
+      <li><b>임계점</b> — <b class="was">탄소 고체가 액체로 바뀔 때의 온도</b> → 고체 상태에서 조직이 오스테나이트로 바뀌는 <b class="r">변태 온도</b>. 녹는점이 아니다.</li>
+      <li><b>합금강의 모재</b> — <b class="was">탄소</b> → <b class="r">탄소강</b>. 순철 + 탄소 = 탄소강, 탄소강 + 다른 원소 = 합금강.</li>
+      <li><b>경화와 담금질</b> — 담금질은 경화의 마지막 단계. 순서는 <b class="r">경화(가열·유지·담금질) → 뜨임</b>.</li>
+      <li><b>용접 부품 열처리</b> — 리뷰에선 풀림 설명 중 용접 응력을 언급했지만, 교재는 <b class="r">용접 부품에는 불림 필수</b>.</li>
+      <li><b>7075 주합금원소</b> — 녹음상 “아이언”처럼 들리지만 <b class="r">아연(Zn)</b>.</li>
+      <li><b>클레비스 · 아이 볼트</b> — 녹음 40분쯤 반대로 말씀한 구간이 있음. <b class="r">클레비스 = 전단, 아이 = 인장</b>.</li>
+      <li><b>와셔 위치</b> — <b class="was">고정와셔를 평와셔 밑에</b> → <b class="r">평와셔가 고정와셔 밑</b>(부품 표면 쪽).</li>
+      <li><b>너트 코드 R</b> — <b class="r">R = 오른나사, L = 왼나사</b>. 너트에만 있고 볼트에는 없다.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="review-mat">
+  <h2>항공기 재료</h2>
+  <div class="cards">
+    <div class="card rv-card">
+      <h4>금속의 특성 · 탄성</h4>
+      <ul>
+        <li>경도, 강도, 전성, 연성, <b class="r">탄성</b>, 인성, 밀도, 취성, 가용성, 전도성, 열팽창</li>
+        <li><b class="r">탄성</b> : 하중을 제거하면 원래대로 돌아가는 성질. 복합소재의 중요한 특성이고 금속에도 있다.</li>
+        <li>CFRP 자전거 휠은 다시 펴지고, 알루미늄 휠은 우그러진 채 남는다.</li>
+        <li>동체 스킨이 여압으로 늘었다 줄었다 하는 것도 탄성 덕분.</li>
+        <li>가열하면 부드러워짐 = 열가소성, 단단해짐 = 열경화성. 금속은 모두 가열하면 부드러워진다.</li>
+      </ul>
+      <a class="goto" href="#ch1-metal">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>철금속 · 합금강</h4>
+      <ul>
+        <li>순철(너무 무름) + 탄소 → <b class="r">탄소강</b></li>
+        <li>탄소강(<b class="r">모재금속</b>) + 다른 원소 → <b class="r">합금강</b></li>
+        <li>저탄소강 0.10~0.30% · 중탄소강 0.30~0.50% · 고탄소강 0.50~1.05%</li>
+      </ul>
+      <a class="goto" href="#ch1-ferrous">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>알루미늄 합금</h4>
+      <ul>
+        <li><b class="r">2×××</b> = 구리 : <b>2017, 2024</b></li>
+        <li><b class="r">7×××</b> = 아연 : <b>7075</b> (초초두랄루민)</li>
+        <li><b class="r">T6</b> = 용체화처리 후 인공시효</li>
+        <li><b class="r">인공시효 = 석출경화 = 석출열처리</b></li>
+        <li>표면 처리(부식 방지) : <b>알클래드 · 알로다인 · 아노다이징</b></li>
+      </ul>
+      <a class="goto" href="#ch1-nonferrous">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>금속의 대체 : 필요조건 4가지</h4>
+      <ol>
+        <li>원래의 <b class="r">강도</b> 유지 (가장 중요)</li>
+        <li>공기역학적 <b class="r">매끄러움</b> 유지</li>
+        <li>원래의 <b class="r">무게</b> 유지 또는 최소 (늘어나면 안 됨)</li>
+        <li><b class="r">내식성</b> 유지 (부식 잘 되는 금속은 무조건 탈락)</li>
+      </ol>
+      <a class="goto" href="#ch1-substitute">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>철강재료의 열처리</h4>
+      <ul>
+        <li><b class="r">임계점</b> = 변태 온도. 가장 큰 영향 요소 = <b class="r">탄소 함유량</b></li>
+        <li><b class="r">경화</b> : 가열 → 유지 → 담금질(물·오일·소금물). 너무 단단해서 <b>반드시 뜨임</b></li>
+        <li><b class="r">뜨임</b> : 212℉ → 하임계점까지 재가열, 담금질 X, <b>공기 중 냉각</b>. 취성↓, 연하게</li>
+        <li><b class="r">풀림</b> : 응력을 풀어줌. 경화의 반대, <b>가장 낮은 강도</b></li>
+        <li><b class="r">표면경화</b> : 침탄법(고체·가스·액체) / 질화법</li>
+      </ul>
+      <a class="goto" href="#ch1-heat-ferrous">본문에서 보기 →</a>
+    </div>
+    <div class="card key rv-card">
+      <h4>철강 vs 알루미늄 열처리</h4>
+      <div class="tbl-wrap"><table class="tbl small">
+        <thead><tr><th></th><th>철강</th><th>알루미늄</th></tr></thead>
+        <tbody>
+          <tr><td>원래 열처리</td><td>경화</td><td><b class="r">용체화</b></td></tr>
+          <tr><td>담금질</td><td>물·오일·소금물</td><td><b class="r">물만</b> (냉수·온수·분무)</td></tr>
+          <tr><td>재열처리</td><td>뜨임</td><td><b class="r">석출경화</b></td></tr>
+        </tbody>
+      </table></div>
+      <p>알루미늄은 <b class="r">뜨임이 없다</b>. 순서는 철강과 같다.</p>
+      <a class="goto" href="#ch1-heat-nonferrous">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>알루미늄 리벳 : D · DD · AD</h4>
+      <div class="tbl-wrap"><table class="tbl small">
+        <tbody>
+          <tr><td><b>D</b></td><td>2017</td><td rowspan="2"><b class="r">아이스박스 리벳</b></td></tr>
+          <tr><td><b>DD</b></td><td>2024</td></tr>
+          <tr><td><b>AD</b></td><td>2117</td><td><b class="r">상온에서 바로</b> 사용</td></tr>
+        </tbody>
+      </table></div>
+      <a class="goto" href="#ch1-heat-nonferrous">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>복합재료</h4>
+      <ul>
+        <li><b>장점</b> : 강도비 높음 · 내식성 큼 → <b class="r">수명이 길다</b> · 인장강도 셈</li>
+        <li><b>단점</b> : 적층 구조라 <b class="r">층 내부 들뜸(박리) 탐지가 어렵다</b></li>
+        <li><b>단점</b> : <b class="r">비싸다</b> (탄소 자전거 천만~2천만 원)</li>
+        <li><b>단점</b> : 독성, 수리 지식·정보 부족, 제작·수리 표준화 부족</li>
+      </ul>
+      <a class="goto" href="#ch1-composite">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>고무 제품</h4>
+      <ul>
+        <li>항공기는 대부분 <b class="r">합성고무</b></li>
+        <li><b class="r">부틸</b> : 스카이드롤 작동유에 적합</li>
+        <li><b>부나-N</b> : −75℉ ~ 300℉</li>
+        <li><b class="r">실리콘</b> : −150℉ ~ 600℉, <b class="r">사용 특성 최고</b></li>
+      </ul>
+      <a class="goto" href="#ch1-rubber">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>시일 · 패킹 · 개스킷</h4>
+      <ul>
+        <li><b class="r">시일</b> : 기밀 유지, 유체 흐름 차단, 누설 방지</li>
+        <li><b class="r">패킹</b> : <b>움직이는</b> 부분 (랜딩기어 스트럿, 액추에이터). O·V·U-링</li>
+        <li><b class="r">개스킷</b> : <b>고정된</b> 부분 (엔진 실린더 커버)</li>
+      </ul>
+      <a class="goto" href="#ch1-rubber">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>비중표</h4>
+      <p>비중이 가장 높은 것 · 낮은 것을 찾아볼 수 있게. 강 7.8 &gt; 티타늄 4.5 &gt; 알루미늄 2.7 &gt; 마그네슘 1.7</p>
+      <a class="goto" href="#ch1-appendix">본문에서 보기 →</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="review-hw">
+  <h2>항공기 하드웨어</h2>
+  <div class="cards">
+    <div class="card rv-card">
+      <h4>하드웨어 · 나사 등급</h4>
+      <ul>
+        <li>큰 의미 = 항공기 고정용 기구 전체 / 작은 의미 = <b class="r">패스너</b> (나사로 되어 있음)</li>
+        <li>나사 등급 1~4 : 항공기 볼트 <b class="r">3등급 중간 끼워 맞춤</b>, <b class="r">4등급 밀착(close fit)</b></li>
+      </ul>
+      <a class="goto" href="#ch3-thread">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>볼트</h4>
+      <ul>
+        <li><b class="r">카드뮴 도금</b> : 알루미늄과 같이 쓸 때 반드시 (부식 방지). 아연 도금도 있음</li>
+        <li>머리 표식 : S = 스페셜, <b class="r">삼각형 = 정밀 공차</b>, <b class="r">– – = 알루미늄 합금</b></li>
+        <li><b class="r">클레비스 = 전단</b>, <b class="r">아이 = 인장</b></li>
+        <li>볼트 길이(그립) 조절은 <b class="r">와셔</b>로</li>
+      </ul>
+      <a class="goto" href="#ch3-bolt">본문에서 보기 →</a>
+    </div>
+    <div class="card key rv-card">
+      <h4>AN 3 DD H 5 A</h4>
+      <div class="tbl-wrap"><table class="tbl small">
+        <tbody>
+          <tr><td><b>3</b></td><td>지름 3/16″</td></tr>
+          <tr><td><b>DD</b></td><td>재질 2024 (D = 2017)</td></tr>
+          <tr><td><b>H</b></td><td>머리 구멍 <b>있다</b> (없으면 없다)</td></tr>
+          <tr><td><b>5</b></td><td>길이 5/8″</td></tr>
+          <tr><td><b>A</b></td><td>생크 코터핀 구멍 <b class="r">없다</b> (A가 없으면 있다)</td></tr>
+        </tbody>
+      </table></div>
+      <a class="goto" href="#ch3-bolt">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>너트</h4>
+      <ul>
+        <li>자동고정 너트, 너트 플레이트, 구조용 캐슬 너트</li>
+        <li>코드 끝 <b class="r">R = 오른나사, L = 왼나사</b> — 너트에만 있음</li>
+      </ul>
+      <a class="goto" href="#ch3-nut">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>와셔</h4>
+      <ul>
+        <li><b class="r">평와셔</b> : 캐슬너트 코터핀 구멍 위치 조정 · 표면 손상 방지 · 그립 길이 조정</li>
+        <li><b class="r">고정와셔</b> : 풀림 방지. <b>단독 사용 금지</b></li>
+        <li>순서 : 부품 표면 → <b class="r">평와셔</b> → 고정와셔</li>
+      </ul>
+      <a class="goto" href="#ch3-washer">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>손상된 암나사산 수리</h4>
+      <ul>
+        <li>암나사 = 볼트가 들어가는 쪽 (너트, 케이스 나사 구멍)</li>
+        <li>수리 : <b class="r">부싱 교환</b> 또는 <b class="r">헬리코일 교환</b></li>
+        <li>헬리코일 용도 : ① <b>손상된 나사산 복원</b> ② <b>분해·조립이 빈번한 곳</b></li>
+      </ul>
+      <a class="goto" href="#ch3-helicoil">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>리벳 식별</h4>
+      <p>볼트와 표기 방식이 같고 단위만 두 배로 잘다.</p>
+      <div class="tbl-wrap"><table class="tbl small">
+        <thead><tr><th></th><th>지름</th><th>길이</th></tr></thead>
+        <tbody>
+          <tr><td>볼트</td><td>1/16″</td><td>1/8″</td></tr>
+          <tr><td>리벳</td><td><b class="r">1/32″</b></td><td><b class="r">1/16″</b></td></tr>
+        </tbody>
+      </table></div>
+      <a class="goto" href="#ch3-rivet">본문에서 보기 →</a>
+    </div>
+    <div class="card rv-card">
+      <h4>스크루</h4>
+      <ul>
+        <li>볼트와 차이 : <b class="r">명확한 그립이 없다</b></li>
+        <li><b class="r">구조용</b> : 그립 있음, 볼트와 같은 강도, 구조(structure) 수리용</li>
+        <li><b>기계용</b> : 그립 없음, 다목적 (나무·플라스틱·알루미늄 판재)</li>
+        <li><span class="exam-badge off" style="margin-left:0">시험 X</span> 스크루 식별 방법</li>
+      </ul>
+      <a class="goto" href="#ch3-screw">본문에서 보기 →</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="review-srm">
+  <h2>SRM</h2>
+  <div class="two">
+    <div class="card rv-card">
+      <h4>수리 후 반복 검사 (p.20)</h4>
+      <ul>
+        <li>Method : <b class="r">외부 상세 육안 검사</b> (External Detailed Visual)</li>
+        <li>Interval : <b class="r">1,000 Flight Cycles</b> — 시간이 아니라 사이클</li>
+        <li>Structure Detail : 블라인드 파스너와 스킨</li>
+        <li>Note : 파스너의 <b class="r">damage · missing · loose</b> 점검</li>
+        <li>Threshold : 수리 후 <b class="r">1,000 Flight Cycles</b>에 첫 검사</li>
+      </ul>
+      <a class="goto" href="#srm-inspect">SRM 페이지에서 보기 →</a>
+    </div>
+    <div class="card key rv-card">
+      <h4>리벳 배치 치수의 기준</h4>
+      <p>연거리 · 피치 · 횡단 피치를 정하는 기준은 <b class="r">리벳 지름 (D)</b>.</p>
+      <p>실습한 Repair 5에는 치수가 모두 주어져 있었다 : 컷아웃 연거리 0.40″, 플레이트 연거리 최소 2D, 파스너 간격 약 0.75″.</p>
+      <p class="supp">교재 일반값 : 연거리 2D~4D · 피치 3D~12D · 횡단 피치 최소 2.5D. 녹음에서 수치가 정확히 안 들려서 교재 표로 확인 필요.</p>
+      <a class="goto" href="#srm-repair">SRM 페이지에서 보기 →</a>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="page" id="page-srm" data-title="SRM 활용 방법">
+<header class="page-head srm">
+  <div class="stub"><small>Manual</small><b>SRM</b></div>
+  <h1>SRM 활용 방법 <span class="en">Structural Repair Manual</span></h1>
+  <p class="src">747-8 SRM 한 권으로 손상 부재 식별 → 허용 한계 판단 → 수리 → 수리 후 검사까지 따라가 봅니다. 그림을 누르면 크게 볼 수 있어요.</p>
+  <div class="chips">
+    <a href="#srm-case">가정 상황</a><a href="#srm-aircraft">항공기 확인</a><a href="#srm-ident">손상 부재 식별</a><a href="#srm-allow">손상 허용 한계</a><a href="#srm-repair">수리 방법</a><a href="#srm-inspect">수리 후 검사</a><a href="#srm-tips">참고사항</a>
+  </div>
+</header>
+
+<section class="sec" id="srm-case">
+  <h2>가정 상황</h2>
+  <div class="case">
+    <div class="case-tag">747-8i · HL7631</div>
+    <p class="case-main">수평안정판(LH) Upper Skin, Front Spar 전방에 <b class="r">3 inch 균열(Crack)</b> 발생</p>
+    <p class="case-sub">SRM을 열어 이 균열이 허용되는지, 허용되지 않는다면 어떻게 수리하고 이후 어떻게 검사하는지 찾아간다.</p>
+  </div>
+
+  <ol class="route" aria-label="SRM 찾아가는 순서">
+    <li><a href="#srm-aircraft"><span class="wp">1</span><b>항공기 확인</b><small>Front Matter · Effective Aircraft</small></a></li>
+    <li><a href="#srm-ident"><span class="wp">2</span><b>손상 부재 식별</b><small>55-10-01 IDENTIFICATION 1</small></a></li>
+    <li><a href="#srm-allow"><span class="wp">3</span><b>손상 허용 한계</b><small>ALLOWABLE DAMAGE 1 · Fig.101</small></a></li>
+    <li><a href="#srm-repair"><span class="wp">4</span><b>수리 방법</b><small>REPAIR 5 · Fig.201</small></a></li>
+    <li><a href="#srm-inspect"><span class="wp">5</span><b>수리 후 검사</b><small>Table II · Category B</small></a></li>
+  </ol>
+  <p class="note-s">교재 ①번 문장에는 “HL 7361”로 적혀 있지만, 가정 상황과 표의 등록번호는 <b>HL7631</b>입니다.</p>
+</section>
+
+<section class="sec" id="srm-aircraft">
+  <h2>1. 항공기 확인 <span class="en">Effective Aircraft</span></h2>
+  <div class="split">
+    <div>
+      <p>SRM 앞부분(Front Matter)의 <b>Effective Aircraft</b> 표에서 등록번호 <b class="r">HL7631</b>을 찾아 그 항공기의 기준 번호를 확인한다.</p>
+      <div class="tbl-wrap"><table class="tbl small">
+        <tbody>
+          <tr><th>Customer / Model</th><td>747-8B5</td></tr>
+          <tr><th>Operator</th><td>KAL</td></tr>
+          <tr><th>Effectivity Code</th><td>852</td></tr>
+          <tr><th>Block Number</th><td>RC052</td></tr>
+          <tr><th>Serial Number</th><td>40906</td></tr>
+          <tr class="hl"><th>Line Number</th><td><b>1509</b></td></tr>
+        </tbody>
+      </table></div>
+      <div class="card key">
+        <h4>왜 Line Number가 중요할까?</h4>
+        <p>같은 747-8이라도 생산 번호(Line Number)에 따라 적용되는 그림과 부품이 다르다. 다음 단계에서 그림 Note를 볼 때 <b>1509</b>를 기준으로 고른다.</p>
+      </div>
+    </div>
+    <figure class="fig srm"><img src="images/srm_p01.jpg" alt="Front Matter · Effective Aircraft — HL7631은 Line Number 1509" loading="lazy"><figcaption>Front Matter · Effective Aircraft — HL7631은 Line Number 1509</figcaption></figure>
+  </div>
+</section>
+
+<section class="sec" id="srm-ident">
+  <h2>2. 손상 부재 식별 <span class="en">Part Identification</span></h2>
+  <ol class="steps">
+    <li><b>㉮ 챕터 찾기</b> — 손상 위치가 Horizontal Stabilizer이므로 <b class="r">Chapter 55 (Stabilizers)</b>의 목차(Contents)를 연다.</li>
+    <li><b>㉯ 목차 구조 이해</b> — 부위별 Subject 아래에 <b>IDENTIFICATION · ALLOWABLE DAMAGE · REPAIR</b>가 차례로 있다. 스킨 손상이므로 <b class="r">55-10-01 Horizontal Stabilizer Skins</b>.</li>
+    <li><b>㉰ 해당 그림 고르기</b> — Fig.1 Sheet 1의 Note에서 <b>B = Line 1420~1440</b>, <b>C = Line 1441 이후</b>. HL7631은 1509이므로 1441 이후에 해당. 윗면은 Detail I, II를 본다.</li>
+    <li><b>㉱ Item과 재질 확인</b> — Sheet 2(Detail I)에서 손상된 Upper Skin은 <b class="r">Item 2 (65B03500)</b>. Sheet 3 재료표에서 Item 2 = <b class="r">SKIN · 0.050″ · CLAD 7075-T6</b>.</li>
+  </ol>
+  <div class="grid2">
+    <figure class="fig srm"><img src="images/srm_p02.jpg" alt="Chapter 55 목차 — 55-10-01 아래 IDENTIFICATION 1 / ALLOWABLE DAMAGE 1 / REPAIR 1~10" loading="lazy"><figcaption>Chapter 55 목차 — 55-10-01 아래 IDENTIFICATION 1 / ALLOWABLE DAMAGE 1 / REPAIR 1~10</figcaption></figure>
+    <figure class="fig srm"><img src="images/srm_p04.jpg" alt="전자 매뉴얼 목차 트리 — Procedure 번호(0I = Identification, 1A = Allowable Damage, 2R = Repair)" loading="lazy"><figcaption>전자 매뉴얼 목차 트리 — Procedure 번호(0I = Identification, 1A = Allowable Damage, 2R = Repair)</figcaption></figure>
+  </div>
+  <div class="grid2">
+    <figure class="fig srm"><img src="images/srm_p05.jpg" alt="Fig.1 Sheet 1 — 윗면은 Detail I, II / Note B·C로 Line Number 구분" loading="lazy"><figcaption>Fig.1 Sheet 1 — 윗면은 Detail I, II / Note B·C로 Line Number 구분</figcaption></figure>
+    <figure class="fig srm"><img src="images/srm_p06.jpg" alt="Fig.1 Sheet 2 (Detail I) — 손상된 Upper Skin은 Item 2 (65B03500)" loading="lazy"><figcaption>Fig.1 Sheet 2 (Detail I) — 손상된 Upper Skin은 Item 2 (65B03500)</figcaption></figure>
+  </div>
+  <figure class="fig srm wide"><img src="images/srm_p07.jpg" alt="Fig.1 Sheet 3 · List of Materials — Item 2 = SKIN, 0.050, CLAD 7075-T6" loading="lazy"><figcaption>Fig.1 Sheet 3 · List of Materials — Item 2 = SKIN, 0.050, CLAD 7075-T6</figcaption></figure>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>재료 단원과 연결</span></div><p>재료 단원에서 외운 내용이 그대로 나온다.</p>
+    <ul>
+      <li><b class="r">CLAD</b> = 알클래드 : 양면에 순수 알루미늄을 입혀 부식 방지</li>
+      <li><b class="r">7075-T6</b> = 7××× 아연계, <b>용체화처리 후 인공시효</b> 상태</li>
+    </ul>
+    <a class="goto" href="#ch1-nonferrous">알루미늄 합금 다시 보기 →</a></div>
+</section>
+
+<section class="sec" id="srm-allow">
+  <h2>3. 손상 허용 한계 <span class="en">Allowable Damage</span></h2>
+  <ol class="steps">
+    <li><b>㉮ 허용 한계 위치</b> — 스킨의 허용 한계는 <b class="r">55-10-01 ALLOWABLE DAMAGE 1</b> (Procedure 55-10-01-1A-1).</li>
+    <li><b>㉯ 위치 확인</b> — Fig.101 Sheet 1에서 손상 부위가 <b>STAB STA 150.98~260 사이 스킨</b>(Auxiliary Spar와 Front Spar 사이)임을 확인.</li>
+    <li><b>㉰ 표에서 기호 찾기</b> — Sheet 5 <b>Table I (Allowable Damage for Aluminum Parts)</b>에서 “Skin between Auxiliary Spar and Front Spar” 행의 <b>CRACKS</b> 칸 = <b class="r">A, J</b>.</li>
+    <li><b>㉱ Note 읽기</b> — 기호의 뜻은 뒤쪽 Notes에서 찾는다.</li>
+  </ol>
+  <div class="grid2">
+    <figure class="fig srm"><img src="images/srm_p10.jpg" alt="Fig.101 Sheet 1 — 손상 부재는 STAB STA 150.98~260 사이 스킨" loading="lazy"><figcaption>Fig.101 Sheet 1 — 손상 부재는 STAB STA 150.98~260 사이 스킨</figcaption></figure>
+    <figure class="fig srm"><img src="images/srm_p11.jpg" alt="Fig.101 Sheet 5 · Table I — Crack 칸에 A, J" loading="lazy"><figcaption>Fig.101 Sheet 5 · Table I — Crack 칸에 A, J</figcaption></figure>
+  </div>
+  <div class="two">
+    <div class="card bad">
+      <h4>Note <span class="r">A</span> — 균열은 허용 안 됨</h4>
+      <p>Edge crack은 Detail III, VI대로 제거하고, <b class="r">그 밖의 균열은 허용되지 않는다</b> (other cracks are not permitted).</p>
+      <p>→ 3 inch 균열은 그대로 둘 수 없으므로 <b>수리</b>해야 한다.</p>
+    </div>
+    <div class="card">
+      <h4>Note <span class="r">J</span> — 외부 표면 처리</h4>
+      <p>Side of body shotpeen note : BL 43.5 안팎 18 inch 이내 손상을 정리한 외부 스킨 표면은 <b>숏피닝(shotpeen)</b> 한다 (SOPM 20-10-03 참조).</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <figure class="fig srm"><img src="images/srm_p12.jpg" alt="Fig.101 Sheet 6 · Notes — A : 다른 균열은 허용 안 됨" loading="lazy"><figcaption>Fig.101 Sheet 6 · Notes — A : 다른 균열은 허용 안 됨</figcaption></figure>
+    <figure class="fig srm"><img src="images/srm_p13.jpg" alt="Fig.101 Sheet 7 · Notes (계속) — J : 외부 표면 숏피닝" loading="lazy"><figcaption>Fig.101 Sheet 7 · Notes (계속) — J : 외부 표면 숏피닝</figcaption></figure>
+  </div>
+  <div class="card key">
+    <h4>Table I 칸 구성</h4>
+    <p>손상 종류별로 따로 판단한다 : <b>Cracks</b> · <b>Nicks, Gouges and Corrosion</b> · <b>Dents</b> · <b>Punctures and Holes</b> · <b>Panel Delamination</b>. 같은 위치라도 손상 종류에 따라 적용되는 Note가 다르다.</p>
+  </div>
+</section>
+
+<section class="sec" id="srm-repair">
+  <h2>4. 수리 방법 <span class="en">Repair</span></h2>
+  <ol class="steps">
+    <li><b>㉮ 수리 번호 찾기</b> — Chapter 55 목차에서 Front Spar 전방 스킨 수리는 <b class="r">REPAIR 5</b> : Leading Edge Skin Flush Repair Between Ribs — Forward of the Front Spar.</li>
+    <li><b>㉯ 수리 개요</b> — 손상 스킨을 <b>잘라내고(Cut-out)</b>, <b>Filler + Plate</b>를 대고, 솔리드 리벳 <b>BACR15CE5D</b>와 블라인드 리벳 <b>NAS1739MW5</b>로 <b class="r">Flush Repair</b>.</li>
+  </ol>
+  <figure class="fig srm wide"><img src="images/srm_p15.jpg" alt="Chapter 55 목차 — Front Spar 전방 스킨 수리는 REPAIR 5" loading="lazy"><figcaption>Chapter 55 목차 — Front Spar 전방 스킨 수리는 REPAIR 5</figcaption></figure>
+
+  <h3>수리 재료 <span class="en">Table I · Repair Material</span></h3>
+  <div class="two">
+    <div class="tbl-wrap"><table class="tbl">
+      <thead><tr><th>Part</th><th>Qty</th><th>Material</th></tr></thead>
+      <tbody>
+        <tr><td><b>1 Filler</b></td><td>1</td><td>0.050″ CLAD 7075-T6</td></tr>
+        <tr><td><b>2 Plate</b></td><td>1</td><td><b class="r">0.056″</b> CLAD 7075-T6</td></tr>
+      </tbody>
+    </table></div>
+    <div class="card key">
+      <h4>기체수리 원칙과 연결</h4>
+      <p><b>Filler</b>는 원래 스킨과 같은 재질·두께(0.050″)로 구멍을 메우고, 힘을 받는 <b>Plate</b>는 <b class="r">한 치수 두꺼운</b> 0.056″를 쓴다. “원래의 판 두께나 한 치수 위” 원칙 그대로.</p>
+      <a class="goto" href="#ch2-strength">수리 기본 원칙 다시 보기 →</a>
+    </div>
+  </div>
+
+  <h3>수리 절차 <span class="en">Repair Instructions</span></h3>
+  <ol class="proc">
+    <li>손상 부위를 <b>직사각형</b>으로 잘라낸다. 모서리는 <b class="r">R 1.00″ 이상</b>, 긴 축은 Rib과 평행.</li>
+    <li>수리 부품(Filler, Plate)을 만든다. (Table I)</li>
+    <li>Filler와 Plate를 맞대고 파스너 구멍을 <b>드릴·카운터싱크</b>.</li>
+    <li>수리 부품을 분리한다.</li>
+    <li>원래 부재와 수리 부품의 날카로운 모서리를 <b>R 0.015~0.030″</b>로 다듬는다.</li>
+    <li>Nick, Gouge, Scratch, Burr, 날카로운 모서리를 모두 제거한다.</li>
+    <li>수리 부품과 원래 부재 절단면에 <b class="r">화학 피막 처리</b>(chemical conversion coating).</li>
+    <li>BMS 10-11 Type I <b>프라이머</b> 1회 도포.</li>
+    <li>Filler를 Plate에 <b>BMS 5-95 실런트</b>로 접합면 밀봉하며 장착, 리벳은 실런트를 묻혀(wet) 체결. <b>두 구멍은 비워 둔다</b> (손잡이용).</li>
+    <li>비워 둔 두 구멍에 <b>와이어</b>를 꿰어 Plate 조립체를 스킨 쪽으로 당긴다.</li>
+    <li>Plate 조립체에 맞춰 <b>스킨</b>을 드릴·카운터싱크.</li>
+    <li>Plate 조립체를 떼어낸다.</li>
+    <li>5~8단계를 반복한 뒤 10단계 진행.</li>
+    <li>Plate 조립체를 스킨에 BMS 5-95로 밀봉하며 장착, <b>블라인드 리벳</b>을 wet으로 스킨·Plate와 남은 Filler·Plate 구멍에 체결.</li>
+    <li>Filler와 스킨 사이 틈을 <b>BMS 5-95 에어로다이나믹 스무더</b>로 채운다.</li>
+    <li>AMM 51-21-00에 따라 원래 마감(도장)으로 복원.</li>
+  </ol>
+  <div class="grid2">
+    <figure class="fig srm"><img src="images/srm_p16.jpg" alt="Fig.201 Sheet 1 — Repair Instructions · Notes · Fastener Symbols" loading="lazy"><figcaption>Fig.201 Sheet 1 — Repair Instructions · Notes · Fastener Symbols</figcaption></figure>
+    <figure class="fig srm"><img src="images/srm_p17.jpg" alt="Fig.201 Sheet 2 (Detail I) — 컷아웃 · 연거리 · 파스너 간격 치수" loading="lazy"><figcaption>Fig.201 Sheet 2 (Detail I) — 컷아웃 · 연거리 · 파스너 간격 치수</figcaption></figure>
+  </div>
+
+  <h3>그림에 주어진 치수 <span class="exam-badge">시험</span></h3>
+  <div class="dims">
+    <div><span>컷아웃 최대 길이·폭</span><b>6.0″</b></div>
+    <div><span>컷아웃 모서리 반경</span><b>R 1.00″ min</b></div>
+    <div><span>컷아웃까지 연거리</span><b>0.40″</b><em>typical</em></div>
+    <div><span>Plate 연거리</span><b>2D</b><em>minimum</em></div>
+    <div><span>파스너 간격 (피치)</span><b>≈ 0.75″</b></div>
+    <div><span>열 사이 간격</span><b>0.50″</b></div>
+  </div>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div><ul>
+      <li>실습 SRM에는 <b class="r">연거리(edge margin) · 피치 · 횡단 피치</b>가 모두 치수로 주어져 있어서 그대로 하면 됐다.</li>
+      <li>치수가 주어지지 않았다면 기준은 <b class="r">리벳 지름 D</b>. SRM Note에도 <b>“D = FASTENER DIAMETER”</b>, Plate 연거리 <b>“2D MINIMUM”</b>처럼 D로 적혀 있다.</li>
+      <li>SRM 프로시저를 <b>순서 그대로</b> 따라가며 작업했다.</li>
+    </ul>
+    <p class="supp">교재 일반값 : 연거리 2D~4D · 피치 3D~12D · 횡단 피치 최소 2.5D (교재 표로 확인)</p></div>
+
+  <div class="two">
+    <div class="card">
+      <h4>Fastener Symbols</h4>
+      <ul>
+        <li><b>NAS1739MW5</b> : 블라인드 리벳 (스킨–Plate, 손잡이용 두 구멍은 마지막에 채움)</li>
+        <li><b>BACR15CE5D</b> : 솔리드 리벳 (Filler–Plate)</li>
+      </ul>
+      <p class="supp">끝의 5는 지름 5/32″로 읽혀요. 리벳 지름은 1/32″ 단위.</p>
+    </div>
+    <div class="card">
+      <h4>이 수리를 할 때 함께 보는 참조</h4>
+      <ul class="refs">
+        <li><code>AMM 51-21-00</code> 내·외부 마감</li>
+        <li><code>SRM 51-00-06</code> 구조 수리 정의 (Category)</li>
+        <li><code>SRM 51-10-01</code> 공기역학적 매끄러움</li>
+        <li><code>SRM 51-10-02</code> 손상 검사와 제거</li>
+        <li><code>SRM 51-20-01</code> 금속·비금속 방식 처리</li>
+        <li><code>SRM 51-20-05</code> 수리 실링</li>
+        <li><code>SRM 51-40-00</code> 파스너 코드·홀 크기·연거리</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="srm-inspect">
+  <h2>5. 수리 후 검사 <span class="en">Category B Repair Inspection</span><span class="exam-badge">시험</span></h2>
+  <p>Repair 5는 <b class="r">Category B</b> 수리다. Table II의 추가 검사를 정비 프로그램에 넣어야 FAA 승인이 유지된다. 멀쩡한 스킨을 잘라 수리했으니, 수리 부위는 정해진 주기로 계속 검사한다.</p>
+  <div class="insp">
+    <div class="insp-cell"><span>Inspection Threshold</span><b>수리 후 1,000 FC</b><small>첫 검사 시점</small></div>
+    <div class="insp-cell"><span>Method</span><b>External Detailed Visual</b><small>외부 상세 육안 검사</small></div>
+    <div class="insp-cell hot"><span>Interval</span><b>1,000 Flight Cycles</b><small>시간(FH)이 아니라 사이클</small></div>
+    <div class="insp-cell"><span>Structure Detail</span><b>Blind Fasteners · Skin</b><small>블라인드 파스너와 스킨</small></div>
+  </div>
+  <p class="insp-note"><b>Note (1)</b> 수리 부위의 <b class="r">손상(damage)</b>, 파스너 <b class="r">빠짐(missing) · 풀림(loose)</b>을 검사한다. 검사 범위는 Detail II의 빗금 영역.</p>
+  <div class="exam-box"><div class="exam-head"><span class="exam-badge">시험</span><span>교수님 리뷰 포인트</span></div><ul>
+      <li>작업이 끝나면 그대로 두는 게 아니라 <b>검사</b>한다. 그것도 한 번이 아니라 <b>주기적으로</b>.</li>
+      <li>방법 : <b class="r">외부를 자세하게 육안으로</b> (External Detailed Visual Inspection)</li>
+      <li>간격 : <b class="r">1,000 Flight Cycle마다</b>. 보통은 비행시간(FH)으로도 정하지만 여기는 <b>사이클</b>.</li>
+      <li>대상 : <b>블라인드 리벳</b>과 <b>스킨</b> — 리벳이 빠졌는지(missing), 흔들리는지(loose), 손상됐는지</li>
+    </ul></div>
+  <div class="grid2">
+    <figure class="fig srm"><img src="images/srm_p18.jpg" alt="Fig.201 Sheet 3 — Table I 수리 재료 / Table II Category B 검사 요구사항" loading="lazy"><figcaption>Fig.201 Sheet 3 — Table I 수리 재료 / Table II Category B 검사 요구사항</figcaption></figure>
+    <figure class="fig srm"><img src="images/srm_p19.jpg" alt="Fig.201 Sheet 4 (Detail II) — 빗금 친 부분이 검사 범위" loading="lazy"><figcaption>Fig.201 Sheet 4 (Detail II) — 빗금 친 부분이 검사 범위</figcaption></figure>
+  </div>
+  <div class="tbl-wrap"><table class="tbl small">
+    <caption>보충 · 수리 Category 구분 (SRM 51-00-06)</caption>
+    <thead><tr><th>Category</th><th>의미</th></tr></thead>
+    <tbody>
+      <tr><td><b>A</b></td><td>영구 수리. 일반 정비 검사만으로 충분</td></tr>
+      <tr class="hl"><td><b>B</b></td><td>영구 수리. 정해진 시점·주기의 <b>추가 검사</b> 필요</td></tr>
+      <tr><td><b>C</b></td><td>시한부 수리. 정해진 시점까지 재작업 또는 교환 필요</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sec" id="srm-tips">
+  <h2>참고사항</h2>
+  <div class="cards">
+    <div class="card"><h4>개정 여부 먼저 확인</h4><p>SRM은 계속 개정된다. 수리해 본 부위라 익숙하더라도 <b class="r">최신 개정판</b>인지 반드시 확인한다.</p></div>
+    <div class="card"><h4>P/N은 도면에서</h4><p>SRM에서는 부재의 <b>재질·두께</b>를 알 수 있다. P/N이 필요하면 SRM에 적힌 <b>Assembly DWG No.</b>로 도면을 찾는다.</p></div>
+    <div class="card"><h4>복합재 수리</h4><p>찾는 방법은 금속 수리와 같지만, 실제 절차는 상당 부분 <b>ATA 51</b>을 따른다. 재료는 P/N보다 <b>Spec No.</b>를 확인하고 필요하면 Alternate Material을 쓴다.</p></div>
+  </div>
+</section>
+</div>
 </main>
 <script>
 (function(){
-  var pages=['ch1','ch2','ch3','ch4'];
+  var pages=['ch1','ch2','ch3','ch4','srm','review'];
   var sidebar=document.getElementById('sidebar'),backdrop=document.getElementById('backdrop'),btn=document.getElementById('menuBtn');
   function closeMenu(){sidebar.classList.remove('open');backdrop.classList.remove('show');btn.setAttribute('aria-expanded','false');}
   btn.addEventListener('click',function(){var o=sidebar.classList.toggle('open');backdrop.classList.toggle('show',o);btn.setAttribute('aria-expanded',o);});
@@ -2506,7 +3409,7 @@ figure.compact img{max-height:260px}
   }
   function route(){
     var h=decodeURIComponent(location.hash.replace('#',''))||'ch1';
-    var page=h.slice(0,3);
+    var page=h.split('-')[0];
     if(pages.indexOf(page)<0){page='ch1';h='ch1';}
     show(page);
     var el=(h!==page)?document.getElementById(h):null;
@@ -2516,6 +3419,16 @@ figure.compact img{max-height:260px}
   window.addEventListener('hashchange',route);
   if(!location.hash){history.replaceState(null,'','#ch1');}
   route();
+  /* 그림 크게 보기 */
+  var lb=document.createElement('div');lb.className='lightbox';lb.setAttribute('role','dialog');lb.setAttribute('aria-label','그림 크게 보기');
+  lb.innerHTML='<img alt=""><p></p>';document.body.appendChild(lb);
+  function closeLb(){lb.classList.remove('show');}
+  document.addEventListener('click',function(e){
+    var img=e.target.closest&&e.target.closest('figure.fig img');
+    if(img){lb.querySelector('img').src=img.src;lb.querySelector('img').alt=img.alt;lb.querySelector('p').textContent=img.alt;lb.classList.add('show');return;}
+    if(e.target.closest('.lightbox'))closeLb();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
 })();
 
 </script>
