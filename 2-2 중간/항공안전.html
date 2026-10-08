@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>항공안전 기출 정리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #161d24;
+    --card: #1b232c;
+    --card-hover: #1f2933;
+    --border: #2a3541;
+    --text: #e3e8ee;
+    --muted: #8b98a7;
+    --accent: #5aa9e6;
+    --correct: #3ecf8e;
+    --correct-bg: rgba(62, 207, 142, 0.12);
+    --note: #e8b04b;
+    --note-bg: rgba(232, 176, 75, 0.1);
+    --ch1: #f2784b;
+    --ch2: #5aa9e6;
+    --ch3: #b383e8;
+    --sidebar-w: 270px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: var(--sidebar-w);
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.25s ease;
+  }
+  .sidebar-title {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 10px 4px;
+  }
+  .sidebar-sub {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 0 10px 18px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+  .home-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .home-btn:hover { background: var(--card-hover); border-color: var(--accent); }
+  .nav-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    padding: 4px 10px 6px;
+  }
+  .nav-link {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-link:hover { background: var(--card); color: var(--text); }
+  .nav-link.active { background: var(--card); color: var(--text); font-weight: 600; }
+  .nav-link[data-ch="1"].active { border-left-color: var(--ch1); }
+  .nav-link[data-ch="2"].active { border-left-color: var(--ch2); }
+  .nav-link[data-ch="3"].active { border-left-color: var(--ch3); }
+  .nav-num { font-size: 12px; opacity: 0.7; margin-right: 6px; }
+  .nav-count { display: block; font-size: 11px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+  .toggle-wrap {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .toggle-btn {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .toggle-btn:hover { border-color: var(--correct); }
+  .toggle-hint { font-size: 11px; color: var(--muted); padding: 8px 4px 0; }
+
+  /* ---------- Mobile topbar ---------- */
+  .topbar {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 16px;
+    align-items: center;
+    gap: 12px;
+  }
+  .menu-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    width: 38px; height: 38px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .topbar-title { font-weight: 600; font-size: 15px; }
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 90;
+  }
+
+  /* ---------- Main ---------- */
+  .main {
+    margin-left: var(--sidebar-w);
+    padding: 40px 48px 80px;
+    max-width: calc(var(--sidebar-w) + 900px);
+  }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  .page-head { margin-bottom: 28px; }
+  .page-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .page[data-ch="1"] .page-tag { background: rgba(242, 120, 75, 0.15); color: var(--ch1); }
+  .page[data-ch="2"] .page-tag { background: rgba(90, 169, 230, 0.15); color: var(--ch2); }
+  .page[data-ch="3"] .page-tag { background: rgba(179, 131, 232, 0.15); color: var(--ch3); }
+  .page-head h1 { font-size: 24px; font-weight: 700; line-height: 1.4; }
+  .page-head p { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+  /* ---------- Question card ---------- */
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+    border-left: 4px solid var(--border);
+  }
+  .page[data-ch="1"] .q-card { border-left-color: var(--ch1); }
+  .page[data-ch="2"] .q-card { border-left-color: var(--ch2); }
+  .page[data-ch="3"] .q-card { border-left-color: var(--ch3); }
+  .q-title {
+    display: flex;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 15.5px;
+    margin-bottom: 14px;
+  }
+  .q-num {
+    flex-shrink: 0;
+    color: var(--muted);
+    font-weight: 700;
+    min-width: 26px;
+  }
+  .opts { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .opt {
+    display: flex;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.02);
+    font-size: 14.5px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .opt-num { color: var(--muted); flex-shrink: 0; min-width: 18px; }
+  .opt.correct {
+    background: var(--correct-bg);
+    border-color: rgba(62, 207, 142, 0.4);
+  }
+  .opt.correct .opt-num, .opt.correct .opt-text { color: var(--correct); font-weight: 500; }
+  .opt.correct::after { content: '✓'; margin-left: auto; color: var(--correct); font-weight: 700; padding-left: 8px; }
+  .opt.placeholder .opt-text { color: var(--muted); font-style: italic; }
+
+  .answer-box {
+    padding: 11px 14px;
+    border-radius: 8px;
+    background: var(--correct-bg);
+    border: 1px solid rgba(62, 207, 142, 0.4);
+    color: var(--correct);
+    font-weight: 500;
+    font-size: 14.5px;
+    transition: filter 0.2s;
+  }
+  .answer-box .lbl { font-size: 12px; opacity: 0.8; display: block; margin-bottom: 2px; font-weight: 600; }
+  .answer-box .line { display: block; }
+
+  .note {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-size: 13px;
+  }
+  .star {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: rgba(90, 169, 230, 0.1);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* table */
+  .tbl-wrap { overflow-x: auto; margin-top: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 520px; }
+  th, td { padding: 9px 12px; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+  th { background: var(--panel); color: var(--muted); font-weight: 600; font-size: 12.5px; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+  tr.hl td { background: rgba(179, 131, 232, 0.12); }
+
+  /* ---------- Hide answers mode ---------- */
+  body.hide-ans .q-card:not(.revealed) .opt.correct {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: transparent;
+  }
+  body.hide-ans .q-card:not(.revealed) .opt.correct .opt-num { color: var(--muted); font-weight: 400; }
+  body.hide-ans .q-card:not(.revealed) .opt.correct .opt-text { color: var(--text); font-weight: 400; }
+  body.hide-ans .q-card:not(.revealed) .opt.correct::after { content: ''; }
+  body.hide-ans .q-card:not(.revealed) .answer-box,
+  body.hide-ans .q-card:not(.revealed) .tbl-wrap { filter: blur(6px); user-select: none; }
+  body.hide-ans .q-card { cursor: pointer; }
+  body.hide-ans .q-card:not(.revealed):hover { background: var(--card-hover); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-100%); }
+    body.nav-open .sidebar { transform: translateX(0); }
+    body.nav-open .overlay { display: block; }
+    .topbar { display: flex; }
+    .main { margin-left: 0; padding: 24px 16px 60px; }
+    .page-head h1 { font-size: 20px; }
+    .q-card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-title">항공안전</div>
+  <div class="sidebar-sub">2026학년도 2학기 · 시험 대비 문제 정리</div>
+
+  <a class="home-btn" href="https://johnyejin.github.io/maintenance/">⌂ 홈으로</a>
+
+  <div class="nav-label">챕터</div>
+  <nav id="nav"></nav>
+
+  <div class="toggle-wrap">
+    <button class="toggle-btn" id="toggleAns">정답 가리기</button>
+    <div class="toggle-hint">가린 상태에서 문제 카드를 누르면 그 문제 정답만 보여요.</div>
+  </div>
+</aside>
+
+<div class="overlay" id="overlay"></div>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">☰</button>
+  <span class="topbar-title" id="topbarTitle">항공안전</span>
+</header>
+
+<main class="main" id="main"></main>
+
+<script>
+const CHAPTERS = [
+  {
+    id: 'workshop',
+    ch: 1,
+    title: '작업장, 운항정비 안전 / 화재예방',
+    desc: '작업장 안전 · 공작기계 · 청력보호 · FOD · 화재 분류와 소화기',
+    questions: [
+      { q: '교대 근무 시 퇴근조가 수행해야 하는 정비 작업장 관리 수칙으로 옳은 것은?',
+        opts: ['격납고 내 안전 통로는 필요 시에만 임시 표시한다', '위험 표시는 작업자만 알아볼 수 있게 작게 게시한다', '사용한 전기 코드는 그대로 통로에 연결해 둔다', '공용 공구통과 작업대가 적절히 보관되어 있는지 확인한다'], ans: 3 },
+      { q: '전기 정비 작업 시 전기 화재 예방을 위한 대책으로 가장 적절한 것은?',
+        opts: ['전선을 구부려 이동 통로 중앙에 배치한다', '작업장 주변에 가연성 물질을 제거한다', '단락 손상을 유도하여 열 발생을 방지한다', '피복 손상 장비는 계속 사용한다'], ans: 1 },
+      { q: '고압가스 취급 및 타이어 정비 작업 시 준수해야 할 안전 수칙으로 옳은 것은?',
+        opts: ['동료 작업자의 작업 지역을 향해 고압 공기를 분사한다', '작업 종료 후 공기 호스는 촘촘하게 꺾어서 보관한다', '무거운 타이어 장착 시 타이어 달리 등의 승강 장치를 사용한다', '작업복의 오염 물질은 고압 공기로 털어낸다'], ans: 2 },
+      { q: '화학물질 유통 및 경보 표지의 국제적 통일을 위해 도입되어 시행 중인 제도는?',
+        opts: ['ICAO 표준', 'GHS 제도', 'NFPA 기준', 'OSHA 안전 규정'], ans: 1 },
+      { q: '화학물질 취급 시 물질안전보건자료(MSDS)에 대한 설명으로 옳은 것은?',
+        opts: ['MSDS는 비공개 문서이므로 관리자만 보관하고 게시하지 않는다', '화학물질 취급자는 MSDS 교육을 이수할 필요는 없다', '화학물질로 인한 이상 발생 시 사업주 보고 없이 스스로 조치한다', '화학물질을 소분하여 사용할 때는 소분 용기에 경고 표지를 부착한다'], ans: 3 },
+      { q: '공작기계를 이용한 드릴 작업 시 준수해야 할 안전 수칙으로 옳은 것은?',
+        opts: ['깊은 구멍을 뚫을 때 드릴을 빼지 않고 계속 가공한다', '드릴이 박혀 멈추면 먼저 기계 전원을 정지시킨다', '가공할 물품은 손으로 잡아서 가공한다', '회전 중인 척을 손으로 잡아 회전을 빨리 멈춘다'], ans: 1 },
+      { q: '선반 작업 중 발생할 수 있는 사고를 예방하기 위한 지침으로 올바른 것은?',
+        opts: ['절삭 냉각액 사용을 최소화하거나 생략한다', '가공물의 치수를 측정할 때는 선반을 회전시킨 상태에서 실시한다', '작업 편의를 위해 작동 중인 선반 위에 자주 쓰는 공구를 얹어 놓는다', '회전 절삭 중 발생하는 칩 제거 시 전용 제거 공구를 사용한다'], ans: 3 },
+      { q: '밀링 작업 시 올바른 작업 방법은?',
+        opts: ['재료 절삭 중에 기계의 속도와 이송 비율을 변경한다', '재료는 심, 블록 및 클램프를 사용하여 고정한다', '작업대에서 벗어날 때 테이블을 올린 상태로 둔다', '커터 직경은 작업 조건과 관계없이 가장 큰 것을 골라 사용한다'], ans: 1 },
+      { q: '연삭기 안전 관리 및 방호 장치 규정에 대한 설명으로 옳은 것은?',
+        opts: ['연삭기 작업 시 회전 경로 바로 정면에 서서 작업한다', '모든 일반 숫돌은 측면을 이용한 연마 작업을 권장한다', '플랜지 직경은 숫돌 지름의 최소 1/5 이상이어야 한다', '숫돌의 파편 튀김 방지를 위해 숫돌의 2/3를 덮는 금속제 커버를 설치한다'], ans: 3,
+        star: '강의자료 기준: 플랜지 직경은 숫돌 지름의 1/3 이상, 커버는 숫돌의 2/3를 덮음' },
+      { q: '격납고 내부에서 항공기 용접 작업을 수행할 때 지켜야 하는 안전 요구 조건으로 옳지 않은 것은?',
+        opts: ['용접 작업 10피트 이내에 다른 항공기를 배치한다', '화재 발생 위험이 있으므로 용접 작업 중에는 페인트 작업 및 연료계통 작업을 중단한다', '견인 트랙터를 항공기에 연결하고 운전자를 승차시켜 놓는다', '항공기의 parking brake를 풀고 격납고 문을 열어 둔다'], ans: 0,
+        star: '용접하는 동안 35 feet 이내에 다른 항공기가 없어야 함' },
+      { q: '운항 정비 구역에서 청력 보호 장구에 대한 설명으로 옳은 것은?',
+        opts: ['귀 덮개는 귀마개보다 높은 수준의 일관된 차음 효과를 얻을 수 있다', '계류장에서 발생하는 소음은 단순 단일 파장으로만 구성된다', '외벽 관리나 공압 기기 작업 시에는 청력 보호구 착용을 생략한다', '귀마개가 귀 덮개보다 언제나 우수한 차음성을 가진다'], ans: 0 },
+      { q: '항공 분야에서 이물질에 의한 손상(FOD)을 예방하기 위한 조치로 옳지 않은 것은?',
+        opts: ['터빈 엔진의 공기 흡입구 주변에 작업 공구를 임시 보관한다', '계류장 및 항공기 운영 지역을 깨끗하게 유지한다', '체계적인 공구 관리 프로그램을 운영한다', '사용하고 남은 하드웨어와 걸레 보관을 위한 별도 공간을 마련한다'], ans: 0 },
+      { q: '계류장에서 지상 이동 및 작동 중인 항공기 주변의 안전 수칙으로 옳은 것은?',
+        opts: ['활주 중인 조종사가 정비사를 먼저 발견하고 피할 것이라고 신뢰한다', '지상 장비는 고정 장치 없이 항공기 가까이에 바짝 붙여 놓는다', '터빈 엔진의 공기 흡입구 부근에서 안전 조치 없이 대기한다', '정비사는 조종사가 자신을 잘 볼 수 있는 위치에 서 있어야 한다'], ans: 3 },
+      { q: '연소가 지속되기 위해 필요한 화재의 3요소에 해당되지 않는 것은?',
+        answer: ['화재의 3요소 = 열(Heat), 연료(Fuel), 산소(Oxygen)', '→ 이 셋이 아닌 것이 정답'],
+        note: '보기는 녹음되지 않음' },
+      { q: 'NFPA 기준 화재 분류 중 B급 화재의 대상 물질과 특징은?',
+        answer: ['휘발유, 알코올, 페인트 등 인화성 액체(유류)', '재가 남지 않음 · CO₂ 소화기, 포 소화기(질식 소화)'],
+        note: '보기 일부만 녹음됨',
+        star: 'A급 일반 가연물 / B급 유류 / C급 전기 / D급 금속' },
+      { q: '전기 설비 및 전선 등 전기가 흐르는 상태에서 발생한 C급 화재의 소화 방법으로 적절한 것은?',
+        opts: ['즉시 물 소화기를 뿌려 냉각시킨다', '포 소화기를 사용하여 직접 주입한다', '전원 차단 후 CO₂ 소화기 또는 분말 소화기를 사용한다', '마른 모래로 덮는다'], ans: 2 },
+      { q: 'CO₂ 소화기 사용 시 동상 예방을 위해 주의해야 하는 이유로 가장 적절한 것은?',
+        opts: ['독성 가스가 발생하여 피부를 부식시키기 때문이다', '소화 약제가 금속 부품과 반응하여 고열이 되기 때문이다', '분사 시 소화기 부품이 급격히 냉각되기 때문이다', '소화 약제가 강산성 물질로 변하기 때문이다'], ans: 2 },
+      { q: '항공기 화재에 분말 소화기 사용을 권고하지 않는 주된 이유는?',
+        opts: ['소화기 자체의 폭발 위험성이 높기 때문이다', '오존층을 파괴하는 몬트리올 협약 규제 물질이기 때문이다', 'A급 화재에는 전혀 소화 효과가 없기 때문이다', '잔류 분말이 전자 장비 등에 손상을 줄 수 있기 때문이다'], ans: 3 },
+      { q: '소화기의 식별 표시 규정과 관리 수칙으로 옳지 않은 것은?',
+        opts: ['소화기 표식은 정면에서 최소 10피트 이상 거리에서만 식별되면 된다', '옥외 부착 표식은 옥내보다 더 높은 내구성이 있어야 한다', '표식의 위치는 소화기 곡면 정면 표찰 위 또는 아래에 부착한다', '소화기 보관 장소의 표식과 실제 소화기 화재 등급 표식이 일치해야 한다'], ans: 0,
+        star: '강의자료 기준: 최소 3피트 거리에서 보통 시력으로 식별 가능해야 함' },
+      { q: '일반적인 소화기 사용법으로 올바른 조작 순서는?',
+        opts: ['화염의 가장 높은 위쪽 끝부분을 향해 직접 분사한다', '화점에서 30피트 이상 먼 거리에서 미리 약제를 전부 분사하며 접근한다', '손잡이를 먼저 강하게 쥔 상태에서 안전핀을 뽑고 분사한다', '화점에서 8피트 떨어져 노즐을 불 쪽으로 향하고, 손잡이를 쥐고 좌우로 쓸면서 분사한다'], ans: 3 }
+    ]
+  },
+  {
+    id: 'security',
+    ch: 2,
+    title: '공항시설 보호구역 / 출입국수속 / 보안검색 / 항공기 보안',
+    desc: '에어사이드·랜드사이드 · CIQ · 보안검색 장비 · 기내보안요원 · 항공보안법',
+    questions: [
+      { q: '공항시설 보호구역(에어사이드)에 대한 설명으로 옳지 않은 것은?',
+        opts: ['국토교통부장관의 승인을 받아 지정하는 구역이다', '면세점, 항공사 라운지 구역도 보호구역에 포함된다', '일반 승객은 보안 검색을 마치면 출국을 자유롭게 철회할 수 있다', '사전 허가 없는 일반인의 출입은 엄격히 금지된다'], ans: 2 },
+      { q: '공항의 랜드사이드 구역(일반인 출입이 가능한 곳)에 해당되는 시설은?',
+        opts: ['계류장', '항공사 출국 수속 카운터', '탑승 게이트'], ans: 1,
+        note: '4번 보기는 녹음이 불분명함' },
+      { q: '출국 절차의 필수 요소인 CIQ 기관에 속하지 않는 것은?',
+        opts: ['세관 (Customs)', '출입국 관리사무소 (Immigration)', '검역 (Quarantine)', '(CIQ에 속하지 않는 기관)'], ans: 3, placeholder: 3,
+        note: '정답 보기는 녹음에 나오지 않음 — C·I·Q가 아닌 기관을 고르면 됨' },
+      { q: '보안 검색 과정에서 요원의 업무를 방해하거나 폭행한 경우 처벌 기준은?',
+        answer: ['5년 이하 징역 또는 5천만 원 이하 벌금'], note: '다른 보기는 녹음에 없음' },
+      { q: '국외 여행 시 병무 신고를 반드시 해야 하는 대상자는?',
+        answer: ['만 25세 이상 병역 미필 병역 의무자'], note: '여성은 포함되지 않음' },
+      { q: '항공기가 목적지 공항 도착 후 세관 및 법무부로부터 출항 허가를 받기 위해 제출해야 하는 서류가 아닌 것은?',
+        opts: ['화물 탑재 목록', '항공기 정비 이력서', '탑승객 명단', '승무원 명단 및 검역 정보'], ans: 1 },
+      { q: '입국 수속 시 외국인 승객에 대한 법무부 입국 사열 심사 내용으로 옳지 않은 것은?',
+        opts: ['여권 및 비자의 적법성 확인', '국외 여행 허가서 제출 여부 검토', '적색 수배자(Black list) 해당 여부', '입국 목적의 적합성 평가'], ans: 1 },
+      { q: '입국 시 면세 한도는?',
+        answer: ['미화 600불 초과 시 세관에 신고 (과세 조치)'], note: '참고: 미화 $10,000 이상은 반입 금지 품목' },
+      { q: '문형 금속탐지기 설치 시 전자파 장애 방지를 위해 주변 전원으로부터 떨어뜨려야 하는 최소 거리는?',
+        answer: ['10ft(피트) 이상'] },
+      { q: 'X-ray 보안 검색 장비 설치 시 사전에 조사하여 참고해야 하는 사항은?',
+        opts: ['건물의 전기 시스템 상태', '바닥 마감재의 재질', '공항 터미널 가림막 높이', '탑승 게이트까지 이동 거리'], ans: 0 },
+      { q: '항공보안법 제15조 제1항에 따른 승객의 보안 검색 의무에 대한 설명으로 옳은 것은?',
+        opts: ['환승 승객의 경우 이전 공항의 검사를 인정하여 검색을 생략한다', '1등석 승객 및 VIP는 별도 절차 없이 신체 검색이 면제된다', '위험 요소가 없다고 판단되면 승객이 검색을 거부할 수 있다', '모든 승객은 신체 및 휴대·위탁 수하물 검색을 받을 법적 의무가 있다'], ans: 3 },
+      { q: '승객의 신체 및 휴대 물품 보안 검색 단계별 순서가 올바르게 연결된 것은?',
+        answer: ['신체 검색: 1차 문형금속탐지기 → 2차 휴대용금속탐지기 → 3차 정밀촉수 검사', '휴대물품 검색: 1차 X-ray 탐지기 → 2차 폭발물탐지기 / 2차 개봉검사(위해물품 발견 시)'],
+        note: '보기 구성은 녹음에 없고 순서만 확인됨' },
+      { q: '조건부로 기내 반입이 허용되는 물품은?',
+        opts: ['페인트나 신나', '전자담배 및 리튬이온 배터리 (보조배터리)', '습식 배터리', '표백제 및 락스'], ans: 1,
+        star: '위탁 수하물로는 불가, 반드시 승객이 휴대' },
+      { q: '항공기 보안에 관한 설명으로 옳지 않은 것은?',
+        opts: ['탑승 게이트에서 탑승권과 위탁 수하물의 수량을 재확인한다', '탑승객이 모두 내린 후 잔류 물품 확인을 위한 기내 보안점검을 실시한다', '항공기 보안의 최종 책임은 항공운송사업자에게 있다', '조종실 출입문은 비행 중 확인을 위해 일정 시간 열어두어야 한다'], ans: 3 },
+      { q: '기내에서 폭발물 발견이나 난동 승객 발생 시 대응하기 위한 기내 보안 장비에 해당되지 않는 것은?',
+        opts: ['전자충격총', '가스분사총', '방폭담요', '금속탐지기'], ans: 3 },
+      { q: '기내 보안 요원의 권한 및 직무에 대한 설명으로 올바르지 않은 것은?',
+        opts: ['작성한 현행범 체포서 원본은 사건 종료일부터 1년 이상 항공사가 보관한다', '불법 행위 발생 시 일반 객실 승무원에게 임무를 부여할 수 있다', '객실 내 불법 행위 및 범죄 행위 등을 녹화할 수 있다', '항공기 내로 무기를 휴대하고 탑승할 수 있다'], ans: 0,
+        star: '원본은 도착공항 경찰관서에 피체포자와 함께 인계, 항공사는 사본을 1년 이상 보관' },
+      { q: '기내 보안 요원의 자격 및 선발 기준은?',
+        answer: ['선임 객실승무원 또는 객실승무원 경력 2년 이상인 사람'] },
+      { q: '기내 불법 행위 발생 시 처리 및 처벌 규정에 대한 설명으로 옳지 않은 것은?',
+        opts: ['불법 행위자를 경찰에 미인계한 항공운송사업자에게는 과태료가 부과된다', '기내 단순 음주 행위 자체는 징역 3년의 형사 처벌 대상이 된다', '기내에서 폭언 및 폭행 등을 한 자는 1천만 원 이하의 벌금에 처한다', '기장의 업무를 방해하는 자는 5천만 원 이하의 벌금에 처한다'], ans: 1 },
+      { q: '항공보안법 제23조에 따라 승객에게 금지된 기내 불법 행위에 해당되지 않는 것은?',
+        opts: ['조종실 출입문 잠금장치의 정상 작동 여부를 확인하는 행위', '기장 등의 정당한 직무상 지시에 불응하는 행위', '항공기에서 내리지 않고 점거하거나 농성하는 행위', '술을 마시거나 약물을 복용하고 타인에게 위해를 주는 행위'], ans: 0 },
+      { q: '항공보안법 제22조에 따라 기장 등이 승객의 행위를 저지할 수 있는 기준에 해당되지 않는 것은?',
+        opts: ['기내 규율 및 질서를 어지럽히는 행위', '항공기 보안을 해치는 행위', '인명이나 재산에 위해를 주는 행위', '정당한 사유로 개인 휴대폰 검사를 요구하는 행위'], ans: 3 }
+    ]
+  },
+  {
+    id: 'msds',
+    ch: 3,
+    title: '물질안전보건자료 (MSDS)',
+    desc: '화학물질 용어 · 위해성 · 위험물질 분류 · GHS · MSDS 작성·게시 · 경고표지',
+    questions: [
+      { q: '우리나라 산업안전보건법에서 MSDS 제도를 도입한 시기는?',
+        answer: ['1996년 7월 1일'], note: '2000년 5인 미만 사업장 확대 / 2013년 혼합물질 GHS 전면 시행' },
+      { q: '화학물질 용어 중 물리적인 방법으로 각 성분을 분리할 수 있고, 녹는점과 끓는점이 일정하지 않은 물질은?',
+        opts: ['원소', '화합물', '혼합물', '균일 혼합물'], ans: 2,
+        note: '4번 보기는 추정' },
+      { q: '화학물질의 물리적 변화에 해당하는 사례는?',
+        opts: ['나무가 타서 숯으로 바뀌는 것', '물이 열을 받아 수증기로 변하는 것', '철이 녹스는 것', '음식물이 부패하는 것'], ans: 1,
+        star: '물리적 변화 = 구조·조성 그대로, 상태만 변함 / 화학적 변화 = 새로운 성질의 물질로 변함' },
+      { q: '위해성(Risk)을 표시하는 식은?',
+        answer: ['위해성(Risk) = 유해성(Hazard) × 노출량(Exposure)'] },
+      { q: '상온에서 비교적 안정하지만 40℃에서 분해가 시작되고 110℃ 이상에서 급격히 흰 연기를 내며 발화하는 자기반응성 물질은?',
+        answer: ['과산화메틸에틸케톤 (MEKPO)'], note: '40℃ 분해 시작 → 80~100℃ 급격히 분해 → 110℃ 이상 발화' },
+      { q: '부피가 커짐에 따라 열 축적이 가속화되는 자기발열성 물질의 열 축적과 열 방출 관계로 옳은 것은?',
+        answer: ['열 축적은 세제곱에 비례, 열 방출은 제곱에 비례'] },
+      { q: '물과 접촉 시 자연 발화하거나 인화성 가스를 발생시켜 화재 시 물로 진압하면 안 되는 물질은?',
+        answer: ['물반응성 물질'] },
+      { q: '금속 부식성 물질의 기준에 해당하는 농도 조건은?',
+        opts: ['농도 20% 이상인 황산', '농도 20% 이상인 수산화나트륨'], ans: 0,
+        note: '3, 4번 보기는 녹음에 없음',
+        star: '20% 이상: 염산·황산·질산 / 60% 이상: 인산·아세트산·불산 / 40% 이상: 수산화나트륨·수산화칼륨' },
+      { q: '베트남 전쟁 당시 정글 제거 목적으로 사용되었고, 제조 과정에서 다이옥신이 불순물로 함유되어 심각한 후유증을 유발한 물질은?',
+        answer: ['고엽제'] },
+      { q: '2012년 구미 화학공장 사고에서 노출되어 5명이 사망한 화학물질은?',
+        answer: ['불산 (불화수소산)'], note: '문제점: 작업자 보호장구 미착용, 방제 약품 미비치' },
+      { q: 'UN에서 제정한 시스템으로, 통일된 기준으로 화학물질의 유해성·위험성을 분류하고 경고표지 및 MSDS로 정보를 전달하는 제도는?',
+        answer: ['GHS (Globally Harmonized System)'] },
+      { q: 'GHS 분류 기준에 따라 작성되는 표준 MSDS의 항목 수는?',
+        answer: ['16개'], star: '16개 항목 내용도 알아둘 것 (선생님 강조)' },
+      { q: 'MSDS 세부 작성 항목 중 UN 번호, 운송 시 위험등급에 관한 정보가 포함되는 항목은?',
+        answer: ['운송에 필요한 정보'] },
+      { q: 'MSDS 작성 및 제공 의무에 대한 설명으로 올바르지 않은 것은?',
+        opts: ['원칙적으로 한글로 작성해야 한다', '화학물질을 양도하거나 제공하는 자가 작성 주체가 된다', '실험실 시험·연구 목적용 시약도 반드시 한글로 번역해서 비치해야 한다', '화학물질명, 외국기관명 등의 고유명사는 영어 표기가 가능하다'], ans: 2 },
+      { q: '대상화학물질 경고표시를 부착하지 않아도 되는 제외 대상에 해당되지 않는 것은?',
+        opts: ['고압가스 안전관리법에 따른 용기 등의 표시를 한 경우', '작업장에서 상시 사용하는 용기에 옮겨 담아 보관하는 경우', '양도·제공자가 이미 용기에 경고표시를 한 경우', '위험물안전관리법에 따른 위험물 운반용기에 관한 표시를 한 경우'], ans: 1,
+        star: '소분해서 상시 사용하는 용기에도 경고표시 필요 (일시적으로 옮겨 담는 용기만 제외)' },
+      { q: '경고표지 항목 중 유해·위험의 심각성 정도에 따라 "위험" 또는 "경고" 문구를 표시하는 항목은?',
+        opts: ['그림문자', '예방조치 문구', '신호어', '유해·위험 문구'], ans: 2 },
+      { q: 'GHS 그림문자 중 인체 실루엣(가슴에서 빛이 나는 사람 모양)이 상징하는 위험은?',
+        answer: ['발암성, 생식독성, 유전독성, 호흡기 과민성, 장기 독성, 흡인 위험'],
+        note: '보기는 녹음에 없음',
+        star: '그림문자별 의미 알아둘 것 (선생님 강조)',
+        table: true },
+      { q: '사업장 내 MSDS 게시 및 비치 방법에 대한 설명으로 적절하지 않은 것은?',
+        opts: ['유해성·위험성이 유사한 물질이라도 물질별로 개별 관리 요령만 게시해야 하며 그룹별 게시는 불가능하다', '안전사고 또는 직업병 발생 우려가 있는 장소에 게시한다', '취급 근로자가 쉽게 보거나 접근할 수 있는 장소에 게시하거나 갖춘다', '전산장비를 갖추어 취급 작업자가 쉽게 확인하도록 조치할 수 있다'], ans: 0 }
+    ]
+  }
+];
+
+const PICTOGRAMS = [
+  ['폭발물', '폭발', '폭발성 물질, 자기반응성 물질, 유기과산화물'],
+  ['불꽃', '불꽃', '인화성 가스·액체·고체, 자기반응성, 자연발화성, 자기발열성 물질'],
+  ['산화제', '불꽃 위 원', '산화성 가스·액체·고체 (다른 물질 연소 촉진)'],
+  ['가스 실린더', '가스통', '압축가스, 액화가스, 냉각액화가스'],
+  ['부식', '손·금속에 액체', '피부 부식, 심한 눈 손상, 금속 부식성'],
+  ['해골과 뼈', '해골', '급성 독성 (치명적)'],
+  ['느낌표', '!', '피부·눈 자극, 피부 민감화, 급성 독성(경미), 호흡기 자극'],
+  ['인체 실루엣', '가슴에서 빛나는 사람', '발암성, 생식독성, 유전독성, 호흡기 과민성, 장기 독성, 흡인 위험'],
+  ['죽은 나무와 물고기', '나무·물고기', '수생환경 유해성 (급성·만성 독성)']
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function renderTable() {
+  const rows = PICTOGRAMS.map(r =>
+    `<tr${r[0] === '인체 실루엣' ? ' class="hl"' : ''}><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`
+  ).join('');
+  return `<div class="tbl-wrap"><table><thead><tr><th>그림문자</th><th>상징</th><th>의미</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function renderQuestion(item, i) {
+  let body = '';
+  if (item.opts) {
+    body = '<ol class="opts">' + item.opts.map((o, k) => {
+      const cls = ['opt'];
+      if (k === item.ans) cls.push('correct');
+      if (k === item.placeholder) cls.push('placeholder');
+      return `<li class="${cls.join(' ')}"><span class="opt-num">${k + 1}.</span><span class="opt-text">${esc(o)}</span></li>`;
+    }).join('') + '</ol>';
+  } else if (item.answer) {
+    body = `<div class="answer-box"><span class="lbl">정답</span>${item.answer.map(a => `<span class="line">${esc(a)}</span>`).join('')}</div>`;
+  }
+  if (item.table) body += renderTable();
+  if (item.star) body += `<div class="star">★ ${esc(item.star)}</div>`;
+  if (item.note) body += `<div class="note">${esc(item.note)}</div>`;
+  return `<article class="q-card"><div class="q-title"><span class="q-num">${i + 1}</span><span>${esc(item.q)}</span></div>${body}</article>`;
+}
+
+function render() {
+  const nav = document.getElementById('nav');
+  const main = document.getElementById('main');
+  nav.innerHTML = CHAPTERS.map(c =>
+    `<a class="nav-link" href="#${c.id}" data-ch="${c.ch}" data-id="${c.id}"><span class="nav-num">${c.ch}</span>${esc(c.title)}<span class="nav-count">${c.questions.length}문제</span></a>`
+  ).join('');
+  main.innerHTML = CHAPTERS.map(c =>
+    `<section class="page" id="page-${c.id}" data-ch="${c.ch}">
+      <div class="page-head">
+        <span class="page-tag">CHAPTER ${c.ch} · ${c.questions.length}문제</span>
+        <h1>${esc(c.title)}</h1>
+        <p>${esc(c.desc)}</p>
+      </div>
+      ${c.questions.map(renderQuestion).join('')}
+    </section>`
+  ).join('');
+}
+
+function showPage() {
+  const hash = location.hash.replace('#', '');
+  const chapter = CHAPTERS.find(c => c.id === hash) || CHAPTERS[0];
+  document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + chapter.id));
+  document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.id === chapter.id));
+  document.getElementById('topbarTitle').textContent = chapter.ch + '. ' + chapter.title;
+  document.title = chapter.title + ' · 항공안전';
+  document.body.classList.remove('nav-open');
+  window.scrollTo(0, 0);
+}
+
+render();
+if (!location.hash) history.replaceState(null, '', '#' + CHAPTERS[0].id);
+showPage();
+window.addEventListener('hashchange', showPage);
+
+// mobile sidebar
+document.getElementById('menuBtn').addEventListener('click', () => document.body.classList.toggle('nav-open'));
+document.getElementById('overlay').addEventListener('click', () => document.body.classList.remove('nav-open'));
+
+// hide answers mode
+const toggleBtn = document.getElementById('toggleAns');
+toggleBtn.addEventListener('click', () => {
+  const on = document.body.classList.toggle('hide-ans');
+  toggleBtn.textContent = on ? '정답 보이기' : '정답 가리기';
+  document.querySelectorAll('.q-card.revealed').forEach(c => c.classList.remove('revealed'));
+});
+document.getElementById('main').addEventListener('click', e => {
+  if (!document.body.classList.contains('hide-ans')) return;
+  const card = e.target.closest('.q-card');
+  if (card) card.classList.toggle('revealed');
+});
+</script>
+</body>
+</html>
