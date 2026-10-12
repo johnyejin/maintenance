@@ -587,7 +587,7 @@ td:first-child{font-weight:500}
     <div class="tbl-wrap"><table>
       <thead><tr><th>Torque vs Anti-Torque</th><th>결과</th><th>페달 / T/R Pitch</th></tr></thead>
       <tbody>
-        <tr><td>Torque = Anti-Torque</td><td>일직선 · 특정 위치에서 Stop → Hovering</td><td>Neutral</td></tr>
+        <tr><td>Torque = Anti-Torque</td><td>일직선</td><td>Neutral</td></tr>
         <tr><td>Torque &gt; Anti-Torque</td><td><b>우측 Yaw</b> (Nose가 오른쪽으로)</td><td>오른쪽 페달 → T/R blade pitch angle 감소 → <b>Negative pitch</b></td></tr>
         <tr><td>Torque &lt; Anti-Torque</td><td><b>좌측 Yaw</b> (Nose가 왼쪽으로)</td><td>왼쪽 페달 → pitch angle 증가 → <b>Positive pitch</b></td></tr>
       </tbody>
@@ -935,6 +935,23 @@ td:first-child{font-weight:500}
     </ul>
   </div>
 
+  <div class="card violet">
+    <h3><span class="tag">보충</span>Coriolis Effect란?</h3>
+    <p>회전하는 물체의 <b>질량이 회전축에 가까워지면 빨라지고, 멀어지면 느려지는</b> 현상.</p>
+    <ul>
+      <li><b>원리 — 각운동량 보존</b>: 외부에서 힘을 주지 않으면 각운동량(질량 × 반지름 × 속도)이 일정하게 유지된다. → 질량중심이 축에 가까워져 반지름 ↓ ⇒ 회전속도 ↑ / 멀어져 반지름 ↑ ⇒ 회전속도 ↓</li>
+      <li><b>비유</b>: 피겨 선수가 팔을 모으면 빨리 돌고, 팔을 펴면 느려지는 것과 같다.</li>
+      <li><b>Blade에서는</b>: Blade는 Coning 상태에서 Flapping을 하므로 질량중심과 회전축 사이 거리가 계속 바뀐다. Up flapping(주로 전진익) → 가까워짐 → <b>Lead</b>, Down flapping(주로 후퇴익) → 멀어짐 → <b>Lag</b> (아래 표). 이렇게 회전면 안에서 앞뒤로 움직이는 것이 Lead-lag(Hunting) 운동.</li>
+    </ul>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>왜 문제?</th><th>해결</th></tr></thead>
+      <tbody>
+        <tr><td>Blade 사이 간격이 일정하지 않아 <b>기하학적 불균형 → 진동</b><br>Blade root에 앞뒤 방향으로 반복되는 <b>굽힘 응력 → 피로</b></td><td><b>Lead-lag hinge(Drag hinge)</b>로 앞뒤 움직임을 허용해 응력 제거 + <b>Lead-lag damper</b>가 Lead는 당겨 주고 Lag는 밀어 주어 흡수 (<a href="#ch9">9장</a>)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note add"><b>시험 답안</b> — Coriolis effect: 회전하는 물체의 질량중심이 회전축에 가까워지면 회전속도가 빨라지고 멀어지면 느려지는 현상(각운동량 보존). Blade의 Up flapping 시 Lead, Down flapping 시 Lag가 발생하며, 이로 인한 Lead-lag 운동은 Lead-lag hinge와 Damper로 흡수한다.</div>
+  </div>
+
   <div class="tbl-wrap"><table>
     <thead><tr><th>Flapping</th><th>Blade 질량중심(CG)</th><th>회전속도</th><th>운동</th></tr></thead>
     <tbody>
@@ -1057,7 +1074,6 @@ td:first-child{font-weight:500}
       <tr><td>전진익 <span class="en">(오른쪽, A)</span></td><td>480 knots</td><td>+ 120 knots</td><td><b>600 knots</b></td></tr>
     </tbody>
   </table></div>
-  <div class="note warn">그림 오른쪽 계산 박스는 사진에서 합성 바람 숫자가 흐려 보임 — 480 + 120 = 600 knots로 계산한 값.</div>
 
   <div class="card red">
     <h3><span class="tag">Blow back</span>회전면이 뒤쪽으로 기울어지는 현상 (Hovering에서)</h3>
@@ -1133,7 +1149,7 @@ td:first-child{font-weight:500}
     <div class="tbl-wrap"><table>
       <thead><tr><th>현상</th><th>언제</th><th>결과</th><th>상쇄 방법</th><th>누가</th></tr></thead>
       <tbody>
-        <tr><td><b>Blow back</b></td><td>전진 비행 중 (속도 ↑일수록 커짐)</td><td>회전면이 뒤로 기울어짐</td><td>Cyclic stick <b>전방</b></td><td><b>조종사</b> (90° 위상은 Swashplate 구조가 처리)</td></tr>
+        <tr><td><b>Blow back</b></td><td>Hovering → 전진비행 전환 시 (전진속도·바람이 있을 때)(속도 ↑일수록 커짐)</td><td>회전면이 뒤로 기울어짐</td><td>Cyclic stick <b>전방</b></td><td><b>조종사</b> (90° 위상은 Swashplate 구조가 처리)</td></tr>
         <tr><td><b>Transverse flow effect</b></td><td>이륙·가속 시 저속 구간 (약 10~20 knots 부근)</td><td>우측 Rolling</td><td>Cyclic stick <b>좌측</b></td><td><b>조종사</b></td></tr>
         <tr><td><b>전이성향 (Drift)</b></td><td>Hovering 시 항상</td><td>동체가 우측으로 밀림</td><td>Cyclic 약간 좌측 Rigging · Mast 좌측 경사 · Collective 연동</td><td><b>리깅·설계</b> (UH-60은 MMU Collective to Roll도 보상 → <a href="#ch12">12장</a>)</td></tr>
       </tbody>
