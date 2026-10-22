@@ -216,7 +216,9 @@ const FILE_GROUPS = [
     title: "2-2 기말 📗",
     icon: "📗",
     theme: "teal",
-    files: []
+    files: [
+      { title: "기관실습", desc: "왕복엔진 · 가스터빈엔진", path: "2-2 기말/기관실습.html" },
+    ]
   },
   {
     id: "g4",
@@ -273,7 +275,7 @@ FILE_GROUPS.forEach(group => {
 });
 
 /* 첫 번째 그룹 기본으로 열어두기 */
-document.getElementById(FILE_GROUPS[1].id)?.classList.add('open');
+document.getElementById(FILE_GROUPS[2].id)?.classList.add('open');
 
 function toggle(id) {
   const el = document.getElementById(id);
