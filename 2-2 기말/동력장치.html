@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>동력장치 Ⅱ — 가스터빈엔진 계통 · 엔진 장탈 및 교환</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1419; --panel:#161d26; --panel2:#1c2531; --line:#2a3644;
+  --text:#dfe6ee; --dim:#93a1b1; --mute:#66758a;
+  --blue:#5aa9ff; --green:#4fd1a1; --red:#ff7b7b; --amber:#ffc857; --purple:#b79cff; --cyan:#5fd4e6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'IBM Plex Sans KR',system-ui,sans-serif;font-size:15.5px;line-height:1.75;word-break:keep-all}
+a{color:var(--blue)}
+/* ---------- sidebar ---------- */
+#sidebar{position:fixed;inset:0 auto 0 0;width:272px;background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:18px 14px 30px;z-index:20;transition:transform .25s}
+#sidebar .brand{font-weight:700;font-size:17px;line-height:1.35;padding:4px 8px 2px}
+#sidebar .brand small{display:block;font-weight:400;color:var(--dim);font-size:12.5px;margin-top:3px}
+.home-btn{display:flex;align-items:center;gap:8px;margin:14px 4px 12px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text);text-decoration:none;font-weight:500;font-size:14px}
+.home-btn:hover{border-color:var(--blue);color:var(--blue)}
+.nav-group{font-size:11.5px;letter-spacing:.08em;color:var(--mute);padding:14px 10px 4px;text-transform:uppercase}
+#sidebar nav a{display:flex;gap:9px;align-items:baseline;padding:7px 10px;border-radius:8px;color:var(--dim);text-decoration:none;font-size:14px;line-height:1.45}
+#sidebar nav a .no{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--mute);min-width:18px}
+#sidebar nav a:hover{background:var(--panel2);color:var(--text)}
+#sidebar nav a.active{background:#1d3350;color:#fff}
+#sidebar nav a.active .no{color:var(--blue)}
+#menuBtn{display:none;position:fixed;top:12px;left:12px;z-index:30;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:17px;cursor:pointer}
+#shade{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:15}
+/* ---------- main ---------- */
+main{margin-left:272px;padding:38px 44px 90px;max-width:1010px}
+.page{display:none}
+.page.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h1{font-size:28px;line-height:1.3;margin:0 0 4px;font-weight:700}
+h1 .en{display:block;font-size:14px;font-weight:400;color:var(--dim);letter-spacing:.02em;margin-top:4px}
+.lead{color:var(--dim);margin:8px 0 26px;font-size:14.5px}
+h2{font-size:20px;margin:40px 0 12px;padding-left:12px;border-left:4px solid var(--blue);line-height:1.4}
+h3{font-size:16.5px;margin:24px 0 8px;color:var(--cyan);font-weight:600}
+h4{font-size:15px;margin:16px 0 6px;color:var(--amber);font-weight:600}
+p{margin:8px 0}
+ul,ol{margin:6px 0;padding-left:22px}
+li{margin:3px 0}
+b,strong{color:#fff;font-weight:600}
+.en{color:var(--dim);font-size:.92em}
+.k{color:var(--red);font-weight:600}
+.hl{background:rgba(255,200,87,.2);color:#ffe2a1;padding:0 4px;border-radius:4px;font-weight:500}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:12px 0}
+.card.blue{border-left:4px solid var(--blue)} .card.green{border-left:4px solid var(--green)}
+.card.red{border-left:4px solid var(--red)} .card.amber{border-left:4px solid var(--amber)}
+.card.purple{border-left:4px solid var(--purple)}
+.card>h4:first-child,.card>h3:first-child{margin-top:0}
+/* 필기 */
+.note{background:rgba(79,209,161,.08);border:1px dashed rgba(79,209,161,.5);border-radius:10px;padding:9px 14px 9px 40px;margin:10px 0;color:#bdf0dc;position:relative;font-size:14.8px}
+.note::before{content:"✍";position:absolute;left:13px;top:8px;font-size:16px}
+.note b{color:#e3fff4}
+.n{color:var(--green);font-size:.94em}
+.n::before{content:"✍ "}
+/* 시험 */
+.star{background:rgba(255,123,123,.09);border:1px solid rgba(255,123,123,.5);border-radius:10px;padding:9px 14px 9px 40px;margin:10px 0;position:relative;color:#ffd9d9}
+.star::before{content:"★";position:absolute;left:13px;top:7px;color:var(--amber);font-size:17px}
+.star b{color:#fff}
+.s{color:var(--amber)} .s::before{content:"★ "}
+.unsure{color:var(--mute);font-size:.88em}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14.3px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel2);color:#fff;font-weight:600}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:12px 0}
+.flow span{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:13.8px}
+.flow i{color:var(--mute);font-style:normal}
+.flow span.p{border-color:var(--blue);color:#cfe5ff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tag{display:inline-block;font-size:11.5px;border-radius:20px;padding:1px 9px;margin-right:6px;font-weight:600;vertical-align:1px}
+.tag.w{background:#1d3350;color:var(--blue)} .tag.x{background:#3b2a12;color:var(--amber)} .tag.skip{background:#2b2f36;color:var(--mute)}
+.src{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--mute);margin-left:6px}
+details{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:0}
+details summary{cursor:pointer;padding:11px 16px;font-weight:500;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"Q";display:inline-block;width:22px;height:22px;line-height:22px;text-align:center;background:#1d3350;color:var(--blue);border-radius:6px;margin-right:9px;font-size:12.5px;font-weight:700}
+details[open] summary{border-bottom:1px solid var(--line)}
+details .ans{padding:10px 16px 13px}
+details ol{margin:4px 0 0 30px;color:var(--dim);font-weight:400}
+.ok{color:var(--green);font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin:16px 0}
+.cards a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;color:var(--text)}
+.cards a:hover{border-color:var(--blue)}
+.cards a b{display:block;font-size:15.5px} .cards a span{color:var(--dim);font-size:13px}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:50px;border-top:1px solid var(--line);padding-top:18px}
+.pager a{color:var(--dim);text-decoration:none;font-size:14px;padding:8px 14px;border:1px solid var(--line);border-radius:9px}
+.pager a:hover{color:var(--blue);border-color:var(--blue)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:13.5px;margin:14px 0}
+.legend div{padding:4px 12px;border-radius:8px}
+svg text{font-family:'IBM Plex Sans KR',sans-serif}
+
+/* sidebar groups */
+#sidebar nav .solo{margin-bottom:6px}
+.grp{margin:2px 0}
+.grp>button{width:100%;display:flex;align-items:center;gap:9px;background:none;border:0;color:var(--text);font:inherit;font-size:14.5px;font-weight:600;padding:9px 10px;border-radius:8px;cursor:pointer;text-align:left}
+.grp>button:hover{background:var(--panel2)}
+.grp>button .ic{width:20px;text-align:center}
+.grp>button .chev{margin-left:auto;color:var(--mute);font-size:11px;transition:transform .2s}
+.grp.open>button .chev{transform:rotate(90deg)}
+.grp.has-active>button{color:#fff}
+.grp .sub{display:none;padding:2px 0 6px 14px;border-left:1px solid var(--line);margin-left:19px}
+.grp.open .sub{display:block}
+#sidebar nav .sub a{font-size:13.6px;padding:6px 10px}
+#sidebar nav .sub a.quiz span:last-child::before{content:"Q ";color:var(--amber);font-weight:700;font-size:12px}
+/* figures */
+.figs{display:grid;align-items:start;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px;margin:14px 0 18px}
+.figs:has(figure:only-child){grid-template-columns:minmax(0,760px)}
+figure{margin:0;background:#f4f6f8;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+figure img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain;background:#fff;cursor:zoom-in}
+figcaption{background:var(--panel);color:var(--dim);font-size:13px;line-height:1.5;padding:8px 12px;border-top:1px solid var(--line);margin-top:auto}
+figcaption .n::before{content:"✍ "}
+#lb{display:none;position:fixed;inset:0;background:rgba(5,8,12,.92);z-index:50;align-items:center;justify-content:center;flex-direction:column;padding:24px;cursor:zoom-out}
+#lb.on{display:flex}
+#lb img{max-width:96vw;max-height:86vh;background:#fff;border-radius:8px}
+#lb p{color:#dfe6ee;font-size:14px;margin:12px 0 0;text-align:center}
+@media(max-width:900px){
+  #sidebar{transform:translateX(-100%);padding-top:62px} body.open #sidebar{transform:none} body.open #shade{display:block}
+  #menuBtn{display:block} main{margin-left:0;padding:62px 18px 80px} .grid2{grid-template-columns:1fr}
+  h1{font-size:23px}
+}
+</style>
+</head>
+<body>
+<button id="menuBtn" aria-label="메뉴">☰</button>
+<div id="shade"></div>
+
+<aside id="sidebar">
+  <div class="brand">동력장치 Ⅱ<small>가스터빈엔진 계통 · 엔진 장탈 및 교환</small></div>
+  <a class="home-btn" href="https://johnyejin.github.io/maintenance/">🏠 홈으로</a>
+  <nav id="nav"></nav>
+</aside>
+
+<main>
+
+<section class="page" data-page="intro" data-title="개요 · 시험 포인트" data-group="">
+<h1>동력장치 Ⅱ 정리<span class="en">Gas Turbine Engine Systems · Engine Removal &amp; Replacement (8주차 ~ 12주차)</span></h1>
+<p class="lead">수업 PDF 201쪽(슬라이드 + 손필기)을 챕터별로 재구성했고, 슬라이드 그림도 해당 위치에 넣었습니다. 그림을 누르면 크게 볼 수 있어요. 왼쪽 메뉴에서 챕터를 고르세요.</p>
+
+<div class="legend">
+  <div style="background:rgba(79,209,161,.1);border:1px dashed rgba(79,209,161,.5);color:#bdf0dc">✍ 수업 중 손필기</div>
+  <div style="background:rgba(255,123,123,.1);border:1px solid rgba(255,123,123,.5);color:#ffd9d9">★ 교수님 강조 · 시험 언급</div>
+  <div style="background:rgba(255,200,87,.2);color:#ffe2a1">슬라이드 형광펜</div>
+  <div style="color:var(--mute);border:1px solid var(--line)">(?) 필기 판독이 불확실한 부분</div>
+</div>
+
+<h2>기말 — "알아둬야 하는 내용들"</h2>
+<div class="star">마지막 슬라이드 필기에 적힌 목록입니다. 해당 챕터로 바로 이동할 수 있어요.</div>
+<div class="cards">
+  <a href="#rigging"><b>Trim</b><span>트리밍 조건(정풍), 전자식 FCU 트림 파라미터</span></a>
+  <a href="#qeca"><b>APU</b><span>장탈·장착, 100% 작동(on/off)</span></a>
+  <a href="#removal"><b>엔진 파라미터 / 트렌드</b><span>Condition Monitoring, 경향 분석</span></a>
+  <a href="#removal"><b>엔진 계획 · 비계획 정비, MSG 1·2·3</b><span>정비방식, HT / OC / CM</span></a>
+  <a href="#install"><b>Dolly / Sling</b><span>파워플랜트 장탈·장착 방법</span></a>
+  <a href="#qeca"><b>QECA</b><span>엔진 나셀 vs 윙 나셀, EBU</span></a>
+  <a href="#removal"><b>오일 검사</b><span>Filter · MCD · SOAP</span></a>
+  <a href="#removal"><b>HSI · CSI · LLP</b><span>수명 한계 부품, 사용시간/회수</span></a>
+</div>
+
+<h2>그 밖에 수업 중 "기억해" 라고 한 것</h2>
+<ul>
+  <li><a href="#fuel">연료</a> — Vapor lock 원인·예방, Booster pump 핵심 역할 3가지</li>
+  <li><a href="#fuelsys">연료계통</a> — Drain valve 작동 불량 → 과열 시동 / 후화</li>
+  <li><a href="#oil">윤활유</a> — Coke(침탄물) <span class="n">"기말고사에 낼 수도…"</span></li>
+  <li><a href="#oilsys">윤활계통</a> — Sump check valve, Air seal / Oil seal, Hot tank</li>
+  <li><a href="#air">Air</a> — VBV(언제 닫히고 왜 여는지), TCCS = TSFC 개선</li>
+  <li><a href="#ignition">점화</a> — "High intensity capacitor discharge type" 명칭, Annular gap type</li>
+  <li><a href="#starting">시동</a> — 시동 순서(%까진 아니어도 순서), Dry/Wet motoring, Start valve override</li>
+  <li><a href="#rigging">저장</a> — 중기 저장 <span class="n">"시험에 낼 거임"</span>, 전방 마운트 = 추력 하중</li>
+</ul>
+
+<h2>챕터 구성</h2>
+<p class="en">"엔진의 작동 한계"(8주차 첫 슬라이드)는 시동 한계·비정상 작동을 다루고 있어 STARTING 아래에 넣었어요. 엔진 장탈 및 교환 챕터에는 슬라이드에 학습문제가 없습니다.</p>
+<table>
+<tr><th></th><th>페이지</th><th>원본 범위</th></tr>
+<tr><th colspan="3" style="background:#16222e">⛽ FUEL</th></tr>
+<tr><td style="width:40px"></td><td><a href="#fuel">연료</a></td><td>p.3–18</td></tr>
+<tr><td style="width:40px"></td><td><a href="#fuelsys">연료계통 구성품</a></td><td>p.19–26, 37–48</td></tr>
+<tr><td style="width:40px"></td><td><a href="#fcu">연료조정장치 · FADEC</a></td><td>p.27–38</td></tr>
+<tr><td style="width:40px"></td><td><a href="#quiz-fuel">FUEL 학습문제</a></td><td>p.49–50</td></tr>
+<tr><th colspan="3" style="background:#16222e">🛢️ OIL</th></tr>
+<tr><td style="width:40px"></td><td><a href="#oil">윤활유</a></td><td>p.51–57</td></tr>
+<tr><td style="width:40px"></td><td><a href="#oilsys">윤활계통 구성품</a></td><td>p.58–82</td></tr>
+<tr><td style="width:40px"></td><td><a href="#quiz-oil">OIL 학습문제</a></td><td>p.83–86</td></tr>
+<tr><th colspan="3" style="background:#16222e">💨 AIR</th></tr>
+<tr><td style="width:40px"></td><td><a href="#air">Air 계통 (Cooling · Bleed)</a></td><td>p.87–97</td></tr>
+<tr><td style="width:40px"></td><td><a href="#quiz-air">AIR 학습문제</a></td><td>p.98–99</td></tr>
+<tr><th colspan="3" style="background:#16222e">⚡ IGNITION</th></tr>
+<tr><td style="width:40px"></td><td><a href="#ignition">점화계통</a></td><td>p.100–112</td></tr>
+<tr><td style="width:40px"></td><td><a href="#quiz-ign">IGNITION 학습문제</a></td><td>p.141</td></tr>
+<tr><th colspan="3" style="background:#16222e">🔑 STARTING</th></tr>
+<tr><td style="width:40px"></td><td><a href="#limits">엔진의 작동 한계</a></td><td>p.1–2 (8주차)</td></tr>
+<tr><td style="width:40px"></td><td><a href="#starter">시동기</a></td><td>p.113–125</td></tr>
+<tr><td style="width:40px"></td><td><a href="#starting">모터링 · 시동 절차 · 비정상 시동</a></td><td>p.126–138</td></tr>
+<tr><td style="width:40px"></td><td><a href="#quiz-start">STARTING 학습문제</a></td><td>p.139–142</td></tr>
+<tr><th colspan="3" style="background:#16222e">🔧 엔진 장탈 및 교환</th></tr>
+<tr><td style="width:40px"></td><td><a href="#removal">정비방식 · 엔진 장탈 사유</a></td><td>p.145–156</td></tr>
+<tr><td style="width:40px"></td><td><a href="#qeca">QECA · 외부 점검 · APU</a></td><td>p.157–175</td></tr>
+<tr><td style="width:40px"></td><td><a href="#install">파워플랜트 장탈 · 장착</a></td><td>p.176–188</td></tr>
+<tr><td style="width:40px"></td><td><a href="#rigging">리깅 · 트림 · 마운트 · 저장</a></td><td>p.189–200</td></tr>
+</table>
+</section>
+
+<section class="page" data-page="fuel" data-title="연료" data-group="FUEL">
+<h1>연료<span class="en">4-1. Gas Turbine Engine Fuel System — FUEL (PART 2.1~2.7)</span></h1>
+<p>항공용 가스터빈 연료 = <span class="k">제트연료</span>. <b>석유의 정제에서 얻어지는 등유</b> 또는 등유와 가솔린의 혼합물에 <b>극소량의 첨가제</b>를 가하여 제품화한 석유의 일종.</p>
+<div class="note">석유 = 등유 → <b>케로신계</b></div>
+
+<div class="figs"><figure><img loading="lazy" alt="제트연료 급유 장면" src="powerplant2-images/p04.webp"><figcaption>제트연료 급유 장면<span class="src">p.4</span></figcaption></figure></div>
+<h3>원유의 분리 (분별 증류)</h3>
+<table>
+<tr><th>유분</th><th>끓는점</th><th>용도</th></tr>
+<tr><td>LPG</td><td>~25℃</td><td>가정 난방</td></tr>
+<tr><td>가솔린</td><td>40~75℃</td><td>자동차 연료</td></tr>
+<tr><td>나프타</td><td>75~150℃</td><td>화학약품 원료</td></tr>
+<tr><td><b>등유</b></td><td><b>150~240℃</b></td><td><b>비행기 연료</b></td></tr>
+<tr><td>경유</td><td>220~250℃</td><td>디젤엔진 연료</td></tr>
+<tr><td>윤활유</td><td>250~350℃</td><td>윤활제</td></tr>
+<tr><td>중유</td><td>350℃ 이상</td><td>배의 연료</td></tr>
+<tr><td>찌꺼기</td><td>—</td><td>아스팔트</td></tr>
+</table>
+
+<div class="figs"><figure><img loading="lazy" alt="원유의 분별 증류 — 끓는점별 유분과 용도" src="powerplant2-images/p05.webp"><figcaption>원유의 분별 증류 — 끓는점별 유분과 용도<span class="src">p.5</span></figcaption></figure></div>
+<h2>A. 가스터빈기관 연료의 구비조건</h2>
+<div class="note">기화성이 많으면 안 좋은데, <b>약간은 있는 게 좋음</b>. <span class="unsure">(상단 필기 한 줄은 판독 불확실: "… skirt는 길게 설계 · … 유압펌프에 막으려면")</span></div>
+<ol style="list-style:hangul">
+<li><b>증기압이 낮을 것</b> — 상승률이 크고 고고도에서 기압이 낮아져 <span class="k">Vapor lock</span> 위험이 항상 존재. <span class="n">연료 휘발성 때문에 발생</span></li>
+<li><b>빙점이 낮을 것</b> — 대기 온도 −56.5℃인 고공에서도 얼지 않아야 한다. → 연료 중 성분이나 <span class="hl">용해수분이 동결</span>해서 필터·통로를 막거나 점도가 증가해 연료 흐름이 불균일해질 수 있다. <span class="n">연료 중에 녹아 들어간 수분 → 얘네가 얼면 필터 같은 걸 차단</span></li>
+<li><b>인화점이 높을 것</b> — 사고 등 화재발생 방지</li>
+<li><b>대량생산 가능하고 가격이 저렴할 것</b> — 왕복기관에 비해 출력이 커 소비량이 많다</li>
+<li><b>발열량이 크고 부식성이 없을 것</b> — 단위 중량·체적당 발열량이 클수록 적은 탑재 연료로 비행. 수분·산소·유황 화합물이 녹·마모·부식을 일으키지 않아야 한다</li>
+<li><b>점성이 낮고 깨끗하며 균질할 것</b></li>
+<li><b>발화점이 높을 것</b> — 자연 자기 발화점. 가열 시 자연히 발화되는 온도로, 높을수록 안정성이 높다</li>
+<li><b>전기 전도도가 높을 것</b> — 고속으로 파이프·필터를 흐르면 정전기 발생. 일정시간이 지나면 항공기 Earth를 통해 지상으로 방출. 전도도가 높을수록 정전기 축적이 적고, <span class="k">정전기 방지제를 첨가</span>해 전도도를 높이기도 한다</li>
+</ol>
+
+<div class="card red"><h4>Vapor lock 정리</h4>
+<p><b>원인:</b> 낮은 압력 / 높은 온도 / 불규칙적인 흐름 <span class="src">슬라이드</span></p>
+<div class="note"><b>예방:</b> 부스터 펌프 · 열원을 피해서 설계 · 연료 라인을 직선으로 설계<br>고도↑ → 압력↓ → 증기화가 빨리 일어남. 원인: 연료의 기화성, 고 증기압</div></div>
+
+<h2>B. 연료 선택 시 고려사항</h2>
+<h3>가. 연료의 이용도</h3>
+<p>기관성능(연소실 효율, 고도한계, RPM, 찌꺼기, 고공 재시동 특성) / 계통 내의 증기, 액체손실, 증기폐쇄, 청결성 등</p>
+<h3>나. 연료의 증기압과 연료 압</h3>
+<ul><li><b>연료 증기압</b>: <span class="k">연료의 고유 값</span>으로 연료가 증기화되는 압력 ⇒ 고도와 무관</li>
+<li><b>연료 압</b>: 연료 유면 위를 누르는 <span class="k">공기의 무게에 의한 압력</span> ⇒ 고도에 따라 변화</li></ul>
+<h3>다. 제트 연료의 첨가제</h3>
+<table>
+<tr><th>첨가제</th><th>역할</th></tr>
+<tr><td>산화방지제 <span class="en">Anti-Oxidant</span></td><td>연료가 변질하여 검(용해·불용해 산화물)을 생성, 산화를 방지</td></tr>
+<tr><td>금속 불활성제 <span class="en">Metal De-activator</span></td><td>부유 금속(특히 동 및 동 화합물)을 불활성화 <span class="n">연료가 금속에 반응하지 않게끔</span></td></tr>
+<tr><td>부식 방지제 <span class="en">Corrosion Inhibitor</span></td><td>녹이나 부식 발생 방지</td></tr>
+<tr><td>빙결 방지제 <span class="en">Anti-Icing Additive</span></td><td>수분 중에 녹아 빙결 온도를 낮추고 저온에서의 연료 동결을 방지</td></tr>
+<tr><td>정전기 방지제 <span class="en">Anti-Static / Electrical Conductivity Additive</span></td><td>고속으로 흐를 때 발생하는 정전기의 축전을 방지</td></tr>
+<tr><td>미생물 살균제 <span class="en">Microbicide</span></td><td>박테리아가 증식하지 못하도록 살균</td></tr>
+</table>
+
+<h2>C. 연료의 종류</h2>
+<h3>가. 개요</h3>
+<ul>
+<li>제트 연료는 <span class="k">케로신 계의 연료</span>로서 탄화수소의 화합물이며, 가솔린보다 탄소와 유황 성분이 많다.</li>
+<li>주성분: <b>파라핀과 나프텐</b>(가솔린) / 부성분: <b>방향족과 올레핀</b>, 그리고 <b>유황과 불순물</b></li>
+<li class="en">☞ 방향족: 연소 시 검은 연기·그을음, 고무 가스켓을 부풀게 함 / 올레핀: 저장 중 산화 변질되어 검 형성 / 유황: 연소 시 유산을 만들어 금속을 심하게 부식</li>
+</ul>
+<div class="note"><b>케로신계</b> — 등유에 가까움 / <b>와이드컷계</b> — 휘발유에 가까움</div>
+<h3>나. 제트연료의 규격</h3>
+<ul><li>민간규격: <b>ASTM</b> (American Society for Testing Material) — 엔진·항공기 제작사, 항공사, 국제기관 등</li>
+<li>군용규격: 미군규격 <b>MIL-T-5624</b></li></ul>
+
+<h3>다. 종류</h3>
+<div class="grid2">
+<div class="card blue"><h4>민간용</h4>
+<ul>
+<li><b>Jet A-1</b>: <span class="k">케로신 계</span>(kerosene). 휘발성이 낮고 인화점이 높음. <span class="k">세계적으로 가장 많이 사용</span> → 국제선에 주로 사용</li>
+<li><b>Jet A</b>: 빙점이 −40℃(−40℉)로 높다는 것 외에는 Jet A-1과 같다</li>
+<li><b>Jet B</b>: <span class="k">와이드-컷 계</span>(저증기압 가솔린). 케로신계보다 비중이 가볍고 저온·고공에서 착화성 우수 <span class="k">(주로 군용)</span></li>
+</ul></div>
+<div class="card green"><h4>군용</h4>
+<ul>
+<li><b>JP-1</b>: 가장 처음 사용된 군용 제트 연료</li>
+<li><b>JP-2</b>: JP-1보다 만들기 쉬웠으나 어는점이 더 높아 추위에 불리</li>
+<li><b>JP-3</b>: 등유+가솔린+디젤, 원유의 50%로 생산성↑·저렴. 휘발성이 강해 사용 중단</li>
+<li><b>JP-4</b>: <span class="k">와이드-컷 계, Jet B에 상당</span>. <span class="hl">군용</span>으로 가장 많이 사용</li>
+<li><b>JP-5</b>: 케로신 계, Jet A-1에 상당. 인화점을 높여 <b>항공모함</b> 화재 사고를 줄이려고 사용(벙커탱크용) → 거의 대부분의 군함 <span class="n">인화점 = 불이 옮겨붙는 온도. 항공모함 → 인화점 높아야 함, 불이 잘 붙으면 안 되니까</span></li>
+<li><b>JP-6</b>: XB-70 발키리용. 저휘발성·저빙점, 인화점 높음</li>
+<li><b>JP-7</b>: SR-71 블랙버드용. 인화점 높음</li>
+<li><b>JP-8</b>: <span class="k">Jet A-1과 비슷하며 현재 널리 사용</span> → GTG 등 일부 지상장비에도 사용</li>
+<li><b>AV Gas</b> <span class="n">Aviation Gasoline</span>: 비상용 연료로만 사용 → 왕복엔진에 주로 사용 <span class="n">휘발유 + 첨가제</span></li>
+</ul></div>
+</div>
+
+<h2>Ref. 항공용 연료의 정리 (AVGAS)</h2>
+<ul>
+<li>항공연료는 <b>AVGAS</b>(항공용 가솔린, 왕복엔진)와 <b>터빈연료</b>(JET A 등) 2가지.</li>
+<li>왕복엔진 연료 등급: <span class="hl">80/87, 100/130, 100LL(Low Lead)</span>. 네 번째 등급 115/145는 대형 왕복엔진 항공기에서 제한적으로 사용.</li>
+<li class="en">☞ 2개의 숫자는 옥탄가로서 희박혼합(lean)과 농후혼합(rich)의 등급지수.</li>
+<li>터빈연료: 케로신이 주성분인 <b>JET-A, JET A-1</b>, 케로신에 항공용 가솔린이 첨가된 <b>JET B</b>.</li>
+</ul>
+<div class="note"><b>옥탄가(ON) = 이소옥탄 / 표준연료 × 100</b><br>표준연료(탄화수소계) = 이소옥탄 + 정헵탄 · 이소옥탄: 안티노크성이 강함 · 정헵탄: 노킹을 잘 일으킴<br>115/145 → 이소옥탄 100으로도 부족한 고출력 엔진, 납이 첨가됨</div>
+
+<table>
+<tr><th>AVGAS 등급</th><th>옥탄가</th><th>납 (g/L)</th><th>색</th><th>비고</th></tr>
+<tr><td><b>100LL</b></td><td>100</td><td>0.56</td><td>옅은 파란색</td><td><span class="k">가장 많이 사용</span></td></tr>
+<tr><td>100/130</td><td>100 / 130</td><td>1.12</td><td>청록색</td><td>100LL으로 대체 중. 미국 일부 주·호주·뉴질랜드·칠레 등에서만</td></tr>
+<tr><td>91/96</td><td>91 / 96</td><td>0.02</td><td>갈색</td><td>군용</td></tr>
+<tr><td>91UL/96UL</td><td>—</td><td>없음</td><td>무색 투명</td><td>2010년 생산 중단</td></tr>
+<tr><td>85UL</td><td>85</td><td>없음</td><td>무색 투명</td><td>2013년 생산 중단</td></tr>
+<tr><td>82UL</td><td>82</td><td>없음</td><td>보라색</td><td>2008년 생산 중단</td></tr>
+<tr><td>80/87</td><td>80 / 87</td><td>0.14</td><td>붉은색</td><td></td></tr>
+<tr><td>115/145</td><td>—</td><td>—</td><td>보라색</td><td>군용 / 단종</td></tr>
+</table>
+<div class="note">UL (unlead) = 무연 · 납을 적게 함유하는 건? → 100LL이 아니라 <b>80/87</b></div>
+<table>
+<tr><th>Fuel Type &amp; Grade</th><th>Color of Fuel</th><th>장비·배관 식별색</th></tr>
+<tr><td>AVGAS 82UL</td><td>Purple</td><td>보라</td></tr>
+<tr><td>AVGAS 100</td><td>Green</td><td>초록</td></tr>
+<tr><td>AVGAS 100LL</td><td>Blue</td><td>파랑</td></tr>
+<tr><td>JET A</td><td>Colorless or straw</td><td>검정(회갈)</td></tr>
+<tr><td>JET A-1</td><td>Colorless or straw</td><td>회색</td></tr>
+<tr><td>JET B</td><td>Colorless or straw</td><td>노랑</td></tr>
+</table>
+
+<div class="figs"><figure><img loading="lazy" alt="연료 종류·등급별 색상과 장비/배관 식별 표시" src="powerplant2-images/p12.webp"><figcaption>연료 종류·등급별 색상과 장비/배관 식별 표시<span class="src">p.12</span></figcaption></figure></div>
+<h2>연료 주입 · 탱크 · 탑재 연료</h2>
+<div class="card amber"><h4>★ 연료주입 (Static Electricity) — 접지 순서</h4>
+<ol><li><b>Ground</b> the Truck</li><li>Connect the Truck to the A/C</li><li>Connect (Ground / 3-Point ground) the Hose Wire to the A/C</li><li>Connect the Hose to the Tank</li></ol></div>
+<ul>
+<li><b>오버 윙 방식</b>(over-wing method) / 대형 항공기의 <b>단일 포인트 급유</b>(Single point refueling station) <span class="n">receptacle — 한 point에서 모든 탱크에 연료 공급</span></li>
+<li>A330 MRTT 탱크 배치: Centre tank / Inner tank / Outer tank / Vent tank / Trim tank(수평꼬리날개)</li>
+</ul>
+<div class="note"><b>Vent tank(통기용) = Surge tank</b> — 항공기 자세 변화에 따라~ · <b>Trim tank</b> → Weight &amp; Balance 조절</div>
+<div class="figs"><figure><img loading="lazy" alt="연료 주입 — 급유차·A330 MRTT 연료탱크 배치" src="powerplant2-images/p15.webp"><figcaption>연료 주입 — 급유차·A330 MRTT 연료탱크 배치<span class="src">p.15</span></figcaption></figure><figure><img loading="lazy" alt="A330 MRTT FUEL TANK ARRANGEMENT (✍ Trim tank → Weight &amp; Balance)" src="powerplant2-images/p16.webp"><figcaption>A330 MRTT FUEL TANK ARRANGEMENT (<span class='n'></span> Trim tank → Weight &amp; Balance)<span class="src">p.16</span></figcaption></figure><figure><img loading="lazy" alt="오버 윙 방식과 단일 포인트 급유 스테이션 (✍ receptacle)" src="powerplant2-images/p18.webp"><figcaption>오버 윙 방식과 단일 포인트 급유 스테이션 (<span class='n'></span> receptacle)<span class="src">p.18</span></figcaption></figure></div>
+<div class="card"><h4>BLOCK FUEL — 비행기에 싣는 전체 연료</h4>
+<p><b>법정연료:</b> TAXI · TRIP · CONTINGENCY · ALTERNATE · FINAL RESERVE<br><b>추가연료(EXTRA FUEL):</b> COMPANY EXTRA · DISCRETIONARY · TANKERING</p></div>
+<div class="figs"><figure><img loading="lazy" alt="BLOCK FUEL — 법정연료 + 추가연료" src="powerplant2-images/p17.webp"><figcaption>BLOCK FUEL — 법정연료 + 추가연료<span class="src">p.17</span></figcaption></figure></div>
+</section>
+
+<section class="page" data-page="fuelsys" data-title="연료계통 구성품" data-group="FUEL">
+<h1>연료계통<span class="en">D. Fuel System</span></h1>
+<h2>가. 개요</h2>
+<ul><li>터빈 기관의 출력은 조종사의 Power lever 조작에 의해 <b>공급 연료의 유량</b>을 조절함으로써 조정된다.</li>
+<li>연료계통은 <b>기체 연료계통</b>과 <b>기관 연료계통</b>으로 나뉜다.</li></ul>
+
+<h4>기체 연료계통</h4>
+<div class="flow"><span>탱크</span><i>→</i><span class="p">부스터 펌프</span><i>→</i><span>선택 및 차단밸브</span><i>→</i><span>기관으로 공급</span></div>
+<h4>기관 연료계통</h4>
+<div class="flow"><span class="p">연료펌프(저압)</span><i>→</i><span>A/F 히터</span><i>→</i><span>연료 필터</span><i>→</i><span class="p">연료 압력 펌프</span><i>→</i><span class="p">연료조정장치</span><i>→</i><span>연료/오일 열교환기</span><i>→</i><span class="p">P&amp;D valve</span><i>→</i><span>연료 매니폴드</span><i>→</i><span class="p">연료 노즐</span></div>
+<div class="note">(저압)필터 → 연료펌프(저압) = <b>원심식 펌프(가변용량형)</b> · 연료 노즐 → <b>분무식</b>: common, 1·2차 연료로 나뉨 / <b>증발식</b></div>
+
+<div class="card red"><h4>★ Booster Pump</h4>
+<ol>
+<li>Tank 내에 잠겨져 있는 <b>Centrifugal Type Pump</b> <span class="n">가변용량형</span></li>
+<li>Tank와 EDP 간 <b>Positive(+) 압력</b> 제공 = Cavitation 방지 <span class="n">EDP까지 보내준다</span></li>
+<li>시동 시 적정 압력 제공 및 비행 시 <span class="hl">Vapor Lock</span> 발생 가능성 방지</li>
+<li><b>EDP의 Back up</b> 기능</li>
+<li>Cross Feeding 시 연료 이송 압력 제공</li>
+<li>연료 Dump 시 연료를 가압</li>
+</ol>
+<div class="note"><b>Booster Pump 핵심 역할</b> ① EDP까지 연료 공급 ② EDP 백업 (fail-safe 구조) ③ Vapor lock 방지<br><b>정용량형은 반드시 relief valve가 있어야 함</b></div></div>
+
+<h3>계통도(Ref.)에 적은 필기</h3>
+<div class="note">
+· <b>부스터 펌프</b> — 전기에 의해 동작<br>
+· <b>차단 밸브</b> = Shutoff &amp; Selector V/V → tank 여러 개 중 어떤 탱크를 쓸 건지 선택<br>
+· <b>연료 펌프</b> = 원심식 / <b>연료 압력 펌프 = EDP</b>, 기어 타입<br>
+· <b>공기-연료 가열기</b> — bleed air에 의해 연료를 살짝 데워서 결빙 제거<br>
+· <b>연료 조정 장치 = FCU</b> · 추력 증가 감지는 <b>CIT(온도)</b>로 측정해 판단<br>
+· <b>연료 유량 측정기 = FFX (Fuel Flow Transmitter)</b> → 단위 <b>PPH</b><br>
+· <b>연료-윤활유 냉각기</b> → oil 온도 측정 센서 있음<br>
+· <b>여압 및 드레인 밸브</b> → 1차·2차 연료로 분배<br>
+· <b>노즐</b> → 1차: (시동 시) 점화 용이하게, 150° / 2차: 50° 좁은 각도. 대부분의 연료가 나와 연소를 용이하게 해줌. 연료가 벽에 닿지 않게.
+</div>
+
+<div class="figs"><figure><img loading="lazy" alt="기체·기관 연료 계통도 (Ref.)" src="powerplant2-images/p22.webp"><figcaption>기체·기관 연료 계통도 (Ref.)<span class="src">p.22</span></figcaption></figure><figure><img loading="lazy" alt="연료 계통 구성 (항공기 공급·저압·고압 연료, 전기 신호)" src="powerplant2-images/p37.webp"><figcaption>연료 계통 구성 (항공기 공급·저압·고압 연료, 전기 신호)<span class="src">p.37</span></figcaption></figure></div>
+<h2>나. 기관 연료 계통의 구성</h2>
+<h3>1) 주 연료 펌프</h3>
+<ul>
+<li>종류: <b>원심형, 기어형, 피스톤형</b> <span class="n">Ref. 그림에 있는 것들(Gear · Vane · Piston · Centrifugal) + 지로터 타입</span></li>
+<li>목적: 출력에 맞는 적당한 압력으로 연료 공급 / G/B에 부착 구동</li>
+<li><b>정용량식</b>(Constant Displacement) → 기어형 / <b>가변용량식</b>(Non-constant) → 원심식</li>
+<li>기어펌프 단면의 부스터 단: <span class="n">원심식, 저압</span></li>
+</ul>
+<div class="figs"><figure><img loading="lazy" alt="기어형 연료 펌프 단면 (✍ 부스터 단 = 원심식, 저압)" src="powerplant2-images/p23.webp"><figcaption>기어형 연료 펌프 단면 (<span class='n'></span> 부스터 단 = 원심식, 저압)<span class="src">p.23</span></figcaption></figure><figure><img loading="lazy" alt="펌프 형식 — Gear / Vane / Piston / Centrifugal (✍ + 지로터 타입)" src="powerplant2-images/p24.webp"><figcaption>펌프 형식 — Gear / Vane / Piston / Centrifugal (<span class='n'></span> + 지로터 타입)<span class="src">p.24</span></figcaption></figure></div>
+<div class="card"><h4>☞ 펌프 내에 있는 밸브</h4>
+<ul><li><b>Check V/V</b>: 연료가 역류 방지</li>
+<li><b>Relief V/V</b>: 펌프 출구 압력이 규정값 이상으로 높아지면 <span class="k">펌프 입구로 되돌려 압력 조정</span></li>
+<li><b>바이패스 V/V</b>: 연료 조정 장치에서 사용하고 남은 연료를 다시 펌프 입구 쪽으로 되돌려 보낸다</li></ul></div>
+
+<h3>2) 연료 여과기 <span class="en">Fuel filter</span></h3>
+<h4>① 위치</h4>
+<ul><li><b>저압 필터</b>: 엔진 구동 연료펌프와 제어장치 보호 — <span class="k">공급탱크와 엔진연료계통 사이</span></li>
+<li><b>고압 필터</b>: 저압펌프로부터 올 수 있는 오염에 대해 FCU 보호 — <span class="k">연료펌프와 연료조정장치 사이</span></li>
+<li class="en">☞ Pressure switch: 각 Strainer 앞뒤에 결빙이나 막힘을 알려 줌 / By-Pass Valve: 여과기가 막힐 때 연료 공급</li></ul>
+<h4>② 종류(형식)</h4>
+<table>
+<tr><th>형식</th><th>특징</th></tr>
+<tr><td><b>미크론 필터</b> / <span class="k">Cartridge Type</span></td><td>가장 큰 여과작용. 다공성 섬유소(Porous Cellulose) 재질로 10~25 미크론 이물질 제거. <span class="k">1 미크론 = 1/1000 mm</span></td></tr>
+<tr><td><b>스크린 망사 필터</b> / <span class="hl">Screen Type</span> <span class="n">= strainer, 재사용 가능</span></td><td>200-mesh~35-mesh, 연료펌프와 FCU 사이에서 사용. 고운-메시 강철 와이어를 연속적으로 겹친 층. → <span class="hl">가장 널리 사용</span></td></tr>
+<tr><td><b>웨이퍼 스크린형</b> / <span class="k">Screen-Disc Type</span></td><td>청동·황동·철 스크린 원반을 겹쳐 만들어 요소 교체 가능. 미세 입자 제거 + <b>고압에 잘 견디는 강도</b></td></tr>
+</table>
+
+<div class="figs"><figure><img loading="lazy" alt="미크론 필터 (Cartridge Type)" src="powerplant2-images/p25.webp"><figcaption>미크론 필터 (Cartridge Type)<span class="src">p.25</span></figcaption></figure><figure><img loading="lazy" alt="스크린 메시 필터 (✍ = strainer, 재사용 가능)" src="powerplant2-images/p26.webp"><figcaption>스크린 메시 필터 (<span class='n'></span> = strainer, 재사용 가능)<span class="src">p.26</span></figcaption></figure></div>
+<h3>3) 연료 조정 장치 → <a href="#fcu">별도 챕터</a></h3>
+
+<h3>4) 연료 히터 / 연료-오일 냉각기 <span class="en">Fuel Heater · F/O Heat Exchanger</span></h3>
+<ul><li>목적: 연료 <b>방빙</b>을 위해 <span class="k">Comp' Bleed Air에 의해 가열</span>되고 Thermostatic Valve(Temp Sensor)에 의해 By-Pass되거나 heater 된다.</li>
+<li>현대 항공기는 주로 <b>Fuel-Oil Cooler</b>에 의해 가열되며 heat exchanger라 불린다.</li></ul>
+
+<div class="figs"><figure><img loading="lazy" alt="Fuel Heater (by air) / Fuel-Oil Heat Exchanger" src="powerplant2-images/p39.webp"><figcaption>Fuel Heater (by air) / Fuel-Oil Heat Exchanger<span class="src">p.39</span></figcaption></figure><figure><img loading="lazy" alt="Fuel-Oil Heat Exchanger 단면" src="powerplant2-images/p40.webp"><figcaption>Fuel-Oil Heat Exchanger 단면<span class="src">p.40</span></figcaption></figure></div>
+<h3>5) 여압 및 드레인 밸브 <span class="en">Pressurizing &amp; Drain V/V (P&amp;D) · Flow divider와 Drip V/V</span></h3>
+<ul><li>위치: <b>연료 조정장치와 연료 매니폴드 사이</b></li>
+<li>목적 ① 연료의 흐름을 <b>1, 2차로 분리</b> ② 일정 압력이 될 때까지 연료 흐름 차단(<b>과열 시동 방지</b>) ③ 엔진 정지 시 매니폴드·노즐에 남은 <span class="k">연료를 배출</span></li>
+<li class="en">흐름분할기(Flow divider)는 본질적으로 여압 밸브와 같은 기능을 수행</li></ul>
+<div class="note">☆ <b>그림만 이해해</b> — 왼쪽(Dump valve OPEN): 엔진 shutdown 시 연료 흐름 / 오른쪽(Pressurizing valve OPEN, Dump CLOSED): 일반적인 상태</div>
+
+<div class="figs"><figure><img loading="lazy" alt="P&amp;D 밸브 — ✍ 왼쪽: 엔진 shutdown 시 / 오른쪽: 일반적인 상태" src="powerplant2-images/p41.webp"><figcaption>P&amp;D 밸브 — <span class='n'></span> 왼쪽: 엔진 shutdown 시 / 오른쪽: 일반적인 상태<span class="src">p.41</span></figcaption></figure><figure><img loading="lazy" alt="Pressurizing &amp; Drain Valve 작동과 실물" src="powerplant2-images/p42.webp"><figcaption>Pressurizing &amp; Drain Valve 작동과 실물<span class="src">p.42</span></figcaption></figure></div>
+<div class="card green"><h4>❖ Fuel Drain의 필요성과 작동</h4>
+<ul>
+<li>Drain Valve: 연료가 축적되면 문제를 일으키기 쉬운 구성품에서 <b>연료를 배출</b>시키는 장치 — 연소실에 고인 연료로 인한 화재 위험 / 매니폴드·노즐에서 증발 후 남는 <b>납과 고무 찌꺼기</b></li>
+<li>매니폴드는 드립(Drip) 또는 덤프 밸브(Dump Valve)로 드레인 → 압력 차이나 솔레노이드로 작동</li>
+<li>연소실 드레인 밸브: 엔진 정지 후 또는 시동 실패 시 고인 연료를 드레인</li>
+<li>캔형(Can-type): Flame Tube를 통해 중력으로 아래쪽 챔버에 모여 드레인 / 애눌러형(Annular-type): 라이너의 공기 구멍으로 흘러 하우징 바닥에 고임</li>
+<li>연소실 내 압력이 대기압 수준으로 떨어지면 스프링에 의해 밸브가 열려 드레인</li>
+</ul>
+<div class="star"><b>이것만 알아둬</b> — 매 엔진 정지 후 축적된 연료를 드레인시키려면 밸브의 작동 상태가 절대적으로 양호해야 한다. 그렇지 않으면 다음 시동 시 <b>과열 시동</b> 또는 엔진 정지 후 <b>후화</b>가 일어날 수 있다.</div></div>
+
+<h3>6) 연료 매니폴드 <span class="en">Fuel manifold</span></h3>
+<ul><li>P&amp;D V/V를 거쳐 나온 연료를 각 노즐로 분배 공급</li><li>종류: 분리형과 동심 이중 파이프형, 또 내부형과 외부형</li></ul>
+
+<div class="figs"><figure><img loading="lazy" alt="연료 매니폴드" src="powerplant2-images/p44.webp"><figcaption>연료 매니폴드<span class="src">p.44</span></figcaption></figure></div>
+<h3>7) 연료 노즐 <span class="en">Fuel Nozzle</span></h3>
+<ul>
+<li>위치: Frame 내 연소실 전방 / 목적: 빠르고 확실한 연소가 되도록 미세하게 분무</li>
+<li><b>증발식</b>(Vaporizing Tube Type): 1차 공기와 함께 증발관을 통과하며 <span class="k">연소 열에 의해 증발</span>되어 혼합가스가 됨</li>
+<li><b>분무식</b>(Atomizer Type): <span class="k">고압에 의해 분사</span>
+  <ul><li>단식노즐(Simplex): 구조는 간단하나 대형엔 불가능</li>
+  <li>복식노즐(Duplex): <b>1차 연료</b> — 노즐 중심의 작은 오리피스에서 <span class="k">150° 각도로 넓게</span> 분사 / <b>2차 연료</b> — 큰 오리피스에서 <span class="k">50° 각도로 좁고 멀리</span> 분사, 균등한 연소 가능</li></ul></li>
+</ul>
+<p class="en"><span class="tag skip">생략</span> 20개 노즐 분사패턴 슬라이드(15 psig에서 1차 64°/89°, 120 psig에서 2차 125°, 넓은 분사각 노즐 4개가 점화 플러그 양쪽)는 필기에 "생략" 표시.</p>
+
+<div class="figs"><figure><img loading="lazy" alt="분무식 연료 노즐 (Simplex / Duplex)" src="powerplant2-images/p45.webp"><figcaption>분무식 연료 노즐 (Simplex / Duplex)<span class="src">p.45</span></figcaption></figure><figure><img loading="lazy" alt="Duplex 연료 노즐 단면" src="powerplant2-images/p46.webp"><figcaption>Duplex 연료 노즐 단면<span class="src">p.46</span></figcaption></figure></div>
+<h3>FADEC 엔진 연료 계통도 필기</h3>
+<div class="note">FUEL TANK PUMP = <b>Booster</b> · FUEL PUMP~FILTER는 <b>gearbox에 붙어있음</b>(요 Box가 G/B), FMU는 G/B 옆에 · MAIN STAGE = <b>정용량형, 고압</b> · <b>FUEL DISTRIBUTION VALVE = P&amp;D valve</b></div>
+<div class="figs"><figure><img loading="lazy" alt="FADEC 엔진 연료 계통도 (✍ FUEL TANK PUMP = Booster, P&amp;D valve)" src="powerplant2-images/p48.webp"><figcaption>FADEC 엔진 연료 계통도 (<span class='n'></span> FUEL TANK PUMP = Booster, P&amp;D valve)<span class="src">p.48</span></figcaption></figure></div>
+</section>
+
+<section class="page" data-page="fcu" data-title="연료조정장치 · FADEC" data-group="FUEL">
+<h1>연료 조정 장치<span class="en">Fuel Control Unit · HMU · FADEC (9주차)</span></h1>
+<h2>목적과 구성</h2>
+<p><b>목적:</b> 기관의 모든 작동조건에 대응하여 공급되는 연료유량을 적절하게 <b>자동제어</b>. PLA가 일단 설정되면 대기상태 변화(특히 CIT)에 관계없이 자동으로 연료량을 제어하고 PLA에 상당하는 RPM(or TIT)을 일정하게 유지.</p>
+<div class="grid2">
+<div class="card blue"><h4>수감 부분 <span class="en">Computing Section</span></h4>
+<p>기관의 작동상태를 수감, 신호를 종합 계산하여 유량조절부분으로 보낸다.</p>
+<ul><li><span class="k">RPM</span>: 속도감지 (조속기에 의해)</li><li><span class="k">CDP</span>: 터빈 입구 온도와 관련 (CCP / Pb도 가능)</li><li><span class="k">CIT</span>: 밀도와 관련 (CIP도 가능)</li><li><span class="k">PLA</span>: 조종사의 조종 T/A</li></ul></div>
+<div class="card green"><h4>유량조절부분 <span class="en">Metering Section</span></h4>
+<p>수감부분의 계산된 신호를 받아 작동한계에 맞도록 연료량을 조절 (필요량만 공급 후 나머지는 PUMP 입구로 되돌아감)</p></div>
+</div>
+
+<h3>수감요소에 따른 연료량 조절</h3>
+<ul>
+<li><b>PLA, RPM</b> — 스로틀 레버 각도가 커지면 연료를 늘리라는 신호. 마냥 늘리면 <b>과농후로 인한 연소정지</b>나 <b>압축기 실속</b> → RPM을 고려해 적정범위까지만 증가.</li>
+<li><b>CDP</b> — 압축기 출구 압력이 높을 때 연료가 많이 공급되면 터빈 입구에서 가스 누적으로 <span class="k">압축기 실속 위험</span> → <span class="k">압축기 출구 압력이 증가하면 연료량은 적어져야 한다.</span></li>
+<li><b>CIT</b> — <span class="k">압축기 입구 온도가 증가하면 터빈 입구 온도가 증가하므로 연료유량을 감소</span>시킨다.</li>
+</ul>
+
+<div class="card"><h4>Detail View — 연료 조절 장치의 작동선 (가로: 회전수 / 세로: 연료유량)</h4>
+<ul><li>위쪽 빗금 영역: 과농후 연소 정지 · 실속 / 아래쪽 빗금 영역: 과희박 연소 정지</li>
+<li><b>시동</b> A→B→C · <b>급가속</b> C→D→E · <b>급감속</b> E→F→G · 가운데 곡선 = 정상 작동선</li></ul>
+<div class="note">급가속 → HPC / 감속 → LPC <span class="unsure">(실속이 걸리는 압축기)</span></div></div>
+
+<div class="figs"><figure><img loading="lazy" alt="Detail View — 연료 조정 장치의 작동선 (✍ 급가속 → HPC / 감속 → LPC)" src="powerplant2-images/p29.webp"><figcaption>Detail View — 연료 조정 장치의 작동선 (<span class='n'></span> 급가속 → HPC / 감속 → LPC)<span class="src">p.29</span></figcaption></figure></div>
+<h2>연료 조정 장치의 종류</h2>
+<h3>① 유압-기계식 <span class="en">hydro-mechanical</span> <span class="n">HMU</span></h3>
+<ul>
+<li>수많은 엔진에 사용되었고 아직도 사용되지만, 전자식 제어 방식이 제공되면서 사용이 한정되고 있다.</li>
+<li>수감 계산 부분과 유량 조절 부분의 2개 부분으로 구성.</li>
+<li>순수한 유압 기계식은 전자 장치 없이 <b>기어 장치를 구동시켜 RPM을 감지</b>.</li>
+<li>감지되는 다른 변수: 압축기 출구 압력(CDP), 연소실 압력(Burner Pressure), 흡기 온도와 입구 압력(CIT &amp; CIP).</li>
+<li>수감부가 연료 유량을 결정하면 유량 조절부는 <b>캠과 서보 밸브</b>를 통해 연료를 공급.</li>
+<li>실제 작동 절차는 매우 복잡하고 계량이 전자식만큼 정확하지 못하다.</li>
+<li class="en">☞ 전자식 조정 장치는 더 정밀하게 더 많은 입력 자료를 받을 수 있어, 초기에는 유압기계식에 전자식 장비를 추가했다. → 전자식 장비 고장 시 유압 기계식을 대체 활용.</li>
+</ul>
+<div class="note"><b>EEC</b>: VSV, TCC <span class="unsure">(필기는 "TEC"처럼 보임)</span> 같은 걸 제어해 줌 · <b>Servo fuel</b> — VSV는 연료압에 의해 내부 ring이 살짝씩 움직이면서 작동</div>
+
+<div class="figs"><figure><img loading="lazy" alt="Fuel control assembly schematic hydro-mechanical" src="powerplant2-images/p32.webp"><figcaption>Fuel control assembly schematic hydro-mechanical<span class="src">p.32</span></figcaption></figure></div>
+<h3>② 전자식 통합 엔진제어장치 <span class="en">FADEC — Full Authority Digital Engine Control</span></h3>
+<div class="star">FADEC은 시험과도 연관된다 <span class="unsure">(필기 판독 불확실)</span></div>
+<ul>
+<li>가장 최신의 터빈엔진에서 연료유량을 제어하기 위해 개발.</li>
+<li>전자식 엔진제어장치(<b>EEC</b>)로 엔진 변수 정보를 공급하는 <span class="k">전자적인 신호를 이용</span>.</li>
+<li>진정한 FADEC은 <b>유압 기계식 백업(Hydro mechanical Backup)을 갖고 있지 않다.</b></li>
+<li>EEC는 연료 흐름량 결정에 필요한 정보를 모아 연료조절밸브로 전송, 밸브는 명령에 단순히 반응. EEC = 연료분배계통의 <b>계산장치</b>(컴퓨터), 조절밸브 = 연료유량 조절.</li>
+<li>작은 APU부터 가장 큰 추진력의 엔진까지 수많은 터빈엔진에 사용.</li>
+</ul>
+<div class="card purple"><h4>EEC 세부</h4>
+<ul>
+<li>FADEC의 수감 계산 부분은 전적으로 감지기 입력 자료에 의존해 EEC가 연료량을 계량 → <b>EEC는 FADEC 연료 조정 계통의 1차 구성요소</b></li>
+<li>EEC 동력: 항공기 전기 계통 또는 <span class="hl">영구자석 교류발전기(PMA, Permanent Magnet Alternator)</span></li>
+<li>색깔 표시(Color Coding): 채널 A 전선 = <b>청색</b>, 채널 B 감지기 신호 = <b>녹색</b>, EEC 회로가 아닌 전선 = <b>회색</b>, 열전쌍 신호 = <b>노란색</b></li>
+</ul>
+<div class="note">· PMA → <b>엔진이 돌아가는 한 EEC는 작동한다</b><br>· 채널 A, B로 나뉘어져 있다. 정상일 땐 2개가 서로 공유, <b>fail-safe 구조</b><br>· EEC 커넥터 = receptacle · <span class="unsure">"QEC =" 표시가 'EEC 회로가 아닌 전선' 옆에 적혀 있음</span></div></div>
+
+<div class="figs"><figure><img loading="lazy" alt="EEC 블록도 — Channel A/B, HMU" src="powerplant2-images/p33.webp"><figcaption>EEC 블록도 — Channel A/B, HMU<span class="src">p.33</span></figcaption></figure><figure><img loading="lazy" alt="FADEC 엔진 (EEC 장착 위치)" src="powerplant2-images/p35.webp"><figcaption>FADEC 엔진 (EEC 장착 위치)<span class="src">p.35</span></figcaption></figure></div>
+<h3>FADEC 연료 흐름 (그림 필기)</h3>
+<div class="flow"><span>항공기 연료</span><i>→</i><span>연료 펌프/필터</span><i>→</i><span class="p">연료 미터링 장치(FMU)</span><i>→</i><span>연료량 트랜스미터</span><i>→</i><span>연료 분배 밸브</span><i>→</i><span>매니폴드·노즐</span></div>
+<div class="note">· FMU — <b>EEC랑 신호를 주고받아서 valve 열림 정도를 조절</b><br>· 이 계통에는 <b>P&amp;D valve 없음</b> → 노즐 안에서 1·2차 분배<br>· AMM 73-00-00 HYDRAULIC SUBSYSTEM: Tank pump → Fuel pump → Filter(여기까지 gearbox에 붙어있음) → FMU(G/B 옆) → <b>Fuel Distribution Valve (= P&amp;D valve)</b> → Injectors. FMU의 servo fuel이 Stator Vane Actuator, Turb Case Cool Actuator, Air/Oil Heat Exchanger, 2.5 Bleed Valve Actuator 등을 구동</div>
+<p class="en">EEC 블록도: 입력(TLR/TRA, T12·T25·T3·T49.5, N1·N2 speed, P0·PS3) → EEC Channel A / B (Cross Channel Data Link) → HMU(FMV, HPSOV, EHSV) → Servo Fuel / Metered Fuel(to Combustion)</p>
+<div class="figs"><figure><img loading="lazy" alt="AMM 73-00-00 HYDRAULIC SUBSYSTEM" src="powerplant2-images/p38.webp"><figcaption>AMM 73-00-00 HYDRAULIC SUBSYSTEM<span class="src">p.38</span></figcaption></figure></div>
+</section>
+
+<section class="page" data-page="quiz-fuel" data-title="FUEL 학습문제" data-group="FUEL"><h1>학습문제풀이 — FUEL<span class="en">슬라이드에 실린 문제 · 클릭하면 답이 열립니다</span></h1>
+<div class="card amber"><p><b>답 표시</b> — 슬라이드에는 정답이 인쇄되어 있지 않아요. <span class="tag w">필기</span> PDF에 직접 표시된 답 · <span class="tag x">정리</span> 강의 내용을 근거로 고른 답(교수님 답과 다를 수 있음)</p></div>
+<div class="note">문제 페이지 첫 장 필기: <b>"시험엔 안 나옴"</b></div>
+
+
+<details><summary>다음 중에서 제트 엔진 연료의 구비조건이 아닌 것은?<ol><li>발열량이 클 것</li><li>저온에서 동결되지 않을 것</li><li>부식성이 없을 것</li><li>휘발성이 높을 것</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">④</span> — 증기압이 낮아야(휘발성이 낮아야) Vapor lock을 막는다.</div></details>
+<details><summary>군용 가스 터빈 연료 규격 중 민간 규격 JET-B와 유사한 연료는?<ol><li>JP-4</li><li>JP-5</li><li>JP-7</li><li>GP-4</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">① JP-4</span> — 와이드-컷 계, Jet B에 상당.</div></details>
+<details><summary>JET A-1 연료가 사용되는 곳은?<ol><li>고 고도 비행</li><li>저 고도 비행</li><li>온도가 낮은 곳</li><li>온도가 높은 곳</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">①</span> (추정) — Jet A보다 빙점이 낮아 국제선(고고도·저온)에 주로 사용. ③과 같은 맥락이라 교수님 답 확인 필요.</div></details>
+<details><summary>제트 엔진에서 부스터 펌프의 형식은 무엇인가?<ol><li>원심 식</li><li>베인 식</li><li>기어 식</li><li>지로터 식</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">① 원심식</span> — Tank 내에 잠긴 Centrifugal Type Pump.</div></details>
+<details><summary>연료 펌프의 과도한 압력은 어디로 돌아가는가?<ol><li>탱크 입구</li><li>펌프 입구</li><li>외부로 배출</li><li>펌프 출구</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">② 펌프 입구</span> — Relief V/V.</div></details>
+<details><summary>연료노즐의 분사각도를 옳게 설명한 것은?<ol><li>1차 연료보다 2차 연료의 분사각도가 더 넓게 분사된다.</li><li>각도는 1차와 2차가 같고 압력은 2차 연료가 더 높다.</li><li>1차 연료보다 2차 연료의 분사온도가 높아 균등한 연소를 이룬다.</li><li>1차 연료 분사각도는 2차 연료 분사보다 더 넓게 분사된다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">④</span> — 1차 150°(넓게), 2차 50°(좁고 멀리).</div></details>
+<details><summary>모든 비행상태에서 조종사 요구에 부응하여 최적의 엔진 조정을 수행하기 위하여 입력 신호를 전산 처리하여 작동 부분품을 일괄 조정하는 것은?<ol><li>EEC</li><li>FCU</li><li>carburetor</li><li>autopilot</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">① EEC</span></div></details>
+<details><summary>다음 중 고압의 연료계통용으로 적합한 연료 필터의 형식은?<ol><li>스크린 형</li><li>디스크 형</li><li>스크린 디스크 형</li><li>다 맞다</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">③ 스크린 디스크 형</span> — 웨이퍼 스크린형은 고압에 잘 견디는 강도를 가진다.</div></details>
+<details><summary>FUEL/OIL 열 교환기(heat exchange)란 무엇인가? (서술)</summary><div class="ans"><span class="tag x">정리</span>연료와 오일 사이에서 열을 교환하는 장치 — 뜨거운 오일은 연료로 <b>냉각</b>되고, 연료는 오일의 열로 <b>가열되어 결빙이 방지</b>된다.</div></details>
+
+
+</section>
+
+<section class="page" data-page="oil" data-title="윤활유" data-group="OIL">
+<h1>윤활유<span class="en">4-2. Gas Turbine Engine OIL System (PART 6.1~6.9)</span></h1>
+<p>오일계통의 주요 목적은 엔진 베어링부의 <b>윤활과 냉각</b> → 윤활 오일계통이라고도 하며 모두 <span class="k">압력 공급 방식</span>. 제트엔진: Main Bearing 및 보기류 구동 기어박스 내 베어링의 윤활·냉각. 터보프롭·터보샤프트: 이외에 프로펠러 축 감속장치 윤활과 Torque미터 작동 등.</p>
+
+<h2>A. 윤활 <span class="en">Lubrication</span></h2>
+<ul>
+<li><b>윤활대상</b>: ① 압축기와 터빈을 지지하는 주 베어링들 ② 액세서리를 구동하는 구동기어들과 그 축의 베어링들</li>
+<li><b>윤활 방법</b>: 고압 분무식(Pressure Spray)</li>
+<li><b>윤활 목적</b>: <span class="k">① 윤활 작용 — 마찰과 마멸 감소 ② 냉각 작용 — 고온부의 마찰열 흡수</span></li>
+</ul>
+
+<h2>B. 윤활유</h2>
+<h3>가. 가스터빈 엔진 오일의 구비 조건</h3>
+<ol>
+<li>점도와 유동점이 낮을 것 (−56~250℃) <span class="en">— 높은 점도는 Load Carrying Ability가 우수하지만 유동성이 중요</span></li>
+<li>점도지수(온도에 의한 점도변화)가 높을 것</li>
+<li>공기와 윤활유의 분리성이 좋을 것 (거품 저항성이 클 것)</li>
+<li>양호한 유성(Oiliness)을 가질 것</li>
+<li>산화 안정성이 클 것 (부식 및 침전물 형성 최소)</li>
+<li>내열성이 우수할 것 (고속, 고하중)</li>
+<li>인화점이 높을 것 <span class="en">— 고고도에 따른 저휘발성도 필요</span></li>
+</ol>
+<table>
+<tr><th>용어</th><th>뜻</th></tr>
+<tr><td><b>인화점</b> <span class="en">Flash Point</span></td><td>가열된 오일 표면에 가연성 증기가 생성되어 불이 붙을 수 있는 최저 온도. 고온에서 작동하므로 <span class="hl">높은 인화점</span>을 가져야 한다. <span class="n">불이 옮겨붙는 온도. 높은 게 좋음</span></td></tr>
+<tr><td><b>발화점</b> <span class="en">Fire Point</span></td><td>증기가 계속해서 연소할 만큼 충분히 나오는 온도. 인화점보다 50~60℉(28~33℃) 더 높다. 오일에 연료가 희석되면 인화점·발화점이 낮아진다.</td></tr>
+<tr><td><b>유동점</b> <span class="en">Pour Point</span></td><td>오일이 흐를 수 있는 가장 낮은 온도. 낮을수록 저온 시동 특성에 좋다. <span class="n">온도에 영향을 받음</span></td></tr>
+<tr><td><b>유성</b> <span class="en">Oiliness</span></td><td>오일이 금속표면에 달라붙는 성질. 광물성 오일에는 유성 향상제를 첨가. <span class="n">유성 = 금속과의 친화력</span></td></tr>
+<tr><td><b>점도</b> <span class="en">Viscosity</span> → 점도지수</td><td>유체의 끈끈함, 흐름 저항. 점도가 낮으면 유동이 자유롭고 높으면 느리다. 고온 시 <span class="hl">높은 점도지수 필요</span></td></tr>
+</table>
+
+<h3>나. 종류</h3>
+<ul><li><b>광물성 유</b>: 초기에 사용. 원유의 정유과정에서 얻어 첨가제를 첨가하여 제조</li>
+<li><b>합성유</b>(Synthetic Lubricant) <span class="n">합성유 = 에스테르(인공물) + 첨가제</span></li></ul>
+<div class="card blue"><h4>합성유의 특징</h4>
+<ol>
+<li>높은 점도 지수 → 열 영향에 의한 작은 점도 변화</li>
+<li>강한 Film strength → 표면에 붙어 있으려는 성질</li>
+<li>광범위한 온도(−40℃~250℃)에서 사용 가능</li>
+<li><span class="hl">침탄물(Coke Deposits) 형성을 최소로 유지</span></li>
+<li>높은 인화점</li><li>낮은 유동점</li><li>고도 증기손실 방지를 위한 낮은 휘발성</li><li>거품 억제 특성</li>
+</ol>
+<div class="star"><b>Coke는 기말고사에 낼 수도…</b> — coke가 쌓이면 oil 계통이 막힘</div>
+<p class="en">* 합성 오일의 장점: 고온에서 솔벤트를 증발시키지 않기 때문에, 솔벤트가 증발하면 남는 고체의 코크(Coke)나 락커(Lacquer)를 침전시키는 경향이 적다.</p></div>
+<div class="card"><h4>합성유의 종류</h4>
+<ul><li><b>Type Ⅰ</b>: MIL-L-7808 — ~1960년대, 낮은 온도범위에서 사용(터보제트)</li>
+<li><b>Type Ⅱ</b>: MIL-L-23699 — 1970년대~현재, <b>내열성 및 Anti-Coking 성질 개선</b>. 예) ESSO/EXXON Turbo-Oil 2380 (PWA521) — <span class="hl">고온 작동 특성, Anti-Coking 특성</span>, 낮은 작동범위(−45℉)</li></ul>
+<p class="k">☞ 오일 첨가제(Additive): 용도에 따라 기본 성질에 없는 것을 보충하여 성능 향상 (다른 Type이나 제품을 혼합 사용 금지 → Skin을 통해 흡수, 높은 독성이 있음)</p></div>
+
+<h2>SOAP <span class="en">Spectrometric Oil Analysis Program — 분광식 오일 분석 프로그램</span></h2>
+<div class="card green">
+<ul>
+<li><span class="k">오일 시료를 분석</span>하여 미세한 금속입자의 존재를 알아내는 방법</li>
+<li>특정 물질의 <b>PPM(백만 분율)</b> 증가로 부분품의 마모나 엔진의 고장 판단</li>
+<li><span class="k">엔진이 고장 나기 전에 문제를 알아내므로 안전성 증대</span>, 더 큰 결함 전에 알려줘 <span class="k">비용 절감</span> (터빈엔진/왕복엔진 둘 다 사용 가능)</li>
+</ul>
+<div class="note"><b>예방정비 목적</b> — 신뢰성 증대 · 경제성에 기여 · 엔진 수명 늘리기</div></div>
+<h4>전형적인 마모 금속과 첨가제 <span class="en">Typical Wear Metals and Additives</span></h4>
+<table>
+<tr><th style="width:90px">금속</th><th>지표</th></tr>
+<tr><td>철</td><td>링, 축, 기어, 밸브 트레인, 실린더 벽, 피스톤의 마모</td></tr>
+<tr><td>크롬</td><td>크롬 부분품(링, 라이너 등)과 냉각첨가제</td></tr>
+<tr><td>니켈</td><td>마모의 이차적 지표 — 베어링, 축, 밸브, 밸브 가이드</td></tr>
+<tr><td>알루미늄</td><td>피스톤, 로드 베어링, 부싱의 마모</td></tr>
+<tr><td>납</td><td>테트라 에틸 납 오염</td></tr>
+<tr><td>구리</td><td>베어링, 로커 암 부싱, 리스트 핀 부싱, 추력 와셔, 청동·황동 부품</td></tr>
+<tr><td>주석</td><td>베어링 마모</td></tr>
+<tr><td>은</td><td>은을 포함한 베어링의 마모, 오일 냉각기의 이차적 지표</td></tr>
+<tr><td>티타늄</td><td>고품질 합금강으로 만든 기어나 베어링</td></tr>
+<tr><td>몰리브덴</td><td>기어, 링의 마모, 오일 첨가제</td></tr>
+<tr><td>인</td><td>녹 방지제, 점화플러그, 연소실 침전물</td></tr>
+</table>
+<div class="card"><h4>Ref. Engine Oil Analysis</h4>
+<ul><li>샘플링 시 <span class="k">외부 오염물(no external contaminants)</span>이 들어가지 않게 — 깨끗한 용기 사용</li>
+<li>분석 종류: <span class="k">oil samples, oil filter analysis, chip detector analysis</span></li>
+<li>Oil sampling: 보통 <span class="k">엔진 정지 후 30분 이내(within 30 minutes of shutdown)</span> 채취</li></ul></div>
+</section>
+
+<section class="page" data-page="oilsys" data-title="윤활계통 구성품" data-group="OIL">
+<h1>윤활계통<span class="en">C. Lubrication System · D. 구성품</span></h1>
+<h2>C. 윤활계통의 구성</h2>
+<table>
+<tr><th>계통</th><th>역할</th><th>Components</th></tr>
+<tr><td><b>Pressure Oil System</b></td><td>인체의 <b>동맥</b>. 적절한 압력·온도의 오일을 정해진 위치에 공급</td><td>Oil Tank / Main Oil pump / Main oil Filter &amp; Last Oil Filter(Strainer) / Oil Pressure Regulator / Fuel Oil Cooler(Heat Exchanger) / Oil Tube &amp; Oil Nozzle<br><span class="n">tank에 cooler가 없으니까(압력계통에 있으니까) Hot Tank</span></td></tr>
+<tr><td><b>Scavenge Oil System</b></td><td>인체의 <b>정맥</b>. 윤활·냉각을 끝낸 오일을 탱크로 되돌림 (<b>Pressure System의 최소 두 배 용량</b>)</td><td>Scavenge Pump / Oil Tube / <span class="hl">MCD</span>(Magnetic Chip Detector) <span class="n">scavenge 하단에 위치</span></td></tr>
+<tr><td><b>Breather System</b></td><td>고도·상태 변화에 따른 적절한 오일 흐름과 완전한 Scavenge 기능 유지를 위해 <b>Bearing Sump 압력을 대기압에 대하여 항상 일정한 차압으로 유지</b></td><td>Breather &amp; Vent Tube / Oil Separator(De-aerator, De-oiler)</td></tr>
+<tr><td><b>Pressurizing (Bleed)</b></td><td>압축기 Bleed 공기로 Sump를 가압하여 내부 윤활유의 누설 방지</td><td></td></tr>
+<tr><td><b>Indicating System</b></td><td>작동상태 지시</td><td>Oil Pressure / Temperature / Quantity Indicator, Oil Low Pressure Warning Light, Oil Filter Clogging Warning Light <span class="n">막혔을 때</span></td></tr>
+</table>
+<div class="star"><b>Sump Check V/V</b> — Sump 내 압력이 <b>낮으면</b> Sump 안의 V/V가 열려 대기압이 Sump 내에 작용 / Sump 내 압력이 <b>높으면</b> 탱크로 배출</div>
+<div class="note">대기압과 압력을 비슷하게 유지. Sump에 ⊖ 압력이 걸리면 안 됨 — 압력이 낮으면 대기압이 들어와야 하고, 높으면 scavenge로 보내야 함.</div>
+<p class="en">Oil indicating system: 센서 → FADEC → EICAS → 조종실 계기 Display. <span class="n">No.3 bearing scavenge oil temperature probe → 엔진에서 온도가 높아 더 뜨거워서 별도로 측정</span></p>
+
+<div class="figs"><figure><img loading="lazy" alt="Oil indicating system — 센서 → FADEC → EICAS" src="powerplant2-images/p61.webp"><figcaption>Oil indicating system — 센서 → FADEC → EICAS<span class="src">p.61</span></figcaption></figure></div>
+<h2>D. 윤활계통의 구성품</h2>
+<h3>가. 오일 탱크 <span class="en">Oil Tank</span></h3>
+<ul>
+<li><b>Wet Type</b>: 소형 엔진에서 기어박스 내부 일부를 오일 탱크로 사용. APU·GPU에서 아직 볼 수 있으나 최근 항공기에서는 거의 없음</li>
+<li><b>Dry Type</b>: 엔진 외형에 맞도록 제작하여 부착 — <span class="hl">Pump Inlet보다 높은 곳에 위치 (gravity Flow를 위함)</span> / Positive Flow of Oil / Pressure Build Up → 대기압보다 높게 유지</li>
+<li>재질: 알루미늄합금 또는 스테인리스강</li>
+<li>구성품: ① 공기 분리기(Air Separator) — 섬프에 들어온 공기를 대기 중으로 방출 ② Sump Vent Check Valve — 섬프 내 공기압력이 너무 높을 때 탱크로 방출 ③ 압력 조절 밸브 — 탱크 안의 압력이 너무 높을 때 대기 중으로 방출</li>
+</ul>
+<div class="figs"><figure><img loading="lazy" alt="Dry type 오일 탱크" src="powerplant2-images/p62.webp"><figcaption>Dry type 오일 탱크<span class="src">p.62</span></figcaption></figure><figure><img loading="lazy" alt="Wet Sump Lubrication System" src="powerplant2-images/p63.webp"><figcaption>Wet Sump Lubrication System<span class="src">p.63</span></figcaption></figure></div>
+<div class="grid2">
+<div class="card red"><h4>① 고온 탱크 <span class="en">Hot Tank</span></h4>
+<p>오일 냉각기가 <b>압력계통</b>에 위치 → 냉각기가 작다</p>
+<ul><li>압력부에서 오일에 포함된 공기의 양이 적어서 <span class="hl">최대 열 교환이 발생</span></li><li><span class="hl">작은 냉각계통</span> 사용이 가능해 <span class="hl">무게를 절감</span></li></ul></div>
+<div class="card blue"><h4>② 저온 탱크 <span class="en">Cold Tank</span></h4>
+<p>오일 냉각기가 <b>소기계통</b>에 위치 → 냉각기가 크다</p>
+<ul><li>탱크로 되돌아오는 오일이 냉각된 상태라는 장점</li><li>반면 <span class="k">오일은 공기를 갖게 되고 열 교환 능력이 떨어진다</span></li></ul></div>
+</div>
+<div class="card"><h4>☞ 걸핑 효과 <span class="en">gulfing effect</span></h4>
+<p>엔진 시동 후 오일 레벨이 떨어지는 현상. Sump로 많은 오일이 일시적으로 몰려 <b>약 1갤런(4리터)</b> 감소, 이륙 추력에서 추가로 0.5갤런 감소. 엔진 감속 시 부분적으로 회복되며 <span class="hl">엔진이 정지되면 완전히 회복</span>된다.</p></div>
+
+<h3>나. Lube &amp; Scavenge Pump</h3>
+<ul><li>오일 펌프는 윤활이 필요한 부품에 <b>일정한 오일 압력</b>을 공급</li>
+<li>압력 윤활장치와 다수의 Scavenge 장치가 하나의 하우징 안에 구성, <b>Pressure Relief v/v</b>가 있어 압력이 높을 때 펌프 입구로 되돌린다</li></ul>
+<div class="note"><b>Lube = Pressure</b> · Pressure랑 Scavenge가 <b>한 축으로 연결</b> · 종류: vane / gear / gerotor · 왕복엔진은 주로 vane type</div>
+<div class="figs"><figure><img loading="lazy" alt="Lube &amp; Scavenge Pump (✍ vane / gear / gerotor)" src="powerplant2-images/p65.webp"><figcaption>Lube &amp; Scavenge Pump (<span class='n'></span> vane / gear / gerotor)<span class="src">p.65</span></figcaption></figure></div>
+<h3>다. Scavenge Pump <span class="en">소기/배유 펌프</span></h3>
+<ul><li>윤활한 오일은 Sump에 모인 뒤 탱크로 돌려보낸다</li>
+<li>윤활유가 기관 내부에서 <span class="k">공기와 혼합되어 체적이 증가</span>하기 때문에 <b>Pressure Pump보다 용량이 더 크다</b></li></ul>
+<h3>라~사. Filter · Check V/V · By-Pass V/V · Drain Plug</h3>
+<ul>
+<li><b>Oil Filter</b>: 오염물질 제거. 종류 — Cartridge Type, Screen Type, Screen-Disk Type <span class="en">☞ 오일은 보통 필터의 바깥에서 안쪽으로 흐른다</span></li>
+<li><b>Check V/V</b>: 기관 정지 시 역류 방지</li>
+<li><b>By-Pass V/V</b>: 여과기가 막혔을 때 윤활유를 계속 공급</li>
+<li><b>Drain Plug</b>: 여과기 맨 아래에 설치, 걸러진 불순물 배출 시 사용</li>
+<li><b>Last-chance filter</b> (before spray nozzle) <span class="n">oil nozzle 앞에 붙어있음. 분해 불가능</span></li>
+</ul>
+
+<div class="figs"><figure><img loading="lazy" alt="Engine oil pump and associated units" src="powerplant2-images/p66.webp"><figcaption>Engine oil pump and associated units<span class="src">p.66</span></figcaption></figure><figure><img loading="lazy" alt="Turbine Oil Filter / Last-chance filter before spray nozzle" src="powerplant2-images/p67.webp"><figcaption>Turbine Oil Filter / Last-chance filter before spray nozzle<span class="src">p.67</span></figcaption></figure></div>
+<h3>아. 압력조절밸브 <span class="en">Oil Pressure Regulating Valve</span></h3>
+<ul><li><span class="k">대부분의 터빈 엔진 오일 계통은 압력 조절식</span>으로 압력을 상당히 일정하게 유지</li>
+<li>오일 펌프의 가압부에 위치, 계통 내 압력을 정해진 범위로 유지</li>
+<li>압력을 범위 내로 유지시킨다는 점에서 조절 밸브이고, <span class="hl">릴리프 밸브(Relief Valve)는 시스템의 허용 최대압력 초과 시에만 열린다</span></li>
+<li class="en">☞ 스프링의 장력을 증가시키면 밸브가 열리는 압력을 높일 수 있으며 계통 내 압력도 높일 수 있다</li></ul>
+<div class="note"><b>Regulating vs Relief valve</b> — 압력조절 valve의 가동 범위가 더 넓다 (?)</div>
+<div class="figs"><figure><img loading="lazy" alt="압력조절밸브 (Pressure regulating valve)" src="powerplant2-images/p68.webp"><figcaption>압력조절밸브 (Pressure regulating valve)<span class="src">p.68</span></figcaption></figure></div>
+<h3>자. 오일 압력 릴리프 밸브 <span class="en">Oil Pressure Relief Valve</span></h3>
+<ul><li>시스템 압력은 엔진 회전수와 펌프 속도에 따라 변화. <span class="hl">압력 범위가 넓으며</span>, 정해진 최대치를 초과했을 때 압력을 빼주기 위해 사용 <span class="en">(일부 대형 터보팬 오일 계통은 조절 밸브를 갖고 있지 않다)</span></li>
+<li>최대치를 초과하면 압력을 낮추고 오일을 <b>펌프 입구로 바이패스</b></li>
+<li class="en">☞ 오일 냉각기가 장착된 경우 매우 중요 — 냉각기는 벽 두께가 얇아 쉽게 터질 수 있기 때문. 정상 작동 중에는 열리면 안 된다.</li></ul>
+
+<div class="figs"><figure><img loading="lazy" alt="압력 릴리프 밸브 (Pressure relief valve)" src="powerplant2-images/p69.webp"><figcaption>압력 릴리프 밸브 (Pressure relief valve)<span class="src">p.69</span></figcaption></figure></div>
+<h3>차. 오일 노즐 <span class="en">Oil Jets</span></h3>
+<ul><li>베어링 구역(Bearing Compartment)과 로터 축 커플링 내 또는 가까운 압력부에 위치</li>
+<li>오일은 <span class="hl">분무 상태로 공급</span>. 일부 엔진은 고압 블리드 공기를 노즐 출구로 보내 안개처럼 분무</li>
+<li>오리피스가 작아 쉽게 막히므로 오일에 이물질이 없어야 한다</li>
+<li>Last chance Filter가 막히면 베어링 고장·파손으로 이어짐(엔진 수리 중이 아니면 접근·세척 불가) → <span class="k">오일 노즐이 막혀 베어링이 손상되는 것을 막으려면 메인 오일 필터가 오염되었는지 자주 점검</span></li></ul>
+<div class="figs"><figure><img loading="lazy" alt="오일 노즐 (Oil Jet)" src="powerplant2-images/p70.webp"><figcaption>오일 노즐 (Oil Jet)<span class="src">p.70</span></figcaption></figure></div>
+<h3>카. 공기 오일 냉각기 <span class="en">Air Oil Coolers</span></h3>
+<ul><li>오일 냉각기: <b>공기 냉각식</b>(Air-cooled)과 <b>연료 냉각식</b>(Fuel Cooled) 두 가지</li>
+<li>공기 냉각식은 보통 엔진 앞쪽에 장착, 왕복엔진의 공랭식 냉각기와 구조·작동이 비슷</li>
+<li class="en">☞ 공기/오일 냉각기는 보통 건식-섬프 계통에 사용되나 대부분 엔진에서는 두 가지 다 사용</li></ul>
+<div class="figs"><figure><img loading="lazy" alt="Air/Oil Cooler · Fuel oil heat exchanger" src="powerplant2-images/p71.webp"><figcaption>Air/Oil Cooler · Fuel oil heat exchanger<span class="src">p.71</span></figcaption></figure></div>
+<h3>파. 자석 칩 검출기 <span class="en">Magnetic Chip Detector / MCD</span></h3>
+<ul><li><span class="k">배유 계통과 윤활유 탱크</span>에 자석을 이용해 금속 입자·파편을 가려내는 MCD가 장착</li>
+<li>베어링 손상이나 구동 기어 손상 여부를 파악 → 자주 검사</li>
+<li class="en">☞ 아주 작은 입자·금속 가루는 정상적인 마모, <b>금속 파편이나 부스러기는 내부에 심각한 고장</b></li></ul>
+
+<div class="figs"><figure><img loading="lazy" alt="자석 칩 검출기(MCD) 위치 — 배유 계통·오일 탱크" src="powerplant2-images/p72.webp"><figcaption>자석 칩 검출기(MCD) 위치 — 배유 계통·오일 탱크<span class="src">p.72</span></figcaption></figure></div>
+<h2>계통도</h2>
+<div class="flow"><span>탱크</span><i>→</i><span class="p">압력펌프</span><i>→</i><span>냉각기</span><i>→</i><span>여과기</span><i>→</i><span class="p">기관윤활</span><i>→</i><span>SUMP</span><i>→</i><span class="p">소기펌프</span><i>→</i><span>탱크</span></div>
+<p class="en">Pressure-Relief Oil System 그림: cooler가 압력펌프 다음에 있음 <span class="n">→ Hot Tank</span></p>
+<div class="figs"><figure><img loading="lazy" alt="Pressure-Relief Oil System (✍ Hot Tank)" src="powerplant2-images/p73.webp"><figcaption>Pressure-Relief Oil System (<span class='n'></span> Hot Tank)<span class="src">p.73</span></figcaption></figure></div>
+<h4>OIL 작동 FLOW 계통도 복습하기</h4>
+<div class="flow"><span>OIL TANK</span><i>→</i><span class="p">PUMP (PRESSURE)</span><i>→</i><span>OIL FILTER</span><i>→</i><span>CHECK VALVE</span><i>→</i><span class="p">BEARING COMPARTMENT</span><i>→</i><span class="p">PUMP (SCAVENGE)</span><i>→</i><span>OIL COOLER</span><i>→</i><span>OIL TANK</span></div>
+
+<h3>SUMP 이론 · Bleed &amp; Pressurizing</h3>
+<ul><li>비행 중 고도변화(대기압 변화)에도 적절한 윤활유 공급</li><li>배유 펌프가 충분히 기능을 발휘하도록</li>
+<li>Sump 내 압력은 대기압이 변하더라도 <b>항상 대기압과 일정한 차압</b></li>
+<li>압축기에서 Bleed된 압축공기로 Sump를 가압하여 내부 윤활유의 누설 방지</li></ul>
+<div class="star">SUMP 그림에서 <b>AIR SEAL / OIL SEAL — 여기만 기억</b></div>
+
+<div class="figs"><figure><img loading="lazy" alt="SUMP 이론 — ★ AIR SEAL / OIL SEAL" src="powerplant2-images/p74.webp"><figcaption>SUMP 이론 — ★ AIR SEAL / OIL SEAL<span class="src">p.74</span></figcaption></figure></div>
+<h3>베어링 실 <span class="en">Bearing Seal</span></h3>
+<ul><li>베어링 하우징은 가스 유로로 오일이 새어 나가지 않도록 Seal을 내장</li>
+<li><span class="k">마찰식 탄소 시일(Carbon Rubbing Type)이나 미로형(Labyrinth) 시일</span>이 통상 사용. 각각 별개로, 또는 한 엔진에 두 형식이 동시에</li>
+<li class="en">☞ 선별해서 쓰는 까닭은 고온부(Hot Section)와 저온부(Cold Section)의 온도 때문. 미로형 시일을 고온부에 쓰면 팽창하여 Seal Land와 접촉, 마모가 일어난다. (Seal Land = 미로형 시일의 고정부)</li>
+<li>Carbon seal (PW4000): FACE TYPE / SPLIT-RING TYPE</li></ul>
+<div class="note">No.1 BRG 단면(PW4000): LPC-LPT coupling → <b>N1 축</b></div>
+
+<div class="figs"><figure><img loading="lazy" alt="No.1 BRG CROSS SECTION (PW4000) — ✍ LPC-LPT coupling → N1 축" src="powerplant2-images/p76.webp"><figcaption>No.1 BRG CROSS SECTION (PW4000) — <span class='n'></span> LPC-LPT coupling → N1 축<span class="src">p.76</span></figcaption></figure><figure><img loading="lazy" alt="CARBON SEAL (PW4000) — Face type / Split-ring type" src="powerplant2-images/p77.webp"><figcaption>CARBON SEAL (PW4000) — Face type / Split-ring type<span class="src">p.77</span></figcaption></figure><figure><img loading="lazy" alt="Labyrinth Seal" src="powerplant2-images/p78.webp"><figcaption>Labyrinth Seal<span class="src">p.78</span></figcaption></figure></div>
+<h3>윤활 계통도(PW4000류) 필기</h3>
+<div class="note">· Ⓢ 표시 = 얘네가 다 <b>Last chance filter</b><br>· Bearing Comp' = <b>Sump</b> · <b>#4 베어링엔 Breather가 없음</b><br>· 왼쪽 위 = fuel-oil heat exchanger<br>· <b>DEOILER</b> — oil만 남기고 공기는 내보냄 (Breather) · <b>DEAERATOR</b> — 탱크 쪽</div>
+<div class="figs"><figure><img loading="lazy" alt="윤활 계통도 (PW4000류) — ✍ Last chance filter, DEOILER, DEAERATOR" src="powerplant2-images/p79.webp"><figcaption>윤활 계통도 (PW4000류) — <span class='n'></span> Last chance filter, DEOILER, DEAERATOR<span class="src">p.79</span></figcaption></figure><figure><img loading="lazy" alt="Typical turbine dry-sump variable pressure lubrication system" src="powerplant2-images/p80.webp"><figcaption>Typical turbine dry-sump variable pressure lubrication system<span class="src">p.80</span></figcaption></figure><figure><img loading="lazy" alt="Typical turbine dry-sump pressure regulated lubrication system" src="powerplant2-images/p81.webp"><figcaption>Typical turbine dry-sump pressure regulated lubrication system<span class="src">p.81</span></figcaption></figure></div>
+</section>
+
+<section class="page" data-page="quiz-oil" data-title="OIL 학습문제" data-group="OIL"><h1>학습문제풀이 — OIL<span class="en">슬라이드에 실린 문제 · 클릭하면 답이 열립니다</span></h1>
+<div class="card amber"><p><b>답 표시</b> — 슬라이드에는 정답이 인쇄되어 있지 않아요. <span class="tag w">필기</span> PDF에 직접 표시된 답 · <span class="tag x">정리</span> 강의 내용을 근거로 고른 답(교수님 답과 다를 수 있음)</p></div>
+
+
+<details><summary>가스 터빈 기관의 윤활유의 구비조건 중 틀린 것은?<ol><li>점성과 유동성은 어느 정도 낮아야 한다.</li><li>윤활유와 공기의 분리성이 좋아야 한다.</li><li>기화성이 높아야 한다.</li><li>인화점, 산화 안정성, 열적 안전성이 높아야 한다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">③</span> — 저휘발성이 필요.</div></details>
+<details><summary>제트 엔진에서 합성유를 사용하는 이유는 무엇인가?<ol><li>고온에 잘 견디기 때문에</li><li>낮은 점성율 때문에</li><li>제트 엔진에서 특수한 고속 베어링 때문에</li><li>보다 낮은 인화점 때문에</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">①</span></div></details>
+<details><summary>제트 기관에서 오일 펌프의 종류가 아닌 것은?<ol><li>기어 식</li><li>베인 식</li><li>유압 식</li><li>지로터 식</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">③ 유압식</span> — vane / gear / gerotor.</div></details>
+<details><summary>hot tank jet engine의 윤활장치 중 옳은 것은?<ol><li>소기 펌프로부터 오일이 직접 탱크로 들어온다.</li><li>오일 탱크는 호퍼를 가지고 있다.</li><li>더운 블리드 공기가 오일 탱크로 간다.</li><li>오일 탱크 내에 열을 발생하는 기구가 있다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">①</span> — 냉각기가 압력계통에 있으므로 소기 오일이 냉각 없이 바로 탱크로.</div></details>
+<details><summary>가스 터빈 기관의 기어형 윤활유 펌프에 대한 내용 중 맞는 것은?<ol><li>배유 펌프가 압력펌프보다 용량이 크다.</li><li>압력 펌프가 배유 펌프보다 용량이 크다.</li><li>배유 펌프와 압력펌프는 동일하다.</li><li>배유 펌프와 압력펌프는 무관하다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">①</span> — 공기와 혼합되어 체적이 증가하기 때문.</div></details>
+<details><summary>오일 계통의 과압 시 릴리프 밸브를 지난 오일은 어디로 가는가?<ol><li>탱크로 보내진다.</li><li>펌프 입구로 보낸다.</li><li>펌프 출구로 보낸다.</li><li>소기 된다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">② 펌프 입구</span></div></details>
+<details><summary>fuel-oil cooler의 일차적인 목적은 무엇인가?<ol><li>연료 냉각</li><li>오일 냉각</li><li>오일에서 공기 제거</li><li>오일 가열</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">② 오일 냉각</span></div></details>
+<details><summary>윤활유 온도를 적당히 유지하기 위하여 냉각기를 통과시키거나 바이패스 시키는 장치는?<ol><li>체크 밸브</li><li>P &amp; D valve</li><li>차단 밸브</li><li>오일 온도 조절기</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">④ 오일 온도 조절기</span></div></details>
+<details><summary>fuel-oil cooler의 내부에 구멍이 나서 연료가 오일과 섞였다면 어떤 현상이 일어나는가?<ol><li>오일의 양이 증가하고 점도가 낮아진다.</li><li>오일이 연료계통에 흘러 들어 연소된다.</li><li>연료와 오일이 혼합되어 출력이 저하된다.</li><li>배기가스에 그을음이 생긴다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">①</span> (추정) — 연료 압력이 오일보다 높아 연료가 오일 쪽으로 유입 → 오일 양 증가·희석.</div></details>
+<details><summary>제트 엔진에 합성 윤활유를 사용하는 이유는 무엇인가?<ol><li>여과기가 필요 없고 가격이 저렴하다.</li><li>휘발성이 적고 높은 온도에서 coking이 잘 일어나지 않는다.</li><li>광물성과 혼합 가능</li><li>화학적 안정성</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">②</span><br><span class="k">☞ coking: 코크스화 또는 탄화 — 윤활유가 타서 탄소 찌꺼기가 발생하는 현상 → 내열성을 높이면 탄화가 잘 일어나지 않는다.</span> <span class="src">슬라이드</span></div></details>
+<details><summary>분광식 오일 분석 프로그램(SOAP)의 목적은 무엇인가? (서술)</summary><div class="ans"><span class="tag x">정리</span>오일 시료를 분석해 미세한 금속 입자(PPM)를 알아내어 <b>고장 나기 전에</b> 부분품의 마모·엔진 이상을 판단 → 안전성(신뢰성) 증대, 비용 절감, 엔진 수명 연장.</div></details>
+
+
+</section>
+
+<section class="page" data-page="air" data-title="Air 계통 (Cooling · Bleed)" data-group="AIR">
+<h1>Air 계통<span class="en">4-3. Gas Turbine Engine Air System (PART 6, 23 etc.)</span></h1>
+<div class="note"><b>Bleed air / Cooling air</b><br><b>air 쓰는 곳</b> ① 연소실 ② 터빈 냉각 ③ Anti-icing → 주로 cold section, cowl lip ④ TCCS → fan air는 외부에 사용, 간격 조절엔 bleed air 사용</div>
+
+<h2>A. Cooling 계통</h2>
+<ul>
+<li>연소 과정이 연속적이므로 냉각 공기의 거의 전부가 엔진 내부를 지나가야 한다.</li>
+<li>이상적인 공기/연료 비 <b>15:1</b>만 유지하면 내부 온도는 4,000℉(2,200℃) 이상 → 실제로는 훨씬 많은 공기가 들어가 <span class="k">많은 잉여 공기가 엔진 고온부를 냉각</span>, 허용 온도 1,100~1,500℉로 낮춘다.</li>
+<li>가장 뜨거운 곳은 터빈의 내·외부.</li>
+</ul>
+<div class="note">연소실에서 cooling air는 <b>70% 정도</b>, 나머지는 연소에 사용</div>
+
+<h3>가. Engine Zone Cooling</h3>
+<ul>
+<li>이차 공기는 연소실 라이너를 냉각 — 라이너 안팎 표면에 얇고 빠른 공기 막을 형성.</li>
+<li>캔-애뉼러형 연소실에는 연소실 중앙으로 냉각공기를 보내는 <b>중심 튜브(Center Tube)</b>가 있다.</li>
+<li>많은 양의 비교적 차가운 공기가 연소실 후방에서 연소 가스와 섞여 터빈에 들어가기 직전에 식혀준다. <span class="n">TIT 때문</span></li>
+<li><span class="hl">엔진 측면에 위치한 것들은 그 주위를 지나는 외부 공기에 의해 냉각</span></li>
+<li><span class="hl">엔진 외부와 Nacelle의 냉각은 팬 공기에 의해 냉각</span></li>
+<li class="en">☞ 전방 = 저온부(Cold Section), 후방 터빈 부위 = 고온부(Hot Section). 케이스 외부의 잠재적 액체 누출은 Nacelle에 쌓이지 않도록 바깥으로 배출.</li>
+</ul>
+<h3>나. Accessory Zone Cooling</h3>
+<p>터빈엔진은 내화성 벌크헤드와 실에 의해 팬 케이스부, 중간 압축기부, 코어 엔진부로 나뉜다.</p>
+<table>
+<tr><th>구역</th><th>범위</th><th>냉각</th></tr>
+<tr><td class="k">1구역</td><td>액세서리 케이스와 EEC를 포함하는 팬 케이스 주변</td><td><span class="k">램 공기</span>를 Nose Cowl 입구로 받아 우측 Fan Cowl의 통풍구(Louvered Vent)로 배출. 압력이 높으면 압력 릴리프 창이 열림 <span class="n">Zone 1 ventilation inlet = ram air</span></td></tr>
+<tr><td class="k">2구역</td><td>중간 압축기부 (연료·오일 라인 포함)</td><td>Fan Duct에서 유입된 <span class="k">팬 공기</span>로 냉각, 아래쪽 끝에서 팬 공기 흐름으로 돌려보냄. 불필요한 증기 제거가 중요</td></tr>
+<tr><td class="k">3구역</td><td>고압 압축기에서 터빈케이스까지</td><td>연료·오일 라인, 액세서리 포함</td></tr>
+</table>
+<div class="figs"><figure><img loading="lazy" alt="Accessory Zone Cooling — Zone 1/2/3 (✍ Zone 1 = ram air)" src="powerplant2-images/p91.webp"><figcaption>Accessory Zone Cooling — Zone 1/2/3 (<span class='n'></span> Zone 1 = ram air)<span class="src">p.91</span></figcaption></figure></div>
+<h3>다. Turbine Engine Insulation Blankets</h3>
+<ul><li>배기 Duct 또는 After Burner 부근 구조부의 온도를 낮추고 연료·오일이 뜨거운 부분과 접촉할 가능성을 없애기 위해 <span class="k">때때로 배기 Duct에 절연</span></li>
+<li><span class="hl">Insulation Blanket</span>: 저전도성 물질로 유리섬유를 이용한 복사 방지재료, 알루미늄 호일 함유, 밀폐되어 오일에 잠기지 않는다</li>
+<li class="en">층 구성 예: Stainless steel shroud(≈350℉) – Fiberglass – Aluminum foil – Fiberglass – Silver foil – Exhaust duct(≈900℉), Exhaust gas ≈1,000℉</li></ul>
+
+<div class="figs"><figure><img loading="lazy" alt="Insulation Blanket 층 구성" src="powerplant2-images/p92.webp"><figcaption>Insulation Blanket 층 구성<span class="src">p.92</span></figcaption></figure></div>
+<h2>B. Bleed 계통 <span class="n">"only B737"</span></h2>
+<h3>가. 가변 제어 시스템 <span class="en">variable control system</span></h3>
+<ul>
+<li>전체 작동상태에서 만족스러운 압축 성능을 유지하도록 설계.</li>
+<li><span class="k">VBV</span>(variable bleed valve) + HPC 전방 IGV를 포함한 <span class="k">VSV</span>(variable stator vane)로 구성.</li>
+<li><span class="hl">압축기 제어시스템은 ECU의 명령을 받으며, HMU의 유압신호를 통해 작동</span> <span class="n">ECU = EEC · 737 엔진은 아직도 EEC + HMU 사용 · servo fuel이 VBV를 움직여 준다</span></li>
+</ul>
+<div class="star"><b>여기서 VBV만 잘 기억하자</b> — 언제 닫혀 있나? <b>순항 시</b> / 왜 open? <b>실속 방지</b></div>
+<div class="card green"><h4>1) VBV <span class="en">variable bleed valve</span></h4>
+<ul><li>목적: HPC 입구로 들어가는 배출공기의 양을 조절</li>
+<li>저속에서 LPC는 HPC가 받아들일 수 있는 것보다 많은 공기를 공급</li>
+<li>VBV는 부스터(booster)와 HPC 사이 1차 공기흐름 중간에 장착 <span class="n">부스터 — 737 엔진에만, 기억 X</span></li>
+<li><span class="hl">저속에서 LPC의 스톨을 방지하기 위해 VBV는 완전히 열리며, 고속에서 닫힌다</span></li>
+<li>N1이 증가함에 따라 닫히기 시작하여 <b>N1 80% 이상에서 완전히 닫힌다</b></li></ul></div>
+<div class="figs"><figure><img loading="lazy" alt="B737/CFM56 Engine Compressor Control System (VBV·VSV)" src="powerplant2-images/p94.webp"><figcaption>B737/CFM56 Engine Compressor Control System (VBV·VSV)<span class="src">p.94</span></figcaption></figure></div>
+<div class="card blue"><h4>2) VSV <span class="en">variable stator vane</span></h4>
+<p>HPC 효율 최적화. 1단계 IGV와 3단계의 HPC stator vane 각도를 조절하여 HPC의 <b>스톨 마진(stall margin)</b>을 향상. <span class="en">(B737/CFM56 Compressor Control System)</span></p></div>
+<div class="card red"><h4>3) 고압 터빈 간극 제어 <span class="en">HPTACC — HPT Active Clearance Control</span></h4>
+<ul><li>터빈 로터와 슈라우드(shroud) 사이의 간극을 조절하여 HPT 효율을 최적화</li>
+<li><span class="hl">순항(cruise) 중 터빈효율 최적화</span>를 위해 — <span class="hl">팬 배출 공기(fan discharge air)는 고압 터빈의 외부 케이스를 냉각</span>, <span class="hl">고압 압축기 Bleed 공기는 내부 슈라우드를 냉각</span> → 블레이드와 슈라우드의 간극 조절, 효율 증가</li>
+<li>슈라우드 지지대의 thermocouple이 EEC에 온도 제공, EEC가 밸브 위치를 계산</li>
+<li>EEC 채널(A or B)이 HMU 내 HPTACC electro-hydraulic servo valve(EHSV)로 신호 → servo valve가 HPTACC 밸브를 작동하는 <span class="k">연료 압력을 조절</span></li>
+<li class="en">HPTACC 위치: 9th stage air / 4th stage air / HPT ACC valve / discharge manifold</li></ul></div>
+<div class="figs"><figure><img loading="lazy" alt="HPTACC SYSTEM LOCATION" src="powerplant2-images/p96.webp"><figcaption>HPTACC SYSTEM LOCATION<span class="src">p.96</span></figcaption></figure></div>
+<div class="card amber"><h4>4) 저압 터빈 간극 제어 <span class="en">LPTACC</span></h4>
+<ul><li>LP turbine case를 <span class="k">팬 배출 공기(fan-discharge air)로 냉각</span>시켜 블레이드와 슈라우드의 간극을 조절</li>
+<li>모든 추력 등급에서 저압 터빈에 최고의 성능을 보장. LPTACC 매니폴드를 통해 가는 팬 배출 공기량을 제어</li></ul>
+<div class="star"><b>결론</b> — 로터와 슈라우드 사이의 간극이 좁아져서 <b>연료소모량(specific fuel consumption)을 개선</b> <span class="n">TCCS = TSFC</span></div></div>
+<div class="figs"><figure><img loading="lazy" alt="B737/CFM56 LPTACC System Location" src="powerplant2-images/p97.webp"><figcaption>B737/CFM56 LPTACC System Location<span class="src">p.97</span></figcaption></figure></div>
+</section>
+
+<section class="page" data-page="quiz-air" data-title="AIR 학습문제" data-group="AIR"><h1>학습문제풀이 — AIR<span class="en">슬라이드에 실린 문제 · 클릭하면 답이 열립니다</span></h1>
+<div class="card amber"><p><b>답 표시</b> — 슬라이드에는 정답이 인쇄되어 있지 않아요. <span class="tag w">필기</span> PDF에 직접 표시된 답 · <span class="tag x">정리</span> 강의 내용을 근거로 고른 답(교수님 답과 다를 수 있음)</p></div>
+
+
+<details><summary>터빈 블레이드 끝과 터빈 케이스 안쪽의 에어 시일과 간격을 줄여주기 위해서 터빈 케이스 외부 냉각을 시켜준다. 여기에 사용되는 냉각 공기는?<ol><li>압축기 배출공기</li><li>팬 압축공기</li><li>연소실 냉각공기</li><li>외부공기</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">② 팬 압축공기</span> — fan discharge air가 터빈 외부 케이스를 냉각.</div></details>
+<details><summary>제트 엔진에서 TCCS란 무엇을 의미하는가?<ol><li>엔진의 추력을 자동적으로 제어해 주는 계통을 말한다</li><li>터빈 블레이드와 터빈 케이스 사이의 간극을 최소가 되게 해주는 계통이다</li><li>주로 중·소형의 터보 팬 엔진에 많이 사용한다</li><li>TCCS는 Thrust Case Cooling System의 약자이다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">②</span></div></details>
+<details><summary>다음 중 팬 케이스 외부를 냉각하는 공기는 무엇인가?<ol><li>압축기 공기</li><li>배기 공기</li><li>팬 에어</li><li>램 에어</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">④ 램 에어</span> — 1구역(팬 케이스 주변)은 램 공기 이용.</div></details>
+<details><summary>TCCS/ACCS 계통은 엔진의 어떠한 성능을 개선시키는가?<ol><li>압축기의 압축성능</li><li>터빈의 구동력 증가</li><li>연료의 소모량 개선</li><li>압축기의 실속방지</li></ol></summary><div class="ans"><span class="tag w">필기</span><span class="ok">③ 연료의 소모량 개선</span> — "TCCS = TSFC"</div></details>
+<details><summary>TCCS/ACCS 계통의 작동은 무엇에 의해 조정되는가?<ol><li>오일의 압력</li><li>연료의 압력</li><li>FADEC</li><li>EPR</li></ol></summary><div class="ans"><span class="tag w">필기</span><span class="ok">③ FADEC</span> (동그라미 표시)</div></details>
+
+
+</section>
+
+<section class="page" data-page="ignition" data-title="점화계통" data-group="IGNITION">
+<h1>점화계통<span class="en">IGNITION (PART 04)</span></h1>
+<div class="note">
+<b>점화계통</b> ┬ 유도형 ─ DC / AC<br>　　　　　└ 용량형 ─ DC / AC<br>
+· <b>DC엔 vibrator 존재</b> → 맥류를 만듦 (맥류 = 단속전류). vibrator = 마그네토의 <b>breaker point</b>와 같은 역할<br>
+· 독립적인 교류발전기는 회전만 시켜주면 전류를 형성<br>
+· <b>교류 용량형 구성요소</b> ① <b>Exciter</b> — 115 VAC는 FADEC이 보내줌, 고전압을 만들어 줌(변압기로 승압, 정류기를 통해 직류로) ② <b>점화 리드선</b> ③ <b>점화 plug</b></div>
+
+<h2>현대 가스터빈엔진 점화 계통</h2>
+<div class="star"><b>이 명칭 자체를 기억해</b> — <b>High intensity capacitor discharge type</b> (high energy, Capacitor-type Ignition System) <span class="n">= (교류) 용량형 점화장치</span></div>
+<ul>
+<li>Fan Air에 의해 냉각 (Ref. Fan air-cooled exciter: 115 VAC input, Exciter-to-ignitor plug cable connector, Anti-shock mount)</li>
+<li><b>단속 임무</b>(intermittent duty <span class="n">간헐적인</span>): 과열 손상 위험으로 <span class="k">작동 시간 제한 → 시동 시 적용</span> <span class="n">High energy</span></li>
+<li><b>확장 임무</b>(extended duty): 임무 사이클이 길고 시간제한이 없다 → FLAME OUT 예상 시 <span class="k">연속 점화 유지</span></li>
+<li class="en">☞ 연속 점화를 사용하는 중대한 비행 모드: 이륙(Takeoff), 착륙(Landing), 비정상(Abnormal)·비상(Emergency) 상태 <span class="n">재점화가 필요한 상태</span></li>
+<li>계통 내 2개의 <span class="hl">점화 플러그가 4시, 8시 방향</span>에 장착</li>
+<li>ENGINE START 스위치: GRD / OFF / CONT / FLT, IGN L · BOTH · R <span class="n">CONT = 저전압 상태가 지속적으로(continuity)</span></li>
+</ul>
+
+<div class="figs"><figure><img loading="lazy" alt="ENGINE START 스위치 패널 (GRD / OFF / CONT / FLT)" src="powerplant2-images/p101.webp"><figcaption>ENGINE START 스위치 패널 (GRD / OFF / CONT / FLT)<span class="src">p.101</span></figcaption></figure><figure><img loading="lazy" alt="Fan air-cooled exciter (115 VAC input)" src="powerplant2-images/p112.webp"><figcaption>Fan air-cooled exciter (115 VAC input)<span class="src">p.112</span></figcaption></figure></div>
+<h2>A. 유도형 점화계통 <span class="en">Induction Ignition Type</span></h2>
+<ul><li><span class="k">초기의 가스터빈 기관에 사용</span></li>
+<li>Vibrator(왕복기관의 Booster Coil과 유사)와 변압기로 구성. Vibrator는 직류를 <b>맥류</b>로 변환, 변압기는 점화에 필요한 전압으로 승압</li></ul>
+<div class="grid2">
+<div class="card blue"><h4>1) 직류 유도형</h4><p><b>28V 직류</b>가 진동자에 공급, 진동자가 스프링 힘과 코일 자장으로 진동하면서 점화코일 1차 코일에 맥류 공급. 2개 점화코일의 2차 코일에 <b>극성이 서로 반대인 높은 전압</b>이 유도되어 Ignitor 두 전극 사이에 불꽃 발생.</p></div>
+<div class="card green"><h4>2) 교류 유도형</h4><p><span class="k">가장 간단한 점화장치</span>. <b>115V, 400Hz 교류</b>를 전원으로 사용. 시동 시 <span class="k">인버터</span>에 의한 28V 직류로 점화 계전기에 교류 공급 → 점화 릴레이가 연결되어 변압기 1차 코일에 교류, 2차 코일에 높은 전압 유도 → 불꽃.</p></div>
+</div>
+
+<h2>B. 용량형 점화계통 <span class="en">Capacitor Ignition Type</span></h2>
+<p>Condenser(Capacitor)에 전하를 저장했다가 점화 시 짧은 시간 동안 방전시켜 고에너지·고온의 Spark 발생. <span class="k">☞ 가스터빈기관의 대부분이 현재 사용하는 방식</span></p>
+<div class="card blue"><h4>1) 직류 고전압 용량형</h4>
+<ul><li>입력: <b>24V 직류</b>가 통신 잡음을 없애는 <b>필터</b>를 거쳐 공급 <span class="en">(통신잡음은 통신장비와 점화장치가 같은 배터리를 쓰기 때문)</span></li>
+<li>바이브레이터의 1차·2차 코일을 지난 교류는 <b>정류기</b>에서 직류로 바뀌어 <b>저장 콘덴서</b>에 저장 → <b>방전관</b>에서 방전되며 고압 변압기 1차 코일을 통해 <b>트리거 콘덴서</b>로 흐를 때 2차 코일에 높은 전압 유기 → 이그나이터에 <b>초당 4~8번</b> 스파크</li>
+<li class="en">회로: 입력 → 필터 → 바이브레이터(영구자석·진동자, DC 맥류 유도) → 정류기 → 큰 저장 콘덴서 → 방전관 → 고압 변압기(블리더 저항, 트리거 콘덴서) → 이그나이터</li></ul></div>
+<div class="figs"><figure><img loading="lazy" alt="직류 고전압 용량형 점화장치 회로" src="powerplant2-images/p105.webp"><figcaption>직류 고전압 용량형 점화장치 회로<span class="src">p.105</span></figcaption></figure></div>
+<div class="card green"><h4>2) 교류 고전압 용량형</h4>
+<ul><li><span class="k">115V, 400Hz 교류</span> 이용. 필터를 거쳐 동력변압기 1차 코일에 공급, 2차 코일에 약 1,700V 유도</li>
+<li>고압 변압기 2차 코일에 20,000V 정도의 높은 전압이 유기 → 이그나이터와 방전관 Y의 간극이 이온화, 저장 콘덴서의 나머지 전하가 순간적으로 흘러 강한 스파크</li></ul>
+<h4>학습정리</h4>
+<div class="flow"><span>교류 115V 400Hz 입력</span><i>→</i><span class="p">1차 변압기 ≈1,700V 승압</span><i>→</i><span>양파 정류(A,B)</span><i>→</i><span class="p">저장 캐패시터 ≈3,400V DC</span><i>→</i><span>방전관 gap (0.45~1초 간격)</span><i>→</i><span class="p">2차 변압기 14,000~26,000V</span><i>→</i><span>점화 리드</span><i>→</i><span>이그나이터</span></div>
+<div class="note">1차 변압기 ~ 2차 변압기까지 <b>이걸 다 Exciter가 함</b></div></div>
+
+<div class="figs"><figure><img loading="lazy" alt="교류 고전압 용량형 점화장치 회로" src="powerplant2-images/p107.webp"><figcaption>교류 고전압 용량형 점화장치 회로<span class="src">p.107</span></figcaption></figure></div>
+<h2>C. 점화선 <span class="en">High Tension Lead</span></h2>
+<p>Exciter와 점화 플러그를 접속하는 고압 전선. 무선 방해와 접촉에 의한 마멸·단선을 막기 위해 <b>Shield cable</b> 사용.</p>
+
+<div class="figs"><figure><img loading="lazy" alt="Turbine ignition system components" src="powerplant2-images/p108.webp"><figcaption>Turbine ignition system components<span class="src">p.108</span></figcaption></figure></div>
+<h2>D. 점화 플러그 <span class="en">Ignitor</span></h2>
+<div class="star"><b>구성요소, annular gap type만 기억해</b></div>
+<ul>
+<li>기관당 <b>2개 정도</b>가 독립된 장치에 의해 작동</li>
+<li>왕복 기관 Spark Plug보다 큰 에너지, <b>저압에서 작동</b>되나 전극 사이 간격이 큼</li>
+<li>전압이 가해지면 갭 사이 공기가 먼저 <b>이온화</b> → <b>전기저항이 낮아져</b> 비교적 저전압으로 충분한 방전</li>
+<li>최근에는 원주 전극에 반도체를 장치하거나 특수 코팅으로 이온화가 쉽게 되도록 함</li>
+</ul>
+<div class="grid2">
+<div class="card red"><h4>① <span class="hl">Annular Gap Type</span></h4><p><span class="k">대부분의 엔진에서 널리 사용</span> (long reach plug). 중심 전극이 연소실 안쪽에 돌출되게 장착되며 <b>중심 전극이 짧다</b>.</p></div>
+<div class="card"><h4>② Constrained Gap Type</h4><p>터빈 엔진의 일부 형식에 사용. <b>중심 전극이 길며</b> Annular Gap Type보다 낮은 전압에서 작동, 원호를 그리면서 튄다.</p></div>
+</div>
+<div class="note">구성요소: <b>electrode</b>(전극) · <b>shell</b>(금속 쉘) · <b>insulator</b>(절연물질)</div>
+
+<div class="figs"><figure><img loading="lazy" alt="점화 플러그 — ✍ electrode / shell(금속 쉘) / insulator(절연물질)" src="powerplant2-images/p109.webp"><figcaption>점화 플러그 — <span class='n'></span> electrode / shell(금속 쉘) / insulator(절연물질)<span class="src">p.109</span></figcaption></figure></div>
+<h2>가스터빈기관 점화계통의 특징</h2>
+<ul>
+<li><b>시동 시만 점화 필요</b> → 점화시기 조절 장치가 필요 없어 왕복 기관에 비해 구조와 작동이 간단. 다만 연료 특성과 공기 흐름 때문에 혼합가스 점화가 매우 어려워 <span class="k">높은 에너지를 가지는 전기 Spark</span>를 이용</li>
+<li>연료는 기화성이 낮고 혼합비가 희박해 점화가 쉽지 않으며, 고공에서는 기온이 낮아 기관 정지 시 재시동이 어렵다</li>
+<li>연소실을 지나는 공기는 속도가 빠르고 와류가 심해 시동 시 점화가 어렵다</li>
+</ul>
+<div class="note">고공에서 재시동이 어려움 → <b>CONT로 미리 저전압으로 점화시켜 놓음</b></div>
+<div class="card amber"><h4>&lt;왕복기관과의 차이점&gt;</h4>
+<ul><li>시동할 때만 점화가 필요하다</li><li>Ignitor의 교환이 빈번하지 않다</li><li>Ignitor가 두 개 정도만 필요하다</li><li>교류 전력을 이용할 수 있다</li><li>타이밍 장치가 필요 없다</li></ul></div>
+</section>
+
+<section class="page" data-page="quiz-ign" data-title="IGNITION 학습문제" data-group="IGNITION"><h1>학습문제풀이 — IGNITION<span class="en">슬라이드에 실린 문제 · 클릭하면 답이 열립니다</span></h1>
+<div class="card amber"><p><b>답 표시</b> — 슬라이드에는 정답이 인쇄되어 있지 않아요. <span class="tag w">필기</span> PDF에 직접 표시된 답 · <span class="tag x">정리</span> 강의 내용을 근거로 고른 답(교수님 답과 다를 수 있음)</p></div>
+
+<details><summary>가스 터빈 기관의 점화장치 중에서 가장 간단한 점화장치는?<ol><li>직류 유도형 점화장치</li><li>교류 유도형 점화장치</li><li>직류 유도형 반대 극성 점화장치</li><li>교류 유도형 반대 극성 점화장치</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">② 교류 유도형</span></div></details>
+<details><summary>가스 터빈 기관의 점화장치는 언제 작동하는가?<ol><li>엔진 시동할 때만</li><li>시동 시 및 flame out 발생시</li><li>엔진 작동 중 연속적으로 사용</li><li>엔진의 고속 운전에만 연속적으로 사용</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">②</span> — 단속 임무(시동) + 확장 임무(Flame out 예상 시 연속 점화).</div></details>
+</section>
+
+<section class="page" data-page="limits" data-title="엔진의 작동 한계" data-group="STARTING">
+<h1>엔진의 작동 한계<span class="en">Engine Operating Limits · 8주차</span></h1>
+
+<h2>가. 엔진의 출력 정격 <span class="en">Power Rating</span></h2>
+<p>출력 정격 = 이륙·상승·순항 등 비행 상태에 적합하도록 <b>제작사가 정한 출력</b>.</p>
+<table>
+<tr><th>정격</th><th>내용</th></tr>
+<tr><td><b>이륙출력</b><br><span class="en">take-off power</span></td><td>추력 레버를 이륙 위치에 놓았을 때의 <span class="k">최대 출력</span>. 일반적으로 <span class="k">최대 5분 이내</span>로 사용 제한</td></tr>
+<tr><td><b>최대 연속출력</b><br><span class="en">maximum continuous power</span></td><td>시간 제한 없이 연속 사용 가능한 최대 출력. <span class="k">이륙 추력의 90% 정도</span>. 엔진 수명·비행안전을 고려해 필요한 경우에만 사용</td></tr>
+<tr><td><b>최대 상승출력</b><br><span class="en">maximum climb power</span></td><td>상승비행용 보증 추력. 주로 <span class="k">최대 연속출력과 동일</span></td></tr>
+<tr><td><b>최대 순항출력</b><br><span class="en">maximum cruise power</span></td><td>순항용 최대출력. 보통 <span class="k">이륙출력의 70~80%</span>. 연료 소비율이 가장 적은 출력</td></tr>
+<tr><td><b>아이들 출력</b><br><span class="en">idle power</span></td><td>엔진이 자력으로 회전할 수 있는 출력</td></tr>
+</table>
+
+<h2>나. 시동 한계</h2>
+<p>정상 작동이나 모터링 시 시동기 보호를 위해 규정된 <b>시동기 냉각시간</b>을 반드시 지켜야 한다. 냉각시간은 엔진·시동기 종류와 작동시간에 따라 다르므로 해당 정비지침서의 권고값을 준수한다.</p>
+<div class="note">시동기 냉각을 이렇게 해줘야 함 ← <b>Duty cycle</b> (자세한 내용은 <a href="#starting">시동 절차</a> 챕터)</div>
+
+<h2>다. 엔진의 비정상 작동</h2>
+<div class="card red"><h4>1) 과열 시동 <span class="en">Hot starting</span></h4>
+<p>시동할 때 <b>배기가스 온도가 규정 한계값 이상으로 증가</b>하는 현상. → 연료 조정 장치의 고장, 결빙이나 압축기의 공기 흐름 이상으로 발생.</p>
+<p class="en">☞ 대부분의 제작사는 과열 상태를 특정 온도 기준으로 정하며, 초과 시간과 온도의 관계로 과열시동 여부를 판단.</p>
+<div class="note">발생 시 <b>shutdown 후 Dry motoring</b></div></div>
+<div class="card amber"><h4>2) 결핍 시동 <span class="en">Hung starting</span></h4>
+<p>엔진 회전수가 <b>아이들 회전수까지 증가하지 않고 낮은 회전수에 머무는</b> 현상. → 배기가스 온도가 계속 상승하므로 한계 온도 초과 전에 시동을 중지시킬 준비가 필요.</p></div>
+<div class="card blue"><h4>3) 시동 불능 <span class="en">Not starting</span></h4>
+<p>규정된 시간 안에 시동되지 않는 현상. → 엔진 회전수나 <span class="k">배기가스 온도가 상승하지 않는 것</span>으로 판단.</p>
+<p class="en">☞ 원인: 시동기 고장, 점화 장치·점화 계통 고장, 연료 흐름의 막힘, 연료 조정 장치 고장 등.</p></div>
+</section>
+
+<section class="page" data-page="starter" data-title="시동기" data-group="STARTING">
+<h1>시동 계통 — 시동기<span class="en">5-2. Starting System (PART 05)</span></h1>
+<h2>GENERAL — 왕복엔진과의 차이</h2>
+<div class="grid2">
+<div class="card"><h4>왕복 엔진 시동계통</h4><ul><li>정상 시동 후 Starter의 작동 즉시 차단</li><li>점화계통은 엔진작동 중 매 점화 Cycle에 맞추어 연속적으로 작동</li></ul></div>
+<div class="card blue"><h4>가스터빈 엔진 시동계통</h4><ul><li>정상 시동이 이루어질 때까지 Starter 작동이 계속되어야 한다</li><li>자립회전 속도에 도달 시까지 <b>N2 Shaft</b>를 계속 가속</li><li>점화계통은 연소실 내 화염이 발생하면 더 이상 작동할 필요 없음</li></ul></div>
+</div>
+<div class="card red"><h4>☞ 자립 회전 속도 <span class="en">Self Sustaining Speed</span></h4><p>엔진이 자력으로 <span class="k">Turbine을 구동하여 회전을 할 수 있는 속도</span> → <b>자립 회전 속도 &lt; IDLE 속도</b></p></div>
+
+<h2>A. 가스터빈 엔진 시동 계통</h2>
+<h3>가. 요구 조건</h3>
+<ol><li>연소를 위해 공기가 연소실로 충분히 공급될 수 있는 속도로 압축기를 회전</li><li>Turbine이 동력을 발생시킬 수 있는 시점(Self-Rotation Point)까지 엔진을 가속</li></ol>
+<h3>나. 작동 방식</h3>
+<div class="star">시동계통 방식의 선택은 <b>엔진 추력</b>에 의해 결정 — 추력 <b>6,000 lbs 정도</b>: Electric Starter 또는 Electric Starter-Generator / <b>6,000 lbs 이상: Pneumatic Starter</b></div>
+
+<h3>다. Starter의 종류</h3>
+<div class="card blue"><h4>1) Electric Starter (전기식) — Electric Motor Type</h4>
+<ul><li><span class="hl">소형</span> 항공기 및 <span class="hl">APU</span>에 사용</li>
+<li>처음 시동 시 약 <b>1,000~2,000A</b> 소모 → 외부로부터 큰 용량의 전력 필요</li>
+<li>별도의 발전기(28VDC) 또는 24VDC Battery 사용</li>
+<li class="en">☞ Battery는 보통 3,000AH, 발전기 이용 시 28~30VDC·2,000A를 순간 공급. 시동 시 Starter Motor 단자전압이 <b>18V 이하</b>로 Drop되어서는 안 된다.</li></ul></div>
+<div class="card green"><h4>2) Electric Starter-Generator Type</h4>
+<ul><li>전투기 및 차세대 엔진에 사용</li>
+<li>시동 시 Starter로 작동, 정상 자립 회전속도 도달 시 <b>Generator Mode</b>로 변환</li>
+<li>Starter와 Generator를 별도로 장착할 필요가 없어 <b>무게 절감</b></li>
+<li>B787의 <b>VFSG</b> 등 최신 항공기·전투기에 사용되는 추세 <span class="n">VFSG = Variable Frequency Starter Generator</span></li>
+<li class="en">B787: VFSG 2대(230 VAC) ↔ CMSC(Common Motor Start Controller) ↔ BPCU, EEC가 Start Torque Command. Ground Start = One Exciter Sparks / In-Flight Start = Both Exciters Spark</li></ul>
+<p class="en"><span class="tag skip">pass</span> Starter generator circuit: GTG ⇒ MASTER S/W "ON" ⇒ STARTER S/W(COMPRESSOR 구동) ⇒ T/L MOVE(3% RPM, IGNITION 후 FUEL BOOSTER 작동) ⇒ 6% RPM, F/F 450~650 pph, EGT 550~750℃ ⇒ 25% RPM에서 GTG REMOVE</p></div>
+<div class="figs"><figure><img loading="lazy" alt="Electric Starter-Generator (Typical / internal circuit)" src="powerplant2-images/p116.webp"><figcaption>Electric Starter-Generator (Typical / internal circuit)<span class="src">p.116</span></figcaption></figure><figure><img loading="lazy" alt="B787 VFSG 시동 계통 (CMSC · EEC)" src="powerplant2-images/p117.webp"><figcaption>B787 VFSG 시동 계통 (CMSC · EEC)<span class="src">p.117</span></figcaption></figure><figure><img loading="lazy" alt="Starter generator circuit (pass)" src="powerplant2-images/p118.webp"><figcaption>Starter generator circuit (pass)<span class="src">p.118</span></figcaption></figure></div>
+<div class="card red"><h4>3) Air Turbine / Pneumatic Starter (공기식)</h4>
+<ul><li>상업용 항공기인 <b>High Bypass 엔진</b>에 주로 사용</li>
+<li><span class="hl">일시에 큰 Torque를 지속적으로</span> 낼 수 있어 Start 시 요구되는 <span class="k">High Torque에 적합</span></li>
+<li>외부 동력 없이 자체 시동 가능 / 저압 공기 모터 형식으로 중량비에 비해 고출력</li>
+<li>무게가 가볍다 → 동일 출력 Electrical Motor의 <span class="k">1/4~1/5</span></li>
+<li>Single Stage의 축류형 Turbine 형식 Air Motor (60,000~80,000 rpm, reduction rate 20~30:1)</li></ul>
+<div class="star"><b>대형기용 엔진에 Pneumatic Starter를 사용하는 이유?</b><br>자립 회전 속도 도달까지 장시간 회전시켜야 하므로 Electric Starter는 일시에 큰 전류를 소모해 Battery 성능 저하·많은 열 발생. <b>큰 시동 토크를 위해서는 Pneumatic보다 상대적으로 부피가 커진다.</b> Pneumatic Starter는 작은 부피에 비해 시동 토크가 크고 연속 장시간 작동해도 무방.</div>
+<div class="note">Air inlet ← <b>APU / GPU / 다른 엔진 bleed air</b> → 앞에 starter valve(<b>PRSOV</b>) 존재 · Engine drive shaft → <b>Gearbox 연결</b></div>
+<p class="en">Air turbine starters are supplied by <b>Ground Cart, APU</b>, or another operating on-board Engine <b>Bleed air</b> (Cross feed).</p>
+<p class="en"><span class="tag skip">pass</span> Starter Oil Service: Pressure Fill(A330, B777 — Overflow Port로 나올 때까지 Pressure Fill Port로 천천히) / Gravity Fill(B747-400, A300-600). Sight Glass 약 7/8(12온스). Servicing 전 Drain하여 7온스 이하면 Starter 교환, MCD 0.1"보다 큰 금속 검출 시 교환.</p></div>
+<div class="figs"><figure><img loading="lazy" alt="Air turbine starter 단면 (60,000~80,000 rpm)" src="powerplant2-images/p120.webp"><figcaption>Air turbine starter 단면 (60,000~80,000 rpm)<span class="src">p.120</span></figcaption></figure><figure><img loading="lazy" alt="Air turbine starter 공기 공급 — Ground Cart / APU / Bleed air" src="powerplant2-images/p121.webp"><figcaption>Air turbine starter 공기 공급 — Ground Cart / APU / Bleed air<span class="src">p.121</span></figcaption></figure></div>
+<div class="card"><h4>4) 기타</h4>
+<ul><li><b>Cartridge Starter</b>(카트리지형) / 비상용 <span class="n">일회용 · 민간 상업용엔 잘 안 씀 → 대형 군용기에 쓰임</span></li>
+<li><b>Fuel-Air(F/A) Starter</b>: 소형 엔진과 유사 Starter(3,000 psi 공급 가능) → 축전지 전기 점화로 연소하여 자체 시동 능력</li>
+<li><b>Air impingement starting system</b>: 압축기나 터빈 Blade에 압축 공기를 직접 분사 → <span class="k">입구 PORT만 요구 → 가장 간단한 구조</span></li></ul></div>
+
+<div class="figs"><figure><img loading="lazy" alt="Cartridge Starter" src="powerplant2-images/p123.webp"><figcaption>Cartridge Starter<span class="src">p.123</span></figcaption></figure></div>
+<h3>라. Clutch Assembly</h3>
+<ul><li>기능: Starter를 자동으로 엔진 회전축과 분리 / 엔진 구동 시 과다한 Torque 공급 방지 / <span class="hl">Over-running 시 Clutch 기능</span></li>
+<li>종류: <b>Pawl &amp; Ratchet Type</b> <span class="n">common</span> / <b>Sprags Type</b></li>
+<li class="en">☞ 차단 속도에 도달하면 시동밸브 close → 시동기가 멈추면 엔진 구동 바깥쪽 클러치기어가 안쪽보다 빨리 회전, 리턴 스프링이 바깥쪽 클러치기어를 분리시켜 회전자가 정지 → 바깥쪽 클러치 축은 엔진과 함께 회전</li></ul>
+<div class="note">Pawl &amp; Ratchet — 속도가 충분히 빨라지면 <b>원심력에 의해 Disengage</b>(분리)됨</div>
+
+<div class="figs"><figure><img loading="lazy" alt="Clutch — Pawl &amp; Ratchet / Sprag type" src="powerplant2-images/p124.webp"><figcaption>Clutch — Pawl &amp; Ratchet / Sprag type<span class="src">p.124</span></figcaption></figure></div>
+<h3>마. Pressure-regulating and shutoff valve <span class="en">압력 조절 &amp; 차단 밸브</span></h3>
+<div class="note"><b>PRSOV = starter valve</b></div>
+<ul><li>시동기 유입 관을 통과하는 모든 압력을 복합적으로 제어</li>
+<li>시동기 작동 공기 압력을 조절, 'OFF' 위치일 때 엔진으로의 공기 공급 차단</li>
+<li>2개 부품: <b>압력조절밸브</b>와 <b>압력조절밸브 제어부</b> <span class="n">Solenoid·Control crank·Bellows 쪽 = 제어부 / Pilot valve·Servo-piston·Cam 쪽 = 조절부 / downstream = starter 위치</span></li></ul>
+<div class="figs"><figure><img loading="lazy" alt="Pressure-regulating and shutoff valve (✍ PRSOV = starter valve)" src="powerplant2-images/p125.webp"><figcaption>Pressure-regulating and shutoff valve (<span class='n'></span> PRSOV = starter valve)<span class="src">p.125</span></figcaption></figure></div>
+</section>
+
+<section class="page" data-page="starting" data-title="모터링 · 시동 절차 · 비정상 시동" data-group="STARTING">
+<h1>모터링 · 시동 절차 · 비정상 시동<span class="en">Engine Motoring · Starting Sequence · Abnormal Starting</span></h1>
+
+<h2>B. Engine Motoring</h2>
+<p>시동 및 추력 발생 목적 이외에 압축기와 터빈을 시동기로 단순히 회전시키는 작동 방법.</p>
+<p><b>★ Motoring이란?</b> Starter로 AGB(Accessory Gear Box)를 구동시켜 Engine Gas Generator(Core)를 구동, AGB에 장착된 보기품의 정상 작동 확인 및 정비작업·검사(Functional / Operation / Leak Check)를 위해 수행.</p>
+<div class="grid2">
+<div class="card blue"><h4>가. Dry Motoring</h4><p><span class="k">연료 공급 및 점화를 배제</span>한 단순한 엔진 구동</p>
+<ol><li>엔진 Cool Down 시 수행</li><li>시동 실패 시 엔진 내 잔존 연료를 배출 <span class="en">☞ Tailpipe에서 Fuel Fog가 안 나올 때까지</span></li><li>AGB 장착 Component 구동을 위해</li></ol></div>
+<div class="card red"><h4>나. Wet Motoring</h4><p><span class="k">점화 없이 연료만 공급</span>하여 엔진 구동</p>
+<ol><li>연료계통 작업 후 Fuel Lag(Pump Cavitation) 방지</li><li>연료계통 Component 작동 점검</li><li>연료계통 누설 점검 시</li></ol></div>
+</div>
+<div class="star"><b>Wet Motoring 후에는 반드시 Dry Motoring이 수행되어야 한다.</b></div>
+<div class="note">∴ 연료계통 외에는 다 Dry motoring임.<br><b>Motoring 전 cool down(1분) 시켜주는 이유?</b> — 터빈 Blade와 case가 닿는 걸 방지하기 위해</div>
+
+<h2>C. 엔진 시동 단계</h2>
+<div class="star"><b>%까진 아니어도 순서라도 기억</b></div>
+<table>
+<tr><th style="width:44px">#</th><th>N2</th><th>동작</th></tr>
+<tr><td>1</td><td>—</td><td>Ignition Switch Select → <b>"Armed"</b></td></tr>
+<tr><td>2</td><td>—</td><td><span class="hl">Start Valve "Open"</span> 및 <span class="hl">Ignition "Activated"</span> (Motoring) <span class="en">☞ Pneumatic System PRV "Close" → 역류방지 / PRSOV "Open" → Start Valve로 Air Source 공급</span></td></tr>
+<tr><td>3</td><td><b>15%</b></td><td><span class="hl">Fuel Control Switch "On (Run)"</span> / MAX Motoring 상태<br><span class="en">EEC는 T3(연소실 입구온도)와 T2(엔진 입구온도)의 차이(ΔT)를 Monitor하여 연료 Scheduling 결정. Cold Engine ΔT ≤ 44℃, Hot Engine ΔT ≤ 66.7℃ → 44~66.7℃ 범위에서 Scheduling</span></td></tr>
+<tr><td>4</td><td><b>25~35%</b></td><td><span class="hl">Self-Sustaining Speed</span> (Accelerating)</td></tr>
+<tr><td>5</td><td><b>40%</b></td><td><span class="hl">Ignition "Off"</span></td></tr>
+<tr><td>6</td><td><b>45~50%</b></td><td><span class="hl">Starter "Cut-out"</span> <span class="en">(일반적으로 N2 4,500~4,800 rpm, 이후 IDLE까지 가속)</span></td></tr>
+<tr><td>7</td><td><b>61~65%</b></td><td><span class="hl">IDLE Speed</span> (Thrust Lever Advance)</td></tr>
+</table>
+<p class="en">☞ <b>Max Motoring</b>: Manual Starting 시 가능한 한 Max Motoring일 때 연료를 공급 → Starting Surge Margin 확보, Starting 시간 단축.</p>
+
+<div class="figs"><figure><img loading="lazy" alt="Engine Starting Sequence" src="powerplant2-images/p128.webp"><figcaption>Engine Starting Sequence<span class="src">p.128</span></figcaption></figure></div>
+
+<div class="card green"><h4>● 공기식 시동기 Starting Sequence 정리 (Turbo-Fan)</h4>
+<ol><li>Power Source로부터 Pneumatic Source를 공급받는다</li><li>Start Valve가 "Open" → Pneumatic Power가 Starter로 전달</li><li>Starter는 <b>AGB를 통해 N2 Shaft를 구동</b></li><li>N2 Shaft가 구동되고 연소가 이루어지면 공기의 팽창에 의해 <b>N1 Shaft가 회전</b></li></ol>
+<p class="k">※ Pneumatic Power Source: APU Bleed Air / Other Engine Bleed Air(Cross Bleed) / GTC(Ground Turbine Cart) or ASU(Air Supply Unit)</p>
+<div class="note">GTC(-Compressor) / GTG(-Generator) — GPU가 크니까 2개로 분리시켜 놓은 것 · MES = Main Engine Starting</div>
+<div class="flow"><span>Power Source (Electrical 28VDC / Pneumatic)</span><i>→</i><span>Starter Control Valve</span><i>→</i><span>Starter</span><i>→</i><span>Gear Box</span><i>→</i><span class="p">N2 Shaft</span><i>→</i><span class="p">N1 Shaft</span></div></div>
+<p class="en">엔진 시동 중 RPM·EGT 곡선: Starter V/V ON → Ignition ON → Fuel ON(15%) → 시동 시작(EGT 상승) → 자체 가속 속도 → Ignition OFF(40%) → 시동기 차단(45~50%) → <b>최고 시동 EGT</b> → Idle RPM(63%) → Idle EGT. <b>최고 시동 EGT &gt; Idle EGT</b>.</p>
+<div class="note">시동하면 <b>제일 먼저 오일 압력계를 확인</b>해야 함</div>
+
+<div class="figs"><figure><img loading="lazy" alt="Main Engine Start Flow Chart" src="powerplant2-images/p129.webp"><figcaption>Main Engine Start Flow Chart<span class="src">p.129</span></figcaption></figure><figure><img loading="lazy" alt="엔진 시동 중 RPM과 EGT 곡선" src="powerplant2-images/p130.webp"><figcaption>엔진 시동 중 RPM과 EGT 곡선<span class="src">p.130</span></figcaption></figure><figure><img loading="lazy" alt="엔진 시동 중 N1과 N2 곡선" src="powerplant2-images/p131.webp"><figcaption>엔진 시동 중 N1과 N2 곡선<span class="src">p.131</span></figcaption></figure></div>
+<h2>나. 비정상 시동 <span class="en">Abnormal Starting</span></h2>
+<div class="card red"><h4>1) Hot Start (과열 시동)</h4>
+<p>연료가 연소되기 시작한 후 <b>EGT가 제한치(Redline) 이상</b> 증가하는 현상</p>
+<p><b>원인</b></p>
+<ol><li><span class="hl">연료 조정장치의 고장</span> (Fuel Scheduling이 잘못된 경우)</li><li class="k">결빙 등으로 인한 압축기 입구에서의 공기흐름의 제한</li><li>Starter Valve 조절 불량으로 N2 Speed가 현저히 낮은 경우</li><li>Starter가 단시간 동안만 작동했을 경우</li><li>시동 전 <span class="hl">연소실 내부에 잔존 연료</span>가 있었을 경우</li><li>이물질에 의해 Rotor에 손상이 있는 경우</li><li>IGV와 VSV의 부적절한 Scheduling</li><li>높은 외기온도(약 32℃ 이상)</li><li>낮은 EGT Margin Starting</li><li>측풍 발생 시(약 60° Head Wind / 25 Knot 초과)</li><li>엔진 내부 손상(Gas Path Deterioration, Hot Section)</li></ol>
+<p><b>조치</b></p>
+<ol><li>Over Temperature 발생 시 엔진을 <b>Cool Down(Dry Motoring)</b>시킨 후 정상 절차에 따라 Shut-Down</li><li>부가적인 Damage가 발생되었다고 판단되면 비상 절차에 따라 Shut-Down</li><li>제한치(Redline) 초과 시 주어진 절차에 따라 엔진 Inspection — Continue in service Limit 초과 여부 확인 / Tail Pipe Visual Inspection으로 작은 금속 알갱이(좁쌀) 확인 / Hot Section <b>BSI</b>(Bore Scope Inspection)</li></ol></div>
+
+<div class="card amber"><h4>2) Hung Start (결핍 시동)</h4>
+<p>연료가 연소되기 시작하였으나 <span class="k">일정 시간 내에 정상 IDLE Speed에 도달하지 못하는 현상</span></p>
+<p><b>징후</b>: N2가 평상시보다 천천히 증가 / Minimum N2 IDLE 이하에서 머무름 / N2 17% 이하에서 HPC Rotor가 머무름 / EGT가 Limit 이상으로 갑자기 증가</p>
+<p><b>원인</b> <span class="n">원인 많은데, 이 중에 몇 가지만 기억해</span></p>
+<ol><li>Starter 동력이 충분히 공급되지 못해 Duct Pressure가 현저히 낮은 경우</li><li>Starter가 단시간 동안만 작동</li><li>이물질 유입으로 압축기 손상</li><li>불충분한 Start Valve의 Open</li><li>IGV와 VSV가 올바르게 Scheduling 되지 않은 경우</li><li>압축기와 터빈 부분의 손상</li><li>N1 Shaft가 마찰 등으로 원활하게 회전하지 못하는 경우</li><li>Warm 또는 Hot 상태의 엔진일 경우</li></ol>
+<p><span class="hl">※ FADEC(EEC)는 엔진이 Warm 또는 Hot 상태일 경우 이를 감지하여 연료 흐름량을 낮추어 Scheduling</span> <span class="n">이런 현상이 생기기 전에 FADEC이 알아서 조절</span></p></div>
+
+<div class="card blue"><h4>3) Start Failure (시동 실패)</h4>
+<ul><li><b>Not Start</b> — 시동이 되지 않는 현상: Starter Quill Shaft 등의 Shear로 동력이 전달되지 않거나 Start Valve가 고착되어 열리지 않을 경우 / 점화 계통·연료 조정장치 고장으로 연료 흐름이 차단될 경우 / <b>엔진이 회전하지 않을 경우</b> Not Start라고 판단</li>
+<li><b>No Light</b> — 규정된 시간 내에 점화가 되지 않는 현상 <span class="n">(wet start) 연료는 들어가는데 점화가 안 되는 현상</span><br><span class="en">※ 시동 후 20초 이후에 EGT가 28℃(상온)보다 낮게 증가하면 점화가 이루어지지 않았다고 판단</span></li></ul></div>
+
+<h2>나. 시동의 종류</h2>
+<div class="star"><b>이건 알아둬</b> — Ground Starting의 3가지</div>
+<ul>
+<li><span class="hl">Ground Starting</span>: 운항 및 정비 목적으로 지상에서 시동
+  <ul><li><b>Manual Start</b>: 시동 절차에 따라 조종석에서 일련의 조작</li>
+  <li><b>Auto Start</b>: 조종석 조작으로 EEC가 엔진을 제어하며 자동 시동</li>
+  <li><b>Start Valve Override Start</b>: <span class="k">조종석에서의 조작 및 지상의 Starter Control Valve 조작이 협업</span>되어 시동 <span class="n">손으로 정비사가 강제로 열어줌</span><br><span class="en">☞ 시동 전이나 비행 전 Start Valve Full Close 상태를 필히 확인!</span></li></ul></li>
+<li><span class="hl">In-Flight Starting (= Air Starting)</span>: 비행 중 Flame Out 되었을 시 재시동</li>
+<li>Starting 중 결함 발생 시: 정상 절차에 의거 Engine Shut Down → 필요 시 Tail Pipe에서 Fuel Fog가 안 나올 때까지 Dry Motoring</li>
+</ul>
+<p class="en"><span class="tag skip">기억 안 해도…</span> 왕복항공기 시동절차: 연료 차단밸브 open → 기화기 heater(pull "on") → 프라이머 pumping(mix. Rich) → 스로틀 밸브 push → Master sw "on" → 시동(점화) <span class="n">heater: 기화 잘 되라고 살짝 heating / 프라이머: 연료를 직접 뿌려서 농후 혼합비로 만듦, 시동 잘 되라고</span></p>
+
+<h2>다. Starter Duty Cycle</h2>
+<div class="card green">
+<h4>1) Duty Cycle을 두는 이유</h4>
+<ul><li><span class="hl">Starter의 Cooling Time을 제공</span>하여 <span class="hl">Starter를 보호</span></li><li><span class="hl">Starter의 Over Heat를 방지</span>하고 내구성을 증가</li><li><span class="hl">Battery 및 Starter의 수명 제고</span></li></ul>
+<h4>2) Duty Cycle 방법</h4>
+<ul><li>한 번 사용 시 <b>최대 5분</b> 동안 작동</li><li>한 번 작동 후 다음 작동까지 <span class="k">약 10~15분 정도 Cooling Time</span></li></ul>
+<h4>3) Starter Re-engagement</h4>
+<ul><li>엔진이 회전 중일 때 Re-engage 시 <b>N2 15% 이상에서 Engage하면 안 된다</b> (Starter Damage)</li><li>지상에서는 Fan Blade가 완전히 Stop된 후 하는 것이 좋다</li></ul></div>
+</section>
+
+<section class="page" data-page="quiz-start" data-title="STARTING 학습문제" data-group="STARTING"><h1>학습문제풀이 — STARTING<span class="en">슬라이드에 실린 문제 · 클릭하면 답이 열립니다</span></h1>
+<div class="card amber"><p><b>답 표시</b> — 슬라이드에는 정답이 인쇄되어 있지 않아요. <span class="tag w">필기</span> PDF에 직접 표시된 답 · <span class="tag x">정리</span> 강의 내용을 근거로 고른 답(교수님 답과 다를 수 있음)</p></div>
+
+<details><summary>다음 시동기 중에서 그 구조가 가장 간단한 것은?<ol><li>공기 충돌 식</li><li>가스 터빈 식</li><li>시동-발전기식</li><li>전동기식</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">① 공기 충돌식</span> — Air impingement: 입구 PORT만 요구.</div></details>
+<details><summary>공기 터빈 식 시동기의 장점이 아닌 것은?<ol><li>대형엔진에 적합하다.</li><li>출력이 크게 요구되는 기관에 사용된다</li><li>많은 양의 압축공기를 필요로 한다</li><li>전기 식보다 공기식이 더 무겁다</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">④</span> — 무게는 전기식의 1/4~1/5.</div></details>
+<details><summary>터빈 엔진을 시동할 때 starter가 분리되는 시기는 언제인가?<ol><li>rpm 경고등이 off 되었을 때</li><li>rpm이 idle 상태일 때</li><li>rpm이 100% 되는 상태</li><li>점화가 끝나고 연료 공급이 시작될 때</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">②</span> (추정) — 강의 자료상 실제 Cut-out은 N2 45~50%(자립회전 이후, idle 직전). 보기 중에서는 ②가 가장 가깝다. 교수님 답 확인 필요.</div></details>
+<details><summary>엔진 작동 중에도 엔진과 연결된 상태의 시동기는?<ol><li>공기 충돌 식</li><li>가스 터빈 식</li><li>시동-발전기 식</li><li>전동기 식</li></ol></summary><div class="ans"><span class="tag w">필기</span><span class="ok">③ 시동-발전기식</span> (동그라미 표시)</div></details>
+<details><summary>엔진 시동 시 시동밸브 스위치의 전기적 신호에 의해 밸브가 열리지 않았다. 조치사항은?<ol><li>시동스위치의 교환</li><li>시동스위치 솔레노이드의 점검</li><li>pilot valve rod을 수동으로 하여 밸브를 open</li><li>manual override handle을 수동으로 하여 밸브를 open</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">④</span> — Start Valve Override Start (정비사가 손으로 강제로 열어줌).</div></details>
+<details><summary>터빈엔진 시동 시 결핍 시동(HUNG START)은 엔진의 어떤 상태를 말하는가?<ol><li>배기가스 온도가 규정치를 넘은 상태다.</li><li>엔진이 완속 회전(IDLE RPM)에 도달하지 못하고 걸린 상태이다.</li><li>완속 회전(IDLE RPM)이 규정치를 넘은 상태이다.</li><li>압력비가 규정치를 초과한 상태이다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">②</span></div></details>
+<details><summary>가스 터빈 엔진 시동 후 엔진 계기로 점검하니 배기 가스온도가 시동할 때보다 다소 낮게 지시하고 있다면 어떤 현상 때문인가?<ol><li>연료 압력 이상</li><li>베어링 손상</li><li>배기가스 온도의 열전대가 끊어졌다.</li><li>정상이다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">④ 정상</span> — 최고 시동 EGT &gt; Idle EGT.</div></details>
+<details><summary>드라이 모터링(dry motoring) 점검할 때 틀린 것은?<ol><li>점화스위치 off</li><li>연료차단 레버 off</li><li>연료 부스터 펌프 on</li><li>점화스위치 on</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">④</span> — Dry motoring은 연료 공급과 점화를 배제.</div></details>
+<details><summary>터빈 엔진의 시동 중 화재발생 시 조치사항은 무엇인가?<ol><li>연료를 차단하고 기관을 계속 회전시킨다.</li><li>즉시 starter SW를 끊는다.</li><li>소화를 위한 시도를 계속한다.</li><li>power lever 조정으로 연료의 배기를 돕는다.</li></ol></summary><div class="ans"><span class="tag w">필기</span><span class="ok">①</span> — "① 연료 차단 ② Dry motoring"</div></details>
+<details><summary>엔진의 wet motoring 수행과정 중 작동해서는 안 되는 사항은 무엇인가?<ol><li>start lever를 작동시킨다.</li><li>엔진 rpm이 10% 상승되었을 때 연료차단 레버를 on 한다.</li><li>연료흐름이 정상인지를 확인한 후 점화스위치를 on 한다.</li><li>작동을 멈출 때에는 연료차단 레버를 off 후 30초 이상 dry motoring 한다.</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">③</span> — Wet motoring은 점화 없이 연료만 공급.</div></details>
+<details><summary>다음 중 Duty Cycle을 두는 이유로써 적합치 않은 것은?<ol><li>Starter의 Cooling Time을 제공하여 Starter를 보호</li><li>Starter의 Over Heat을 방지하고 내구성을 증가</li><li>Battery 및 Starter의 수명 제고</li><li>다 맞다</li></ol></summary><div class="ans"><span class="tag x">정리</span><span class="ok">④ 다 맞다</span> — ①②③ 모두 Duty Cycle을 두는 이유.</div></details>
+<details><summary>가스터빈엔진의 자립회전 속도(Self Sustaining Speed)란 무엇인가? (서술)</summary><div class="ans"><span class="tag x">정리</span>엔진이 자력으로 Turbine을 구동하여 회전을 할 수 있는 속도 (N2 25~35%). <b>자립 회전 속도 &lt; IDLE 속도</b>.</div></details>
+</section>
+
+<section class="page" data-page="removal" data-title="정비방식 · 엔진 장탈 사유" data-group="엔진 장탈 및 교환">
+<h1>정비방식 · 엔진의 장탈 사유<span class="en">CHAPTER 08 엔진 장탈 및 교환 — 8.1 ~ 8.2 (11주차)</span></h1>
+
+<h2>손필기 — 정비방식</h2>
+<div class="note">
+<b>정비방식 → 정비기법, 정비요목, 정비작업</b><br>
+· 정비작업 → Visual, Functional, Operation Check / Servicing / 환원 / Discard<br>
+· <b>"감항성"</b> 확보가 제일 큰 목적<br>
+· <b>CAMP</b>: 지속적인 감항성을 확보하기 위한 정비방식
+</div>
+<div class="card purple"><h4>✍ MSG <span class="en">Maint' Steering Group</span></h4>
+<table>
+<tr><th>MSG</th><th>연대</th><th>내용 (필기)</th></tr>
+<tr><td><b>Ⅰ</b></td><td>1960</td><td>(제작사가 오버홀 주기를 설정하고 실적에 따라 연장 — 8.2.1 필기 "→ MSG 1")</td></tr>
+<tr><td><b>Ⅱ</b></td><td>1970</td><td>이때 선정된 게 <b>HT, On-Con, CM</b> → <b>Bottom-up 방식</b> <span class="en">(HT ↳ 오버홀, TRP, TCI)</span></td></tr>
+<tr><td><b>Ⅲ</b></td><td>1980</td><td><b>Top-Down 방식</b>: 기종별 · Zone별 · 시스템별로 세분화시킴 ⇒ <b>이게 정비요목</b></td></tr>
+</table></div>
+<div class="card green"><h4>✍ 정비작업 <span class="en">Maint' Task</span></h4>
+<ul>
+<li><b>1. 정상작업</b> — 계획정비(schedule work) / 비계획정비(unschedule work)</li>
+<li><b>2. 특별작업</b> — 예) 새로운 부품 추가…</li>
+</ul>
+<table>
+<tr><th style="width:120px">구분</th><th>내용</th></tr>
+<tr><td><b>운항정비</b><br><span class="en">Line Maint'</span></td><td>PR/PO, ONS, 항공기 출발 때마다 확인 (A 체크도 이쪽으로 화살표)</td></tr>
+<tr><td><b>기체정비</b></td><td>A, <s>B</s>, <b>C</b>(2년 주기), <b>D</b>(OVHL, 8년 주기), <b>ISI</b>(Internal Structure Inspection)<br>C·D → 둘 중 하나만 해서 항공기 운영 / ISI → Zone별로 나눠 올해 여기, 내년에 여기 이런 식으로 정비</td></tr>
+<tr><td><b>엔진정비</b></td><td>HSI / CSI <span class="unsure">("HSI 권장"으로 보임)</span> / OVHL</td></tr>
+<tr><td><b>전자보기</b></td><td>Visual: 이때 Functional 추가 / Bench Check → 문제 있으면 Repair / OVHL</td></tr>
+<tr><td><b>객실정비</b></td><td></td></tr>
+</table></div>
+
+<h2>8.1 서론</h2>
+<ul><li>엔진 교환 절차는 항공기와 엔진 형식에 따라 다르고 모든 엔진에 적용되는 하나의 절차가 없으므로 대표적인 장탈·장착 절차를 설명.</li>
+<li>공통 사항: (가) <span class="k">장착할 엔진을 준비</span>하고 저장 정비·보관하는 엔진 관리사항 (나) 교환 시 분리·재연결해야 하는 전기·유압·연료공급 라인, 공기 흡입구·배기구 부품, 엔진 컨트롤, 엔진 마운트 등</li>
+<li class="en">☞ 엔진 모델마다 특수성이 있으므로 실제 교환 시는 반드시 제작사의 해당 정비 교범을 참고.</li></ul>
+
+<h2>8.2 엔진의 장탈 사유</h2>
+<div class="grid2">
+<div class="card blue"><h4>❖ 계획 장탈</h4>
+<p>계획 정비 시기 도래(<span class="k">Hot Section Inspection, Cold Section Inspection, or Overhaul</span>), 엔진 회전 부품(<span class="k">Life Limit Part</span>)의 수명 도래, 특정 결함 부위 점검 시기 도래, 엔진 운영시간 관리(Time Staggering) 등으로 사전에 계획된 교환</p>
+<div class="note">= <b>TRP</b> · LLP(회전 부품들) 대표: <b>축, 베어링, 디스크</b> → 이건 무조건 교체. 엔진 중에서도 HT 적용하는 것 · Time Staggering → 시간 관리를 유연하게</div></div>
+<div class="card red"><h4>❖ 비계획 장탈</h4>
+<p>운영 중 결함이 발생하여 더 이상 운영할 수 없는 상황에서의 교환. <span class="hl">비계획 장탈율은 엔진 운영의 품질 지표</span></p>
+<p class="en">→ 운영 중 엔진 정지, 터빈 온도 한계치 초과, 오일 소모량 한계치 초과, 오일계통 금속 입자 검출, 내부 부품 손상으로 지속 사용범위 초과, 현장에서 처치할 수 없는 계통 결함 등</p></div>
+</div>
+<p>장탈 엔진을 대신할 예비 엔진을 준비해 두어야 단시일 내 운항 가능. 기술적 문제로 비행할 수 없는 상황 = <span class="k">"AOG"</span>(Aircraft on Ground). 장착할 엔진이 준비되지 않은 상황(<span class="k">엔진 AOG</span>)이 발생하지 않도록 최우선 조치.</p>
+<div class="note">AOG — 길수록 안 좋다 · 엔진 AOG = <b>spare 엔진이 없다</b></div>
+
+<h3>8.2.1 엔진 또는 부품 수명 한계 도래</h3>
+<ul>
+<li>엔진 수명은 제작사 품질, 운영 여건, 정비 품질 등 운영 조건에 따라 차이.</li>
+<li>초기: 제작사가 <b>오버홀 주기</b>를 설정하고 실적에 따라 부분적으로 연장 (by 감항 당국) <span class="n">→ MSG 1</span></li>
+<li>터보팬 시대: 엔진 운영상태를 관리할 수 있게 되면서 <span class="k">오버홀 대신 On Condition(OC) 개념</span> 적용 <span class="en">— 주요 지표를 지속 관리, 성능 감쇄 정도를 감안해 적절한 주기에 장탈하여 경제적 정비</span></li>
+<li><b>HSI, CSI</b> 등은 내재된 결함과 성능 감쇄 정도에 따라 구분 적용.</li>
+<li>운영자는 엔진 상태와 운영실적을 분석해 적절한 정비 주기를 설정, 감항 당국의 인가를 받는다.</li>
+<li>압축기·터빈 부품과 연소실은 고열·고압과 원심력으로 <span class="hl">Metal Growth</span> 발생, 강도가 급격히 감소하여 균열 → <span class="hl">사용시간/회수를 제한</span>. 감항 당국은 제작사로 하여금 <b>회전 부품(Disk, Blade, Air-seal, Shaft 등)</b>과 <b>특정 부품(Combustion Liner 등)</b>의 수명을 제한하게 하고, 운영자에게는 정비 주기에 반영토록 함.</li>
+</ul>
+<div class="note">· Metal Growth → <b>터빈 크립 현상</b><br>· 사용시간: <b>Time in Service ≠ Flight Time</b><br>· <b>FLT Time</b>(= Flight Hour, Block Time): chock 떼고 다시 붙일 때까지 시간<br>· <b>Time in Service</b>: 지상에서 떨어져서 다시 랜딩할 때까지 시간<br>· <b>LLP</b> (Life Limit Part)</div>
+
+<h3>8.2.2 엔진 정지 <span class="en">Sudden Stoppage</span></h3>
+<ul><li>엔진 외적인 영향으로 회전이 <b>갑자기 정지 또는 회전수 0</b>에 이르는 현상 — 프로펠러가 지상과 부딪힘 / Nose Landing Gear 손상 / 터보팬에서 대형 조류 또는 조류 떼 흡입(Bird Strike)</li>
+<li>높은 회전 에너지가 내부 부품으로 전달되어 회전체가 편심, 회전 부품·고정 부품·기어 손상 → <span class="k">필히 엔진을 장탈하여 오버홀에 준하는 정비</span></li></ul>
+<h3>8.2.3 엔진 급 감속 <span class="en">Sudden Reduction in Speed</span></h3>
+<ul><li>엔진 외적인 영향으로 회전이 <b>일시적 감속 후 다시 정상으로 회복</b>되는 현상 — 저속에서 프로펠러가 약하게 부딪힘 / 지상에서 공구(Tool)가 들어감 / Bird Strike 후 장애 요인이 사라짐</li></ul>
+<div class="note">"오버홀에 준하는 정비" → <b>급감속에도 동일 적용</b></div>
+<div class="card"><h4>❖ 일반적인 조치 (급 감속) — 터보팬 엔진</h4>
+<ul><li>마운트 상태, <b>흡입구와 배출구 등을 통한 이상 여부 확인</b>, 로터를 손으로 돌렸을 때 걸림 없이 회전하는지(Free Rotation) 점검</li>
+<li>오일필터 점검 및 오일 배출부로부터 <span class="hl">오일을 추출하여 금속 입자 여부 점검</span> <span class="en">☞ 덩어리(Heavy Metal Particle)면 엔진 장탈, 미세한 금속(Fine Filing)이면 엔진을 돌려 오일계통 회전 후 재검출 여부 확인</span></li>
+<li>이상 없으면 시동 → 구동 소리·진동·출력 확인 → 정지 후 오일 계통 금속 입자 재점검</li></ul>
+<p class="en"><span class="tag skip">✕ 제외</span> 터보-샤프트 엔진의 경우(프로펠러 장탈, 구동축 정렬·Run Out 점검, Tracking Check)는 필기에 ✕ 표시.</p></div>
+
+<h3>8.2.4 오일 계통의 금속 입자 <span class="en">Metal Particle in the Oil</span></h3>
+<div class="note"><b>oil 계통 검사 — filter · MCD · SOAP</b></div>
+<ul>
+<li>오일필터 또는 MCD에서 금속 입자가 검출되면 내부에 <b>부분적인 손상</b>이 있는 것으로 간주.</li>
+<li><span class="k">카본(Carbon Seal)</span>은 회전체와 닿아 닳거나 조각으로 떨어져 나오며 금속 모습으로 보일 수 있다 → 장탈 결정 전에 <b>자석으로 철 금속 입자(Ferrous Metal)인지 판단</b>. <span class="n">Carbon은 MCD에 안 걸림. 필터 검사해야 함</span></li>
+<li><span class="k">☞ 철 금속 입자가 검출되면 신중하게 판단</span>. 엔진 중정비(OVHL급) 후 장착된 엔진에서 검출되는 소량의 <b>비철 금속 입자(Non ferrous Metal)</b>는 때때로 정상으로 간주. 줄밥(Filing) 같은 이물질이 소량이면 <span class="hl">오일을 모두 배유한 후 재보급</span>, 시동 후 필터와 MCD를 재검사하여 더 발견되지 않으면 계속 사용(제작사 교범 적용), 이후 당분간 비정상 징후 관찰.</li>
+<li class="en">Clean MCD – No Action / MCD with a debris catch – Investigate</li></ul>
+<div class="note">Seal 종류: <b>Labyrinth seal / Carbon seal</b> · Stall → 진동 → 베어링에 영향을 미침</div>
+
+<div class="figs"><figure><img loading="lazy" alt="Clean MCD – No Action / MCD with a debris catch – Investigate" src="powerplant2-images/p154.webp"><figcaption>Clean MCD – No Action / MCD with a debris catch – Investigate<span class="src">p.154</span></figcaption></figure></div>
+<h3>8.2.5 분광식 오일 분석 프로그램 <span class="en">SOAP</span></h3>
+<ul><li>오일 샘플을 채취·분석하여 <b>소량일지라도 오일 내에 존재하는 금속 성분을 탐색</b>하는 오일 분석 기법</li>
+<li>오일에 미량의 마모 금속 입자가 함유, 사용시간이 늘수록 누적 → 입자를 판별하고 무게를 <span class="k">PPM</span>(Parts per million)으로 알아냄</li>
+<li>마모 금속·첨가제 범주별 PPM 수치를 엔진 상태 판단 수단으로 사용. 특정 물질의 PPM 증가는 마모나 고장 임박의 징조, 채취 때마다 양을 기록</li></ul>
+
+<div class="figs"><figure><img loading="lazy" alt="SOAP 분광 분석 원리" src="powerplant2-images/p155.webp"><figcaption>SOAP 분광 분석 원리<span class="src">p.155</span></figcaption></figure></div>
+<h3>8.2.6 엔진 건강 상태 진단 프로그램 <span class="en">Turbine Engine Condition Monitoring Programs</span></h3>
+<ul><li>경향 분석 성능 감시(<span class="k">Trend Analysis Performance Monitoring</span>): <b>배기가스 온도, 연료량, 회전수, 진동수, 오일 소모량</b> 등 주요 <span class="k">Parameter</span>를 매일 점검하여 성능 변화·경향을 모니터링</li>
+<li><b>파라미터가 허용 한계에 이르기 전에 엔진이 수리될 수 있도록 세심하게 관찰하여 장탈 계획을 수립</b></li></ul>
+<div class="note">* 트렌드(경향)로 본다</div>
+<div class="figs"><figure><img loading="lazy" alt="엔진 Trend Monitoring (N1 Vibration, Oil Consumption)" src="powerplant2-images/p156.webp"><figcaption>엔진 Trend Monitoring (N1 Vibration, Oil Consumption)<span class="src">p.156</span></figcaption></figure></div>
+</section>
+
+<section class="page" data-page="qeca" data-title="QECA · 외부 점검 · APU" data-group="엔진 장탈 및 교환">
+<h1>QECA · 파워플랜트 외부 점검 · APU<span class="en">8.3 ~ 8.5</span></h1>
+
+<h2>8.3 엔진 장탈 및 장착 절차</h2>
+<h3>8.3.1 장착 준비 <span class="en">Preparation of Engines for Installation</span></h3>
+<p>정비 절차와 방법은 엔진에 따라 다르지만 <span class="k">최고의 정비 효율과 <span class="hl">신속하게 엔진을 교환하는 방법</span>으로 <span class="hl">QECA</span>(Quick Engine Change Assembly)를 활용</span>.</p>
+<div class="star"><b>QECA 개념은 시험에…☆</b> / <b>엔진 나셀 vs 윙 나셀 — 시험에 나올 듯도</b></div>
+<div class="card red"><h4>파워플랜트(QECA) = Engine Bare + Engine Nacelle Items + Aircraft System Parts</h4>
+<p>기본 엔진에 나셀 및 항공기 시스템 부품이 장착된 집합체 <span class="hl">(Inlet Cowl은 선택적으로 적용함)</span></p>
+<table>
+<tr><th>Engine Nacelle Items</th><th>Aircraft System Parts</th></tr>
+<tr><td>Engine Mounts<br>Exhaust Nozzle<br>Exhaust Plug</td><td>Starter &amp; Starter Valve<br>Press Regulating S/O Valve<br>Pneumatic Ducts<br>Generator &amp; Cable<br>Hydraulic Pump &amp; Hoses<br>Engine Control Linkage<br>Others</td></tr>
+</table>
+<div class="note">· QECA → <b>Accessory의 개념</b> · <b>Engine Assembly = Basic Engine + QECA</b><br>· <b>Inlet Cowl</b> → 얘는 기체로 간주 → 엔진 공장에 안 들어옴<br>· <b>Engine Nacelle Items</b> → 얘는 엔진 공장에 따라 들어옴<br>· <b>Exhaust Plug = Tail Cone</b> → 배기가스를 직선으로 흐르게 해줌<br>· Aircraft System Parts 목록에 <b>오일이 없네</b><br>· <span class="unsure">나셀 = 파일론 + 엔진 (으로 보이는 메모)</span></div></div>
+
+<div class="figs"><figure><img loading="lazy" alt="파워플랜트(QECA) = Engine Bare + Engine Nacelle Items + Aircraft System Parts" src="powerplant2-images/p158.webp"><figcaption>파워플랜트(QECA) = Engine Bare + Engine Nacelle Items + Aircraft System Parts<span class="src">p.158</span></figcaption></figure></div>
+<h3>8.3.2 엔진 교환을 위한 QECA 조립</h3>
+<ul><li>QECA는 <b>Boeing 개념</b>, Airbus에서는 <b>EBU</b>(Engine Buildup Unit)</li>
+<li>엔진은 날개 밑 유선형 나셀(Nacelle) 내부에 장착. 나셀은 <b>윙 나셀</b>과 <b>엔진 나셀</b>로 구분</li></ul>
+<div class="grid2">
+<div class="card blue"><h4>윙 나셀 <span class="en">Wing Nacelle</span></h4><p>날개 구조물에 장착된 나셀 — <b>Fan Cowl(2), Reverser Cowl(2)</b><br>→ 엔진 외부에 장착된 오일·연료·유압·공압 계통 도관·부품과 Linkage, 제어장치를 감싸는 역할</p></div>
+<div class="card green"><h4>엔진 나셀 <span class="en">Engine Nacelle</span></h4><p>날개 구조물로부터 분리되어 조립된 부분 — <b>Inlet Cowl, Exhaust Nozzle, Plug, Mounts</b></p></div>
+</div>
+<div class="figs"><figure><img loading="lazy" alt="윙 나셀 vs 엔진 나셀, EBU" src="powerplant2-images/p159.webp"><figcaption>윙 나셀 vs 엔진 나셀, EBU<span class="src">p.159</span></figcaption></figure></div>
+<div class="star"><b>시험에 나올 듯☆</b> — 엔진 나셀에 안 들어가는 부품들은?</div>
+<div class="note">· 나셀 ┬ 윙 / └ 엔진 — <b>엔진 플랜지로 연결되는 놈</b><br>· Inlet cowl → <b>A-flange에 장착됨</b><br>· <b>Flange 역할</b> ① 면과 면이 닿는 부분 ② 위치 지정 ③ 외부 장착 부품을 Bracket을 통해 고정<br>· 사진 명칭: Core cowl / Exhaust cowl / Plug(Tail cone) / (카울 지지) support</div>
+
+<div class="figs"><figure><img loading="lazy" alt="Open cowling view of a typical power package" src="powerplant2-images/p160.webp"><figcaption>Open cowling view of a typical power package<span class="src">p.160</span></figcaption></figure><figure><img loading="lazy" alt="Inlet cowl과 Fan cowl을 연 상태" src="powerplant2-images/p161.webp"><figcaption>Inlet cowl과 Fan cowl을 연 상태<span class="src">p.161</span></figcaption></figure></div>
+<h2>8.4 파워플랜트 외부 점검 및 교환</h2>
+<ul>
+<li>나셀은 내부에 엔진이 장착된 상태에서 별도 장탈이 가능한 카울링 구조물. 검사 전에는 반드시 세척.</li>
+<li><b>엔진과 기체를 격리시키는 방화벽 역할</b>도 한다. <span class="en">☞ Wiring, Tubing, Linkage, 제어장치들이 이 방화벽을 통과하여 연결</span></li>
+<li>나셀: 구조물, 판금, <b>리벳으로 부착된 금속판(Plate)</b>의 전반적 상태 점검 / 엔진 마운트 프레임: 철 배관(Steel Tubing)의 휘어짐·찌그러짐·찍힘·부식·균열 점검</li>
+<li>균열·가공 부분·기타 결함 확인 → <span class="hl">침투 탐상 검사</span>(Dye Penetrant Inspection) / <span class="hl">Mounting Bolt</span>는 일반적으로 <span class="hl">자분 탐상 검사</span>(Magnetic Particle Inspection). 볼트 장탈 상태에서 볼트 Hole의 편마모, 부적절하게 조여진 볼트의 움직임으로 생긴 결함 점검</li>
+<li>엔진 마운트 부품(Bolt, Nut, Support 등)은 별도로 결함 여부가 확인된 부품으로 장착, <b>장탈한 엔진 마운트 부품은 엔진과 함께 공장으로 입고</b></li>
+</ul>
+<div class="note">· <b>침투탐상</b> — TEC에 주로 함. Rear Mount가 연결돼 있어 하중을 많이 받아 crack 발생. 조건: 표면이 드러나야 함 <span class="unsure">(?)</span>, 금속 아니어도 됨<br>· <b>자분탐상</b> — 전자석 이용, 자기장이 생김. 표면 내부도 검사 가능. <span class="unsure">"핸디 마그나(?)"</span>라는 장비 사용. <b>자분탐상 끝나면 탈자 필요</b> — 안 해주면 통신장비에 영향을 줌</div>
+<table>
+<tr><th style="width:150px">부품</th><th>점검 내용</th></tr>
+<tr><td><b>Wire</b> (electric)</td><td>Break, Chafing 등 손상, Crimped 또는 연납땜(Soldered) 케이블 끝단의 견고함, Connector plug 상태 → 손상 정도에 따라 수리·교체</td></tr>
+<tr><td><b>Tubing</b></td><td>굽힘(Dent), 찍힘(Nick), 긁힘(Scratch), 벗겨짐(Chafing), 부식(Corrosion) <span class="n">scratch가 심해지면 scoring · chafing은 진동에서 많이 생김, 견고하게 하기 위해 클램핑</span></td></tr>
+<tr><td><b>Hose</b></td><td>피복 상태, 보강재 손상. 피복이 벗겨지면 손상 길이만큼 교체.<br>☞ Clamp 압력에 의한 <b>호스의 변형</b> = <span class="k">Cold-flow</span>, 과다하면 호스 교체</td></tr>
+<tr><td><b>Control rod</b></td><td>강도에 영향을 미칠 만큼 깊은 Nick 또는 제거할 수 없는 Corrosion이면 교체</td></tr>
+<tr><td><b>Exhaust Nozzle, Tail Pipe</b></td><td>균열, 부식, 견고함. 항공기 장착 전에 미리 엔진에 장착해야 하는 것들도 있다</td></tr>
+<tr><td><b>Air Duct</b></td><td>일반 상태, Dent, 배관 교차부·클램프 장착부의 천(Fabric)/Rubber Anti-chafing Strip 장착 상태</td></tr>
+</table>
+
+<h2>8.5 엔진 장탈 및 장착 <span class="en">Turbine Engine Removal and Installation</span></h2>
+<div class="card blue"><h4>방향 기준 — 엔진을 뒤쪽에서 앞쪽을 향해 본 상태 (표준 방향: Rear View)</h4>
+<ul><li>위쪽/아래쪽: 12시/6시 방향 · 오른쪽/왼쪽: 3시/9시 방향</li>
+<li>여러 개 있는 부품의 구분: <b>12시에서 시작, 시계 방향(Clockwise)</b>으로 순서 매김 (예: J47 연소실 C/C #1~#8)</li></ul>
+<div class="note">6시 방향 → <b>Drain valve</b> · 각 연소실에 Drain Tube 있음 → <span class="unsure">5번 먼저 장탈(?)</span></div></div>
+
+<div class="figs"><figure><img loading="lazy" alt="J47 Engine Rear View — 12시부터 시계 방향 (✍ 6시 방향 Drain valve)" src="powerplant2-images/p165.webp"><figcaption>J47 Engine Rear View — 12시부터 시계 방향 (<span class='n'></span> 6시 방향 Drain valve)<span class="src">p.165</span></figcaption></figure></div>
+<h3>8.5.1 APU 장탈 및 장착</h3>
+<div class="star"><b>시험에 낼 거임</b> — APU는 <b>100% 작동돼야 정상</b>. on 아니면 off임. 엔진처럼 몇 % rpm 이런 게 없음</div>
+<div class="note">APU는 <b>공압, 전기</b> 발생</div>
+<ul>
+<li>APU 장탈/장착은 APU 구역으로 오르고 내리는 데 <b>크래들</b>을 사용. 크래들에 튜브와 케이블을 연결한 후 손잡이로 케이블을 감아 올린 다음 마운트 볼트를 연결하고 빈 크래들을 내리는 구조. <span class="n">크래들 = 호이스트</span></li>
+<li class="en">분리 대상: EGT 소켓, 블리드 에어 덕트/커플링, 연료 가열기, APU 마운트 브래킷, 화재 소화라인·화재 감지센서 소켓, 시동기·발전기·배선 소켓, 본딩 점퍼, 액세서리 냉각 에어 플랜지, 블리드 로드 컨트롤 라인 등</li>
+<li>APU REMOVAL(A320) 사진 필기: <span class="n">마운트 · 크래들(hoist) 이동식 · 마운트 볼트 장탈 중 · APU 마운트(APU가 얹어지는 부분)</span></li>
+</ul>
+<div class="figs"><figure><img loading="lazy" alt="APU 장착 ①" src="powerplant2-images/p166.webp"><figcaption>APU 장착 ①<span class="src">p.166</span></figcaption></figure><figure><img loading="lazy" alt="APU 장착 ② — 크래들 사용" src="powerplant2-images/p167.webp"><figcaption>APU 장착 ② — 크래들 사용<span class="src">p.167</span></figcaption></figure><figure><img loading="lazy" alt="APU REMOVAL (A320) ①" src="powerplant2-images/p168.webp"><figcaption>APU REMOVAL (A320) ①<span class="src">p.168</span></figcaption></figure><figure><img loading="lazy" alt="APU REMOVAL (A320) — ✍ 크래들(hoist) 이동식" src="powerplant2-images/p172.webp"><figcaption>APU REMOVAL (A320) — <span class='n'></span> 크래들(hoist) 이동식<span class="src">p.172</span></figcaption></figure><figure><img loading="lazy" alt="APU REMOVAL (A320) — ✍ APU 마운트" src="powerplant2-images/p175.webp"><figcaption>APU REMOVAL (A320) — <span class='n'></span> APU 마운트<span class="src">p.175</span></figcaption></figure></div>
+</section>
+
+<section class="page" data-page="install" data-title="파워플랜트 장탈 · 장착" data-group="엔진 장탈 및 교환">
+<h1>터보팬 파워플랜트 장탈 · 장착<span class="en">8.6 ~ 8.7 (12주차)</span></h1>
+
+<h2>8.6 터보팬 파워플랜트 장탈</h2>
+<div class="card blue"><h4>Power-plant Package를 항공기로부터 장탈하는 방법</h4>
+<ol><li><b>엔진 돌리(Dolly)</b>를 사용하여 파워플랜트를 나셀로부터 내리는 방법</li>
+<li><b>호이스트와 특별한 슬링(Sling)</b>을 이용하여 이동식 엔진스탠드로 내리는 방법</li></ol></div>
+<h3>❖ 일반적인 장탈 절차 (위 어느 경우에나 적용) <span class="n">안 외워도 됨</span></h3>
+<ol>
+<li>Wheel Chock 또는 Tie Down 방법으로 <b>항공기를 적절하게 고정</b></li>
+<li>항공기를 지상과 <b>접지</b>(Ground Wiring)</li>
+<li>나셀 도어를 열고 스트러트(Strut)로 <b>열린 상태를 지탱</b></li>
+<li>항공기 외부 전원을 차단하고 <b>전원 스위치를 OFF</b></li>
+<li>나셀 구조물 양쪽의 <b>마운트 플레이트</b>(Mount Access Plate: 작업용 Hoist 연결부)를 장탈</li>
+<li>작업 편의를 위해 일부 공압덕트 장탈</li>
+<li>엔진 전기 배선과 Thermocouple Lead 분리 <span class="en">(ref.#1 — 엔진에 장착된 열전쌍은 그대로 두고 항공기 연결 배선을 분리)</span></li>
+<li>호스 플랜지로부터 볼트를 장탈하여 연료 라인 분리 <span class="en">(ref.#2 — 항공기 연료라인에서 엔진으로 가는 연료라인 분리, Fuel line disconnect)</span></li>
+<li>유압 라인과 유압 연결부 분리 <span class="en">(ref.#3 — 유압 공급/압력/배출 배관)</span></li>
+</ol>
+<div class="note">Electric line들이 <b>파일론 안에 다 연결돼 있음</b> · 그림 하단 = race way</div>
+
+<div class="figs"><figure><img loading="lazy" alt="Ref #1 — 열전쌍·전기 배선 분리" src="powerplant2-images/p177.webp"><figcaption>Ref #1 — 열전쌍·전기 배선 분리<span class="src">p.177</span></figcaption></figure><figure><img loading="lazy" alt="Ref #2 — 연료라인 분리 (Fuel line disconnect)" src="powerplant2-images/p178.webp"><figcaption>Ref #2 — 연료라인 분리 (Fuel line disconnect)<span class="src">p.178</span></figcaption></figure><figure><img loading="lazy" alt="Ref #3 — 유압 공급/압력/배출 배관" src="powerplant2-images/p179.webp"><figcaption>Ref #3 — 유압 공급/압력/배출 배관<span class="src">p.179</span></figcaption></figure></div>
+<h3>8.6.1 QECA 악세서리 장탈 <span class="en">Removal of QECA Accessories</span></h3>
+<div class="note">~ 베어(bare) 엔진 바깥에 붙어있는 보기품이다 ~</div>
+<ul>
+<li>엔진 장탈 후 항공기 제작사 관할 부품(QECA, Aircraft-furnished Accessory)은 장탈하여 오버홀을 위해 공장으로 보내거나 장착할 엔진에 재장착 <span class="en">☞ 혼란 방지를 위해 교환 작업 전에 모든 부품의 위치와 상태를 점검, 처리 방향을 기록</span></li>
+<li>제작사 관할 부품을 다른 곳으로 보낼 때는 교범에 따라 저장 정비를 수행하고 <b>기록부(Tag)</b>를 부착 <span class="n">전자보기품 같은 것</span></li>
+<li>장탈 엔진은 노출된 모든 구동 장치와 입/출구에 <b>커버</b>를 씌워 외부 물질 유입을 방지, 선적·저장·분해를 위한 조치 준비</li>
+</ul>
+
+<h2>8.7 터보팬 파워플랜트 장착 <span class="en">Installation of Turbofan Power plant</span></h2>
+<div class="grid2">
+<div class="card blue"><h4>8.7.1 <span class="hl">돌리</span>를 이용한 장착 <span class="en">Installation with Dolly</span></h4>
+<p class="en">→ 장비의 특별한 사용법은 돌리에 게시된 절차를 따른다</p>
+<ol><li><span class="hl">돌리의 유압 기능을 작동</span>하여 엔진 마운트 부착 피팅(Engine Mount Attaching Fitting)까지 주의하면서 위로 올린다</li><li>마운트 부착 피팅과 후방 엔진마운트를 정렬</li><li>엔진 마운트 볼트를 장착하고 명시된 토크 값(Specified Torque)으로 조인다</li></ol></div>
+<div class="card green"><h4>8.7.2 케이블 <span class="hl">호이스트</span>를 이용한 장착 <span class="en">Installation with Cable Hoist</span></h4>
+<ol><li>나셀 아래에 엔진(Power plant Package)을 위치</li><li>엔진 슬링(Sling)을 엔진에 부착</li><li>모든 호이스트(<b>통상 3개</b> — 엔진 전방 2개, 후방 1개)를 동시에 천천히 작동하여 엔진마운트가 제 위치에 도달하도록 끌어 올린다</li></ol></div>
+</div>
+<div class="figs"><figure><img loading="lazy" alt="Ref #1 — 엔진 돌리(Dolly)" src="powerplant2-images/p182.webp"><figcaption>Ref #1 — 엔진 돌리(Dolly)<span class="src">p.182</span></figcaption></figure><figure><img loading="lazy" alt="Ref #2 — 케이블 호이스트 + 슬링 (통상 3개: 전방 2, 후방 1)" src="powerplant2-images/p183.webp"><figcaption>Ref #2 — 케이블 호이스트 + 슬링 (통상 3개: 전방 2, 후방 1)<span class="src">p.183</span></figcaption></figure></div>
+<div class="star"><b>mount 장착돼 있는 거 눈에 익혀둬</b> — 사진 필기: mount / TEC(Turbine Exhaust Case) / Exhaust cone</div>
+
+<div class="figs"><figure><img loading="lazy" alt="마운트 장착 상태 — ✍ mount / TEC / Exhaust cone" src="powerplant2-images/p185.webp"><figcaption>마운트 장착 상태 — <span class='n'></span> mount / TEC / Exhaust cone<span class="src">p.185</span></figcaption></figure><figure><img loading="lazy" alt="파워플랜트 장착 작업" src="powerplant2-images/p186.webp"><figcaption>파워플랜트 장착 작업<span class="src">p.186</span></figcaption></figure></div>
+<h3>8.7.3 장착 마무리 <span class="en">Completing the Installation</span></h3>
+<ol>
+<li>후방 마운트와 부착 피팅 내부에 부싱 장착 → 부싱을 통해 마운트 볼트·너트 장착, <b>코터핀</b>으로 고정</li>
+<li>각 전방 마운트 볼트에 와셔(Chamfered Washer &amp; Flat washer)를 넣고 너트를 <b>명시된 토크 값</b>으로 조인다</li>
+<li>Bleed-air Duct를 PYLON의 Pneumatic Duct와 연결, 덕트 연결부를 명시된 토크 값으로 조인다</li>
+<li>돌리 또는 슬링 관련 호이스트 장비를 엔진에서 장탈</li>
+<li>연료 호스 플랜지와 파일론 연료관 플랜지 사이에 <b>New Gasket</b>을 사용하여 연결</li>
+<li>전기배선 소켓과 Thermocouple 소켓 나사산에 <b>고착 방지(anti-seize) 콤파운드</b>를 바른 후 전선 연결, 커넥터 고정</li>
+<li>터빈 컨트롤 접속부, 전기 접속부, 공압 덕트 연결</li>
+<li>파워 컨트롤 로드를 연료 컨트롤이나 전기 접속부에 연결</li>
+<li>장착된 엔진에 대해 최종 점검</li>
+<li>열린 점검 덮개를 재장착</li>
+<li>연료 컨트롤 링키지를 조정하고 필요에 따라 미세 조정(<b>Trim</b>)</li>
+</ol>
+</section>
+
+<section class="page" data-page="rigging" data-title="리깅 · 트림 · 마운트 · 저장" data-group="엔진 장탈 및 교환">
+<h1>리깅 · 트림 · 엔진 마운트 · 저장 정비<span class="en">8.8 ~ 8.11</span></h1>
+
+<h2>8.8 리깅, 검사 및 조절 <span class="en">Rigging, Inspections, and Adjustments</span></h2>
+<p>Fuel Control, Fuel Selector, Fuel Shutoff Valve에 대한 리깅·조절의 기본 절차 및 검사 방법.</p>
+<ol><li>벨 크랭크(Bell Crank)의 헐거움, 균열, 부식 여부</li><li>로드 엔드(Rod End) 나사산 상태와 최종 조절 후 남아 있는 나사산의 수</li><li>케이블 드럼(Cable Drum)의 마모 상태, 케이블 가드(Cable Guard)의 위치와 장력의 적정성</li></ol>
+<div class="note">(리깅 대상) 대표적으로 <b>VSV</b> · 얘네 다 <b>초창기</b>에 한 것. 요즘엔 전선이니까…</div>
+
+<h3>8.8.1 파워 컨트롤 리깅 <span class="en">Rigging Power Controls</span> <span class="n">초창기</span></h3>
+<ul>
+<li>전통적인 터보팬은 다양한 Power Lever Control Systems 사용, 가장 보편적인 형식 = <b>Cable and Rod System</b> (Bell Crank, Push-pull Rod, Drum, Fairlead, Flexible Cable, Pulley) → 시시때때로 조절</li>
+<li>단발기 리깅은 비교적 간단. 다발 터보제트는 모든 엔진 출력이 서로 맞도록(Align) 리깅</li>
+<li>컴퓨터로 엔진을 제어하게 되면서 조종실~엔진 Electronic Connection → Cable·Linkage 사용이 필요 없어졌다 <span class="en">☞ 조종사 명령을 Wire 또는 Bus로 <b>전자 정보를 연료 컨트롤에 전달</b></span></li>
+<li>전통적인 항공기: 조종실~파일론·나셀 구간은 일반적으로 엔진 교환 시에도 리깅 불필요, 그러나 <b>파일론에서 엔진까지의 컨트롤 시스템은 엔진 교환이나 연료 컨트롤 교환 시 반드시 리깅</b></li>
+</ul>
+
+<div class="figs"><figure><img loading="lazy" alt="전통적인 항공기의 파워 컨트롤 케이블·로드 시스템" src="powerplant2-images/p190.webp"><figcaption>전통적인 항공기의 파워 컨트롤 케이블·로드 시스템<span class="src">p.190</span></figcaption></figure></div>
+<h3>8.8.2 연료 컨트롤 조절 <span class="en">Adjusting the Fuel Control — Trimming</span> <span class="n">이것도 초창기</span></h3>
+<ul>
+<li>전통적 터보팬의 FCU는 <span class="hl">"유압 기계식 장치"</span>로 연료량을 조절하여 추력 확보</li>
+<li><span class="k">→ 엔진의 추력과 터빈의 회전수는 연료량에 의해 정해진다</span></li>
+<li>FCU는 최대 추력을 얻을 수 있도록 조절되어야 하며, 최대 추력 성능을 발휘하지 못하거나 FCU 교환·엔진 교환 후, 혹은 Power Lever와 차이가 있으면 반드시 <b>재조정(Re-trim)</b></li>
+</ul>
+<div class="star"><b>시험☆</b> — 엔진 Trimming은 풍속과 습기에 영향을 받으므로 가급적 <b>화창하고 무풍 상태</b>에서 수행, 풍속이 어느 정도 되면 <b>정풍 상태를 유지</b>해야 좋은 결과.<br>☞ <b>배풍 상태</b>에서는 배출된 뜨거운 공기가 다시 흡입될 수 있고, Icing Condition(외기 10℃ 이하, 비·눈·물기)에서는 역효과.</div>
+<div class="note"><b>Trimming은 성능 조절·상태 조절, 리깅은 기계적인 걸 조정</b></div>
+<ul>
+<li>정풍 방향 상태에서 배기 지역 장애물이 없음을 확인, 터빈 배기 압력 라인의 T-피팅에 엔진 트림 게이지 장착</li>
+<li><b>엔진 시동 후 조정 전에 <span class="hl">최소 5분 이상은 엔진을 안정</span></b></li>
+</ul>
+<p class="en"><span class="tag skip">pass</span> 유압 기계식 트리밍: 온도·압력 보정 후 허용범위를 벗어나면 INC. MAX 스크류를 (한 번에 1/8 회전) 반복 조절 → <span class="hl">엔진 트리밍 후 공회전수(Idle RPM) 조절</span>: INC. IDLE 스크류(1/8 회전), 출력 레버를 올렸다 내려 재확인. Hex Socket 사용, INC 화살표 쪽이 RPM 증가. <span class="n">그림 = MFR의 FCU</span></p>
+
+<div class="figs"><figure><img loading="lazy" alt="MFR의 FCU — Hex socket으로 Max·Idle 트림" src="powerplant2-images/p192.webp"><figcaption>MFR의 FCU — Hex socket으로 Max·Idle 트림<span class="src">p.192</span></figcaption></figure></div>
+<div class="card purple"><h4>"전자식" — <span class="hl">전자 연료조정장치</span>(Electronic FCU) 엔진의 트림 점검 <span class="n">EEC, FADEC</span></h4>
+<p>각종 파라미터는 <span class="hl">온도 및 압력에 대해 보정</span>되어야 한다.</p>
+<ol>
+<li>Minimum Idle (% N2) <span class="n">= ground idle (시동의 끝)</span></li>
+<li>Approach Idle (% N2): 항공기 하강 시 출력 (또는 Flight Idle) <span class="n">착륙 후 역추력장치 작동 시 Flight Idle로 놔야 함</span></li>
+<li>2.5 Bleed Open (% N1)</li><li>2.5 Bleed Close (% N1)</li><li>Takeoff EPR</li><li>95% Takeoff EPR</li><li>90% Thrust EPR</li>
+</ol>
+<p>그날의 온도·압력 값을 반영한 표(Chart)를 정비교범에서 찾아 목표 값을 얻고, <b>허용 공차를 반영하여 범위 내에 들어가도록 조정</b>.</p>
+<p class="en">☞ 예) Minimum Idle N2 57.5 (+1.5/−0.5)% → <b>57%</b>(57.5−0.5) ~ <b>59%</b>(57.5+1.5)<br>Ref. 표 예시(OAT 12℉, 29.0 inHg): Min idle 57.7 / App idle 67.6 ±0.5 / 2.5 bleed open 60.4 ±0.5 %N1 / closed 63.5 ±0.5 %N1 / Takeoff EPR 1.50 +0.01/−0.00 / 95% takeoff 1.46 / 90% thrust change decel 1.04 EPR</p></div>
+
+<div class="figs"><figure><img loading="lazy" alt="트림 목표값 표 (Ref.)" src="powerplant2-images/p194.webp"><figcaption>트림 목표값 표 (Ref.)<span class="src">p.194</span></figcaption></figure></div>
+<h2>8.10 엔진 마운트 <span class="en">Engine Mounts</span></h2>
+<h3>8.10.1 터보팬 엔진의 마운트</h3>
+<ul><li>파일론(Pylon) 구조물의 엔진 마운트는 <b>엔진을 지탱</b>하고 <b>추력을 항공기 구조물에 전달</b></li><li>대부분 <b>Stainless Steel</b></li></ul>
+<h3>8.10.2 진동 감쇠 마운트 <span class="en">Vibration Isolation Engine Mounts</span></h3>
+<div class="note">엔진이 항공기에서 진동이 가장 심함 · ※ 아까 본 이미지 참고</div>
+<p>전방과 후방에서 파워플랜트를 지탱하고 엔진의 진동으로부터 항공기 구조물을 격리.</p>
+<div class="grid2">
+<div class="card red"><h4>전방(Forward) 진동 격리 마운트 <span class="n">Front (FWD) Mount</span></h4><p>수직 하중, 가로 하중, 그리고 <span class="hl">추력 하중을 담당</span>하며 엔진의 열팽창을 흡수.</p><div class="star"><b>추력</b> — 시험에 나올 듯</div>
+<p class="en">Ref #1: Engine intermediate case, Bearing support, Cross beam, Pylon bolts, <b>Thrust link</b>, <b>Engine thrust mount</b></p>
+<div class="note">IMC(Intermediate Case)에 Front mount 달려있음 · Thrust link / Engine thrust mount → 얘네가 진동 흡수</div></div>
+<div class="card blue"><h4>후방(Rear) 진동 격리 마운트 <span class="n">Rear (After) Mount</span></h4><p><b>수직 하중과 가로 하중</b> 및 엔진의 열팽창을 흡수.</p>
+<p class="en">Ref #2: Beam, Pylon bolts, Links(3), Torque link, Engine turbine exhaust case flange, Mount bolt retention plate</p></div>
+</div>
+
+<div class="figs"><figure><img loading="lazy" alt="Ref #1 — 전방 엔진 마운트 (수직·가로·추력 하중)" src="powerplant2-images/p196.webp"><figcaption>Ref #1 — 전방 엔진 마운트 (수직·가로·추력 하중)<span class="src">p.196</span></figcaption></figure><figure><img loading="lazy" alt="Ref #2 — 후방 엔진 마운트 (수직·가로 하중)" src="powerplant2-images/p197.webp"><figcaption>Ref #2 — 후방 엔진 마운트 (수직·가로 하중)<span class="src">p.197</span></figcaption></figure></div>
+<h2>8.11 엔진 저장 정비 <span class="en">Preservation and Storage of Engines</span></h2>
+<ul>
+<li>장탈 후 오버홀 입고 대기 중이거나 오버홀 후 사용 대기 중인 엔진은 매일 부식 여부를 관리 <span class="n">spare 엔진</span></li>
+<li>저장 중이거나 장기간 비행하지 않는 엔진은 <span class="hl">습기</span>에 의해 <span class="hl">부식</span> → 주기적이고 적절한 저장 정비 <span class="en">☞ 해안·호수·강 등 다습 지역 인접 운항기는 각별히 신경</span></li>
+</ul>
+<div class="note">엔진통으로 진공 시킴 <span class="unsure">(?)</span><br><b>습기</b> ┬ 외부: race way 밀봉, 앞부분 커버 씌움, G/B같이 노출돼 있는 곳 차단<br>　　　└ 내부: 제습제(실리카겔) 여기저기 넣어놓음</div>
+<div class="star"><b>중기를 시험에 낼 거임</b></div>
+<table>
+<tr><th>구분</th><th>기간</th><th>비고</th></tr>
+<tr><td><b>단기 저장</b> <span class="en">Active Storage</span></td><td>30일을 넘지 않는 경우</td><td>엔진 오일 계통을 165~200℉로 1시간 연속 유지한 후 저장</td></tr>
+<tr><td class="k"><b>중기 저장</b> <span class="en">Temporary Storage</span></td><td><b>30일 이상 90일</b></td><td rowspan="2">30일 이상 저장 시 엔진 오일을 배출하고 <b>저장용 오일(MIL-C-6529)</b>로 교체, 오일 압력 관리 <span class="n">C = compound. 일반 오일은 MIL-L</span></td></tr>
+<tr><td><b>장기 저장</b> <span class="en">Indefinite Storage</span></td><td>90일 이상</td></tr>
+</table>
+<ul><li>저장의 핵심: 덮개를 하고 <b>습기가 적은(30% 이하)</b> 장소에 두고 지속적으로 습도 관리</li>
+<li class="en">☞ 장기 저장이 예상되면 미리 <b>엔진 장탈 전에 엔진오일을 저장용 오일로 교체한 후 오일 압력을 유지 관리</b> <span class="n">(오일로) 입혀 주는 것</span>. 수리 후 성능 시험을 끝낸 엔진도 같은 방법.</li></ul>
+
+<h3>8.11.1 방식제 <span class="en">Corrosion-preventive Materials</span></h3>
+<p>사용 중인 엔진은 연소 열이 습기를 증발시키고 윤활유가 보호 피막을 형성해 부식 우려가 없으나, 일정기간 운영하지 않을 시 기간에 따라 적절한 방식제를 이용.</p>
+<div class="note"><b>중기 → 오일 + 컴파운드</b> / <b>장기일 땐 컴파운드만 사용</b></div>
+<h3>8.11.2 방식 콤파운드 <span class="en">Corrosion-preventive Compounds</span></h3>
+<ul><li>금속 위에 왁스 같은 피막을 형성하는 석유계 제품</li>
+<li>오일 배출 후 교체 시 온도 상승 과정에서 엔진오일과 섞여 Light Corrosion-preventive Mixture가 된다</li>
+<li>혼합물 농도(MIL-C-6529, MIL-L-22851)는 미리 그 정도(<b>Heavy or Light</b>)를 예상하고 별도 준비. 한번 만든 혼합물에 콤파운드를 추가해 농도를 맞추면 안 된다</li>
+<li class="en">☞ 재사용 시 Commercial Solvent, Kerosene Spray로 콤파운드 제거 가능. 콤파운드는 습기를 차단하지만 습도가 과도하면 분해되고(주성분이 기름이라 점차 증발·건조) 부식 발생 → <b>엔진 저장 시에는 필히 일정량의 <span class="hl">탈수제(Dehydrating Agent)</span>를 비치</b> <span class="n">= 실리카겔</span></li></ul>
+<h3>8.11.3 탈수제 <span class="en">Dehydrating Agents</span></h3>
+<ul><li><span class="hl">실리카 겔(Silica-gel)</span>은 <span class="hl">물기를 머금어도 용해되지 않기 때문에</span> 방습제로 많이 사용. 자루에 넣어 엔진 여러 군데에 분산 배치</li>
+<li>Spark Plug Hole 같은 열린 부분에 끼울 수 있도록 플라스틱 플러그에 담아 <b>탈수 플러그</b>로 사용 <span class="n">왕복엔진에 많이 붙어 있음</span></li>
+<li>☞ <b>염화 코발트(Cobalt Chloride)</b> 첨가 시 상대습도에 따라 색 변화 — <b style="color:#6fb6ff">상대습도 30% 이하: 밝은 파란색</b> / <b style="color:#ff9ad5">60% 이상: 핑크색</b> → 부식 가능성을 시각적으로 확인</li>
+<li><span class="hl">열을 가하여 건조시키면 원래의 색깔로 되돌려 재사용도 가능</span> <span class="en">(투명 봉투에 넣어 엔진 컨테이너 점검 창으로 습도 검사에 사용하기도)</span></li></ul>
+<div class="figs"><figure><img loading="lazy" alt="실리카겔 탈수 플러그 — 상대습도 30% 이하 파랑 / 60% 이상 핑크" src="powerplant2-images/p200.webp"><figcaption>실리카겔 탈수 플러그 — 상대습도 30% 이하 파랑 / 60% 이상 핑크<span class="src">p.200</span></figcaption></figure></div>
+</section>
+
+<div class="pager"><a id="prev" href="#"></a><a id="next" href="#"></a></div>
+</main>
+
+<div id="lb"><img alt=""><p></p></div>
+<script>
+(function(){
+  var pages=[].slice.call(document.querySelectorAll('.page'));
+  var ids=pages.map(function(p){return p.dataset.page;});
+  var ICON={"FUEL": "⛽", "OIL": "🛢️", "AIR": "💨", "IGNITION": "⚡", "STARTING": "🔑", "엔진 장탈 및 교환": "🔧"};
+  var nav=document.getElementById('nav'), html='', groups=[], gi=-1;
+  pages.forEach(function(p){
+    var g=p.dataset.group;
+    if(!g){html+='<a class="solo" href="#'+p.dataset.page+'" data-to="'+p.dataset.page+'"><span class="no">⌂</span><span>'+p.dataset.title+'</span></a>';return;}
+    if(groups.indexOf(g)<0){ if(groups.length) html+='</div></div>'; groups.push(g);
+      html+='<div class="grp" data-g="'+g+'"><button type="button"><span class="ic">'+(ICON[g]||'')+'</span><span>'+g+'</span><span class="chev">▶</span></button><div class="sub">'; }
+    var isQ=p.dataset.page.indexOf('quiz-')===0;
+    html+='<a href="#'+p.dataset.page+'" data-to="'+p.dataset.page+'"'+(isQ?' class="quiz"':'')+'><span>'+(isQ?'학습문제풀이':p.dataset.title)+'</span></a>';
+  });
+  if(groups.length) html+='</div></div>';
+  nav.innerHTML=html;
+  [].forEach.call(nav.querySelectorAll('.grp>button'),function(b){b.addEventListener('click',function(){b.parentNode.classList.toggle('open');});});
+  var prev=document.getElementById('prev'), next=document.getElementById('next');
+  function label(p){return (p.dataset.group?p.dataset.group+' · ':'')+p.dataset.title;}
+  function show(){
+    var id=decodeURIComponent(location.hash.replace('#',''));
+    var idx=ids.indexOf(id); if(idx<0) idx=0;
+    var cur=pages[idx];
+    pages.forEach(function(p,i){p.classList.toggle('active',i===idx);});
+    [].forEach.call(nav.querySelectorAll('a'),function(a){a.classList.toggle('active',a.dataset.to===ids[idx]);});
+    [].forEach.call(nav.querySelectorAll('.grp'),function(g){var on=g.dataset.g===cur.dataset.group; g.classList.toggle('has-active',on); g.classList.toggle('open',on);});
+    if(idx>0){prev.style.visibility='visible';prev.href='#'+ids[idx-1];prev.textContent='← '+label(pages[idx-1]);}else{prev.style.visibility='hidden';}
+    if(idx<pages.length-1){next.style.visibility='visible';next.href='#'+ids[idx+1];next.textContent=label(pages[idx+1])+' →';}else{next.style.visibility='hidden';}
+    document.title=label(cur)+' — 동력장치 Ⅱ';
+    document.body.classList.remove('open');
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',show);
+  document.getElementById('menuBtn').addEventListener('click',function(){document.body.classList.toggle('open');});
+  document.getElementById('shade').addEventListener('click',function(){document.body.classList.remove('open');});
+  var lb=document.getElementById('lb');
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(t.tagName==='IMG'&&t.closest('figure')){lb.querySelector('img').src=t.src;lb.querySelector('p').innerHTML=t.closest('figure').querySelector('figcaption').innerHTML;lb.classList.add('on');}
+    else if(lb.classList.contains('on')&&t.closest('#lb')){lb.classList.remove('on');}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on');});
+  show();
+})();
+</script>
+</body>
+</html>
