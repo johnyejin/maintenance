@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>항공기 기체 + Water & Waste 벼락치기 요약</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f5f1; --card:#ffffff; --ink:#1d1f24; --muted:#636873; --line:#e3e1da;
+  --accent:#1f4e8c; --accent-soft:#e7eef8; --key:#b3261e; --key-soft:#fdecea;
+  --ok:#1e7a46; --ok-soft:#e6f4ec; --warn:#8a5a00; --warn-soft:#fff4dc;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR',system-ui,sans-serif;font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+header{background:#14213d;color:#fff;padding:28px 20px 22px}
+header .wrap{max-width:980px;margin:0 auto}
+header h1{margin:0 0 6px;font-size:1.55rem;font-weight:900;letter-spacing:-.02em}
+header p{margin:0;color:#c9d2e3;font-size:.92rem}
+nav{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+nav .wrap{max-width:980px;margin:0 auto;display:flex;gap:4px;padding:8px 12px;align-items:center}
+nav a{color:var(--ink);text-decoration:none;font-size:.86rem;font-weight:500;padding:6px 11px;border-radius:999px}
+nav a:hover{background:var(--accent-soft);color:var(--accent)}
+nav button{margin-left:auto;font:inherit;font-size:.82rem;font-weight:700;border:1px solid var(--key);color:var(--key);background:#fff;border-radius:999px;padding:6px 12px;cursor:pointer;flex-shrink:0}
+nav button.on{background:var(--key);color:#fff}
+main{max-width:980px;margin:0 auto;padding:20px 14px 80px}
+section{margin-top:34px;scroll-margin-top:60px}
+h2{font-size:1.35rem;font-weight:900;margin:0 0 4px;letter-spacing:-.02em;color:#14213d}
+h2 .src{font-size:.78rem;font-weight:500;color:var(--muted);margin-left:8px}
+h3{font-size:1.06rem;font-weight:700;margin:22px 0 8px;color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+ul{margin:6px 0;padding-left:20px} li{margin:3px 0}
+b{font-weight:700}
+.k{color:var(--key);font-weight:700}
+.tip{background:var(--key-soft);border-left:4px solid var(--key);border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.94rem}
+.tip::before{content:"★ 출제 포인트 ";font-weight:900;color:var(--key)}
+.note{background:var(--warn-soft);border-left:4px solid #d39b1a;border-radius:8px;padding:10px 14px;margin:12px 0;font-size:.92rem}
+.table-wrap{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;background:#fff}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#eef1f6;font-weight:700;white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.top{background:#14213d;color:#fff;border-radius:14px;padding:18px 20px}
+.top h2{color:#fff}
+.top ol{margin:8px 0 0;padding-left:22px}
+.top li{margin:5px 0}
+.top .k{color:#ffb4a9}
+/* 암기 모드 */
+body.hide .k{background:#ddd;color:transparent;border-radius:4px;cursor:pointer;user-select:none}
+body.hide .top .k{background:#3a4a6b}
+body.hide .k.show{background:transparent;color:var(--key)}
+body.hide .top .k.show{color:#ffb4a9}
+/* 퀴즈 */
+.q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.q .qt{font-weight:700;margin-bottom:8px}
+.q .qt span{color:var(--accent);margin-right:6px}
+.opts{display:grid;gap:6px}
+.opt{text-align:left;font:inherit;font-size:.93rem;background:#fafaf8;border:1px solid var(--line);border-radius:8px;padding:8px 12px;cursor:pointer;color:var(--ink)}
+.opt:hover{border-color:var(--accent)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);font-weight:700}
+.opt.wrong{background:var(--key-soft);border-color:var(--key);color:var(--key)}
+.exp{display:none;margin-top:8px;font-size:.9rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.q.done .exp{display:block}
+.score{position:sticky;bottom:12px;margin-top:16px;background:#14213d;color:#fff;border-radius:999px;padding:10px 18px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.score button{font:inherit;font-size:.85rem;background:#fff;color:#14213d;border:0;border-radius:999px;padding:5px 12px;cursor:pointer;font-weight:700}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:40px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>항공기 기체 · Water &amp; Waste 벼락치기 요약</h1>
+  <p>1장 기체 구조 개요 · 2장 동체 · 3장 날개 · ATA 38 Water &amp; Waste System — 객관식 25문항 대비</p>
+</div></header>
+
+<nav><div class="wrap">
+  <a href="#top10">핵심 20</a>
+  <a href="#ch1">1장 구조개요</a>
+  <a href="#ch2">2장 동체</a>
+  <a href="#ch3">3장 날개</a>
+  <a href="#ata38">ATA 38</a>
+  <a href="#quiz">모의 30문</a>
+  <button id="hideBtn" type="button">암기 모드</button>
+</div></nav>
+
+<main>
+
+<!-- ===================== TOP ===================== -->
+<section id="top10" class="top">
+  <h2>시험 직전 핵심 20</h2>
+  <ol>
+    <li>기체 주요 구조: <span class="k">동체 · 날개 · 꼬리날개 · 착륙장치 · 기관 마운트/나셀</span> (+조종계통)</li>
+    <li>기체에 작용하는 하중 5가지: <span class="k">인장 · 압축 · 전단 · 굽힘 · 비틀림</span></li>
+    <li>날개 1차 구조 = <span class="k">날개보(spar) · 리브(rib) · 외피(skin)</span> / 동체 1차 구조 = <span class="k">벌크헤드 · 세로대 · 프레임 · 스트링거</span></li>
+    <li>2차 구조 예: <span class="k">날개보 2개인 날개의 앞전 부분</span> (손상 시 성능 저하, 바로 사고 X). 객실 선반·문고리·칸막이는 <span class="k">구조 부재 아님</span></li>
+    <li>모노코크 = <span class="k">외피가 하중 전부</span> (두꺼운 외피 → 무거움 → 미사일에 사용)</li>
+    <li>세미모노코크 = 외피 <span class="k">전단 응력</span>, 골격 <span class="k">인장·압축·굽힘</span> → 현대 동체에 가장 많이 사용</li>
+    <li>페일세이프 4종: <span class="k">다경로(Redundant) · 이중(Double) · 대치(Back-up) · 하중경감(Load dropping)</span></li>
+    <li>구조 부재는 최대 하중에서 <span class="k">3초 이상</span> 견디도록 설계</li>
+    <li>샌드위치 심재: <span class="k">벌집형 · 거품형 · 파형</span> / 단점: <span class="k">국부 하중에 약함, 손상 파악 곤란, 고온에 약함</span></li>
+    <li>워렌 트러스 = <span class="k">수직 구조재 없음</span> → 공간 많고 유선형 / 프랫 = 세로대 + 수직 웨브 + 대각선 보강선</li>
+    <li>벌크헤드 위치: <span class="k">동체 앞·뒤, 날개·착륙장치 부착부</span>, 비틀림 저항 + 집중하중을 외피에 분산</li>
+    <li>여압실 단면: <span class="k">이중 거품형(double bubble)</span> — 동체 높이 증가 없이 넓은 공간</li>
+    <li>윈드실드 강도: 외측판 여압의 <span class="k">7~10배</span>, 내측판 <span class="k">3~4배</span>, <span class="k">1.8 kg</span> 새 충돌(순항속도)</li>
+    <li>I형 날개보 굽힘 시: 상면 플랜지 <span class="k">압축</span>, 하면 플랜지 <span class="k">인장</span>, 웨브 <span class="k">전단</span></li>
+    <li>압축 리브 = 가장 튼튼한 리브 (나셀·착륙장치·플랩·보조익 fitting 장착부, 날개보 간격 유지)</li>
+    <li>파울러 플랩 = 트랙 따라 후퇴 → <span class="k">시위·면적 증가, 양력계수 가장 크게 증가</span></li>
+    <li>도움날개: 뒷전 <span class="k">바깥쪽</span>(플랩은 안쪽), <span class="k">차등 조종</span>(올림각 &gt; 내림각), 고속 시 <span class="k">inboard</span>만 작동</li>
+    <li>식수 탱크 가압: <span class="k">블리드 에어/APU</span> 공기압으로 펌프 없이 공급 (B737 약 <span class="k">25 psi</span>)</li>
+    <li>진공 변기: <span class="k">16,000 ft 이하 → Vacuum Blower</span>, 이상 → <span class="k">기내·외 자연 차압</span></li>
+    <li>Flush 차단(Inhibit): <span class="k">Waste Tank Full · 지상 서비스 중 · 물 공급 부족</span></li>
+  </ol>
+</section>
+
+<!-- ===================== CH1 ===================== -->
+<section id="ch1">
+  <h2>1장 기체 구조의 개요<span class="src">기체(1) PDF</span></h2>
+
+  <h3>1. 기체 각부의 명칭과 역할</h3>
+  <div class="table-wrap"><table>
+    <tr><th>부분</th><th>역할 / 핵심</th></tr>
+    <tr><td><b>동체</b><br>Fuselage</td><td>① 승객·승무원·화물 수용 공간 ② 기체 전반의 하중 담당 ③ 비행 조종 모멘트를 전달하는 <span class="k">보(Beam)</span> 역할 ④ 날개·꼬리날개·착륙장치·기관의 부착부<br>→ 충분한 공간 + 강도·강성 + 공기저항 최소 형상</td></tr>
+    <tr><td><b>날개</b><br>Wing</td><td>① 양력 발생 ② 조종 모멘트 발생(<span class="k">도움날개</span>) ③ 고양력 장치(앞전·뒷전 플랩) ④ 필요 시 항력 발생(<span class="k">스피드 브레이크·스포일러</span>) ⑤ 연료탱크·케이블·유압 배관 ⑥ 동력장치·착륙장치 등 외부 장착물(<span class="k">Pylon</span>)</td></tr>
+    <tr><td><b>꼬리날개</b><br>Empennage</td><td>조종성·안정성 제공. 수평안정판 + 수직안정판. <span class="k">승강키(Elevator)</span> → 세로 안정, <span class="k">방향키(Rudder)</span> → 방향 안정</td></tr>
+    <tr><td><b>착륙장치</b></td><td>지상 하중 지지, 활주·착륙 충격 흡수, 동체/날개 하부 부착. 구성: <span class="k">타이어·바퀴·브레이크·완충기(Shock Absorber)</span> + 작동기구</td></tr>
+    <tr><td><b>엔진 마운트<br>&amp; 나셀</b></td><td>마운트: 엔진 장착 지지, <span class="k">추력을 기체에 전달</span><br>나셀: 기관·장치를 유선형 <span class="k">카울링(Cowling)·페어링(Fairing)</span>으로 씌운 전체 부분</td></tr>
+  </table></div>
+
+  <div class="grid2">
+    <div class="card"><b>비행 중 항공기에 작용하는 힘</b><br><span class="k">양력 · 항력 · 추력 · 중력 · 관성력</span></div>
+    <div class="card"><b>기체 구조에 작용하는 하중</b> (외력 = 하중 load)<br><span class="k">인장 · 압축 · 전단 · 굽힘 · 비틀림</span></div>
+  </div>
+
+  <h3>2. 1차 구조 vs 2차 구조</h3>
+  <div class="table-wrap"><table>
+    <tr><th></th><th>1차 구조</th><th>2차 구조</th></tr>
+    <tr><td>정의</td><td>기체의 <b>중요 하중</b> 담당, 파손 시 <b>심각한 결과</b></td><td>비교적 <b>작은 하중</b>, 파손 시 적절한 조치로 사고 방지 가능</td></tr>
+    <tr><td>예</td><td>날개: <span class="k">spar, rib, skin</span><br>동체: <span class="k">bulkhead, longeron, frame, stringer</span></td><td>날개보 2개인 날개의 <span class="k">앞전 부분</span> → 공력 성능 저하는 있으나 곧바로 사고로 직결 X</td></tr>
+  </table></div>
+  <div class="tip">객실 선반, 문고리, 칸막이 등은 <b>구조 부재가 아니다</b>.</div>
+
+  <h3>3. 트러스 구조 (Truss)</h3>
+  <ul>
+    <li><b>인장·압축의 2력 부재</b>로 구성, 목재 또는 <b>강관</b>으로 트러스 형성, 천/얇은 합판/금속판 외피</li>
+    <li><b>트러스(뼈대)가 모든 하중</b> 담당 / 외피는 <b>형태 유지 + 공기력을 트러스에 전달</b>만</li>
+    <li>경비행기·목재 비행기 사용. 종류: <b>Pratt truss, Warren truss</b></li>
+    <li>장점: 설계 간단, 제작 용이, 저렴 / 단점: <span class="k">내부 공간 마련 곤란, 유선형 제작 곤란</span></li>
+  </ul>
+
+  <h3>4. 응력 외피 구조 (Stressed Skin) — 모노코크 vs 세미모노코크</h3>
+  <div class="table-wrap"><table>
+    <tr><th></th><th>모노코크 (Monocoque)</th><th>세미모노코크 (Semi-monocoque)</th></tr>
+    <tr><td>하중 담당</td><td><span class="k">외피가 모든 하중</span></td><td>외피 + 골격 공동 담당<br>외피 = <span class="k">전단 응력</span> / 골격 = <span class="k">인장·압축·굽힘 등 나머지</span></td></tr>
+    <tr><td>특징</td><td>내부 공간 크고 유선형 가능. 작은 손상도 전체에 영향 → 두꺼운 외피 → <b>무게 증가로 기체 구조로 부적합</b> (미사일)</td><td><b>현대 항공기 동체에 가장 많이 사용</b>, <b>최소 무게로 최대 강도</b>, 결합은 주로 리벳(때로 볼트)</td></tr>
+  </table></div>
+
+  <h3>5. 페일 세이프 구조 (Fail-safe) — 4종 꼭 구분!</h3>
+  <p style="margin:4px 0">한 부분이 파손돼도 <b>발견·수리할 때까지</b> 나머지 구조가 하중을 담당해 안전 비행이 가능한 구조</p>
+  <div class="table-wrap"><table>
+    <tr><th>종류</th><th>설명 (키워드)</th></tr>
+    <tr><td><b>다경로 하중</b><br>Redundant</td><td>하중 경로를 <span class="k">여러 개</span> → 1개 파괴돼도 다른 경로로 전달</td></tr>
+    <tr><td><b>이중 구조</b><br>Double</td><td><span class="k">2개의 작은 부재</span>를 결합해 하나의 부재 → 일부 손상이 전체 파손으로 가지 않음</td></tr>
+    <tr><td><b>대치 구조</b><br>Back-up</td><td>파손 대비 <span class="k">예비 부재</span> 삽입 (예비 부재가 다른 기능을 겸하기도)</td></tr>
+    <tr><td><b>하중 경감</b><br>Load dropping</td><td><span class="k">큰 부재 위에 작은 부재를 겹쳐</span> 만든 구조 → 파괴 시작 시 주변 부재로 하중 전달, 완전 파단 방지</td></tr>
+  </table></div>
+  <div class="tip">구조 부재는 설계 최대 하중으로부터 <b>3초 이상</b> 견딜 수 있어야 함.</div>
+
+  <h3>6. 샌드위치 구조</h3>
+  <ul>
+    <li>2장의 외판 사이에 가벼운 <b>심재(core)</b>를 넣어 <b>접착제</b>로 고착</li>
+    <li>심재: <span class="k">벌집형(honeycomb), 거품형(foam), 파형(wave)</span></li>
+    <li>사용처: 보강재 사용이 어려운 곳 — 날개·꼬리날개·조종면의 끝 부분, <b>동체 마루 바닥</b></li>
+    <li>장점: 무게 대비 강도↑, 음진동·피로·굽힘에 강함, 보온·방습 우수, 진동 감쇠↑, 국부 버클링에 강함</li>
+    <li>단점: <span class="k">극히 일부분 하중(국부 하중)에 약함, 손상 파악 곤란, 고온에 약함</span> (하니컴: 화재·수분에 약함)</li>
+  </ul>
+
+  <h3>7. 설계 개념 비교</h3>
+  <div class="table-wrap"><table>
+    <tr><th>안전수명 (Safe-life)</th><th>페일세이프 (Fail-safe)</th><th>손상허용 (Damage Tolerance)</th></tr>
+    <tr><td>정해진 <b>수명 기간(비행시간/횟수)</b> 동안 피로 파괴·균열이 생기지 않도록 충분한 강도</td><td>일부 파손돼도 <b>발견·수리 시까지</b> 강도가 남아 있도록</td><td>페일세이프를 <b>더 발전</b>시킨 방식. 피로균열·부식·제작결함이 있어도 <b>발견될 때까지</b> 파괴/과도 변형 없도록. <b>주기점검 정비방식과 연계</b></td></tr>
+  </table></div>
+</section>
+
+<!-- ===================== CH2 ===================== -->
+<section id="ch2">
+  <h2>2장 동체<span class="src">기체(2) PDF</span></h2>
+
+  <h3>1. 동체 구조 형식</h3>
+  <ul>
+    <li><b>트러스형 동체</b> — Pratt / Warren</li>
+    <li><b>응력 외피형 동체</b> — 세미모노코크 / 모노코크</li>
+  </ul>
+
+  <h3>2. 트러스 구조형 동체</h3>
+  <ul>
+    <li>삼각형 집합체, <b>뼈대가 하중</b>, 표피는 기하학적 형태 유지</li>
+    <li>재료: <span class="k">저탄소강 강관, 니켈-크롬-몰리브덴강</span></li>
+    <li><b>Pratt</b>: 세로대 + <b>수직 웨브</b>, 대각선에 <b>보강선(wire)</b>으로 강도 유지</li>
+    <li><b>Warren</b>: <span class="k">수직 구조재가 없음</span> → Pratt보다 여유 공간 많고 유선형 가능</li>
+  </ul>
+  <div class="table-wrap"><table>
+    <tr><th>저탄소강</th><th>중간 탄소강</th><th>고탄소강</th></tr>
+    <tr><td>C <b>0.25% 이하</b></td><td>C <b>0.25 ~ 0.60%</b></td><td>C <b>0.6 ~ 1.7%</b></td></tr>
+  </table></div>
+
+  <h3>3. 응력 외피형 동체</h3>
+  <ul>
+    <li><b>모노코크</b>: 벌크헤드 + 정형재(Former)에 <b>두꺼운 외피</b> → 외피가 응력 담당 → 동체엔 부적합, <b>미사일</b>에 사용</li>
+    <li><b>세미모노코크</b>: <b>프레임·벌크헤드</b>가 동체 형태 구성 + 길이 방향 <b>세로대·스트링거</b> 보강 + 외피</li>
+  </ul>
+
+  <div class="grid2">
+    <div class="card">
+      <b>세로(길이) 방향 골격</b>
+      <ul>
+        <li><b>세로대 (Longeron)</b>: 세로 방향 <span class="k">주 구조재</span>, 길이 방향 연속 부착</li>
+        <li><b>스트링거 (Stringer, 세로지)</b>: 세로 방향 <span class="k">보강재</span>, Ring과 함께 외피를 작은 사각형으로 분할 → <span class="k">외피 주름(버클링) 방지</span></li>
+        <li>단면: <b>I, Z, T, N, H</b>형 (굽힘 모멘트에 의한 인장·압축 대응)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b>수직(가로) 방향 골격</b>
+      <ul>
+        <li><b>벌크헤드 (Bulkhead, 가로격판)</b>: 수직 방향 <span class="k">주 부재</span>, 두껍고 튼튼. <span class="k">비틀림 변형 저항</span>, <span class="k">집중하중을 외피에 골고루 전달</span>. 위치: <b>동체 앞·뒤, 날개·착륙장치 부착부</b> (여압 격벽 포함)</li>
+        <li><b>링 (Ring)</b>: 가로 방향 보강재, Stringer와 <b>15~50 cm</b> 간격, 외형 유지 + 주름 방지</li>
+        <li><b>정형재 (Former)</b>: 합금판 성형, 동체 형태 구축</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card"><b>외피 (Skin)</b>: 얇은 알루미늄 합금판, 골격에 리벳 고정. <span class="k">전단 응력 + 비틀림 응력</span> 담당 (때로 스트링거와 함께 압축·인장도)</div>
+
+  <h3>4. 프레임·스트링거를 외피에 접합하는 방법</h3>
+  <div class="table-wrap"><table>
+    <tr><th>방법</th><th>특징</th></tr>
+    <tr><td>㉠ 스트링거·프레임 <b>모두 외피에 직접 접합</b></td><td>응력 분포 <b>균등</b> → <span class="k">여압식 동체에 많이 적용</span></td></tr>
+    <tr><td>㉡ 프레임이 스트링거 안쪽에 접합 (외피와 직접 X)</td><td>스트링거-외피 접합부에 <b>응력 집중</b>, 프레임이 튀어나와 <b>탑재 용적 감소</b></td></tr>
+  </table></div>
+
+  <h3>5. 동체의 구분</h3>
+  <ul>
+    <li><b>전방 동체</b>: 공기저항 최소 형상, 조종실 <b>시계 확보</b></li>
+    <li><b>중간 동체</b>: 승객·화물 공간, <span class="k">날개 및 주 착륙장치 부착부</span></li>
+    <li><b>후방 동체</b>: 승객·화물 탑재 / <b>후방 몸체(After body)</b>: <span class="k">꼬리날개 부착부</span></li>
+    <li>프레임은 수평 <b>마루보(Floor beam)</b>에 부착 → 여압 하중 견딤, 길이 방향 <b>세로보(Longitudinal beam)</b>로 하중 분산</li>
+  </ul>
+
+  <h3>6. 여압실</h3>
+  <ul>
+    <li>공기원: <b>피스톤 엔진 → 과급기</b> 압축공기 / <b>제트기 → 압축기 배출(블리드) 공기</b></li>
+    <li>고공일수록 차압↑ → <b>스트링거 간격 좁힘, 고강도 스트링거, 티타늄 합금</b></li>
+    <li>기밀: 외피판·리벳 접합부에 <span class="k">밀폐제(Sealant)</span></li>
+    <li>케이블·조종 로드가 외벽 통과 시: <b>스프링과 고무 실, 그리스와 와셔 실, 고무 콘</b></li>
+    <li>단면: <span class="k">이중 거품형(Double bubble)</span> — 동체 높이 증가 없이 넓은 공간</li>
+  </ul>
+
+  <h3>7. 조종실 창문 · 윈드실드 · 객실 창문 · 출입문</h3>
+  <div class="table-wrap"><table>
+    <tr><th>항목</th><th>핵심</th></tr>
+    <tr><td>윈드실드 구조</td><td>내·외측 유리 사이 <b>비닐층 코어</b> 샌드위치. 외측판 안쪽 <span class="k">금속 피막(conductive coating)</span> → 보온·방빙·제빙. 비닐층은 전기로 가열돼 플라스틱 상태 → 충격 흡수</td></tr>
+    <tr><td>윈드실드 강도</td><td>외측판: 여압의 <span class="k">7~10배</span> / 내측판: <span class="k">3~4배</span> / 순항 중 <span class="k">1.8 kg</span> 새 충돌에도 파괴 X</td></tr>
+    <tr><td>객실 창문</td><td><b>두 장의 연성 유리</b>, 사이로 여압 공기 통과, <b>바깥쪽 판만으로 최대 여압</b> 감당, 바깥판은 외피 안쪽에 볼트 부착, 주위는 seal. <span class="k">원형/둥근 모서리 = 응력 집중 억제</span></td></tr>
+    <tr><td>출입문</td><td>동체 외벽과 동일 부재 이상 강도.<br>① <span class="k">플러그형(plug type)</span>: 동체 <b>안쪽으로</b> 열림 → 기밀 용이<br>② 밖으로 여는 문: <span class="k">팽창식 실(seal)</span> 사용</td></tr>
+  </table></div>
+</section>
+
+<!-- ===================== CH3 ===================== -->
+<section id="ch3">
+  <h2>3장 날개<span class="src">기체(3) PDF</span></h2>
+
+  <h3>1. 날개 일반</h3>
+  <ul>
+    <li>역할: 양력 발생, 연료탱크(<b>integral</b>), 기관·착륙장치·조종장치·고양력장치 부착</li>
+    <li>주날개 → <b>롤링</b> / 수평꼬리날개 → <b>피칭</b> / 수직꼬리날개 → <b>요잉</b></li>
+    <li>비행 중 하중: 공기력·중력·관성력, 양력에 의한 <b>굽힘·비틀림</b></li>
+    <li><b>휨(굽힘) 응력</b>: 날개 하중 + 풍압 항력 / <b>비틀림 응력</b>: 길이 방향 익형들의 <span class="k">공력 중심 위치가 달라서</span> 발생</li>
+    <li>설계 고려: 하중·변형 문제, 장착 장치로 인한 <b>구조적 불연속 → 집중하중</b></li>
+  </ul>
+
+  <h3>2. 날개 구조 형식</h3>
+  <div class="table-wrap"><table>
+    <tr><th>트러스형 날개</th><th>세미모노코크형 날개</th></tr>
+    <tr><td>소형 경항공기. 날개보 + 리브 + <b>버팀선(bracing wire)</b>이 하중 담당. 외피(금속판·합판·우포)는 형태만. 전단·휨·비틀림 → Spar·Rib 담당</td><td>날개보(<b>2~3개</b>: 앞·중간·뒷) + 리브 + 스트링거 + 외피. 날개보와 외피가 <span class="k">상자형(box) 구조</span>. 날개보 → <b>축력·굽힘</b> / 외피 → <b>비틀림 + 축력 증가분을 전단 흐름</b>으로</td></tr>
+  </table></div>
+
+  <h3>3. 날개 구조 부재</h3>
+  <div class="table-wrap"><table>
+    <tr><th>부재</th><th>역할 / 종류</th></tr>
+    <tr><td><b>날개보 Spar</b></td><td>길이 방향 <span class="k">주 부재, 굽힘력 담당</span> (주요 하중: 굽힘·비틀림). 종류: 트러스형(용접) / <b>I형</b>(위·아래 플랜지 + 얇은 웨브).<br>굽힘 시 <span class="k">상면 플랜지 압축 · 하면 플랜지 인장 · 웨브 전단</span>. 날개-동체 <b>연결부</b>, 착륙장치·기관도 날개보에 장착</td></tr>
+    <tr><td><b>리브 Rib</b></td><td>익형(단면) 유지, 외피 하중을 <b>날개보에 전달</b>, 앞·뒤 Spar <b>간격 유지</b><br>· 정형 리브(Former): 날개 형태 · 앞전 리브(Nose): 전연 모양<br>· <span class="k">압축 리브(Compression)</span>: 나셀·착륙장치·플랩·보조익 fitting 장착, 전연 압축하중을 날개보에 전달, 간격 유지 → <b>가장 튼튼</b><br>· 구조 형식: 트러스 리브 / 스탬프 리브 · <b>중량 경감 구멍(lightening hole)</b></td></tr>
+    <tr><td><b>스트링거</b></td><td>날개 <b>굽힘 강도 증대</b>, 비틀림에 의한 <b>좌굴 방지</b>, 리브에 리벳 고정. 단면 <b>L형·M형·모자형</b>. <b>일체형 날개</b> = 스트링거와 외피를 일체 제작(최소 무게·고강도)</td></tr>
+    <tr><td><b>외피 Skin</b></td><td><span class="k">앞 날개보~뒷 날개보 사이 외피 = 응력 외피</span> (높은 강도). 앞전·뒷전은 공력 형태 유지</td></tr>
+  </table></div>
+
+  <h3>4. 날개 장착 방식</h3>
+  <div class="table-wrap"><table>
+    <tr><th></th><th>지주식 (Braced)</th><th>외팔보식 (Cantilever)</th></tr>
+    <tr><td>구조</td><td>날개 하부~동체를 <b>날개 지주(Strut)</b>로 연결</td><td>지주 없이 동체 장착부에 고정 → <b>응력이 장착부에 집중</b> → 벌크헤드·프레임 보강</td></tr>
+    <tr><td>장점</td><td>장착부에 휨모멘트·전단력 안 걸림, <b>가볍고 장착 용이</b></td><td><span class="k">항력 적음 → 고속기</span></td></tr>
+    <tr><td>단점</td><td>지주 공기저항 큼 → <b>소형 경항공기만</b>. 비행 중 지주는 <span class="k">인장하중</span></td><td>강도 확보 위해 <b>무거움</b>. 날개보 3개 사용하기도. 장착 핀: 앞·뒤 날개보 뿌리 <b>상하 각 2개</b>, <b>서로 다른 방향</b></td></tr>
+  </table></div>
+
+  <h3>5. 연료 탱크</h3>
+  <div class="table-wrap"><table>
+    <tr><th>종류</th><th>특징</th></tr>
+    <tr><td><b>인티그럴</b> (integral)</td><td>앞·뒤 날개보 + 외피를 <b>밀폐</b>해 날개 내부 자체를 탱크로. <span class="k">대형기, 가벼움</span></td></tr>
+    <tr><td><b>블래더</b> (bladder)</td><td><b>합성고무</b> 탱크를 별도 제작해 날개보 사이 장착.<br>Self-sealing: 파손 시 자체 밀폐, <b>구식 군용기</b> / Non-self-sealing: 밀폐 효과 X, <b>연료 적재량 큼</b></td></tr>
+    <tr><td><b>셀형</b> (cell)</td><td><b>금속</b> 탱크를 날개보 사이에 내장</td></tr>
+  </table></div>
+
+  <h3>6. 앞전 고양력 장치</h3>
+  <ul>
+    <li><b>슬랫(Slat)</b>: 앞에서 <b>upwash</b> 유도, 고에너지 흐름을 윗면으로 → <b>박리 지연·실속 방지</b>. <span class="k">아음속 여객기</span>, 최대양력계수 <b>50~90%</b> 증가. (슬롯 = 공기가 흐르는 길)</li>
+    <li><b>고정 슬롯</b>: 하면 기류를 상면으로 → 박리 지연</li>
+    <li><b>드룹 노즈(Droop nose)</b>: 구조 간단, 슬랫보다 저효율, <span class="k">초음속 전투기</span> (저속에서 앞전 내림)</li>
+    <li><b>크루거 플랩(Krueger)</b>: <b>얇은 날개</b>에 부착 용이, 캠버·앞전 반지름 증대</li>
+    <li><b>로컬 캠버</b>: 앞전이 앞으로 굽혀 나와 시위·익면적 증대</li>
+  </ul>
+
+  <h3>7. 뒷전 고양력 장치 (플랩) — 이착륙 거리 단축</h3>
+  <div class="table-wrap"><table>
+    <tr><th>플랩</th><th>핵심 키워드</th></tr>
+    <tr><td>플레인 (Plain)</td><td>힌지로 캠버 변화, 효율 낮음, 전투기. <span class="k">10~15° 초과 시 너클 뒤 박리</span></td></tr>
+    <tr><td>스플릿 (Split)</td><td>날개 하단 평판, 구조 간단·가벼움, <b>와류(항력) 커서</b> 잘 안 씀</td></tr>
+    <tr><td>슬롯 (Slotted)</td><td>하면 기류를 상면으로 → 박리 방지, <b>40°까지</b></td></tr>
+    <tr><td>파울러 (Fowler)</td><td><span class="k">트랙 따라 이동 → 시위·익면적 증가, 양력계수 가장 크게 증가</span></td></tr>
+    <tr><td>이중 슬롯</td><td>내림각↑, 박리 현저히 지연 → <b>여객기</b></td></tr>
+    <tr><td>삼중 슬롯</td><td>앞·중간·뒤 플랩, <b>대형 여객기</b></td></tr>
+    <tr><td>잽 (Zap)</td><td><b>스플릿 플랩 개선</b>(뒷전 와류 감소), 구조 강도 문제</td></tr>
+    <tr><td>블로우 플랩 / 블로우 제트</td><td>제트 <b>배기가스</b> 이용해 양력 증대</td></tr>
+  </table></div>
+
+  <h3>8. 도움날개 · 스포일러</h3>
+  <div class="grid2">
+    <div class="card"><b>도움날개 (Aileron)</b>
+      <ul>
+        <li>뒷전 <span class="k">바깥쪽</span> (플랩은 안쪽)</li>
+        <li>세로축 중심 <b>옆놀이(Rolling)</b> 발생·제어</li>
+        <li>좌우 반대 작동, <span class="k">올림각 &gt; 내림각 = 차등 조종(Differential Control)</span></li>
+        <li>대형기 좌우 2개씩: <b>저속 → 모두 작동</b>, <b>고속 → 안쪽(inboard)만</b></li>
+        <li>대형기는 벌집 샌드위치 일부 사용</li>
+      </ul>
+    </div>
+    <div class="card"><b>스포일러 (Spoiler)</b>
+      <ul>
+        <li>날개 뒤편 <b>상단</b>, 판막처럼 들려 항력↑</li>
+        <li><b>양력 감소·항력 증대</b> → 비행 중 속도 감소</li>
+        <li>롤 조종 시 <b>도움날개 보조</b> (2차 조종면)</li>
+        <li><span class="k">공중 스포일러</span> = 비행 중 속도 제동 / <span class="k">지상 스포일러</span> = 착륙 시 전체 작동, 제동 효과</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>9. 방빙 · 제빙</h3>
+  <div class="table-wrap"><table>
+    <tr><th>방빙 (Anti-icing) — 얼지 않게</th><th>제빙 (De-icing) — 언 것을 제거</th></tr>
+    <tr><td>① <b>전열식</b>: 전열선으로 앞전 가열<br>② <b>가열 공기식</b>: 압축기 배출 뜨거운 공기</td><td>① <b>알코올 분출식</b>: 앞전 구멍으로 알코올 분출, 빙점 낮춤 (<b>이소프로필 알코올</b>, -40℃)<br>② <b>제빙 부츠</b>: 앞전 공기주머니에 <span class="k">압축공기를 맥동적으로</span> 공급 → 팽창·수축으로 얼음 깸</td></tr>
+  </table></div>
+</section>
+
+<!-- ===================== ATA 38 ===================== -->
+<section id="ata38">
+  <h2>Water &amp; Waste System (ATA Chapter 38)<span class="src">Water &amp; Waste PDF</span></h2>
+
+  <div class="card"><b>ATA 38의 3개 하위 시스템</b>
+    <ul>
+      <li><b>식수(Potable Water)</b> 시스템: 식수·세척용 물 공급 (갤리, 세면대, 변기 플러싱)</li>
+      <li><b>폐수(Waste water, Gray water)</b> 시스템: 세면대·갤리 사용 물 배출 → <span class="k">드레인 마스트</span>로 기외 배출</li>
+      <li><b>화장실(Toilet, Black water)</b> 시스템: 오물을 <span class="k">진공으로 흡입 → 탱크에 저장</span>, 지상에서 배출</li>
+    </ul>
+  </div>
+
+  <h3>1. 식수(Potable Water) 시스템</h3>
+  <ul>
+    <li>저장: 기체 하부/화물칸 인근 탱크</li>
+    <li><span class="k">가압 방식</span>: 엔진/APU <b>블리드 에어</b>로 탱크 가압 → <b>별도 펌프 없이</b> 물을 밀어냄</li>
+    <li>지상이나 블리드 부족 시 <b>전동 컴프레서</b> 작동. <b>압력 스위치</b>: 하한(<b>Cut-on</b>) 이하 → 켬, 상한(<b>Cut-off</b>) → 끔</li>
+    <li>가압 공기 계통 부품: <b>압력 조절기(Regulator)</b> — 탱크 파손 방지(10 µ 필터) / <b>체크 밸브</b> — 물·습기가 공기 라인으로 <b>역류 방지</b> / <b>릴리프 밸브</b> — <b>과압 시 압력 배출</b></li>
+    <li><b>컴프레서 인터록 스위치</b>: 과압·저압 보호, 물탱크 빈 상태 <b>공회전 방지</b>, 문제 해결 전까지 잠금 유지</li>
+    <li>잔량: 센서 → 승무원 패널(FAP)에 Empty, 1/4, 1/2, 3/4, Full</li>
+    <li><b>동파 방지</b>: 영하 장기 주기 시 탱크·배관 물 <b>완전 배수</b></li>
+  </ul>
+  <div class="table-wrap"><table>
+    <tr><th>기종</th><th>식수 탱크</th></tr>
+    <tr><td>B737 오리지널(-100/200/300)</td><td>30 US gal (약 114 L)</td></tr>
+    <tr><td>B737 클래식 후기(-400/500)</td><td>40 US gal (약 151 L)</td></tr>
+    <tr><td>B737 NG / MAX</td><td><b>60 US gal (약 227 L)</b>, 후방 화물칸 뒤, 단열재(Thermal blanket), 약 <b>25 psi</b> 가압</td></tr>
+    <tr><td>A380</td><td>75 gal(283 L) × <b>6개 = 약 1,700 L</b>, 후방 화물칸 전방(좌3·우3), <b>35~41 psi</b>, 옵션 시 center wingbox에 2개 추가(총 8개)</td></tr>
+  </table></div>
+  <div class="note">일반적인 물탱크 가압은 슬라이드에 <b>35~50 psi</b>로 나와 있어요. 기종별 수치(737 약 25 psi, A380 35~41 psi)와 섞어서 물어볼 수 있으니 구분해 두세요.</div>
+
+  <h3>2. Water Service Panel (식수 서비스 패널)</h3>
+  <ul>
+    <li>위치: 동체 하부/후방 측면. 지상 급수차와 연결해 <b>급수(Fill)·배수(Drain)</b></li>
+    <li><b>Fill/Drain Control Handle</b>: <span class="k">FILL – NORMAL – DRAIN</span> 모드 선택</li>
+    <li><b>Quantity Indicator</b>(수량계), 상태 표시등(Tank Full / Overflow / Drain)</li>
+    <li><b>Overflow &amp; Drain Port</b>: 넘친 물을 외부로 배출 / <b>Ground Pressure Port</b>: 지상 공기압 연결</li>
+    <li><b>Door Microswitch</b>: 패널 문 개폐와 시스템 연동(안전)</li>
+    <li><b>Tank Drain Valve</b>: 탱크 <b>최저점</b>, 평소 스프링으로 밀폐, 공구로 개방, 작업 후 <b>누수 확인</b></li>
+    <li><b>Preselection Unit</b>: 급수량을 <span class="k">미리 설정</span> → 필요한 양만 실어 <b>중량·연료 절감</b> (A330: Bulk cargo door 근처)</li>
+  </ul>
+
+  <h3>3. 폐수 배출 관련 부품</h3>
+  <div class="table-wrap"><table>
+    <tr><th>부품</th><th>역할</th></tr>
+    <tr><td><b>드레인 마스트</b> (Drain Mast)</td><td>세면대·갤리 폐수(gray water)를 <b>비행 중 동체 외부로 배출</b>. 동체 하부 돌출. <span class="k">히터</span>로 결빙 방지. (B787은 마스트 없이 탱크에 모으기도)</td></tr>
+    <tr><td><b>GWDU</b></td><td>Galley Waste Disposal Unit — 갤리 남은 음료·액체·찌꺼기를 하부 오물 탱크로 배출</td></tr>
+    <tr><td><b>오버보드 체크 밸브</b></td><td>유체를 기외로 <span class="k">단방향 배출</span>, 외부 이물질 <b>역류 방지</b></td></tr>
+    <tr><td><b>오버보드 벤트</b></td><td>폐수탱크 압력을 <b>외부 대기압과 평형</b> 유지 (과압·진공 방지), 가스 배출</td></tr>
+    <tr><td><b>Vacuum Generator</b></td><td>진공 압력차로 갤리/화장실 폐기물 흡입 → 배관 막힘 방지</td></tr>
+  </table></div>
+
+  <h3>4. 진공 변기 (Vacuum Toilet) 작동</h3>
+  <div class="table-wrap"><table>
+    <tr><th>고도</th><th>진공 형성 방법</th></tr>
+    <tr><td><b>지상·저고도</b> (약 <span class="k">16,000 ft 이하</span>)</td><td>기압차 부족 → <span class="k">Vacuum Blower</span>(전동식)가 탱크를 강제 음압</td></tr>
+    <tr><td><b>고고도</b> (16,000 ft 이상)</td><td>객실(약 8,000 ft 수준)과 외기의 <span class="k">자연 차압</span> 이용, 블로워 정지, Vent valve 열림</td></tr>
+  </table></div>
+  <div class="card"><b>Flush Cycle (약 4~6초)</b> — 제어: <b>FCU / VSC</b>(Vacuum System Controller)<br>
+    ① 신호 감지 (고도·탱크 Full 확인) → ② 린스 (<b>약 0.2~0.4 L</b> 분사, Spray ring) → ③ <b>Flush Valve 오픈</b> → ④ 이송·분리 (Separator: 공기는 배출, 오물은 탱크) → ⑤ 복귀 (밸브 닫힘·밀봉)
+  </div>
+  <div class="tip">Flush <b>Inhibit(차단)</b> 조건 3가지: ① <b>Waste Tank 100% Full</b> ② <b>지상 서비스 중</b>(Waste Service Panel 열고 배출 중) ③ <b>물 공급 부족(No Water)</b></div>
+  <ul>
+    <li>변기 내부 <b>테플론(비고착) 코팅</b> → 소량의 물로 세척 (1회 0.5 L 미만), 흡입 약 320 km/h, 블루 주스(Skykem) 소독·탈취</li>
+    <li>변기 재질: 도기 대신 스테인리스·복합재 → <b>경량화</b></li>
+    <li><b>Toilet Shroud</b>: 변기 하부 배관·밸브를 가리는 <b>밀폐형 보호 커버</b>. Seal/실란트 손상 → 오물이 바닥 구조물로 → <span class="k">부식(Corrosion)</span></li>
+  </ul>
+
+  <h3>5. Waste Tank (오물 탱크)</h3>
+  <ul>
+    <li>재질: <b>티타늄 또는 복합재</b>, 내벽 <b>테플론 코팅</b></li>
+    <li><b>Inlet Pot</b>: 오물 유입구 (스플래시 플레이트) / <b>Separator</b>: <span class="k">기·액 분리</span> / <b>Rinse(Flush) Ring</b>: 지상에서 탱크 내벽 세척 / <b>Quantity Sensors</b></li>
+    <li>센서: <b>Continuous level sensor</b>(0~100% 연속) + <b>Point level sensor</b>(100% 감지 전용) → <span class="k">Point 센서 신호가 우선권</span></li>
+    <li>정비: <b>요석(Urine scale)</b> → 센서 오지시(False Full)·밸브 누설 → 정기 <b>화학 세척</b>(12,000 FH 주기) / <b>Anti-odor(카본) 필터</b> 정기 교체</li>
+    <li>Full 시 지시: CAP에 <b>'WASTE TANK FULL'</b>, <b>LO/HI 차임 2회</b>, Flush 스위치 작동 불가, 'Lavatory Inoperative' 점등, EICAS/CMC 기록</li>
+  </ul>
+
+  <h3>6. Waste Service Panel</h3>
+  <ul>
+    <li>위치: <span class="k">동체 후방 하부</span>, 지상 <b>Lavatory Service Truck</b>과 연결</li>
+    <li><b>Waste Drain Valve &amp; Coupler (4인치)</b> + 밸브 핸들/케이블</li>
+    <li><b>Flush Ring Line Connection</b>: 배출 후 세척수·세정제 주입</li>
+    <li>Service Indicator / 조명</li>
+  </ul>
+
+  <h3>7. 정비 기술 문서 약어</h3>
+  <div class="table-wrap"><table>
+    <tr><th>약어</th><th>뜻</th></tr>
+    <tr><td><b>IPD</b></td><td>Illustrated Parts Data/Catalog — <b>부품 도해·파트 번호</b> 찾기</td></tr>
+    <tr><td><b>SB</b></td><td>Service Bulletin — 제작사가 <b>안전·수정·개조</b>를 위해 발행하는 기술 공고</td></tr>
+    <tr><td><b>SL</b></td><td>Service Letter — 제작사의 <b>일반 정보·권고</b> 안내서</td></tr>
+    <tr><td><b>MOM</b></td><td>Maintenance Organization Manual/Message — 정비 조직 매뉴얼·긴급 지침</td></tr>
+  </table></div>
+</section>
+
+<!-- ===================== QUIZ ===================== -->
+<section id="quiz">
+  <h2>모의 객관식 30문</h2>
+  <p style="color:var(--muted);margin:2px 0 10px;font-size:.92rem">보기를 누르면 바로 정답·해설이 나와요. 틀린 문제만 위로 돌아가서 다시 보기!</p>
+  <div id="qbox"></div>
+  <div class="score"><span id="scoreTxt">0 / 30 풀이 · 정답 0</span><button type="button" id="resetBtn">다시 풀기</button></div>
+</section>
+
+<footer>첨부 강의자료(기체 1·2·3장, Water &amp; Waste System) 기반 요약</footer>
+</main>
+
+<script>
+const Q=[
+["항공기 기체에 작용하는 하중의 종류가 아닌 것은?",["인장력","전단력","비틀림력","양력"],3,"기체 구조 하중 5가지: 인장·압축·전단·굽힘·비틀림. 양력은 '비행 중 항공기에 작용하는 힘'."],
+["날개의 1차 구조가 아닌 것은?",["날개보(spar)","리브(rib)","외피(skin)","세로대(longeron)"],3,"세로대는 동체의 1차 구조. 날개 1차 구조 = spar, rib, skin."],
+["2개의 날개보를 가진 날개에서 2차 구조에 해당하는 부분은?",["날개보","앞전 부분","날개 장착부","압축 리브"],1,"앞전 부분은 손상 시 공력 성능 저하가 있지만 곧바로 사고로 직결되지 않는 2차 구조."],
+["외피가 하중 전부를 담당하며, 두꺼운 외피로 무게가 증가해 미사일 등에 사용하는 구조는?",["트러스 구조","모노코크 구조","세미모노코크 구조","샌드위치 구조"],1,"모노코크: 외피가 모든 하중, 동체에는 부적합."],
+["세미모노코크 구조에서 외피가 주로 담당하는 응력은?",["인장 응력","압축 응력","전단 응력","굽힘 응력"],2,"외피 = 전단, 골격 = 인장·압축·굽힘 등 나머지."],
+["트러스 구조에 대한 설명으로 틀린 것은?",["인장·압축 2력 부재로 구성","외피는 형태 유지와 공기력 전달만 담당","내부 공간 마련이 용이하다","제작 비용이 저렴하다"],2,"트러스의 단점이 내부 공간 마련 곤란, 유선형 제작 곤란."],
+["여러 개의 하중 경로를 두어 하나가 파괴되어도 다른 경로로 하중을 전달하는 페일세이프 구조는?",["다경로 하중 구조","이중 구조","대치 구조","하중 경감 구조"],0,"Redundant structure."],
+["파손에 대비하여 예비 부재를 삽입한 페일세이프 구조는?",["다경로 하중 구조","이중 구조","대치(Back-up) 구조","하중 경감 구조"],2,"대치 구조: 예비 부재 (다른 기능 겸하기도)."],
+["큰 부재 위에 작은 부재를 겹쳐 만들어 완전 파단을 방지하는 구조는?",["하중 경감 구조","이중 구조","대치 구조","안전수명 구조"],0,"Load dropping structure."],
+["샌드위치 구조의 단점으로 옳은 것은?",["무게에 비해 강도가 작다","음진동에 약하다","손상 상태 파악이 곤란하고 고온에 약하다","보온·방습성이 나쁘다"],2,"단점: 국부 하중에 약함, 손상 파악 곤란, 고온에 약함."],
+["피로 균열·부식 등의 손상이 있어도 발견·수리 시까지 파괴되지 않도록 하며, 페일세이프를 더 발전시킨 설계는?",["안전수명 설계","손상허용 설계","정적 강도 설계","트러스 설계"],1,"Damage Tolerance Design — 주기점검 정비방식과 연계."],
+["수직 구조재가 없어 Pratt 트러스보다 여유 공간이 많고 유선형으로 만들 수 있는 구조는?",["Warren truss","Howe truss","Monocoque","Semi-monocoque"],0,"Warren truss = 수직 구조재 없음."],
+["저탄소강의 탄소 함유량은?",["0.25% 이하","0.25~0.60%","0.6~1.7%","2.0% 이상"],0,"저 ≤0.25, 중 0.25~0.60, 고 0.6~1.7%."],
+["동체의 비틀림 변형에 저항하고 집중하중을 외피에 골고루 전달하며, 날개·착륙장치 부착부에 위치하는 부재는?",["스트링거","벌크헤드","링","세로대"],1,"벌크헤드(가로 격판) = 수직 방향 주 부재."],
+["외피를 작은 사각형으로 분할 지지하여 외피의 주름(버클링)을 방지하는 세로 방향 보강재는?",["벌크헤드","스트링거","정형재","마루보"],1,"Stringer(세로지) + Ring."],
+["여압실 단면으로 가장 많이 쓰이는 이중 거품형의 장점은?",["제작비 절감","동체 높이를 증가시키지 않고 넓은 공간 확보","항력 증가","중량 증가 억제 불필요"],1,"Double bubble type."],
+["윈드실드 외측판의 파괴 강도는 여압의 몇 배 이상인가?",["1~2배","3~4배","7~10배","15~20배"],2,"외측 7~10배, 내측 3~4배, 1.8 kg 새."],
+["객실 창문을 원형 또는 둥근 모서리로 만드는 이유는?",["시야 확대","응력 집중 억제","제작 용이","무게 감소"],1,"모서리 응력 집중 방지."],
+["동체 안쪽으로 열리게 하여 기밀 유지가 용이한 출입문은?",["플러그형","외개형","슬라이딩형","팽창식 실 문"],0,"Plug type door. 밖으로 여는 문은 팽창식 seal 사용."],
+["I형 날개보에 굽힘 응력이 작용할 때 상면 플랜지에 작용하는 응력은?",["인장","압축","전단","비틀림"],1,"상면 압축 · 하면 인장 · 웨브 전단."],
+["나셀·착륙장치 장착부 등에 쓰이며 전연 압축하중을 날개보에 전달하는 가장 튼튼한 리브는?",["정형 리브","앞전 리브","압축 리브","스탬프 리브"],2,"Compression rib."],
+["외팔보식(cantilever) 날개의 특징으로 옳은 것은?",["지주가 인장하중을 받는다","항력이 커서 저속기에 사용","항력이 적어 고속기에 적합하나 다소 무겁다","장착부에 응력이 걸리지 않는다"],2,"지주식: 가볍지만 항력 큼(소형기), 외팔보식: 항력 적고 무거움."],
+["날개보와 외피를 밀폐하여 날개 내부 공간 자체를 연료탱크로 쓰는 방식은?",["블래더형","셀형","인티그럴형","팁 탱크"],2,"Integral fuel tank — 대형기, 가벼움."],
+["트랙을 따라 후방으로 이동하여 시위와 익면적을 늘려 양력계수를 가장 크게 증가시키는 플랩은?",["스플릿 플랩","플레인 플랩","파울러 플랩","잽 플랩"],2,"Fowler flap."],
+["도움날개에서 올림 각도를 내림 각도보다 크게 하는 것을 무엇이라 하는가?",["차등 조종","균형 조종","트림 조종","혼합 조종"],0,"Differential control. 대형기는 고속에서 inboard aileron만 작동."],
+["날개 앞전의 공기 주머니에 압축공기를 맥동적으로 공급하여 얼음을 제거하는 장치는?",["전열식 방빙","가열 공기식 방빙","제빙 부츠","알코올 분출식"],2,"De-icing boot (제빙)."],
+["식수 탱크의 물을 별도 펌프 없이 공급하는 원리는?",["중력식 공급","블리드 에어 등 공기압으로 탱크 가압","원심 펌프","진공 흡입"],1,"Bleed air/APU 또는 컴프레서로 가압."],
+["진공 변기 시스템에서 Vacuum Blower가 작동하는 조건은?",["고고도(약 16,000 ft 이상)","지상 및 저고도(약 16,000 ft 이하)","순항 중 항상","Waste tank full 시"],1,"고고도에서는 자연 차압 이용."],
+["Flush 작동이 자동 차단(Inhibit)되는 조건이 아닌 것은?",["Waste Tank Full","지상 서비스 중","물 공급 부족","고고도 순항 중"],3,"고고도에서는 자연 차압으로 정상 작동."],
+["제작사가 항공기의 안전·수정·개조를 위해 발행하는 기술 공고문은?",["IPD","SB","SL","MOM"],1,"SB = Service Bulletin. SL은 일반 정보·권고."]
+];
+const box=document.getElementById('qbox');let done=0,right=0;
+function render(){box.innerHTML='';done=0;right=0;upd();
+ Q.forEach((q,i)=>{const d=document.createElement('div');d.className='q';
+  d.innerHTML='<div class="qt"><span>'+(i+1)+'.</span>'+q[0]+'</div><div class="opts"></div><div class="exp"><b>정답: '+'①②③④'[q[2]]+'</b> — '+q[3]+'</div>';
+  const o=d.querySelector('.opts');
+  q[1].forEach((t,j)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent='①②③④'[j]+' '+t;
+   b.onclick=()=>{if(d.classList.contains('done'))return;d.classList.add('done');done++;
+    if(j===q[2]){b.classList.add('right');right++;}else{b.classList.add('wrong');o.children[q[2]].classList.add('right');}
+    upd();};o.appendChild(b);});
+  box.appendChild(d);});}
+function upd(){document.getElementById('scoreTxt').textContent=done+' / '+Q.length+' 풀이 · 정답 '+right;}
+document.getElementById('resetBtn').onclick=render;render();
+// 암기 모드
+const hb=document.getElementById('hideBtn');
+hb.onclick=()=>{document.body.classList.toggle('hide');hb.classList.toggle('on');
+ document.querySelectorAll('.k.show').forEach(e=>e.classList.remove('show'));
+ hb.textContent=document.body.classList.contains('hide')?'암기 모드 끄기':'암기 모드';};
+document.addEventListener('click',e=>{if(document.body.classList.contains('hide')&&e.target.classList.contains('k'))e.target.classList.toggle('show');});
+</script>
+</body>
+</html>
